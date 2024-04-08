@@ -14,7 +14,10 @@ namespace APP\plugins\generic\pidManager;
 
 require_once(__DIR__ . '/vendor/autoload.php');
 
-use APP\plugins\generic\pidManager\classes\Db\PluginSchema;
+use APP\plugins\generic\pidManager\classes\Ror\RorArticleView;
+use APP\plugins\generic\pidManager\classes\Ror\RorForm;
+use APP\plugins\generic\pidManager\classes\Ror\RorSchema;
+use APP\plugins\generic\pidManager\classes\Ror\RorWorkflow;
 use Config;
 use PKP\core\JSONMessage;
 use PKP\plugins\GenericPlugin;
@@ -24,23 +27,28 @@ define('PID_MANAGER_PLUGIN_NAME', basename(__FILE__, '.php'));
 
 class PidManagerPlugin extends GenericPlugin
 {
-    /** @var string Key for the journal metadata saved in journal */
-    public const PID_MANAGER_PIDs_JOURNAL = ['openalex_id', 'wikidata_id'];
-    /** @var string Key for the publication metadata saved in publication */
-    public const PID_MANAGER_PIDs_PUBLICATION = ['openalex_id', 'wikidata_id'];
-
     /** @copydoc Plugin::register */
     public function register($category, $path, $mainContextId = null): bool
     {
         if (parent::register($category, $path, $mainContextId)) {
 
             if ($this->getEnabled()) {
-                $pluginSchema = new PluginSchema();
-                Hook::add('Schema::get::context', function ($hookName, $args) use ($pluginSchema) {
-                    $pluginSchema->addToSchemaContext($hookName, $args);
+                // ROR
+                $rorSchema = new RorSchema();
+                $rorForm = new RorForm();
+                $rorArticleView = new RorArticleView($this);
+                $rorWorkflow = new RorWorkflow($this);
+                Hook::add('Schema::get::author', function ($hookName, $args) use ($rorSchema) {
+                    $rorSchema->addToSchemaAuthor($hookName, $args);
                 });
-                Hook::add('Schema::get::publication', function ($hookName, $args) use ($pluginSchema) {
-                    $pluginSchema->addToSchemaPublication($hookName, $args);
+                Hook::add('Form::config::before', function ($hookName, $args) use ($rorForm) {
+                    $rorForm->addFormFields($hookName, $args);
+                });
+                Hook::add('Template::Workflow::Publication', function ($hookName, $args) use ($rorWorkflow) {
+                    $rorWorkflow->execute($hookName, $args);
+                });
+                Hook::add('ArticleHandler::view', function ($hookName, $args) use ($rorArticleView) {
+                    $rorArticleView->submissionView($hookName, $args);
                 });
             }
 
@@ -48,6 +56,11 @@ class PidManagerPlugin extends GenericPlugin
         }
 
         return false;
+    }
+
+    public function templateWorkflowPublication($hookName, $args)
+    {
+
     }
 
     /** @copydoc Plugin::getActions() */
