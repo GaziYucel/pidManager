@@ -37,18 +37,10 @@ class PidManagerPlugin extends GenericPlugin
                 $rorForm = new RorForm();
                 $rorWorkflow = new RorWorkflow($this);
                 $rorArticleView = new RorArticleView($this);
-                Hook::add('Schema::get::author', function ($hookName, $args) use ($rorSchema) {
-                    $rorSchema->addToSchemaAuthor($hookName, $args);
-                });
-                Hook::add('Form::config::before', function ($hookName, $args) use ($rorForm) {
-                    $rorForm->addFormFields($hookName, $args);
-                });
-                Hook::add('Template::Workflow::Publication', function ($hookName, $args) use ($rorWorkflow) {
-                    $rorWorkflow->execute($hookName, $args);
-                });
-                Hook::add('ArticleHandler::view', function ($hookName, $args) use ($rorArticleView) {
-                    $rorArticleView->submissionView($hookName, $args);
-                });
+                Hook::add('Schema::get::author', [$rorSchema, 'addToAuthor']);
+                Hook::add('Form::config::before', [$rorForm, 'addFields']);
+                Hook::add('Template::Workflow::Publication', [$rorWorkflow, 'execute']);
+                Hook::add('ArticleHandler::view', [$rorArticleView, 'execute']);
             }
 
             return true;

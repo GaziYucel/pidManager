@@ -25,7 +25,7 @@ class RorForm
      * @param object $form
      * @return bool
      */
-    public function addFormFields(string $hookName, object $form): bool
+    public function addFields(string $hookName, object $form): bool
     {
         if (!$form instanceof ContributorForm)
             return Hook::CONTINUE;

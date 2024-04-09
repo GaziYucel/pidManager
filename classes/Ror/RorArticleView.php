@@ -36,7 +36,7 @@ class RorArticleView
      * @return bool
      * @throws Exception
      */
-    function submissionView(string $hookName, array $args): bool
+    function execute(string $hookName, array $args): bool
     {
         $request = $args[0];
         $templateMgr = TemplateManager::getManager($request);

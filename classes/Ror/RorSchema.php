@@ -21,7 +21,7 @@ class RorSchema
      * @param array $args
      * @return bool
      */
-    public function addToSchemaAuthor(string $hookName, array $args): bool
+    public function addToAuthor(string $hookName, array $args): bool
     {
         $schema = &$args[0];
 
