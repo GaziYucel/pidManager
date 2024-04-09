@@ -19,7 +19,6 @@ use APP\plugins\generic\pidManager\classes\Ror\RorForm;
 use APP\plugins\generic\pidManager\classes\Ror\RorSchema;
 use APP\plugins\generic\pidManager\classes\Ror\RorWorkflow;
 use Config;
-use PKP\core\JSONMessage;
 use PKP\plugins\GenericPlugin;
 use PKP\plugins\Hook;
 
@@ -33,11 +32,11 @@ class PidManagerPlugin extends GenericPlugin
         if (parent::register($category, $path, $mainContextId)) {
 
             if ($this->getEnabled()) {
-                // ROR
+                /* ROR */
                 $rorSchema = new RorSchema();
                 $rorForm = new RorForm();
-                $rorArticleView = new RorArticleView($this);
                 $rorWorkflow = new RorWorkflow($this);
+                $rorArticleView = new RorArticleView($this);
                 Hook::add('Schema::get::author', function ($hookName, $args) use ($rorSchema) {
                     $rorSchema->addToSchemaAuthor($hookName, $args);
                 });
@@ -56,25 +55,6 @@ class PidManagerPlugin extends GenericPlugin
         }
 
         return false;
-    }
-
-    public function templateWorkflowPublication($hookName, $args)
-    {
-
-    }
-
-    /** @copydoc Plugin::getActions() */
-    public function getActions($request, $actionArgs): array
-    {
-        if (!$this->getEnabled()) return parent::getActions($request, $actionArgs);
-
-        return parent::getActions($request, $actionArgs);
-    }
-
-    /** @copydoc Plugin::manage() */
-    public function manage($args, $request): JSONMessage
-    {
-        return new JSONMessage(false);
     }
 
     /** @copydoc PKPPlugin::getDescription */

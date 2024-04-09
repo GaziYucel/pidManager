@@ -16,3 +16,12 @@ msgstr "PID Manager Plugin"
 
 msgid "plugins.generic.pidManager.description"
 msgstr "Plugin for managing Persistent Identifiers (PIDs) and depositing to external services."
+
+msgid "plugins.generic.pidManager.ror.inputPlaceHolder"
+msgstr "Search ror.org"
+
+msgid "plugins.generic.pidManager.ror.rorId"
+msgstr "Affiliation ROR iD"
+
+msgid "plugins.generic.pidManager.ror.description"
+msgstr "ROR is a global, community-led registry of open persistent identifiers for research organizations. Learn more at <a href=\"https://ror.org\">ror.org</a>."
