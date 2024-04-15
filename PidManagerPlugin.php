@@ -14,13 +14,8 @@ namespace APP\plugins\generic\pidManager;
 
 require_once(__DIR__ . '/vendor/autoload.php');
 
-use APP\plugins\generic\pidManager\classes\Ror\RorArticleView;
-use APP\plugins\generic\pidManager\classes\Ror\RorForm;
-use APP\plugins\generic\pidManager\classes\Ror\RorSchema;
-use APP\plugins\generic\pidManager\classes\Ror\RorWorkflow;
 use Config;
 use PKP\plugins\GenericPlugin;
-use PKP\plugins\Hook;
 
 define('PID_MANAGER_PLUGIN_NAME', basename(__FILE__, '.php'));
 
@@ -32,15 +27,7 @@ class PidManagerPlugin extends GenericPlugin
         if (parent::register($category, $path, $mainContextId)) {
 
             if ($this->getEnabled()) {
-                /* ROR */
-                $rorSchema = new RorSchema();
-                $rorForm = new RorForm();
-                $rorWorkflow = new RorWorkflow($this);
-                $rorArticleView = new RorArticleView($this);
-                Hook::add('Schema::get::author', [$rorSchema, 'addToAuthor']);
-                Hook::add('Form::config::before', [$rorForm, 'addFields']);
-                Hook::add('Template::Workflow::Publication', [$rorWorkflow, 'execute']);
-                Hook::add('ArticleHandler::view', [$rorArticleView, 'execute']);
+                // do something useful
             }
 
             return true;
