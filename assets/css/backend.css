@@ -10,6 +10,9 @@
  */
 
 .pkpTabs--side .pkpTab .pkp_controllers_grid .content {
-    padding-right: .5rem;
-    padding-left: 1rem;
+    /*padding: 1rem;*/
+}
+
+.pidManager-Hide {
+    display: none !important;
 }
