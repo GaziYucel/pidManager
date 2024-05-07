@@ -14,8 +14,10 @@ namespace APP\plugins\generic\pidManager;
 
 require_once(__DIR__ . '/vendor/autoload.php');
 
+use APP\plugins\generic\pidManager\classes\Workflow\WorkflowTab;
 use Config;
 use PKP\plugins\GenericPlugin;
+use PKP\plugins\Hook;
 
 define('PID_MANAGER_PLUGIN_NAME', basename(__FILE__, '.php'));
 
@@ -27,7 +29,9 @@ class PidManagerPlugin extends GenericPlugin
         if (parent::register($category, $path, $mainContextId)) {
 
             if ($this->getEnabled()) {
-                // do something useful
+
+                $workflowTab = new WorkflowTab($this);
+                Hook::add('Template::Workflow::Publication', [$workflowTab, 'execute']);
             }
 
             return true;
