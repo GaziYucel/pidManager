@@ -9,3 +9,7 @@
  * @brief Backend stylesheet for the plugin.
  */
 
+.pkpTabs--side .pkpTab .pkp_controllers_grid .content {
+    padding-right: .5rem;
+    padding-left: 1rem;
+}
