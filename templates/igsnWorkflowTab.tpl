@@ -60,10 +60,14 @@
         <div>
             {* <pkp-form v-bind="components.{PidManagerPlugin::IGSN}" @set="set"></pkp-form> *}
         </div>
+
+        <div class="debug">
+            <textarea style="width: 100%; height: 300px;">{{ pidManagerIgsnApp.igsnS }}</textarea>
+            <textarea style="width: 100%; height: 300px;">{{ pidManagerIgsnApp.igsnSClean }}</textarea>
+        </div>
+
     </div>
 
-    <textarea style="width: 100%; height: 300px;">{{ pidManagerIgsnApp.igsnS }}</textarea>
-    <textarea style="width: 100%; height: 300px;">{{ pidManagerIgsnApp.igsnSClean }}</textarea>
 </tab>
 
 <script>
