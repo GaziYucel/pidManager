@@ -21,13 +21,7 @@
     "science"
   ],
   "autoload": {
-    "psr-4": {
-      "APP\\plugins\\generic\\pidManager\\classes\\": "classes/"
-    }
-  },
-  "autoload-dev": {
     "classmap": [
-      "tests/classes",
       "classes/"
     ]
   },

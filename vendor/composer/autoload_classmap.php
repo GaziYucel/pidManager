@@ -10,5 +10,7 @@ return array(
     'APP\\plugins\\generic\\pidManager\\classes\\Helpers\\ClassHelper' => $baseDir . '/classes/Helpers/ClassHelper.php',
     'APP\\plugins\\generic\\pidManager\\classes\\Helpers\\LogHelper' => $baseDir . '/classes/Helpers/LogHelper.php',
     'APP\\plugins\\generic\\pidManager\\classes\\Helpers\\StringHelper' => $baseDir . '/classes/Helpers/StringHelper.php',
+    'APP\\plugins\\generic\\pidManager\\classes\\Igsn\\IgsnSchema' => $baseDir . '/classes/Igsn/IgsnSchema.php',
+    'APP\\plugins\\generic\\pidManager\\classes\\Igsn\\IgsnWorkflowTab' => $baseDir . '/classes/Igsn/IgsnWorkflowTab.php',
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
 );

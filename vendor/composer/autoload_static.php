@@ -6,33 +6,19 @@ namespace Composer\Autoload;
 
 class ComposerStaticInit15d5b6ff68f0a1ed6524c4b013f4e435
 {
-    public static $prefixLengthsPsr4 = array (
-        'A' => 
-        array (
-            'APP\\plugins\\generic\\pidManager\\classes\\' => 39,
-        ),
-    );
-
-    public static $prefixDirsPsr4 = array (
-        'APP\\plugins\\generic\\pidManager\\classes\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/classes',
-        ),
-    );
-
     public static $classMap = array (
         'APP\\plugins\\generic\\pidManager\\classes\\Helpers\\ArrayHelper' => __DIR__ . '/../..' . '/classes/Helpers/ArrayHelper.php',
         'APP\\plugins\\generic\\pidManager\\classes\\Helpers\\ClassHelper' => __DIR__ . '/../..' . '/classes/Helpers/ClassHelper.php',
         'APP\\plugins\\generic\\pidManager\\classes\\Helpers\\LogHelper' => __DIR__ . '/../..' . '/classes/Helpers/LogHelper.php',
         'APP\\plugins\\generic\\pidManager\\classes\\Helpers\\StringHelper' => __DIR__ . '/../..' . '/classes/Helpers/StringHelper.php',
+        'APP\\plugins\\generic\\pidManager\\classes\\Igsn\\IgsnSchema' => __DIR__ . '/../..' . '/classes/Igsn/IgsnSchema.php',
+        'APP\\plugins\\generic\\pidManager\\classes\\Igsn\\IgsnWorkflowTab' => __DIR__ . '/../..' . '/classes/Igsn/IgsnWorkflowTab.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit15d5b6ff68f0a1ed6524c4b013f4e435::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit15d5b6ff68f0a1ed6524c4b013f4e435::$prefixDirsPsr4;
             $loader->classMap = ComposerStaticInit15d5b6ff68f0a1ed6524c4b013f4e435::$classMap;
 
         }, null, ClassLoader::class);

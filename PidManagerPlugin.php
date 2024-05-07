@@ -12,9 +12,10 @@
 
 namespace APP\plugins\generic\pidManager;
 
-require_once(__DIR__ . '/vendor/autoload.php');
+require_once(PidManagerPlugin::autoloadFile());
 
-use APP\plugins\generic\pidManager\classes\Workflow\WorkflowTab;
+use APP\plugins\generic\pidManager\classes\Igsn\IgsnSchema;
+use APP\plugins\generic\pidManager\classes\Igsn\IgsnWorkflowTab;
 use Config;
 use PKP\plugins\GenericPlugin;
 use PKP\plugins\Hook;
@@ -29,9 +30,11 @@ class PidManagerPlugin extends GenericPlugin
         if (parent::register($category, $path, $mainContextId)) {
 
             if ($this->getEnabled()) {
-
-                $workflowTab = new WorkflowTab($this);
-                Hook::add('Template::Workflow::Publication', [$workflowTab, 'execute']);
+                // IGSN
+                $pluginSchema = new IgsnSchema();
+                Hook::add('Schema::get::publication', [$pluginSchema, 'addToSchemaPublication']);
+                $igsnWorkflowTab = new IgsnWorkflowTab($this);
+                Hook::add('Template::Workflow::Publication', [$igsnWorkflowTab, 'execute']);
             }
 
             return true;
@@ -54,11 +57,12 @@ class PidManagerPlugin extends GenericPlugin
 
     /**
      * Get isDebugMode from config, return false if setting not present
+     *
      * @return bool
      */
     public static function isDebugMode(): bool
     {
-        $config_value = Config::getVar(CITATION_MANAGER_PLUGIN_NAME, 'isDebugMode');
+        $config_value = \PKP\config\Config::getVar(CITATION_MANAGER_PLUGIN_NAME, 'isDebugMode');
 
         if (!empty($config_value)
             && (strtolower($config_value) === 'true' || (string)$config_value === '1')
@@ -67,6 +71,35 @@ class PidManagerPlugin extends GenericPlugin
         }
 
         return false;
+    }
+
+    /**
+     * Get isTestMode from config, return false if setting not present
+     *
+     * @return bool
+     */
+    public static function isTestMode(): bool
+    {
+        $config_value = Config::getVar(CITATION_MANAGER_PLUGIN_NAME, 'isTestMode');
+
+        if (!empty($config_value)
+            && (strtolower($config_value) === 'true' || (string)$config_value === '1')
+        ) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Return composer autoload file path
+     *
+     * @return string
+     */
+    public static function autoloadFile(): string
+    {
+        if (self::isTestMode()) return __DIR__ . '/tests/vendor/autoload.php';
+        return __DIR__ . '/vendor/autoload.php';
     }
 }
 

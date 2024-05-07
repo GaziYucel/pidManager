@@ -10,15 +10,14 @@
  * @brief Workflow Publication Tab
  */
 
-namespace APP\plugins\generic\pidManager\classes\Workflow;
+namespace APP\plugins\generic\pidManager\classes\Igsn;
 
 use APP\plugins\generic\pidManager\PidManagerPlugin;
-use Application;
 use Exception;
 use PKP\core\PKPApplication;
 use Publication;
 
-class WorkflowTab
+class IgsnWorkflowTab
 {
     /** @var PidManagerPlugin */
     public PidManagerPlugin $plugin;
