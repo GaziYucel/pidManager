@@ -1,0 +1,1260 @@
+{
+	"data": [
+		{
+			"id": "10.11570/18.0001",
+			"type": "dois",
+			"attributes": {
+				"doi": "10.11570/18.0001",
+				"identifiers": [],
+				"creators": [
+					{
+						"name": "Bannister, M.",
+						"nameType": "Personal",
+						"givenName": "M.",
+						"familyName": "Bannister",
+						"affiliation": [],
+						"nameIdentifiers": []
+					}
+				],
+				"titles": [
+					{
+						"lang": "en-US",
+						"title": "OSSOS: VII. 800+ Trans-Neptunian Objects—The Complete Data Release"
+					},
+					{
+						"lang": "en-US",
+						"title": "OSSOS: VII. 800+ Trans-Neptunian Objects—The Complete Data Release",
+						"titleType": "AlternativeTitle"
+					}
+				],
+				"publisher": "CADC",
+				"container": {},
+				"publicationYear": 2018,
+				"subjects": [],
+				"contributors": [
+					{
+						"name": "CADC",
+						"affiliation": [],
+						"contributorType": "DataManager",
+						"nameIdentifiers": []
+					},
+					{
+						"name": "Schade, David",
+						"nameType": "Personal",
+						"givenName": "David",
+						"familyName": "Schade",
+						"affiliation": [],
+						"contributorType": "ContactPerson",
+						"nameIdentifiers": [
+							{
+								"schemeUri": "https://orcid.org",
+								"nameIdentifier": "https://orcid.org/0000-0002-4677-1586",
+								"nameIdentifierScheme": "ORCID"
+							}
+						]
+					}
+				],
+				"dates": [
+					{
+						"date": "2018",
+						"dateType": "Issued"
+					}
+				],
+				"language": "en",
+				"types": {
+					"ris": "DATA",
+					"bibtex": "misc",
+					"citeproc": "dataset",
+					"schemaOrg": "Dataset",
+					"resourceTypeGeneral": "Dataset"
+				},
+				"relatedIdentifiers": [],
+				"relatedItems": [],
+				"sizes": [],
+				"formats": [],
+				"version": null,
+				"rightsList": [],
+				"descriptions": [
+					{
+						"lang": "en-US",
+						"description": "This contains data and other information related to the publication 'OSSOS: VII. 800+ Trans-Neptunian Objects—The Complete Data Release by Bannister, M. et al., ApJS, 236",
+						"descriptionType": "Other"
+					}
+				],
+				"geoLocations": [],
+				"fundingReferences": [],
+				"url": "https://www.canfar.net/citation/landing?doi=18.0001",
+				"contentUrl": [],
+				"metadataVersion": 4,
+				"schemaVersion": "http://datacite.org/schema/kernel-4",
+				"source": "mds",
+				"isActive": true,
+				"state": "findable",
+				"reason": null,
+				"viewCount": 0,
+				"downloadCount": 0,
+				"referenceCount": 0,
+				"citationCount": 0,
+				"partCount": 0,
+				"partOfCount": 0,
+				"versionCount": 0,
+				"versionOfCount": 0,
+				"created": "2018-05-15T23:09:07Z",
+				"registered": "2018-05-15T23:09:07Z",
+				"published": null,
+				"updated": "2021-12-21T18:23:34Z"
+			},
+			"relationships": {
+				"client": {
+					"data": {
+						"id": "nrc.cadc",
+						"type": "clients"
+					}
+				}
+			}
+		},
+		{
+			"id": "10.11570/18.0003",
+			"type": "dois",
+			"attributes": {
+				"doi": "10.11570/18.0003",
+				"identifiers": [],
+				"creators": [
+					{
+						"name": "Koch, Eric W.",
+						"nameType": "Personal",
+						"givenName": "Eric W.",
+						"familyName": "Koch",
+						"affiliation": [],
+						"nameIdentifiers": []
+					},
+					{
+						"name": "Rosolowsky, Erik W.",
+						"nameType": "Personal",
+						"givenName": "Erik W.",
+						"familyName": "Rosolowsky",
+						"affiliation": [],
+						"nameIdentifiers": []
+					},
+					{
+						"name": "Lockman, Felix J.",
+						"nameType": "Personal",
+						"givenName": "Felix J.",
+						"familyName": "Lockman",
+						"affiliation": [],
+						"nameIdentifiers": []
+					},
+					{
+						"name": "Kepley, Amanda A.",
+						"nameType": "Personal",
+						"givenName": "Amanda A.",
+						"familyName": "Kepley",
+						"affiliation": [],
+						"nameIdentifiers": []
+					},
+					{
+						"name": "Leroy, Adam",
+						"nameType": "Personal",
+						"givenName": "Adam",
+						"familyName": "Leroy",
+						"affiliation": [],
+						"nameIdentifiers": []
+					},
+					{
+						"name": "Schruba, Andreas",
+						"nameType": "Personal",
+						"givenName": "Andreas",
+						"familyName": "Schruba",
+						"affiliation": [],
+						"nameIdentifiers": []
+					},
+					{
+						"name": "Braine, Jonathan",
+						"nameType": "Personal",
+						"givenName": "Jonathan",
+						"familyName": "Braine",
+						"affiliation": [],
+						"nameIdentifiers": []
+					},
+					{
+						"name": "Dalcanton, Julianne",
+						"nameType": "Personal",
+						"givenName": "Julianne",
+						"familyName": "Dalcanton",
+						"affiliation": [],
+						"nameIdentifiers": []
+					},
+					{
+						"name": "Johnson, Megan C.",
+						"nameType": "Personal",
+						"givenName": "Megan C.",
+						"familyName": "Johnson",
+						"affiliation": [],
+						"nameIdentifiers": []
+					},
+					{
+						"name": "Stanimirovic, Snezana",
+						"nameType": "Personal",
+						"givenName": "Snezana",
+						"familyName": "Stanimirovic",
+						"affiliation": [],
+						"nameIdentifiers": []
+					}
+				],
+				"titles": [
+					{
+						"lang": "en-US",
+						"title": "Kinematics of the Atomic ISM in M33 on 80 pc scales"
+					}
+				],
+				"publisher": "CADC",
+				"container": {},
+				"publicationYear": 2019,
+				"subjects": [],
+				"contributors": [
+					{
+						"name": "CADC",
+						"affiliation": [],
+						"contributorType": "DataManager",
+						"nameIdentifiers": []
+					},
+					{
+						"name": "Schade, David",
+						"nameType": "Personal",
+						"givenName": "David",
+						"familyName": "Schade",
+						"affiliation": [],
+						"contributorType": "ContactPerson",
+						"nameIdentifiers": [
+							{
+								"schemeUri": "https://orcid.org",
+								"nameIdentifier": "https://orcid.org/0000-0002-4677-1586",
+								"nameIdentifierScheme": "ORCID"
+							}
+						]
+					}
+				],
+				"dates": [
+					{
+						"date": "2019",
+						"dateType": "Issued"
+					}
+				],
+				"language": "en",
+				"types": {
+					"ris": "DATA",
+					"bibtex": "misc",
+					"citeproc": "dataset",
+					"schemaOrg": "Dataset",
+					"resourceTypeGeneral": "Dataset"
+				},
+				"relatedIdentifiers": [
+					{
+						"relationType": "IsCitedBy",
+						"relatedIdentifier": "10.1093/mnras/sty1674",
+						"relatedIdentifierType": "DOI"
+					}
+				],
+				"relatedItems": [],
+				"sizes": [],
+				"formats": [],
+				"version": null,
+				"rightsList": [],
+				"descriptions": [
+					{
+						"lang": "en-US",
+						"description": "This contains data and other information related to the publication 'Kinematics of the Atomic ISM in M33 on 80 pc scales' by Koch, Eric W. et al., 2018, MNRAS",
+						"descriptionType": "Other"
+					}
+				],
+				"geoLocations": [],
+				"fundingReferences": [],
+				"url": "https://www.canfar.net/citation/landing?doi=18.0003",
+				"contentUrl": [],
+				"metadataVersion": 3,
+				"schemaVersion": "http://datacite.org/schema/kernel-4",
+				"source": "mds",
+				"isActive": true,
+				"state": "findable",
+				"reason": null,
+				"viewCount": 0,
+				"downloadCount": 0,
+				"referenceCount": 0,
+				"citationCount": 1,
+				"partCount": 0,
+				"partOfCount": 0,
+				"versionCount": 0,
+				"versionOfCount": 0,
+				"created": "2018-06-28T15:49:54Z",
+				"registered": "2018-06-28T15:49:54Z",
+				"published": null,
+				"updated": "2021-12-21T18:23:14Z"
+			},
+			"relationships": {
+				"client": {
+					"data": {
+						"id": "nrc.cadc",
+						"type": "clients"
+					}
+				}
+			}
+		},
+		{
+			"id": "10.11570/18.0002",
+			"type": "dois",
+			"attributes": {
+				"doi": "10.11570/18.0002",
+				"identifiers": [],
+				"creators": [
+					{
+						"name": "Ritter, C.",
+						"nameType": "Personal",
+						"givenName": "C.",
+						"familyName": "Ritter",
+						"affiliation": [],
+						"nameIdentifiers": []
+					},
+					{
+						"name": "Herwig, F.",
+						"nameType": "Personal",
+						"givenName": "F.",
+						"familyName": "Herwig",
+						"affiliation": [],
+						"nameIdentifiers": []
+					},
+					{
+						"name": "Jones, S.",
+						"nameType": "Personal",
+						"givenName": "S.",
+						"familyName": "Jones",
+						"affiliation": [],
+						"nameIdentifiers": []
+					},
+					{
+						"name": "Pignatari, M.",
+						"nameType": "Personal",
+						"givenName": "M.",
+						"familyName": "Pignatari",
+						"affiliation": [],
+						"nameIdentifiers": []
+					},
+					{
+						"name": "Fryer, C.",
+						"nameType": "Personal",
+						"givenName": "C.",
+						"familyName": "Fryer",
+						"affiliation": [],
+						"nameIdentifiers": []
+					},
+					{
+						"name": "Hirschi, R.",
+						"nameType": "Personal",
+						"givenName": "R.",
+						"familyName": "Hirschi",
+						"affiliation": [],
+						"nameIdentifiers": []
+					}
+				],
+				"titles": [
+					{
+						"lang": "en-US",
+						"title": "NuGrid stellar data set. II. Stellar Yields from H to Bi for Stellar Models with Mzams = 1 to 25M☉ and Z=0.0001 to 0.02"
+					}
+				],
+				"publisher": "CADC",
+				"container": {},
+				"publicationYear": 2019,
+				"subjects": [],
+				"contributors": [
+					{
+						"name": "CADC",
+						"affiliation": [],
+						"contributorType": "DataManager",
+						"nameIdentifiers": []
+					},
+					{
+						"name": "Schade, David",
+						"nameType": "Personal",
+						"givenName": "David",
+						"familyName": "Schade",
+						"affiliation": [],
+						"contributorType": "ContactPerson",
+						"nameIdentifiers": [
+							{
+								"schemeUri": "https://orcid.org",
+								"nameIdentifier": "https://orcid.org/0000-0002-4677-1586",
+								"nameIdentifierScheme": "ORCID"
+							}
+						]
+					}
+				],
+				"dates": [
+					{
+						"date": "2019",
+						"dateType": "Issued"
+					}
+				],
+				"language": "en",
+				"types": {
+					"ris": "DATA",
+					"bibtex": "misc",
+					"citeproc": "dataset",
+					"schemaOrg": "Dataset",
+					"resourceTypeGeneral": "Dataset"
+				},
+				"relatedIdentifiers": [],
+				"relatedItems": [],
+				"sizes": [],
+				"formats": [],
+				"version": null,
+				"rightsList": [],
+				"descriptions": [
+					{
+						"lang": "en-US",
+						"description": "This contains data and other information related to the publication 'NuGrid stellar data set. II. Stellar Yields from H to Bi for Stellar Models with Mzams = 1 to 25M☉ and Z=0.0001 to 0.02' by Ritter, C. et al., MNRAS",
+						"descriptionType": "Other"
+					}
+				],
+				"geoLocations": [],
+				"fundingReferences": [],
+				"url": "https://www.canfar.net/citation/landing?doi=18.0002",
+				"contentUrl": [],
+				"metadataVersion": 4,
+				"schemaVersion": "http://datacite.org/schema/kernel-4",
+				"source": "mds",
+				"isActive": true,
+				"state": "findable",
+				"reason": null,
+				"viewCount": 0,
+				"downloadCount": 0,
+				"referenceCount": 0,
+				"citationCount": 0,
+				"partCount": 0,
+				"partOfCount": 0,
+				"versionCount": 0,
+				"versionOfCount": 0,
+				"created": "2018-07-26T16:15:00Z",
+				"registered": "2018-07-26T16:15:00Z",
+				"published": null,
+				"updated": "2021-12-21T18:22:49Z"
+			},
+			"relationships": {
+				"client": {
+					"data": {
+						"id": "nrc.cadc",
+						"type": "clients"
+					}
+				}
+			}
+		},
+		{
+			"id": "10.11570/18.0005",
+			"type": "dois",
+			"attributes": {
+				"doi": "10.11570/18.0005",
+				"identifiers": [],
+				"creators": [
+					{
+						"name": "Kirk, Helen",
+						"nameType": "Personal",
+						"givenName": "Helen",
+						"familyName": "Kirk",
+						"affiliation": [],
+						"nameIdentifiers": []
+					}
+				],
+				"titles": [
+					{
+						"lang": "en-US",
+						"title": "The JCMT Gould Belt Survey: SCUBA-2 Data Reduction Methods and Gaussian Source Recovery Analysis"
+					},
+					{
+						"lang": "en-US",
+						"title": "The JCMT Gould Belt Survey: SCUBA-2 Data Reduction Methods and Gaussian Source Recovery Analysis",
+						"titleType": "AlternativeTitle"
+					}
+				],
+				"publisher": "CADC",
+				"container": {},
+				"publicationYear": 2018,
+				"subjects": [],
+				"contributors": [
+					{
+						"name": "CADC",
+						"affiliation": [],
+						"contributorType": "DataManager",
+						"nameIdentifiers": []
+					},
+					{
+						"name": "Schade, David",
+						"nameType": "Personal",
+						"givenName": "David",
+						"familyName": "Schade",
+						"affiliation": [],
+						"contributorType": "ContactPerson",
+						"nameIdentifiers": [
+							{
+								"schemeUri": "https://orcid.org",
+								"nameIdentifier": "https://orcid.org/0000-0002-4677-1586",
+								"nameIdentifierScheme": "ORCID"
+							}
+						]
+					}
+				],
+				"dates": [
+					{
+						"date": "2018",
+						"dateType": "Issued"
+					}
+				],
+				"language": "en",
+				"types": {
+					"ris": "DATA",
+					"bibtex": "misc",
+					"citeproc": "dataset",
+					"schemaOrg": "Dataset",
+					"resourceTypeGeneral": "Dataset"
+				},
+				"relatedIdentifiers": [
+					{
+						"relationType": "IsCitedBy",
+						"relatedIdentifier": "10.3847/1538-4365/aada7f",
+						"relatedIdentifierType": "DOI"
+					}
+				],
+				"relatedItems": [],
+				"sizes": [],
+				"formats": [],
+				"version": null,
+				"rightsList": [],
+				"descriptions": [
+					{
+						"lang": "en-US",
+						"description": "This contains data and other information related to the publication 'The JCMT Gould Belt Survey: SCUBA-2 Data Reduction Methods and Gaussian Source Recovery Analysis' by Kirk et al., ApJS, 238, 8",
+						"descriptionType": "Other"
+					}
+				],
+				"geoLocations": [],
+				"fundingReferences": [],
+				"url": "https://www.canfar.net/citation/landing?doi=18.0005",
+				"contentUrl": [],
+				"metadataVersion": 3,
+				"schemaVersion": "http://datacite.org/schema/kernel-4",
+				"source": "mds",
+				"isActive": true,
+				"state": "findable",
+				"reason": null,
+				"viewCount": 0,
+				"downloadCount": 0,
+				"referenceCount": 0,
+				"citationCount": 1,
+				"partCount": 0,
+				"partOfCount": 0,
+				"versionCount": 0,
+				"versionOfCount": 0,
+				"created": "2018-10-16T17:57:11Z",
+				"registered": "2018-10-16T17:57:11Z",
+				"published": null,
+				"updated": "2021-12-21T18:22:30Z"
+			},
+			"relationships": {
+				"client": {
+					"data": {
+						"id": "nrc.cadc",
+						"type": "clients"
+					}
+				}
+			}
+		},
+		{
+			"id": "10.11570/18.0006",
+			"type": "dois",
+			"attributes": {
+				"doi": "10.11570/18.0006",
+				"identifiers": [],
+				"creators": [
+					{
+						"name": "McConnachie, A.W.",
+						"nameType": "Personal",
+						"givenName": "A.W.",
+						"familyName": "McConnachie",
+						"affiliation": [],
+						"nameIdentifiers": []
+					},
+					{
+						"name": "Ibata, R.",
+						"nameType": "Personal",
+						"givenName": "R.",
+						"familyName": "Ibata",
+						"affiliation": [],
+						"nameIdentifiers": []
+					},
+					{
+						"name": "Martin, N.",
+						"nameType": "Personal",
+						"givenName": "N.",
+						"familyName": "Martin",
+						"affiliation": [],
+						"nameIdentifiers": []
+					},
+					{
+						"name": "A.M.N., Ferguson",
+						"nameType": "Personal",
+						"givenName": "Ferguson",
+						"familyName": "A.M.N.",
+						"affiliation": [],
+						"nameIdentifiers": []
+					},
+					{
+						"name": "Collins, M.",
+						"nameType": "Personal",
+						"givenName": "M.",
+						"familyName": "Collins",
+						"affiliation": [],
+						"nameIdentifiers": []
+					},
+					{
+						"name": "Gwyn, S.",
+						"nameType": "Personal",
+						"givenName": "S.",
+						"familyName": "Gwyn",
+						"affiliation": [],
+						"nameIdentifiers": []
+					},
+					{
+						"name": "Irwin, M.",
+						"nameType": "Personal",
+						"givenName": "M.",
+						"familyName": "Irwin",
+						"affiliation": [],
+						"nameIdentifiers": []
+					},
+					{
+						"name": "Lewis, G.F.",
+						"nameType": "Personal",
+						"givenName": "G.F.",
+						"familyName": "Lewis",
+						"affiliation": [],
+						"nameIdentifiers": []
+					},
+					{
+						"name": "Mackey, A.D.",
+						"nameType": "Personal",
+						"givenName": "A.D.",
+						"familyName": "Mackey",
+						"affiliation": [],
+						"nameIdentifiers": []
+					},
+					{
+						"name": "Davidge, T.",
+						"nameType": "Personal",
+						"givenName": "T.",
+						"familyName": "Davidge",
+						"affiliation": [],
+						"nameIdentifiers": []
+					},
+					{
+						"name": "Arias, V.",
+						"nameType": "Personal",
+						"givenName": "V.",
+						"familyName": "Arias",
+						"affiliation": [],
+						"nameIdentifiers": []
+					},
+					{
+						"name": "Conn, A.",
+						"nameType": "Personal",
+						"givenName": "A.",
+						"familyName": "Conn",
+						"affiliation": [],
+						"nameIdentifiers": []
+					},
+					{
+						"name": "Cote, P.",
+						"nameType": "Personal",
+						"givenName": "P.",
+						"familyName": "Cote",
+						"affiliation": [],
+						"nameIdentifiers": []
+					},
+					{
+						"name": "Crnojevic, D.",
+						"nameType": "Personal",
+						"givenName": "D.",
+						"familyName": "Crnojevic",
+						"affiliation": [],
+						"nameIdentifiers": []
+					},
+					{
+						"name": "Huxor, A.",
+						"nameType": "Personal",
+						"givenName": "A.",
+						"familyName": "Huxor",
+						"affiliation": [],
+						"nameIdentifiers": []
+					},
+					{
+						"name": "Penarrubia, J.",
+						"nameType": "Personal",
+						"givenName": "J.",
+						"familyName": "Penarrubia",
+						"affiliation": [],
+						"nameIdentifiers": []
+					},
+					{
+						"name": "Spengler, C.",
+						"nameType": "Personal",
+						"givenName": "C.",
+						"familyName": "Spengler",
+						"affiliation": [],
+						"nameIdentifiers": []
+					},
+					{
+						"name": "Tanvir, N.",
+						"nameType": "Personal",
+						"givenName": "N.",
+						"familyName": "Tanvir",
+						"affiliation": [],
+						"nameIdentifiers": []
+					},
+					{
+						"name": "Valls-Gabaud, D.",
+						"nameType": "Personal",
+						"givenName": "D.",
+						"familyName": "Valls-Gabaud",
+						"affiliation": [],
+						"nameIdentifiers": []
+					},
+					{
+						"name": "Babul, A.",
+						"nameType": "Personal",
+						"givenName": "A.",
+						"familyName": "Babul",
+						"affiliation": [],
+						"nameIdentifiers": []
+					},
+					{
+						"name": "Barmby, P.",
+						"nameType": "Personal",
+						"givenName": "P.",
+						"familyName": "Barmby",
+						"affiliation": [],
+						"nameIdentifiers": []
+					},
+					{
+						"name": "Bate, N.F.",
+						"nameType": "Personal",
+						"givenName": "N.F.",
+						"familyName": "Bate",
+						"affiliation": [],
+						"nameIdentifiers": []
+					},
+					{
+						"name": "Bernard, E.",
+						"nameType": "Personal",
+						"givenName": "E.",
+						"familyName": "Bernard",
+						"affiliation": [],
+						"nameIdentifiers": []
+					},
+					{
+						"name": "Chapman, S.",
+						"nameType": "Personal",
+						"givenName": "S.",
+						"familyName": "Chapman",
+						"affiliation": [],
+						"nameIdentifiers": []
+					},
+					{
+						"name": "Dotter, A.",
+						"nameType": "Personal",
+						"givenName": "A.",
+						"familyName": "Dotter",
+						"affiliation": [],
+						"nameIdentifiers": []
+					},
+					{
+						"name": "Harris, W.",
+						"nameType": "Personal",
+						"givenName": "W.",
+						"familyName": "Harris",
+						"affiliation": [],
+						"nameIdentifiers": []
+					},
+					{
+						"name": "McMonigal, B.",
+						"nameType": "Personal",
+						"givenName": "B.",
+						"familyName": "McMonigal",
+						"affiliation": [],
+						"nameIdentifiers": []
+					},
+					{
+						"name": "Navarro, J.",
+						"nameType": "Personal",
+						"givenName": "J.",
+						"familyName": "Navarro",
+						"affiliation": [],
+						"nameIdentifiers": []
+					},
+					{
+						"name": "Puzia, T.H.",
+						"nameType": "Personal",
+						"givenName": "T.H.",
+						"familyName": "Puzia",
+						"affiliation": [],
+						"nameIdentifiers": []
+					},
+					{
+						"name": "Rich, R.M.",
+						"nameType": "Personal",
+						"givenName": "R.M.",
+						"familyName": "Rich",
+						"affiliation": [],
+						"nameIdentifiers": []
+					},
+					{
+						"name": "Thomas, G.",
+						"nameType": "Personal",
+						"givenName": "G.",
+						"familyName": "Thomas",
+						"affiliation": [],
+						"nameIdentifiers": []
+					}
+				],
+				"titles": [
+					{
+						"lang": "en-US",
+						"title": "The large-scale structure of the halo of the Andromeda galaxy II. Hierarchical structure in the Pan-Andromeda Archaeological Survey"
+					},
+					{
+						"lang": "en-US",
+						"title": "The large-scale structure of the halo of the Andromeda galaxy II. Hierarchical structure in the Pan-Andromeda Archaeological Survey",
+						"titleType": "AlternativeTitle"
+					}
+				],
+				"publisher": "CADC",
+				"container": {},
+				"publicationYear": 2018,
+				"subjects": [],
+				"contributors": [
+					{
+						"name": "CADC",
+						"affiliation": [],
+						"contributorType": "DataManager",
+						"nameIdentifiers": []
+					},
+					{
+						"name": "Schade, David",
+						"nameType": "Personal",
+						"givenName": "David",
+						"familyName": "Schade",
+						"affiliation": [],
+						"contributorType": "ContactPerson",
+						"nameIdentifiers": [
+							{
+								"schemeUri": "https://orcid.org",
+								"nameIdentifier": "https://orcid.org/0000-0002-4677-1586",
+								"nameIdentifierScheme": "ORCID"
+							}
+						]
+					}
+				],
+				"dates": [
+					{
+						"date": "2018",
+						"dateType": "Issued"
+					}
+				],
+				"language": "en",
+				"types": {
+					"ris": "DATA",
+					"bibtex": "misc",
+					"citeproc": "dataset",
+					"schemaOrg": "Dataset",
+					"resourceTypeGeneral": "Dataset"
+				},
+				"relatedIdentifiers": [],
+				"relatedItems": [],
+				"sizes": [],
+				"formats": [],
+				"version": null,
+				"rightsList": [],
+				"descriptions": [
+					{
+						"lang": "en-US",
+						"description": "This contains data and other information related to the publication 'The large-scale structure of the halo of the Andromeda galaxy II. Hierarchical structure in the Pan-Andromeda Archaeological Survey' by McConnachie et al., ApJ",
+						"descriptionType": "Other"
+					}
+				],
+				"geoLocations": [],
+				"fundingReferences": [],
+				"url": "https://www.canfar.net/citation/landing?doi=18.0006",
+				"contentUrl": [],
+				"metadataVersion": 2,
+				"schemaVersion": "http://datacite.org/schema/kernel-4",
+				"source": "mds",
+				"isActive": true,
+				"state": "findable",
+				"reason": null,
+				"viewCount": 0,
+				"downloadCount": 0,
+				"referenceCount": 0,
+				"citationCount": 0,
+				"partCount": 0,
+				"partOfCount": 0,
+				"versionCount": 0,
+				"versionOfCount": 0,
+				"created": "2019-01-11T19:52:20Z",
+				"registered": "2019-01-11T19:52:21Z",
+				"published": null,
+				"updated": "2021-12-21T18:22:05Z"
+			},
+			"relationships": {
+				"client": {
+					"data": {
+						"id": "nrc.cadc",
+						"type": "clients"
+					}
+				}
+			}
+		},
+		{
+			"id": "10.11570/18.0007",
+			"type": "dois",
+			"attributes": {
+				"doi": "10.11570/18.0007",
+				"identifiers": [],
+				"creators": [
+					{
+						"name": "Wolleben, M.",
+						"nameType": "Personal",
+						"givenName": "M.",
+						"familyName": "Wolleben",
+						"affiliation": [],
+						"nameIdentifiers": []
+					},
+					{
+						"name": "Landecker, T. L.",
+						"nameType": "Personal",
+						"givenName": "T. L.",
+						"familyName": "Landecker",
+						"affiliation": [],
+						"nameIdentifiers": []
+					},
+					{
+						"name": "Carretti, E.",
+						"nameType": "Personal",
+						"givenName": "E.",
+						"familyName": "Carretti",
+						"affiliation": [],
+						"nameIdentifiers": []
+					},
+					{
+						"name": "Dickey, J. M.",
+						"nameType": "Personal",
+						"givenName": "J. M.",
+						"familyName": "Dickey",
+						"affiliation": [],
+						"nameIdentifiers": []
+					},
+					{
+						"name": "Fletcher, A.",
+						"nameType": "Personal",
+						"givenName": "A.",
+						"familyName": "Fletcher",
+						"affiliation": [],
+						"nameIdentifiers": []
+					},
+					{
+						"name": "McClure-Griffiths, N. M.",
+						"nameType": "Personal",
+						"givenName": "N. M.",
+						"familyName": "McClure-Griffiths",
+						"affiliation": [],
+						"nameIdentifiers": []
+					},
+					{
+						"name": "McConnel, D.",
+						"nameType": "Personal",
+						"givenName": "D.",
+						"familyName": "McConnel",
+						"affiliation": [],
+						"nameIdentifiers": []
+					},
+					{
+						"name": "Thomson, A. J. M.",
+						"nameType": "Personal",
+						"givenName": "A. J. M.",
+						"familyName": "Thomson",
+						"affiliation": [],
+						"nameIdentifiers": []
+					},
+					{
+						"name": "Hill, A. S.",
+						"nameType": "Personal",
+						"givenName": "A. S.",
+						"familyName": "Hill",
+						"affiliation": [],
+						"nameIdentifiers": []
+					},
+					{
+						"name": "Gaensler, B. M.",
+						"nameType": "Personal",
+						"givenName": "B. M.",
+						"familyName": "Gaensler",
+						"affiliation": [],
+						"nameIdentifiers": []
+					},
+					{
+						"name": "Han, J.-L.",
+						"nameType": "Personal",
+						"givenName": "J.-L.",
+						"familyName": "Han",
+						"affiliation": [],
+						"nameIdentifiers": []
+					},
+					{
+						"name": "Haverkorn, M.",
+						"nameType": "Personal",
+						"givenName": "M.",
+						"familyName": "Haverkorn",
+						"affiliation": [],
+						"nameIdentifiers": []
+					},
+					{
+						"name": "Leahy, J. P.",
+						"nameType": "Personal",
+						"givenName": "J. P.",
+						"familyName": "Leahy",
+						"affiliation": [],
+						"nameIdentifiers": []
+					},
+					{
+						"name": "Reich, W.",
+						"nameType": "Personal",
+						"givenName": "W.",
+						"familyName": "Reich",
+						"affiliation": [],
+						"nameIdentifiers": []
+					},
+					{
+						"name": "Taylor, A. R.",
+						"nameType": "Personal",
+						"givenName": "A. R.",
+						"familyName": "Taylor",
+						"affiliation": [],
+						"nameIdentifiers": []
+					}
+				],
+				"titles": [
+					{
+						"lang": "en-US",
+						"title": "The Global Magneto-Ionic Medium Survey: Polarimetry of the Southern Sky from 300 to 480 MHz"
+					}
+				],
+				"publisher": "CADC",
+				"container": {},
+				"publicationYear": 2019,
+				"subjects": [],
+				"contributors": [],
+				"dates": [
+					{
+						"date": "2019-04-30",
+						"dateType": "Created"
+					},
+					{
+						"date": "2019-04-30",
+						"dateType": "Valid"
+					},
+					{
+						"date": "2020-07-03",
+						"dateType": "Accepted"
+					},
+					{
+						"date": "2019",
+						"dateType": "Issued"
+					}
+				],
+				"language": "en",
+				"types": {
+					"ris": "DATA",
+					"bibtex": "misc",
+					"citeproc": "dataset",
+					"schemaOrg": "Dataset",
+					"resourceTypeGeneral": "Dataset"
+				},
+				"relatedIdentifiers": [
+					{
+						"relationType": "IsCitedBy",
+						"relatedIdentifierType": "DOI"
+					}
+				],
+				"relatedItems": [],
+				"sizes": [],
+				"formats": [],
+				"version": null,
+				"rightsList": [
+					{
+						"rights": "Public: If you make use of these data products we request that you acknowledge their origin and cite the paper below and cite this DOI and the DOI of the paper.\n        "
+					}
+				],
+				"descriptions": [
+					{
+						"lang": "en-US",
+						"description": "This contains data and other information related to the publication 'The Global Magneto-Ionic Medium Survey: Polarimetry of the Southern Sky from 300 to 480 MHz' by Wolleben, M., et al, June 2020",
+						"descriptionType": "Other"
+					}
+				],
+				"geoLocations": [],
+				"fundingReferences": [],
+				"url": "https://www.canfar.net/citation/landing?doi=18.0007",
+				"contentUrl": [],
+				"metadataVersion": 3,
+				"schemaVersion": "http://datacite.org/schema/kernel-4",
+				"source": "mds",
+				"isActive": true,
+				"state": "findable",
+				"reason": null,
+				"viewCount": 0,
+				"downloadCount": 0,
+				"referenceCount": 0,
+				"citationCount": 0,
+				"partCount": 0,
+				"partOfCount": 0,
+				"versionCount": 0,
+				"versionOfCount": 0,
+				"created": "2019-04-30T17:30:22Z",
+				"registered": "2019-04-30T17:30:24Z",
+				"published": null,
+				"updated": "2021-12-21T18:19:51Z"
+			},
+			"relationships": {
+				"client": {
+					"data": {
+						"id": "nrc.cadc",
+						"type": "clients"
+					}
+				}
+			}
+		}
+	],
+	"meta": {
+		"total": 6,
+		"totalPages": 1,
+		"page": 1,
+		"states": [
+			{
+				"id": "findable",
+				"title": "Findable",
+				"count": 6
+			}
+		],
+		"resourceTypes": [
+			{
+				"id": "dataset",
+				"title": "Dataset",
+				"count": 6
+			}
+		],
+		"created": [
+			{
+				"id": "2019",
+				"title": "2019",
+				"count": 2
+			},
+			{
+				"id": "2018",
+				"title": "2018",
+				"count": 4
+			}
+		],
+		"published": [
+			{
+				"id": "2019",
+				"title": "2019",
+				"count": 3
+			},
+			{
+				"id": "2018",
+				"title": "2018",
+				"count": 3
+			}
+		],
+		"registered": [
+			{
+				"id": "2019",
+				"title": "2019",
+				"count": 2
+			},
+			{
+				"id": "2018",
+				"title": "2018",
+				"count": 4
+			}
+		],
+		"providers": [
+			{
+				"id": "nrc",
+				"title": "National Research Council Canada",
+				"count": 6
+			}
+		],
+		"clients": [
+			{
+				"id": "nrc.cadc",
+				"title": "Canadian Astronomy Data Centre",
+				"count": 6
+			}
+		],
+		"affiliations": [],
+		"prefixes": [
+			{
+				"id": "10.11570",
+				"title": "10.11570",
+				"count": 6
+			}
+		],
+		"certificates": [
+			{
+				"id": "WDS",
+				"title": "Wds",
+				"count": 6
+			}
+		],
+		"licenses": [],
+		"schemaVersions": [
+			{
+				"id": "4",
+				"title": "Schema 4",
+				"count": 6
+			}
+		],
+		"linkChecksStatus": [
+			{
+				"id": "200",
+				"title": "200",
+				"count": 6
+			}
+		],
+		"subjects": [],
+		"fieldsOfScience": [],
+		"citations": [
+			{
+				"id": "2019",
+				"title": "2019",
+				"count": 1
+			},
+			{
+				"id": "2018",
+				"title": "2018",
+				"count": 1
+			}
+		],
+		"views": [],
+		"downloads": []
+	},
+	"links": {
+		"self": "https://api.datacite.org/dois?query=doi:10.11570/18.0*"
+	}
+}
