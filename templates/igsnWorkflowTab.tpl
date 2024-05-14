@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="{$assetsUrl}/css/backend.css" type="text/css" />
 <link rel="stylesheet" href="{$assetsUrl}/css/frontend.css" type="text/css" />
 
-<tab id="igsn" class="pkpTab" role="tabpanel"
+<tab id="pidManagerIgsn" class="pkpTab" role="tabpanel"
      label="{translate key="plugins.generic.pidManager.igsn.workflow.label"}">
 
     <div id="representations-grid" class="">
@@ -32,24 +32,55 @@
                         <th class="grid-column column-action"></th>
                     </tr>
                     <tbody>
-                    <tr v-for="(igsn, i) in pidManagerIgsnApp.igsnS" class="pidManager-Row">
-                        <td>
-                            <input v-model="igsn.id" type="text"
-                                   @keyup="pidManagerIgsnApp.apiLookupId(i)"
-                                   class="pkpFormField__input pkpFormField--text__input">
-                        </td>
-                        <td>
-                            <input v-model="igsn.label" type="text"
-                                   @keyup="pidManagerIgsnApp.apiLookupLabel(i)"
-                                   class="pkpFormField__input pkpFormField--text__input">
-                        </td>
-                        <td>
-                            <a @click="pidManagerIgsnApp.remove(i)" class="pkpButton">
-                                <i class="fa fa-trash" aria-hidden="true"></i> </a>
-                        </td>
-                    </tr>
+                    <template v-for="(igsn, i) in pidManagerIgsnApp.igsnS" class="pidManager-Row">
+                        <tr>
+                            <td>
+                                <input v-model="igsn.id" type="text"
+                                       @focusin="pidManagerIgsnApp.apiLookup(i)"
+                                       @focusout="pidManagerIgsnApp.hideSearchResults(i)"
+                                       @keyup="pidManagerIgsnApp.apiLookup(i)"
+                                       class="pkpFormField__input pkpFormField--text__input">
+                            </td>
+                            <td>
+                                <input v-model="igsn.label" type="text"
+                                       @focusin="pidManagerIgsnApp.apiLookup(i)"
+                                       @focusout="pidManagerIgsnApp.hideSearchResults(i)"
+                                       @keyup="pidManagerIgsnApp.apiLookup(i)"
+                                       class="pkpFormField__input pkpFormField--text__input">
+                            </td>
+                            <td>
+                                <a @click="pidManagerIgsnApp.remove(i)" class="pkpButton">
+                                    <i class="fa fa-trash" aria-hidden="true"></i> </a>
+                            </td>
+                        </tr>
+                        <tr v-show="pidManagerIgsnApp.focusedIndex === i">
+                            <td colspan="2">
+                                <div class="pidManagerSearchResults">
+                                    <div :id="'pidManager-search-empty-' + i"
+                                         class="pidManagerSearchResultsEmpty pidManager-Hide">
+                                        <span>DataCite API returned empty</span>
+                                    </div>
+                                    <div :id="'pidManager-search-loading-' + i"
+                                         class="pidManagerSearchResultsLoading pidManager-Hide">
+                                        <span aria-hidden="true" class="pkpSpinner"></span>
+                                    </div>
+                                    <div :id="'pidManager-search-results-' + i"
+                                         class="pidManagerSearchResultsList pidManager-Hide">
+                                        <ul>
+                                            <li v-for="(row, j) in pidManagerIgsnApp.searchResults">
+                                                <a @click.prevent="pidManagerIgsnApp.select(i, j)">
+                                                    {{ row.label }} [{{ row.id }}]
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </td>
+                            <td></td>
+                        </tr>
+                    </template>
                     <tr>
-                        <td colspan="4">
+                        <td colspan="3">
                             <a class="pkpButton" v-on:click="pidManagerIgsnApp.add()">Add</a>
                         </td>
                     </tr>
@@ -80,12 +111,6 @@
         <textarea style="width: 100%; height: 100px;">{{ pidManagerIgsnApp.igsnSClean }}</textarea>
     </div>
 
-    <div>
-        dataCiteSearchResults
-        <hr />
-        <div v-for="(row, i) in pidManagerIgsnApp.dataCiteSearchResults">{{ row.label }} ({{ row.id }})</div>
-    </div>
-
 </tab>
 
 <script>
@@ -97,11 +122,11 @@
 					{ /**/ 'id': 'igsn2', 'label': 'label2'},
 					{ /**/ 'id': 'igsn3', 'label': 'label3'},
 					{ /**/ 'id': 'igsn4', 'label': 'label4'},
-					{ /**/ 'id': 'igsn5', 'label': 'label5'}
+					{ /**/ 'id': '10.11570/18.000', 'label': ''}
 				],
-				dataCiteSearchResults: [], // [ { 'id': '', 'label': '' }, ... ]
+				focusedIndex: -1,
+				searchResults: [], // [ { 'id': '', 'label': '' }, ... ]
 				igsnModel: { /**/ 'id': '', 'label': ''},
-				searchPhrase: '',
 				publication: [],
 				publicationId: 0,
 				submissionId: 0,                // workingPublication.submissionId
@@ -144,13 +169,16 @@
 
 				this.igsnS.splice(index, 1);
 			},
-			apiLookupId: function(index) {
+			apiLookup: function(index) {
+				this.focusedIndex = index;
 				let id = this.igsnS[index].id;
-				if (id.length > this.minimumSearchPhraseLength) {
-					fetch('https://api.datacite.org/dois?query=doi:' + id + '*')
+				let label = this.igsnS[index].label;
+				if (id.length > this.minimumSearchPhraseLength || label.length > this.minimumSearchPhraseLength) {
+					this.loadingStart(index);
+					this.searchResults = [];
+					fetch('https://api.datacite.org/dois?query=doi:' + id + '*' + ' AND ' + 'titles.title:(' + label + '*)')
 						.then(response => response.json())
 						.then(responseData => {
-							this.dataCiteSearchResults = [];
 							let items = responseData.data;
 							items.forEach((item) => {
 								// todo: check if type is sample
@@ -163,36 +191,48 @@
 									label: label
 								};
 
-								this.dataCiteSearchResults.push(row);
+								this.searchResults.push(row);
 							});
+
+							this.loadingEnd(index);
+
+							if (this.searchResults.length === 0) {
+								this.showEmptySearchResults(index);
+							}
 						})
 						.catch(error => console.log(error));
+				} else {
+					this.searchResults = [];
 				}
 			},
-			apiLookupLabel: function(index) {
-				let label = this.igsnS[index].label;
-				if (label.length > this.minimumSearchPhraseLength) {
-					fetch('https://api.datacite.org/dois?query=titles.title:(' + label + '*)')
-						.then(response => response.json())
-						.then(responseData => {
-							this.dataCiteSearchResults = [];
-							let items = responseData.data;
-							items.forEach((item) => {
-								// todo: check if type is sample
-								let label = '';
-								for (let i = 0; i < item.attributes.titles.length; i++) {
-									label = item.attributes.titles[i].title;
-								}
-								let row = {
-									id: item.id,
-									label: label
-								};
-
-								this.dataCiteSearchResults.push(row);
-							});
-						})
-						.catch(error => console.log(error));
-				}
+			select: function(indexIgsnS, indexSearchResults) {
+				this.igsnS[indexIgsnS].id = this.searchResults[indexSearchResults].id;
+				this.igsnS[indexIgsnS].label = this.searchResults[indexSearchResults].label;
+				console.log(this.searchResults[indexSearchResults].id + ': ' + this.searchResults[indexSearchResults].label);
+			},
+			loadingStart: function(index) {
+				let cssClass = 'pidManager-Hide';
+				document.getElementById('pidManager-search-empty-' + index).classList.add(cssClass);
+				document.getElementById('pidManager-search-loading-' + index).classList.remove(cssClass);
+				document.getElementById('pidManager-search-results-' + index).classList.add(cssClass);
+			},
+			loadingEnd: function(index) {
+				let cssClass = 'pidManager-Hide';
+				document.getElementById('pidManager-search-empty-' + index).classList.add(cssClass);
+				document.getElementById('pidManager-search-loading-' + index).classList.add(cssClass);
+				document.getElementById('pidManager-search-results-' + index).classList.remove(cssClass);
+			},
+			showEmptySearchResults: function(index) {
+				let cssClass = 'pidManager-Hide';
+				document.getElementById('pidManager-search-empty-' + index).classList.remove(cssClass);
+				document.getElementById('pidManager-search-loading-' + index).classList.add(cssClass);
+				document.getElementById('pidManager-search-results-' + index).classList.add(cssClass);
+			},
+			showSearchResults: function(index) {
+              this.focusedIndex = index;
+			},
+			hideSearchResults: function(index) {
+              this.focusedIndex = -1;
 			}
 		},
 		watch: {
