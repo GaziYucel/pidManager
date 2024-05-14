@@ -27,9 +27,9 @@
             <div class="content">
                 <table>
                     <tr>
-                        <th class="grid-column column-id">Id</th>
+                        <th class="grid-column column-id" style="width: 30%;">Id</th>
                         <th class="grid-column column-label">Label</th>
-                        <th class="grid-column column-action"></th>
+                        <th class="grid-column column-action" style="width: 34px;"></th>
                     </tr>
                     <tbody>
                     <template v-for="(igsn, i) in pidManagerIgsnApp.igsnS" class="pidManager-Row">
@@ -37,14 +37,14 @@
                             <td>
                                 <input v-model="igsn.id" type="text"
                                        @focusin="pidManagerIgsnApp.apiLookup(i)"
-                                       @focusout="pidManagerIgsnApp.hideSearchResults(i)"
+{*                                       @focusout="pidManagerIgsnApp.hideSearchResults(i)"*}
                                        @keyup="pidManagerIgsnApp.apiLookup(i)"
                                        class="pkpFormField__input pkpFormField--text__input">
                             </td>
                             <td>
                                 <input v-model="igsn.label" type="text"
                                        @focusin="pidManagerIgsnApp.apiLookup(i)"
-                                       @focusout="pidManagerIgsnApp.hideSearchResults(i)"
+{*                                       @focusout="pidManagerIgsnApp.hideSearchResults(i)"*}
                                        @keyup="pidManagerIgsnApp.apiLookup(i)"
                                        class="pkpFormField__input pkpFormField--text__input">
                             </td>
@@ -68,6 +68,9 @@
                                          class="pidManagerSearchResultsList pidManager-Hide">
                                         <ul>
                                             <li v-for="(row, j) in pidManagerIgsnApp.searchResults">
+                                                <a :href="'https://doi.org/' + row.id" target="_blank">
+                                                    <i class="fa fa-external-link"></i>
+                                                </a>
                                                 <a @click.prevent="pidManagerIgsnApp.select(i, j)">
                                                     {{ row.label }} [{{ row.id }}]
                                                 </a>

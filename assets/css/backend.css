@@ -40,13 +40,20 @@
 }
 
 .pidManagerSearchResultsList ul li {
-    padding: 0;
 }
 
 .pidManagerSearchResultsList ul li a {
-    display: block;
+    display: inline-block;
     cursor: pointer;
-    padding: 0.3rem;
+    padding: 5px;
+}
+
+.pidManagerSearchResultsList ul li a:nth-child(1) {
+    width: 24px;
+}
+
+.pidManagerSearchResultsList ul li a:nth-child(2) {
+    width: calc(100% - 34px);
 }
 
 .pidManagerSearchResultsList ul li a:hover {
