@@ -9,53 +9,44 @@
  * @brief Backend stylesheet for the plugin.
  */
 
-.pkpTabs--side .pkpTab .pkp_controllers_grid .content {
-    /*padding: 1rem;*/
-}
-
 #pidManagerIgsn .pkpFormField--text__input {
     width: 100%;
 }
 
-.pidManager-Hide {
-    display: none !important;
+#pidManagerIgsn td {
+    padding: 5px 8px;
 }
 
-.pidManagerSearchResults {
-    background-color: #fff;
+#pidManagerIgsn .pidManagerSearchResults {
+    background-color: #fdfdfd;
     border: 1px solid #ccc;
     height: 100px;
     overflow-y: scroll;
 }
 
-.pidManagerSearchResultsLoading {
+#pidManagerIgsn .pidManagerSearchResultsEmpty span {
+    padding: 5px;
+}
+
+#pidManagerIgsn .pidManagerSearchResultsLoading {
     text-align: center;
     line-height: 98px;
 }
 
-.pidManagerSearchResultsList ul {
-    list-style-type: none;
+#pidManagerIgsn .pidManagerSearchResultsList td {
     padding: 0;
-    margin: 0;
 }
 
-.pidManagerSearchResultsList ul li {
-}
-
-.pidManagerSearchResultsList ul li a {
-    display: inline-block;
+#pidManagerIgsn .pidManagerSearchResultsList td a {
+    display: block;
     cursor: pointer;
     padding: 5px;
 }
 
-.pidManagerSearchResultsList ul li a:nth-child(1) {
-    width: 24px;
-}
-
-.pidManagerSearchResultsList ul li a:nth-child(2) {
-    width: calc(100% - 34px);
-}
-
-.pidManagerSearchResultsList ul li a:hover {
+#pidManagerIgsn .pidManagerSearchResultsList td a:hover {
     background-color: #f1f1f1;
+}
+
+.pidManager-Hide {
+    display: none !important;
 }

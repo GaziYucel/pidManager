@@ -37,14 +37,14 @@
                             <td>
                                 <input v-model="igsn.id" type="text"
                                        @focusin="pidManagerIgsnApp.apiLookup(i)"
-{*                                       @focusout="pidManagerIgsnApp.hideSearchResults(i)"*}
+                                        {* @focusout="pidManagerIgsnApp.hideSearchResults(i)" *}
                                        @keyup="pidManagerIgsnApp.apiLookup(i)"
                                        class="pkpFormField__input pkpFormField--text__input">
                             </td>
                             <td>
                                 <input v-model="igsn.label" type="text"
                                        @focusin="pidManagerIgsnApp.apiLookup(i)"
-{*                                       @focusout="pidManagerIgsnApp.hideSearchResults(i)"*}
+                                        {* @focusout="pidManagerIgsnApp.hideSearchResults(i)" *}
                                        @keyup="pidManagerIgsnApp.apiLookup(i)"
                                        class="pkpFormField__input pkpFormField--text__input">
                             </td>
@@ -66,16 +66,20 @@
                                     </div>
                                     <div :id="'pidManager-search-results-' + i"
                                          class="pidManagerSearchResultsList pidManager-Hide">
-                                        <ul>
-                                            <li v-for="(row, j) in pidManagerIgsnApp.searchResults">
-                                                <a :href="'https://doi.org/' + row.id" target="_blank">
-                                                    <i class="fa fa-external-link"></i>
-                                                </a>
-                                                <a @click.prevent="pidManagerIgsnApp.select(i, j)">
-                                                    {{ row.label }} [{{ row.id }}]
-                                                </a>
-                                            </li>
-                                        </ul>
+                                        <table>
+                                            <tr v-for="(row, j) in pidManagerIgsnApp.searchResults">
+                                                <td style="width: 24px;">
+                                                    <a :href="'https://doi.org/' + row.id" target="_blank">
+                                                        <i class="fa fa-external-link"></i>
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    <a @click.prevent="pidManagerIgsnApp.select(i, j)">
+                                                        {{ row.label }} [{{ row.id }}]
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </table>
                                     </div>
                                 </div>
                             </td>
@@ -107,11 +111,6 @@
         <div>
             {* <pkp-form v-bind="components.{PidManagerPlugin::IGSN}" @set="set"></pkp-form> *}
         </div>
-    </div>
-
-    <div class="debug pidManager-Hide">
-        <textarea style="width: 100%; height: 100px;">{{ pidManagerIgsnApp.igsnS }}</textarea>
-        <textarea style="width: 100%; height: 100px;">{{ pidManagerIgsnApp.igsnSClean }}</textarea>
     </div>
 
 </tab>
@@ -232,10 +231,10 @@
 				document.getElementById('pidManager-search-results-' + index).classList.add(cssClass);
 			},
 			showSearchResults: function(index) {
-              this.focusedIndex = index;
+				this.focusedIndex = index;
 			},
 			hideSearchResults: function(index) {
-              this.focusedIndex = -1;
+				this.focusedIndex = -1;
 			}
 		},
 		watch: {
