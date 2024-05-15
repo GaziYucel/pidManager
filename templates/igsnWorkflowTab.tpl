@@ -6,6 +6,7 @@
  * @license Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
  *
  * IGSN tab
+ * https://schema.datacite.org/meta/kernel-4.5/
  * https://support.datacite.org/docs/api-queries#selecting-which-metadata-fields-to-retrieve
  *}
 
@@ -37,14 +38,14 @@
                             <td>
                                 <input v-model="igsn.id" type="text"
                                        @focusin="pidManagerIgsnApp.apiLookup(i)"
-                                        {* @focusout="pidManagerIgsnApp.hideSearchResults(i)" *}
+                                       @focusout="pidManagerIgsnApp.hideSearchResults(i)"
                                        @keyup="pidManagerIgsnApp.apiLookup(i)"
                                        class="pkpFormField__input pkpFormField--text__input">
                             </td>
                             <td>
                                 <input v-model="igsn.label" type="text"
                                        @focusin="pidManagerIgsnApp.apiLookup(i)"
-                                        {* @focusout="pidManagerIgsnApp.hideSearchResults(i)" *}
+                                       @focusout="pidManagerIgsnApp.hideSearchResults(i)"
                                        @keyup="pidManagerIgsnApp.apiLookup(i)"
                                        class="pkpFormField__input pkpFormField--text__input">
                             </td>
@@ -53,19 +54,22 @@
                                     <i class="fa fa-trash" aria-hidden="true"></i> </a>
                             </td>
                         </tr>
-                        <tr v-show="pidManagerIgsnApp.focusedIndex === i">
+                        <tr v-if="pidManagerIgsnApp.showSearchResults(i)">
                             <td colspan="2">
                                 <div class="pidManagerSearchResults">
                                     <div :id="'pidManager-search-empty-' + i"
-                                         class="pidManagerSearchResultsEmpty pidManager-Hide">
-                                        <span>DataCite API returned empty</span>
+                                         v-show="pidManagerIgsnApp.showEmpty"
+                                         class="pidManagerSearchResultsEmpty">
+                                        <span>{translate key="plugins.generic.pidManager.igsn.datacite.empty"}</span>
                                     </div>
                                     <div :id="'pidManager-search-loading-' + i"
-                                         class="pidManagerSearchResultsLoading pidManager-Hide">
+                                         v-show="pidManagerIgsnApp.showSpinner"
+                                         class="pidManagerSearchResultsLoading">
                                         <span aria-hidden="true" class="pkpSpinner"></span>
                                     </div>
                                     <div :id="'pidManager-search-results-' + i"
-                                         class="pidManagerSearchResultsList pidManager-Hide">
+                                         v-show="pidManagerIgsnApp.showList"
+                                         class="pidManagerSearchResultsList">
                                         <table>
                                             <tr v-for="(row, j) in pidManagerIgsnApp.searchResults">
                                                 <td style="width: 24px;">
@@ -88,7 +92,9 @@
                     </template>
                     <tr>
                         <td colspan="3">
-                            <a class="pkpButton" v-on:click="pidManagerIgsnApp.add()">Add</a>
+                            <a class="pkpButton" v-on:click="pidManagerIgsnApp.add()">
+                                {translate key="plugins.generic.pidManager.igsn.button.add"}
+                            </a>
                         </td>
                     </tr>
                     </tbody>
@@ -129,13 +135,17 @@
 				focusedIndex: -1,
 				searchResults: [], // [ { 'id': '', 'label': '' }, ... ]
 				igsnModel: { /**/ 'id': '', 'label': ''},
+				resourceTypes: ['dataset'],
 				publication: [],
 				publicationId: 0,
 				submissionId: 0,                // workingPublication.submissionId
 				workingPublication: { /* */},   // workingPublication
 				workingPublicationId: 0,        // workingPublication.id
 				workingPublicationStatus: 0,    // workingPublication.status
-				minimumSearchPhraseLength: 3
+				minimumSearchPhraseLength: 3,
+				showEmpty: false,
+				showSpinner: false,
+				showList: false
 			};
 		},
 		computed: {
@@ -167,7 +177,9 @@
 				this.igsnS.push(JSON.parse(JSON.stringify(this.igsnModel)));
 			},
 			remove: function(index) {
-				if (confirm('Are you sure you want to remove?') !== true) return;
+				if (confirm('{translate key="plugins.generic.pidManager.igsn.button.remove.confirm"}') !== true) {
+					return;
+				}
 
 				this.igsnS.splice(index, 1);
 			},
@@ -176,30 +188,31 @@
 				let id = this.igsnS[index].id;
 				let label = this.igsnS[index].label;
 				if (id.length > this.minimumSearchPhraseLength || label.length > this.minimumSearchPhraseLength) {
-					this.loadingStart(index);
+					this.loadingStart();
 					this.searchResults = [];
 					fetch('https://api.datacite.org/dois?query=doi:' + id + '*' + ' AND ' + 'titles.title:(' + label + '*)')
 						.then(response => response.json())
 						.then(responseData => {
 							let items = responseData.data;
 							items.forEach((item) => {
-								// todo: check if type is sample
-								let label = '';
-								for (let i = 0; i < item.attributes.titles.length; i++) {
-									label = item.attributes.titles[i].title;
-								}
-								let row = {
-									id: item.id,
-									label: label
-								};
+								if (this.resourceTypes.includes(item.attributes.types['resourceTypeGeneral'].toLowerCase())) {
+									let label = '';
+									for (let i = 0; i < item.attributes.titles.length; i++) {
+										label = item.attributes.titles[i].title;
+									}
+									let row = {
+										id: item.id,
+										label: label
+									};
 
-								this.searchResults.push(row);
+									this.searchResults.push(row);
+								}
 							});
 
-							this.loadingEnd(index);
+							this.loadingEnd();
 
 							if (this.searchResults.length === 0) {
-								this.showEmptySearchResults(index);
+								this.showEmptySearchResults();
 							}
 						})
 						.catch(error => console.log(error));
@@ -212,28 +225,25 @@
 				this.igsnS[indexIgsnS].label = this.searchResults[indexSearchResults].label;
 				console.log(this.searchResults[indexSearchResults].id + ': ' + this.searchResults[indexSearchResults].label);
 			},
-			loadingStart: function(index) {
-				let cssClass = 'pidManager-Hide';
-				document.getElementById('pidManager-search-empty-' + index).classList.add(cssClass);
-				document.getElementById('pidManager-search-loading-' + index).classList.remove(cssClass);
-				document.getElementById('pidManager-search-results-' + index).classList.add(cssClass);
+			loadingStart: function() {
+				this.showEmpty = false;
+				this.showSpinner = true;
+				this.showList = false;
 			},
-			loadingEnd: function(index) {
-				let cssClass = 'pidManager-Hide';
-				document.getElementById('pidManager-search-empty-' + index).classList.add(cssClass);
-				document.getElementById('pidManager-search-loading-' + index).classList.add(cssClass);
-				document.getElementById('pidManager-search-results-' + index).classList.remove(cssClass);
+			loadingEnd: function() {
+				this.showEmpty = false;
+				this.showSpinner = false;
+				this.showList = true;
 			},
-			showEmptySearchResults: function(index) {
-				let cssClass = 'pidManager-Hide';
-				document.getElementById('pidManager-search-empty-' + index).classList.remove(cssClass);
-				document.getElementById('pidManager-search-loading-' + index).classList.add(cssClass);
-				document.getElementById('pidManager-search-results-' + index).classList.add(cssClass);
+			showEmptySearchResults: function() {
+				this.showEmpty = true;
+				this.showSpinner = false;
+				this.showList = false;
 			},
 			showSearchResults: function(index) {
-				this.focusedIndex = index;
+				return this.focusedIndex === index;
 			},
-			hideSearchResults: function(index) {
+			hideSearchResults: function() {
 				this.focusedIndex = -1;
 			}
 		},

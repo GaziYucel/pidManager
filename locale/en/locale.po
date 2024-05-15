@@ -28,3 +28,12 @@ msgstr "IGSN"
 
 msgid "plugins.generic.pidManager.igsn.description"
 msgstr "The International Generic Sample Number or IGSN is a persistent identifier for samples. Learn more at <a href=\"https://igsn.org\" target=\"_blank\">igsn.org</a>."
+
+msgid "plugins.generic.pidManager.igsn.button.add"
+msgstr "Add"
+
+msgid "plugins.generic.pidManager.igsn.button.remove.confirm"
+msgstr "Are you sure you want to remove?"
+
+msgid "plugins.generic.pidManager.igsn.datacite.empty"
+msgstr "DataCite API search returned empty."
