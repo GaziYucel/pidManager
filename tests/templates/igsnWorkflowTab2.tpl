@@ -10,7 +10,6 @@
  * https://support.datacite.org/docs/api-queries#selecting-which-metadata-fields-to-retrieve
  *}
 
-
 <link rel="stylesheet" href="{$assetsUrl}/css/backend.css" type="text/css" />
 <link rel="stylesheet" href="{$assetsUrl}/css/frontend.css" type="text/css" />
 
@@ -47,7 +46,7 @@
                                        class="pkpFormField__input pkpFormField--text__input" />
                             </td>
                             <td>
-                                <a @click="pidManagerIgsnApp.apiLookup(i)" class="pkpButton">
+                                <a @click="pidManagerIgsnApp.search(i)" class="pkpButton">
                                     <i class="fa fa-search" aria-hidden="true"></i>
                                 </a>
                                 <a @click="pidManagerIgsnApp.remove(i)" class="pkpButton">
@@ -57,12 +56,12 @@
                         </tr>
                         <tr v-if="pidManagerIgsnApp.focusedIndex === i">
                             <td colspan="2">
-                                {* <div id="pidManagerSearchResultsPhrase">
+                                <div id="pidManagerSearchResultsPhrase">
                                     <input v-model="pidManagerIgsnApp.searchPhrase" type="text"
                                            @keyup="pidManagerIgsnApp.apiLookup()"
                                            class="pkpFormField__input pkpFormField--text__input"
                                            placeholder="{translate key="plugins.generic.pidManager.igsn.datacite.searchPhrase.placeholder"}" />
-                                </div> *}
+                                </div>
                                 <div id="pidManagerSearchResults">
                                     <div id="pidManagerSearchResultsInfo"
                                          v-show="pidManagerIgsnApp.searchResultsShow.info">
@@ -134,15 +133,6 @@
 </tab>
 
 <script>
-/*
-every keyup launches a new api fetch
-old ones keeps working
-search results are therefore not accurate
-
-solution:
-id and or label filled in > clicking search button triggers api fetch
-*/
-
 	let pidManagerIgsnController = new AbortController();
 
 	let pidManagerIgsnApp = new pkp.Vue({
@@ -216,8 +206,7 @@ id and or label filled in > clicking search button triggers api fetch
 				// pidManagerIgsnController.abort();
 
 			},
-			apiLookup: function(index) {
-				this.focusedIndex = index;
+			apiLookup: function() {
 				if (this.searchPhrase.length >= this.minimumSearchPhraseLength) {
 					this.searchResults = [];
 					this.showSearchResultsPart('spinner');
@@ -288,9 +277,6 @@ id and or label filled in > clicking search button triggers api fetch
 			}
 		},
 		created() {
-			if(this.igsnS.length === 0){
-              this.igsnS.push(this.igsnModel);
-            }
 		}
 	});
 </script>

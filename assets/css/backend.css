@@ -25,7 +25,11 @@
 }
 
 #pidManagerIgsn .content th.column3 {
-    width: 34px;
+    width: 88px;
+}
+
+#pidManagerSearchResultsPhrase input {
+    background-color: #fafafa;
 }
 
 #pidManagerSearchResults {
