@@ -37,13 +37,15 @@
                         <tr>
                             <td>
                                 <input v-model="igsn.id" type="text"
-                                       @focusin="pidManagerIgsnApp.search(i)"
-                                       class="pkpFormField__input pkpFormField--text__input" />
+                                       @focusin="pidManagerIgsnApp.apiLookup(i)"
+                                       @keyup="pidManagerIgsnApp.apiLookup(i)"
+                                       class="pkpFormField__input pkpFormField--text__input">
                             </td>
                             <td>
                                 <input v-model="igsn.label" type="text"
-                                       @focusin="pidManagerIgsnApp.search(i)"
-                                       class="pkpFormField__input pkpFormField--text__input" />
+                                       @focusin="pidManagerIgsnApp.apiLookup(i)"
+                                       @keyup="pidManagerIgsnApp.apiLookup(i)"
+                                       class="pkpFormField__input pkpFormField--text__input">
                             </td>
                             <td>
                                 <a @click="pidManagerIgsnApp.remove(i)" class="pkpButton">
@@ -53,12 +55,6 @@
                         </tr>
                         <tr v-if="pidManagerIgsnApp.focusedIndex === i">
                             <td colspan="2">
-                                <div id="pidManagerSearchPhrase">
-                                    <input v-model="pidManagerIgsnApp.searchPhrase" type="text"
-                                           @keyup="pidManagerIgsnApp.apiLookup()"
-                                           class="pkpFormField__input pkpFormField--text__input"
-                                    placeholder="{translate key="plugins.generic.pidManager.igsn.datacite.searchPhrase.placeholder"}"/>
-                                </div>
                                 <div id="pidManagerSearchResults">
                                     <div id="pidManagerSearchResultsInfo"
                                          v-show="pidManagerIgsnApp.searchResultsShow.info">
@@ -75,7 +71,7 @@
                                     <div id="pidManagerSearchResultsList"
                                          v-show="pidManagerIgsnApp.searchResultsShow.list">
                                         <table>
-                                            <tr v-for="(row, j) in pidManagerIgsnApp.searchResults">
+                                            <tr v-for="(row, j) in pidManagerIgsnApp.searchResultsUnique">
                                                 <td class="column1">
                                                     <a :href="'https://doi.org/' + row.id" target="_blank">
                                                         <i class="fa fa-external-link"></i>
@@ -130,17 +126,20 @@
 </tab>
 
 <script>
+	// todo: do api lookup only if focused index changes
+
 	let pidManagerIgsnApp = new pkp.Vue({
 		data() {
 			return {
 				resourceTypes: ['dataset'],
-				igsnS: [], // [{ /**/ id: '10.11570/18.0003', label: 'Kinematics of the Atomic ISM in M33 on 80 pc scales'}],
+				igsnS: [],
 				igsnModel: { /**/ 'id': '', 'label': ''},
 				minimumSearchPhraseLength: 3,
 				focusedIndex: -1,
 				searchResults: [], // [ { 'id': '', 'label': '' }, ... ]
-				searchResultsShow: { /**/ info: true, empty: false, spinner: false, list: false},
+				searchResultsShow: { /**/ info: false, empty: false, spinner: false, list: false},
 				searchPhrase: '',
+				searchPhraseBefore: '',
 				publication: [],
 				publicationId: 0,
 				submissionId: 0,              // workingPublication.submissionId
@@ -172,13 +171,6 @@
 				}
 				return isPublished;
 			},
-			searchPhraseUri: function() {
-				let searchPhrase = this.searchPhrase;
-				searchPhrase = searchPhrase.trim();
-				searchPhrase = searchPhrase.replace(/\s\s+/g, ' ');
-				searchPhrase = searchPhrase.replaceAll(' ', '*+*');
-				return searchPhrase;
-			},
 			searchResultsUnique: function() {
 				return [...new Map(this.searchResults.map(v => [JSON.stringify(v), v])).values()];
 			}
@@ -194,17 +186,38 @@
 
 				this.igsnS.splice(index, 1);
 			},
-			search: function(index) {
-				this.focusedIndex = index;
-				this.searchPhrase = '';
-				this.searchResults = [];
+			setSearchPhrase: function(index) {
+				let searchPhrase = this.igsnS[index].id + ' ' + this.igsnS[index].label;
+				searchPhrase = searchPhrase.trim();
+				searchPhrase = searchPhrase.replace(/\s\s+/g, ' ');
+				searchPhrase = searchPhrase.replaceAll(' ', '*+*');
+				this.searchPhrase = searchPhrase;
 			},
-			apiLookup: function() {
-				if (this.searchPhrase.length >= this.minimumSearchPhraseLength) {
+			apiLookup: function(index) {
+				let executeApiLookup = true;
+
+				this.focusedIndex = index;
+				this.setSearchPhrase(index);
+
+				if (this.searchPhrase.length === 0) {
+					this.searchPhraseBefore = '';
+					this.searchResults = [];
+					this.showSearchResultsPart('info');
+					executeApiLookup = false;
+				}
+				if (this.searchPhrase.length <= this.minimumSearchPhraseLength) {
+					executeApiLookup = false;
+				}
+				if (this.searchPhrase === this.searchPhraseBefore) {
+					executeApiLookup = false;
+				}
+
+				if (executeApiLookup) {
+					this.searchPhraseBefore = this.searchPhrase;
 					this.searchResults = [];
 					this.showSearchResultsPart('spinner');
 
-					fetch('https://api.datacite.org/dois?query=*' + this.searchPhraseUri + '*')
+					fetch('https://api.datacite.org/dois?query=*' + this.searchPhrase + '*')
 						.then(response => response.json())
 						.then(responseData => {
 							let items = responseData.data;
@@ -234,8 +247,6 @@
 			select: function(indexIgsnS, indexSearchResults) {
 				this.igsnS[indexIgsnS].id = this.searchResults[indexSearchResults].id;
 				this.igsnS[indexIgsnS].label = this.searchResults[indexSearchResults].label;
-				console.log(indexIgsnS + '|' + indexSearchResults + '|' + this.searchResults[indexSearchResults].label);
-
 			},
 			resetSearchResultsShow: function() {
 				Object.keys(this.searchResultsShow).forEach((key) => {
@@ -248,8 +259,6 @@
 			},
 			hideSearchResults: function() {
 				this.focusedIndex = -1;
-				this.searchPhrase = '';
-				this.searchResults = [];
 			}
 		},
 		watch: {
@@ -257,12 +266,7 @@
 				if (newValue !== oldValue) {
 					this.publicationId = this.workingPublicationId;
 					this.publication = this.workingPublication;
-					// console.log('workingPublicationId: ' + oldValue + ' > ' + newValue);
-				}
-			},
-			focusedIndex(newValue, oldValue) {
-				if (newValue !== oldValue) {
-					// console.log('focusedIndex: ' + oldValue + ' > ' + newValue);
+					console.log('workingPublicationId: ' + oldValue + ' > ' + newValue);
 				}
 			}
 		},
