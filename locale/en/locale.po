@@ -35,5 +35,8 @@ msgstr "Add"
 msgid "plugins.generic.pidManager.igsn.button.remove.confirm"
 msgstr "Are you sure you want to remove?"
 
+msgid "plugins.generic.pidManager.igsn.datacite.info"
+msgstr "Please start typing in the field to search on DataCite"
+
 msgid "plugins.generic.pidManager.igsn.datacite.empty"
 msgstr "DataCite API search returned empty."

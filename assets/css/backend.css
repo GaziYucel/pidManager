@@ -17,33 +17,46 @@
     padding: 5px 8px;
 }
 
-#pidManagerIgsn .pidManagerSearchResults {
-    background-color: #fdfdfd;
+#pidManagerIgsn .content th.column1 {
+    width: 30%;
+}
+
+#pidManagerIgsn .content th.column2 {
+}
+
+#pidManagerIgsn .content th.column3 {
+    width: 34px;
+}
+
+#pidManagerSearchResults {
+    background-color: #fafafa;
     border: 1px solid #ccc;
     height: 100px;
     overflow-y: scroll;
 }
 
-#pidManagerIgsn .pidManagerSearchResultsEmpty span {
-    padding: 5px;
-}
-
-#pidManagerIgsn .pidManagerSearchResultsLoading {
+#pidManagerSearchResultsInfo,
+#pidManagerSearchResultsEmpty,
+#pidManagerSearchResultsSpinner {
     text-align: center;
     line-height: 98px;
 }
 
-#pidManagerIgsn .pidManagerSearchResultsList td {
+#pidManagerSearchResultsList td {
     padding: 0;
 }
 
-#pidManagerIgsn .pidManagerSearchResultsList td a {
+#pidManagerSearchResultsList td.column1 {
+    width: 24px;
+}
+
+#pidManagerSearchResultsList td a {
     display: block;
     cursor: pointer;
     padding: 5px;
 }
 
-#pidManagerIgsn .pidManagerSearchResultsList td a:hover {
+#pidManagerSearchResultsList td a:hover {
     background-color: #f1f1f1;
 }
 

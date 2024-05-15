@@ -28,9 +28,9 @@
             <div class="content">
                 <table>
                     <tr>
-                        <th class="grid-column column-id" style="width: 30%;">Id</th>
-                        <th class="grid-column column-label">Label</th>
-                        <th class="grid-column column-action" style="width: 34px;"></th>
+                        <th class="grid-column column1">Id</th>
+                        <th class="grid-column column2">Label</th>
+                        <th class="grid-column column3"></th>
                     </tr>
                     <tbody>
                     <template v-for="(igsn, i) in pidManagerIgsnApp.igsnS" class="pidManager-Row">
@@ -53,30 +53,31 @@
                                 </a>
                             </td>
                         </tr>
-                        <tr v-if="pidManagerIgsnApp.showSearchResults(i)">
+                        <tr v-if="pidManagerIgsnApp.focusedIndex === i">
                             <td colspan="2">
-                                <div class="pidManagerSearchResults">
-                                    <div :id="'pidManager-search-empty-' + i"
-                                         v-show="pidManagerIgsnApp.showEmpty"
-                                         class="pidManagerSearchResultsEmpty">
+                                <div id="pidManagerSearchResults">
+                                    <div id="pidManagerSearchResultsInfo"
+                                         v-show="pidManagerIgsnApp.searchResultsShow.info">
+                                        <span>{translate key="plugins.generic.pidManager.igsn.datacite.info"}</span>
+                                    </div>
+                                    <div id="pidManagerSearchResultsEmpty"
+                                         v-show="pidManagerIgsnApp.searchResultsShow.empty">
                                         <span>{translate key="plugins.generic.pidManager.igsn.datacite.empty"}</span>
                                     </div>
-                                    <div :id="'pidManager-search-loading-' + i"
-                                         v-show="pidManagerIgsnApp.showSpinner"
-                                         class="pidManagerSearchResultsLoading">
+                                    <div id="pidManagerSearchResultsSpinner"
+                                         v-show="pidManagerIgsnApp.searchResultsShow.spinner">
                                         <span aria-hidden="true" class="pkpSpinner"></span>
                                     </div>
-                                    <div :id="'pidManager-search-results-' + i"
-                                         v-show="pidManagerIgsnApp.showList"
-                                         class="pidManagerSearchResultsList">
+                                    <div id="pidManagerSearchResultsList"
+                                         v-show="pidManagerIgsnApp.searchResultsShow.list">
                                         <table>
-                                            <tr v-for="(row, j) in pidManagerIgsnApp.searchResults">
-                                                <td style="width: 24px;">
+                                            <tr v-for="(row, j) in pidManagerIgsnApp.searchResultsUnique">
+                                                <td class="column1">
                                                     <a :href="'https://doi.org/' + row.id" target="_blank">
                                                         <i class="fa fa-external-link"></i>
                                                     </a>
                                                 </td>
-                                                <td>
+                                                <td class="column2">
                                                     <a @click.prevent="pidManagerIgsnApp.select(i, j)">
                                                         {{ row.label }} [{{ row.id }}]
                                                     </a>
@@ -125,30 +126,26 @@
 </tab>
 
 <script>
+	// todo: do api lookup only if focused index changes
+
 	let pidManagerIgsnApp = new pkp.Vue({
 		data() {
 			return {
-				igsnS: [
-					{ /**/ 'id': 'igsn1', 'label': 'label1'},
-					{ /**/ 'id': 'igsn2', 'label': 'label2'},
-					{ /**/ 'id': 'igsn3', 'label': 'label3'},
-					{ /**/ 'id': 'igsn4', 'label': 'label4'},
-					{ /**/ 'id': '10.11570/18.000', 'label': ''}
-				],
+				resourceTypes: ['dataset'],
+				igsnS: [],
+				igsnModel: { /**/ 'id': '', 'label': ''},
+				minimumSearchPhraseLength: 3,
 				focusedIndex: -1,
 				searchResults: [], // [ { 'id': '', 'label': '' }, ... ]
-				igsnModel: { /**/ 'id': '', 'label': ''},
-				resourceTypes: ['dataset'],
+				searchResultsShow: { /**/ info: false, empty: false, spinner: false, list: false},
+				searchPhrase: '',
+				searchPhraseBefore: '',
 				publication: [],
 				publicationId: 0,
-				submissionId: 0,                // workingPublication.submissionId
-				workingPublication: { /* */},   // workingPublication
-				workingPublicationId: 0,        // workingPublication.id
-				workingPublicationStatus: 0,    // workingPublication.status
-				minimumSearchPhraseLength: 3,
-				showEmpty: false,
-				showSpinner: false,
-				showList: false
+				submissionId: 0,              // workingPublication.submissionId
+				workingPublication: { /* */}, // workingPublication
+				workingPublicationId: 0,      // workingPublication.id
+				workingPublicationStatus: 0   // workingPublication.status
 			};
 		},
 		computed: {
@@ -173,6 +170,9 @@
 					isPublished = true;
 				}
 				return isPublished;
+			},
+			searchResultsUnique: function() {
+				return [...new Map(this.searchResults.map(v => [JSON.stringify(v), v])).values()];
 			}
 		},
 		methods: {
@@ -186,14 +186,38 @@
 
 				this.igsnS.splice(index, 1);
 			},
+			setSearchPhrase: function(index) {
+				let searchPhrase = this.igsnS[index].id + ' ' + this.igsnS[index].label;
+				searchPhrase = searchPhrase.trim();
+				searchPhrase = searchPhrase.replace(/\s\s+/g, ' ');
+				searchPhrase = searchPhrase.replaceAll(' ', '*+*');
+				this.searchPhrase = searchPhrase;
+			},
 			apiLookup: function(index) {
+				let executeApiLookup = true;
+
 				this.focusedIndex = index;
-				let id = this.igsnS[index].id;
-				let label = this.igsnS[index].label;
-				if (id.length > this.minimumSearchPhraseLength || label.length > this.minimumSearchPhraseLength) {
-					this.loadingStart();
+				this.setSearchPhrase(index);
+
+				if (this.searchPhrase.length === 0) {
+					this.searchPhraseBefore = '';
 					this.searchResults = [];
-					fetch('https://api.datacite.org/dois?query=doi:' + id + '*' + ' AND ' + 'titles.title:(' + label + '*)')
+					this.showSearchResultsPart('info');
+					executeApiLookup = false;
+				}
+				if (this.searchPhrase.length <= this.minimumSearchPhraseLength) {
+					executeApiLookup = false;
+				}
+				if (this.searchPhrase === this.searchPhraseBefore) {
+					executeApiLookup = false;
+				}
+
+				if (executeApiLookup) {
+					this.searchPhraseBefore = this.searchPhrase;
+					this.searchResults = [];
+					this.showSearchResultsPart('spinner');
+
+					fetch('https://api.datacite.org/dois?query=*' + this.searchPhrase + '*')
 						.then(response => response.json())
 						.then(responseData => {
 							let items = responseData.data;
@@ -211,40 +235,27 @@
 									this.searchResults.push(row);
 								}
 							});
-
-							this.loadingEnd();
+							this.showSearchResultsPart('list');
 
 							if (this.searchResults.length === 0) {
-								this.showEmptySearchResults();
+								this.showSearchResultsPart('empty');
 							}
 						})
 						.catch(error => console.log(error));
-				} else {
-					this.searchResults = [];
 				}
 			},
 			select: function(indexIgsnS, indexSearchResults) {
 				this.igsnS[indexIgsnS].id = this.searchResults[indexSearchResults].id;
 				this.igsnS[indexIgsnS].label = this.searchResults[indexSearchResults].label;
-				console.log(this.searchResults[indexSearchResults].id + ': ' + this.searchResults[indexSearchResults].label);
 			},
-			loadingStart: function() {
-				this.showEmpty = false;
-				this.showSpinner = true;
-				this.showList = false;
+			resetSearchResultsShow: function() {
+				Object.keys(this.searchResultsShow).forEach((key) => {
+					this.searchResultsShow[key] = false;
+				});
 			},
-			loadingEnd: function() {
-				this.showEmpty = false;
-				this.showSpinner = false;
-				this.showList = true;
-			},
-			showEmptySearchResults: function() {
-				this.showEmpty = true;
-				this.showSpinner = false;
-				this.showList = false;
-			},
-			showSearchResults: function(index) {
-				return this.focusedIndex === index;
+			showSearchResultsPart: function(part) {
+				this.resetSearchResultsShow();
+				this.searchResultsShow[part] = true;
 			},
 			hideSearchResults: function() {
 				this.focusedIndex = -1;
@@ -255,7 +266,7 @@
 				if (newValue !== oldValue) {
 					this.publicationId = this.workingPublicationId;
 					this.publication = this.workingPublication;
-					console.log(oldValue + ' > ' + newValue);
+					console.log('workingPublicationId: ' + oldValue + ' > ' + newValue);
 				}
 			}
 		},
