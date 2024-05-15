@@ -38,20 +38,19 @@
                             <td>
                                 <input v-model="igsn.id" type="text"
                                        @focusin="pidManagerIgsnApp.apiLookup(i)"
-                                       @focusout="pidManagerIgsnApp.hideSearchResults(i)"
                                        @keyup="pidManagerIgsnApp.apiLookup(i)"
                                        class="pkpFormField__input pkpFormField--text__input">
                             </td>
                             <td>
                                 <input v-model="igsn.label" type="text"
                                        @focusin="pidManagerIgsnApp.apiLookup(i)"
-                                       @focusout="pidManagerIgsnApp.hideSearchResults(i)"
                                        @keyup="pidManagerIgsnApp.apiLookup(i)"
                                        class="pkpFormField__input pkpFormField--text__input">
                             </td>
                             <td>
                                 <a @click="pidManagerIgsnApp.remove(i)" class="pkpButton">
-                                    <i class="fa fa-trash" aria-hidden="true"></i> </a>
+                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                </a>
                             </td>
                         </tr>
                         <tr v-if="pidManagerIgsnApp.showSearchResults(i)">
@@ -87,7 +86,11 @@
                                     </div>
                                 </div>
                             </td>
-                            <td></td>
+                            <td>
+                                <a @click="pidManagerIgsnApp.hideSearchResults()" class="pkpButton">
+                                    <icon icon="times"></icon>
+                                </a>
+                            </td>
                         </tr>
                     </template>
                     <tr>
