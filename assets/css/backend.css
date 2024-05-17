@@ -17,6 +17,10 @@
     padding: 5px 8px;
 }
 
+#pidManagerIgsn .header {
+    max-height: unset;
+}
+
 #pidManagerIgsn .content th.column1 {
     width: 30%;
 }
@@ -26,6 +30,13 @@
 
 #pidManagerIgsn .content th.column3 {
     width: 88px;
+}
+
+#pidManagerSearchResultsPhrase td {
+    padding: 0;
+}
+#pidManagerSearchResultsPhrase a {
+    margin-left: 5px;
 }
 
 #pidManagerSearchResultsPhrase input {
@@ -39,28 +50,28 @@
     overflow-y: scroll;
 }
 
-#pidManagerSearchResultsInfo,
-#pidManagerSearchResultsEmpty,
-#pidManagerSearchResultsSpinner {
+#pidManagerSearchResults span {
+    display: inline-block;
+    padding-top: 6%;
+    width: 100%;
     text-align: center;
-    line-height: 98px;
 }
 
-#pidManagerSearchResultsList td {
+#pidManagerSearchResults td {
     padding: 0;
 }
 
-#pidManagerSearchResultsList td.column1 {
+#pidManagerSearchResults td.column1 {
     width: 24px;
 }
 
-#pidManagerSearchResultsList td a {
+#pidManagerSearchResults td a {
     display: block;
     cursor: pointer;
     padding: 5px;
 }
 
-#pidManagerSearchResultsList td a:hover {
+#pidManagerSearchResults td a:hover {
     background-color: #f1f1f1;
 }
 

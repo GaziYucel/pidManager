@@ -39,7 +39,7 @@ msgid "plugins.generic.pidManager.igsn.datacite.searchPhrase.placeholder"
 msgstr "Type your search phrase here, e.g. 10.12345/12.3456"
 
 msgid "plugins.generic.pidManager.igsn.datacite.info"
-msgstr "Please start typing in the field above to search on DataCite"
+msgstr "Please type your search phrase to search on DataCite."
 
 msgid "plugins.generic.pidManager.igsn.datacite.empty"
-msgstr "DataCite search returned empty."
+msgstr "Your search phrase returned empty."
