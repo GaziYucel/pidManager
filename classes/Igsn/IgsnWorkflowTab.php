@@ -41,6 +41,7 @@ class IgsnWorkflowTab
         /* @var Publication $publication */
         $templateMgr = &$args[1];
 
+        $igsnDao = new IgsnDao();
         $request = $this->plugin->getRequest();
         $context = $request->getContext();
         $submission = $templateMgr->getTemplateVars('submission');
@@ -60,12 +61,20 @@ class IgsnWorkflowTab
             fn(string $locale, string $name) => ['key' => $locale, 'label' => $name],
             array_keys($locales), $locales);
 
+        $form = new IgsnWorkflowForm(
+            PidManagerPlugin::IGSN,
+            'PUT',
+            $apiBaseUrl . 'submissions/' . $submissionId . '/publications/' . $publicationId,
+            $locales);
+
         $state = $templateMgr->getTemplateVars('state');
+        $state['components'][PidManagerPlugin::IGSN] = $form->getConfig();
         $templateMgr->assign('state', $state);
 
         $templateParameters = [
             'assetsUrl' => $request->getBaseUrl() . '/' . $this->plugin->getPluginPath() . '/assets',
-            'apiBaseUrl' => $apiBaseUrl
+            'apiBaseUrl' => $apiBaseUrl,
+            'igsnS' => json_encode($igsnDao->getIgsns($publication))
         ];
         $templateMgr->assign($templateParameters);
 

@@ -124,11 +124,11 @@
     <div>
         <div class="pidManager-Hide">
             <span>{{ pidManagerIgsnApp.workingPublication = workingPublication }}</span>
-            {* <span>{{ components.{PidManagerPlugin::IGSN}.fields[0]['value'] = JSON.stringify(pidManagerIgsnApp.igsnClean) }}</span> *}
-            {* <span>{{ components.{PidManagerPlugin::IGSN}.action = '{$apiBaseUrl}submissions/' + workingPublication.submissionId + '/publications/' + workingPublication.id }}</span> *}
+            <span>{{ components.{PidManagerPlugin::IGSN}.fields[0]['value'] = JSON.stringify(pidManagerIgsnApp.igsnSClean) }}</span>
+            <span>{{ components.{PidManagerPlugin::IGSN}.action = '{$apiBaseUrl}submissions/' + workingPublication.submissionId + '/publications/' + workingPublication.id }}</span>
         </div>
         <div>
-            {* <pkp-form v-bind="components.{PidManagerPlugin::IGSN}" @set="set"></pkp-form> *}
+            <pkp-form v-bind="components.{PidManagerPlugin::IGSN}" @set="set"></pkp-form>
         </div>
     </div>
 
@@ -139,7 +139,7 @@
 		data() {
 			return {
 				resourceTypes: ['dataset'],
-				igsnS: [],
+				igsnS: {$igsnS},
 				// igsnS: [{ /**/ id: '10.11570/18.0003', label: 'Kinematics of the Atomic ISM in M33 on 80 pc scales'}],
 				focusedIndex: -1,
 				searchResults: [], // [ { 'id': '', 'label': '' }, ... ]

@@ -24,7 +24,6 @@ define('PID_MANAGER_PLUGIN_NAME', basename(__FILE__, '.php'));
 
 class PidManagerPlugin extends GenericPlugin
 {
-
     /** @var string Key for igsn saved in publications */
     public const IGSN = 'igsn';
 
