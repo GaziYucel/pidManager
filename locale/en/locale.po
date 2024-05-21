@@ -17,17 +17,14 @@ msgstr "PID Manager Plugin"
 msgid "plugins.generic.pidManager.description"
 msgstr "Plugin for managing Persistent Identifiers (PIDs) and depositing to external services."
 
-msgid "plugins.generic.pidManager.igsn.workflow.label"
-msgstr "IGSN"
-
-msgid "plugins.generic.pidManager.igsn.workflow.description"
-msgstr "Persistent Identifier for samples. Learn more at <a href=\"https://igsn.org\" target=\"_blank\">igsn.org</a>."
-
-msgid "plugins.generic.pidManager.igsn.id"
+msgid "plugins.generic.pidManager.igsn.label"
 msgstr "IGSN"
 
 msgid "plugins.generic.pidManager.igsn.description"
 msgstr "The International Generic Sample Number or IGSN is a persistent identifier for samples. Learn more at <a href=\"https://igsn.org\" target=\"_blank\">igsn.org</a>."
+
+msgid "plugins.generic.pidManager.igsn.workflow.description"
+msgstr "Persistent Identifier for samples. Learn more at <a href=\"https://igsn.org\" target=\"_blank\">igsn.org</a>."
 
 msgid "plugins.generic.pidManager.igsn.button.add"
 msgstr "Add"

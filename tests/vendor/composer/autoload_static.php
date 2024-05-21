@@ -12,6 +12,7 @@ class ComposerStaticInitd129e47fcb8ccfa4857a7e42930b1cc8
         'APP\\plugins\\generic\\pidManager\\classes\\Helpers\\ClassHelper' => __DIR__ . '/../..' . '/../classes/Helpers/ClassHelper.php',
         'APP\\plugins\\generic\\pidManager\\classes\\Helpers\\LogHelper' => __DIR__ . '/../..' . '/../classes/Helpers/LogHelper.php',
         'APP\\plugins\\generic\\pidManager\\classes\\Helpers\\StringHelper' => __DIR__ . '/../..' . '/../classes/Helpers/StringHelper.php',
+        'APP\\plugins\\generic\\pidManager\\classes\\Igsn\\IgsnArticleView' => __DIR__ . '/../..' . '/../classes/Igsn/IgsnArticleView.php',
         'APP\\plugins\\generic\\pidManager\\classes\\Igsn\\IgsnDao' => __DIR__ . '/../..' . '/../classes/Igsn/IgsnDao.php',
         'APP\\plugins\\generic\\pidManager\\classes\\Igsn\\IgsnDataModel' => __DIR__ . '/../..' . '/../classes/Igsn/IgsnDataModel.php',
         'APP\\plugins\\generic\\pidManager\\classes\\Igsn\\IgsnSchema' => __DIR__ . '/../..' . '/../classes/Igsn/IgsnSchema.php',

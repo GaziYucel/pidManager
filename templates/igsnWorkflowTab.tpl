@@ -15,14 +15,14 @@
 <link rel="stylesheet" href="{$assetsUrl}/css/frontend.css" type="text/css" />
 
 <tab id="pidManagerIgsn" class="pkpTab" role="tabpanel"
-     label="{translate key="plugins.generic.pidManager.igsn.workflow.label"}">
+     label="{translate key="plugins.generic.pidManager.igsn.label"}">
 
     <div id="representations-grid" class="">
 
         <div class="pkp_controllers_grid">
 
             <div class="header">
-                <h4>{translate key="plugins.generic.pidManager.igsn.workflow.label"}</h4><br>
+                <h4>{translate key="plugins.generic.pidManager.igsn.label"}</h4><br>
                 <span>{translate key="plugins.generic.pidManager.igsn.workflow.description"}</span>
             </div>
 
