@@ -9,14 +9,6 @@
  * @brief Backend stylesheet for the plugin.
  */
 
-input[name="igsn"] {
-    display: none;
-}
-
-#pidManagerIgsn .pkpFormField--text__input {
-    width: 100%;
-}
-
 #pidManagerIgsn td {
     padding: 5px 8px;
 }
@@ -81,4 +73,14 @@ input[name="igsn"] {
 
 .pidManager-Hide {
     display: none !important;
+}
+
+
+/* OJS elements */
+#pidManagerIgsn input[name="igsn"] {
+    display: none;
+}
+
+#pidManagerIgsn .pkpFormField--text__input {
+    width: 100%;
 }
