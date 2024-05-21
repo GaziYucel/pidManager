@@ -124,11 +124,11 @@
     <div>
         <div class="pidManager-Hide">
             <span>{{ pidManagerIgsnApp.workingPublication = workingPublication }}</span>
-            {* <span>{{ components.{PidManagerPlugin::IGSN}.fields[0]['value'] = JSON.stringify(pidManagerIgsnApp.igsnClean) }}</span> *}
-            {* <span>{{ components.{PidManagerPlugin::IGSN}.action = '{$apiBaseUrl}submissions/' + workingPublication.submissionId + '/publications/' + workingPublication.id }}</span> *}
+            <span>{{ components.{PidManagerPlugin::IGSN}.fields[0]['value'] = JSON.stringify(pidManagerIgsnApp.igsnSClean) }}</span>
+            <span>{{ components.{PidManagerPlugin::IGSN}.action = '{$apiBaseUrl}submissions/' + workingPublication.submissionId + '/publications/' + workingPublication.id }}</span>
         </div>
         <div>
-            {* <pkp-form v-bind="components.{PidManagerPlugin::IGSN}" @set="set"></pkp-form> *}
+            <pkp-form v-bind="components.{PidManagerPlugin::IGSN}" @set="set"></pkp-form>
         </div>
     </div>
 

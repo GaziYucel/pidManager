@@ -1,16 +1,18 @@
 <?php
 /**
- * @file classes/DataModels/PluginSchema.php
+ * @file classes/igsn/IgsnSchema.php
  *
  * @copyright (c) 2021+ TIB Hannover
  * @copyright (c) 2021+ Gazi Yücel
  * @license Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
  *
- * @class PluginSchema
- * @brief Plugin Schema
+ * @class IgsnSchema
+ * @brief Schema for Igsn
  */
 
 namespace APP\plugins\generic\pidManager\classes\Igsn;
+
+use APP\plugins\generic\pidManager\PidManagerPlugin;
 
 class IgsnSchema
 {
@@ -24,6 +26,13 @@ class IgsnSchema
     public function addToSchemaPublication(string $hookName, array $args): bool
     {
         $schema = &$args[0];
+
+        $schema->properties->{PidManagerPlugin::IGSN} = (object)[
+            'type' => 'string',
+            'multilingual' => false,
+            'apiSummary' => true,
+            'validation' => ['nullable']
+        ];
 
         return false;
     }
