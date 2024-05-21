@@ -17,6 +17,9 @@ msgstr "PID Manager Plugin"
 msgid "plugins.generic.pidManager.description"
 msgstr "Plugin for managing Persistent Identifiers (PIDs) and depositing to external services."
 
+msgid "plugins.generic.pidManager.igsn.name"
+msgstr "IGSN"
+
 msgid "plugins.generic.pidManager.igsn.label"
 msgstr "IGSN"
 

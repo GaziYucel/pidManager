@@ -38,7 +38,7 @@ class IgsnDao
 
         foreach ($igsnsIn as $igsn) {
             if (!empty($igsn) && (is_object($igsn) || is_array($igsn))) {
-                $igsnsOut[] = ClassHelper::getClassAsArrayWithValuesAssigned(new IgsnDataModel(), $igsn);
+                $igsnsOut[] = ClassHelper::getClassWithValuesAssigned(new IgsnDataModel(), $igsn);
             }
         }
 

@@ -14,6 +14,7 @@ namespace APP\plugins\generic\pidManager;
 
 require_once(PidManagerPlugin::autoloadFile());
 
+use APP\core\Application;
 use APP\plugins\generic\pidManager\classes\Igsn\IgsnArticleView;
 use APP\plugins\generic\pidManager\classes\Igsn\IgsnSchema;
 use APP\plugins\generic\pidManager\classes\Igsn\IgsnWorkflowTab;
@@ -32,6 +33,7 @@ class PidManagerPlugin extends GenericPlugin
     public function register($category, $path, $mainContextId = null): bool
     {
         if (parent::register($category, $path, $mainContextId)) {
+            if (Application::isUnderMaintenance()) return true;
 
             if ($this->getEnabled()) {
                 // IGSN
