@@ -16,122 +16,117 @@
 <tab id="pidManagerIgsn" class="pkpTab" role="tabpanel"
      label="{translate key="plugins.generic.pidManager.igsn.label"}">
 
-    <div id="representations-grid" class="">
+    {*    <div id="representations-grid" class="">*}
+    {*        <div class="pkp_controllers_grid">*}
 
-        <div class="pkp_controllers_grid">
+    <div class="header">
+        <h4>{translate key="plugins.generic.pidManager.igsn.label"}</h4><br>
+        <span>{translate key="plugins.generic.pidManager.igsn.workflow.description"}</span>
+    </div>
 
-            <div class="header">
-                <h4>{translate key="plugins.generic.pidManager.igsn.label"}</h4><br>
-                <span>{translate key="plugins.generic.pidManager.igsn.workflow.description"}</span>
-            </div>
-
-            <div class="content">
-                <table>
-                    <tr>
-                        <th class="grid-column column1">Id</th>
-                        <th class="grid-column column2">Label</th>
-                        <th class="grid-column column3"></th>
-                    </tr>
-                    <tbody>
-                    <template v-for="(igsn, i) in pidManagerIgsnApp.igsnS" class="pidManager-Row">
-                        <tr>
-                            <td>
-                                <input v-model="igsn.id" type="text"
-                                       class="pkpFormField__input pkpFormField--text__input" />
-                            </td>
-                            <td>
-                                <input v-model="igsn.label" type="text"
-                                       class="pkpFormField__input pkpFormField--text__input" />
-                            </td>
-                            <td>
-                                <a @click="pidManagerIgsnApp.searchShow(i)" class="pkpButton">
-                                    <i class="fa fa-search" aria-hidden="true"></i>
-                                </a>
-                                <a @click="pidManagerIgsnApp.remove(i)" class="pkpButton">
-                                    <i class="fa fa-trash" aria-hidden="true"></i>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr v-if="pidManagerIgsnApp.focusedIndex === i">
-                            <td>
-                                <div id="pidManagerSearchResultsPhrase">
-                                    <table>
-                                        <tr>
-                                            <td>
-                                                <input v-model="pidManagerIgsnApp.searchPhrase" type="text"
-                                                       class="pkpFormField__input pkpFormField--text__input"
-                                                       placeholder="{translate key="plugins.generic.pidManager.igsn.datacite.searchPhrase.placeholder"}" />
-                                            </td>
-                                            <td>
-                                                <a @click="pidManagerIgsnApp.apiLookup(i)" class="pkpButton">
-                                                    <i class="fa fa-search" aria-hidden="true"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </td>
-                            <td>
-                                <div id="pidManagerSearchResults">
+    <div class="content">
+        <table>
+            <tr>
+                <th class="grid-column column1">Id</th>
+                <th class="grid-column column2">Label</th>
+                <th class="grid-column column3"></th>
+            </tr>
+            <tbody>
+            <template v-for="(igsn, i) in pidManagerIgsnApp.igsnS" class="pidManager-Row">
+                <tr>
+                    <td class="column1">
+                        <input v-model="igsn.id" type="text"
+                               class="pkpFormField__input pkpFormField--text__input" />
+                    </td>
+                    <td class="column2">
+                        <input v-model="igsn.label" type="text"
+                               class="pkpFormField__input pkpFormField--text__input" />
+                    </td>
+                    <td class="column3">
+                        <a @click="pidManagerIgsnApp.searchToggle(i)" class="pkpButton">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                        </a>
+                        <a @click="pidManagerIgsnApp.remove(i)" class="pkpButton">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </a>
+                    </td>
+                </tr>
+                <tr v-if="pidManagerIgsnApp.focusedIndex === i">
+                    <td class="column1">
+                        <div id="pidManagerSearchResultsPhrase">
+                            <table>
+                                <tr>
+                                    <td class="column1">
+                                        <input v-model="pidManagerIgsnApp.searchPhrase" type="text"
+                                               class="pkpFormField__input pkpFormField--text__input"
+                                               placeholder="{translate key="plugins.generic.pidManager.igsn.datacite.searchPhrase.placeholder"}" />
+                                    </td>
+                                    <td class="column2">
+                                        <a @click="pidManagerIgsnApp.apiLookup(i)" class="pkpButton">
+                                            <i class="fa fa-search" aria-hidden="true"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </td>
+                    <td class="column2">
+                        <div id="pidManagerSearchResults">
                                     <span v-show="pidManagerIgsnApp.panelVisibility.info">
                                         {translate key="plugins.generic.pidManager.igsn.datacite.info"}
                                     </span>
-                                    <span v-show="pidManagerIgsnApp.panelVisibility.empty">
+                            <span v-show="pidManagerIgsnApp.panelVisibility.empty">
                                         {translate key="plugins.generic.pidManager.igsn.datacite.empty"}
                                     </span>
-                                    <span v-show="pidManagerIgsnApp.panelVisibility.spinner" aria-hidden="true"
-                                          class="pkpSpinner">
+                            <span v-show="pidManagerIgsnApp.panelVisibility.spinner" aria-hidden="true"
+                                  class="pkpSpinner">
                                     </span>
-                                    <table v-show="pidManagerIgsnApp.panelVisibility.list">
-                                        <tr v-for="(row, j) in pidManagerIgsnApp.searchResults">
-                                            <td class="column1">
-                                                <a :href="'https://doi.org/' + row.id" target="_blank">
-                                                    <i class="fa fa-external-link"></i>
-                                                </a>
-                                            </td>
-                                            <td class="column2">
-                                                <a @click.prevent="pidManagerIgsnApp.select(i, j)">
-                                                    {{ row.label }} [{{ row.id }}]
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </td>
-                            <td>
-                                <a @click="pidManagerIgsnApp.searchHide()" class="pkpButton">
-                                    <icon icon="times"></icon>
-                                </a>
-                            </td>
-                        </tr>
-                    </template>
-                    <tr>
-                        <td colspan="3">
-                            <a class="pkpButton" v-on:click="pidManagerIgsnApp.add()">
-                                {translate key="plugins.generic.pidManager.igsn.button.add"}
-                            </a>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-
-        </div>
-
+                            <table v-show="pidManagerIgsnApp.panelVisibility.list">
+                                <tr v-for="(row, j) in pidManagerIgsnApp.searchResults">
+                                    <td class="column1">
+                                        <a :href="'https://doi.org/' + row.id" target="_blank">
+                                            <i class="fa fa-external-link"></i>
+                                        </a>
+                                    </td>
+                                    <td class="column2">
+                                        <a @click.prevent="pidManagerIgsnApp.select(i, j)">
+                                            {{ row.label }} [{{ row.id }}]
+                                        </a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </td>
+                    <td class="column3">
+                        <a @click="pidManagerIgsnApp.searchToggle(i)" class="pkpButton">
+                            <icon icon="times"></icon>
+                        </a>
+                    </td>
+                </tr>
+            </template>
+            <tr>
+                <td colspan="3">
+                    <a class="pkpButton" v-on:click="pidManagerIgsnApp.add()">
+                        {translate key="plugins.generic.pidManager.igsn.button.add"}
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 
-    <div>
-        <div class="pidManager-Hide">
-            <span>{{ pidManagerIgsnApp.workingPublication = workingPublication }}</span>
-            <span>{{ components.{PidManagerPlugin::IGSN}.fields[0]['value'] = JSON.stringify(pidManagerIgsnApp.igsnSClean) }}</span>
-            <span>{{ components.{PidManagerPlugin::IGSN}.action = '{$apiBaseUrl}submissions/' + workingPublication.submissionId + '/publications/' + workingPublication.id }}</span>
-        </div>
-        <div>
-            <span class="pidManager-Hide">{{ pidManagerIgsnApp.saveBtn() }}</span>
-            <pkp-form v-bind="components.{PidManagerPlugin::IGSN}" @set="set"></pkp-form>
-        </div>
-    </div>
+    {*        </div>*}
+    {*    </div>*}
 
+    <div class="footer">
+        <pkp-form v-bind="components.{PidManagerPlugin::IGSN}" @set="set"></pkp-form>
+        <span class="pidManager-Hide">
+        	{{ pidManagerIgsnApp.workingPublication = workingPublication }}
+        	{{ components.{PidManagerPlugin::IGSN}.fields[0]['value'] = JSON.stringify(pidManagerIgsnApp.igsnSClean) }}
+        	{{ components.{PidManagerPlugin::IGSN}.action = '{$apiBaseUrl}submissions/' + workingPublication.submissionId + '/publications/' + workingPublication.id }}
+        	{{ pidManagerIgsnApp.saveBtn() }}
+    	</span>
+    </div>
 </tab>
 
 <script>
@@ -192,14 +187,14 @@
 				}
 				this.igsnS.splice(index, 1);
 			},
-			searchShow: function(index) {
-				this.focusedIndex = index;
+			searchToggle: function(index) {
 				this.searchReset();
-				this.panelVisibilityShowPart('info');
-			},
-			searchHide: function() {
-				this.focusedIndex = -1;
-				this.searchReset();
+				if (this.focusedIndex === index) {
+					this.focusedIndex = -1;
+				} else {
+					this.focusedIndex = index;
+					this.panelVisibilityShowPart('info');
+				}
 			},
 			searchReset: function() {
 				this.searchPhrase = '';

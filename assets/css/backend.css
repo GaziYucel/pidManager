@@ -9,30 +9,45 @@
  * @brief Backend stylesheet for the plugin.
  */
 
-#pidManagerIgsn td {
-    padding: 5px 8px;
-}
-
 #pidManagerIgsn .header {
     max-height: unset;
 }
 
+#pidManagerIgsn .content .pkpButton {
+    height: 40px;
+    width: 40px;
+    line-height: 40px;
+}
+
+#pidManagerIgsn .content table {
+    width: 100%;
+}
+
+#pidManagerIgsn .content td {
+    vertical-align: top;
+}
+
 #pidManagerIgsn .content th.column1 {
     width: 30%;
+    background-color: #f9f9f9;
 }
 
 #pidManagerIgsn .content th.column2 {
+    background-color: #f9f9f9;
 }
 
 #pidManagerIgsn .content th.column3 {
-    width: 88px;
+    width: 86px;
 }
 
-#pidManagerSearchResultsPhrase td {
-    padding: 0;
+#pidManagerIgsn .footer {
+    margin-right: -2rem;
+    margin-left: -2rem;
+    border-bottom: 1px solid #ddd;
 }
-#pidManagerSearchResultsPhrase a {
-    margin-left: 5px;
+
+#pidManagerSearchResultsPhrase table td.column2 {
+    width: 34px;
 }
 
 #pidManagerSearchResultsPhrase input {
@@ -64,7 +79,8 @@
 #pidManagerSearchResults td a {
     display: block;
     cursor: pointer;
-    padding: 5px;
+    padding: 0.3rem;
+    line-height: 1.4rem;
 }
 
 #pidManagerSearchResults td a:hover {
@@ -75,12 +91,12 @@
     display: none !important;
 }
 
-
 /* OJS elements */
-#pidManagerIgsn input[name="igsn"] {
-    display: none;
-}
-
 #pidManagerIgsn .pkpFormField--text__input {
     width: 100%;
+}
+
+#pidManagerIgsn .pkpFormPages .pkpFormPage .pkpFormGroup {
+    display: none;
+    padding: .35em .75em .625em;
 }
