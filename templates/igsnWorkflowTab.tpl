@@ -9,6 +9,7 @@
  * https://schema.datacite.org/meta/kernel-4.5/
  * https://support.datacite.org/docs/api-queries#selecting-which-metadata-fields-to-retrieve
  *}
+
 <link rel="stylesheet" href="{$assetsUrl}/css/backend.css" type="text/css" />
 <link rel="stylesheet" href="{$assetsUrl}/css/frontend.css" type="text/css" />
 

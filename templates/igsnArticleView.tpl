@@ -1,3 +1,13 @@
+{**
+ * templates/igsnArticleView.tpl
+ *
+ * @copyright (c) 2024+ TIB Hannover
+ * @copyright (c) 2024+ Gazi Yücel
+ * @license Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
+ *
+ * IGSN Article View
+ *}
+
 {if $igsnS}
     <section class="item igsn">
         <h2 class="label">
