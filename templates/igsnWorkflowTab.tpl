@@ -16,11 +16,8 @@
 <tab id="pidManagerIgsn" class="pkpTab" role="tabpanel"
      label="{translate key="plugins.generic.pidManager.igsn.label"}">
 
-    {*    <div id="representations-grid" class="">*}
-    {*        <div class="pkp_controllers_grid">*}
-
     <div class="header">
-        <h4>{translate key="plugins.generic.pidManager.igsn.label"}</h4><br>
+        <h4>{translate key="plugins.generic.pidManager.igsn.label"}</h4>
         <span>{translate key="plugins.generic.pidManager.igsn.workflow.description"}</span>
     </div>
 
@@ -114,9 +111,6 @@
             </tbody>
         </table>
     </div>
-
-    {*        </div>*}
-    {*    </div>*}
 
     <div class="footer">
         <pkp-form v-bind="components.{PidManagerPlugin::IGSN}" @set="set"></pkp-form>
@@ -220,7 +214,6 @@
 				});
 			},
 			saveBtn: function() {
-				console.log('saveBtn');
 				if (document.querySelector('#pidManagerIgsn button.pkpButton') !== null) {
 					let saveBtn = document.querySelector('#pidManagerIgsn button.pkpButton');
 					saveBtn.disabled = this.isPublished;
