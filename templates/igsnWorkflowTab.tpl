@@ -40,44 +40,26 @@
                                class="pkpFormField__input pkpFormField--text__input" />
                     </td>
                     <td class="column3">
-                        <a @click="pidManagerIgsnApp.searchToggle(i)" class="pkpButton">
+                        <a @click="pidManagerIgsnApp.apiLookup(i)"
+                           class="pkpButton"
+                           :class="{ 'pidManager-Disabled': pidManagerIgsnApp.isPublished }">
                             <i class="fa fa-search" aria-hidden="true"></i>
                         </a>
-                        <a @click="pidManagerIgsnApp.remove(i)" class="pkpButton">
+                        <a @click="pidManagerIgsnApp.remove(i)" class="pkpButton"
+                           :class="{ 'pidManager-Disabled': pidManagerIgsnApp.isPublished }">
                             <i class="fa fa-trash" aria-hidden="true"></i>
                         </a>
                     </td>
                 </tr>
                 <tr v-if="pidManagerIgsnApp.focusedIndex === i">
-                    <td class="column1">
-                        <div id="pidManagerSearchResultsPhrase">
-                            <table>
-                                <tr>
-                                    <td class="column1">
-                                        <input v-model="pidManagerIgsnApp.searchPhrase" type="text"
-                                               class="pkpFormField__input pkpFormField--text__input"
-                                               placeholder="{translate key="plugins.generic.pidManager.igsn.datacite.searchPhrase.placeholder"}" />
-                                    </td>
-                                    <td class="column2">
-                                        <a @click="pidManagerIgsnApp.apiLookup(i)" class="pkpButton">
-                                            <i class="fa fa-search" aria-hidden="true"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                    </td>
-                    <td class="column2">
+                    <td class="column1" colspan="2">
                         <div id="pidManagerSearchResults">
-                                    <span v-show="pidManagerIgsnApp.panelVisibility.info">
-                                        {translate key="plugins.generic.pidManager.igsn.datacite.info"}
-                                    </span>
+							<span v-show="pidManagerIgsnApp.panelVisibility.info">
+								{translate key="plugins.generic.pidManager.igsn.datacite.info"}</span>
                             <span v-show="pidManagerIgsnApp.panelVisibility.empty">
-                                        {translate key="plugins.generic.pidManager.igsn.datacite.empty"}
-                                    </span>
+								{translate key="plugins.generic.pidManager.igsn.datacite.empty"}</span>
                             <span v-show="pidManagerIgsnApp.panelVisibility.spinner" aria-hidden="true"
-                                  class="pkpSpinner">
-                                    </span>
+                                  class="pkpSpinner"></span>
                             <table v-show="pidManagerIgsnApp.panelVisibility.list">
                                 <tr v-for="(row, j) in pidManagerIgsnApp.searchResults">
                                     <td class="column1">
@@ -95,7 +77,7 @@
                         </div>
                     </td>
                     <td class="column3">
-                        <a @click="pidManagerIgsnApp.searchToggle(i)" class="pkpButton">
+                        <a @click="pidManagerIgsnApp.searchClose()" class="pkpButton">
                             <icon icon="times"></icon>
                         </a>
                     </td>
@@ -103,7 +85,8 @@
             </template>
             <tr>
                 <td colspan="3">
-                    <a class="pkpButton" v-on:click="pidManagerIgsnApp.add()">
+                    <a class="pkpButton" v-on:click="pidManagerIgsnApp.add()"
+                       :class="{ 'pidManager-Disabled': pidManagerIgsnApp.isPublished }">
                         {translate key="plugins.generic.pidManager.igsn.button.add"}
                     </a>
                 </td>
@@ -118,7 +101,7 @@
         	{{ pidManagerIgsnApp.workingPublication = workingPublication }}
         	{{ components.{PidManagerPlugin::IGSN}.fields[0]['value'] = JSON.stringify(pidManagerIgsnApp.igsnSClean) }}
         	{{ components.{PidManagerPlugin::IGSN}.action = '{$apiBaseUrl}submissions/' + workingPublication.submissionId + '/publications/' + workingPublication.id }}
-        	{{ pidManagerIgsnApp.saveBtn() }}
+        	{{ pidManagerIgsnApp.pkpFormConfig() }}
     	</span>
     </div>
 </tab>
@@ -132,7 +115,6 @@
 				focusedIndex: -1,
 				searchResults: [], // [ { 'id': '', 'label': '' }, ... ]
 				panelVisibility: { /**/ info: true, empty: false, spinner: false, list: false},
-				searchPhrase: '',
 				igsnModel: { /**/ 'id': '', 'label': ''},
 				minimumSearchPhraseLength: 3,
 				pendingRequests: new WeakMap(),
@@ -162,16 +144,15 @@
 					isPublished = true;
 				}
 				return isPublished;
-			},
-			searchPhraseUri: function() {
-				let searchPhrase = this.searchPhrase;
-				searchPhrase = searchPhrase.trim();
-				searchPhrase = searchPhrase.replace(/\s\s+/g, ' ');
-				searchPhrase = searchPhrase.replaceAll(' ', '*+*');
-				return searchPhrase;
 			}
 		},
 		methods: {
+			pkpFormConfig: function() {
+				if (document.querySelector('#pidManagerIgsn button.pkpButton') !== null) {
+					let saveBtn = document.querySelector('#pidManagerIgsn button.pkpButton');
+					saveBtn.disabled = this.isPublished;
+				}
+			},
 			add: function() {
 				this.igsnS.push(JSON.parse(JSON.stringify(this.igsnModel)));
 			},
@@ -181,20 +162,14 @@
 				}
 				this.igsnS.splice(index, 1);
 			},
-			searchToggle: function(index) {
-				this.searchReset();
-				if (this.focusedIndex === index) {
-					this.focusedIndex = -1;
-				} else {
-					this.focusedIndex = index;
-					this.panelVisibilityShowPart('info');
-				}
-			},
 			searchReset: function() {
-				this.searchPhrase = '';
 				this.searchResults = [];
 				this.panelVisibilityReset();
 				this.stopPendingRequests();
+			},
+			searchClose: function() {
+				this.searchReset();
+				this.focusedIndex = -1;
 			},
 			select: function(indexIgsnS, indexSearchResults) {
 				this.igsnS[indexIgsnS].id = this.searchResults[indexSearchResults].id;
@@ -205,65 +180,70 @@
 				if (previousController) previousController.abort();
 			},
 			panelVisibilityShowPart: function(part) {
-				this.panelVisibilityReset();
-				this.panelVisibility[part] = true;
-			},
-			panelVisibilityReset: function() {
 				Object.keys(this.panelVisibility).forEach((key) => {
 					this.panelVisibility[key] = false;
 				});
+				this.panelVisibility[part] = true;
 			},
-			saveBtn: function() {
-				if (document.querySelector('#pidManagerIgsn button.pkpButton') !== null) {
-					let saveBtn = document.querySelector('#pidManagerIgsn button.pkpButton');
-					saveBtn.disabled = this.isPublished;
-				}
+			panelVisibilityReset: function() {
+				this.panelVisibility = { /**/ info: true, empty: false, spinner: false, list: false};
 			},
 			apiLookup: function(index) {
+				this.searchReset();
 				this.focusedIndex = index;
-				this.stopPendingRequests();
-
-				if (this.searchPhrase.length < this.minimumSearchPhraseLength) return;
+				let query = '';
+				if (this.igsnS[index].id.length >= this.minimumSearchPhraseLength) {
+					query += 'doi:' + this.getQueryPart(this.igsnS[index].id);
+				}
+				if (this.igsnS[index].label.length >= this.minimumSearchPhraseLength) {
+					if (query.length > 0) query += '&';
+					query += 'titles.title:' + this.getQueryPart(this.igsnS[index].label);
+				}
+				if (query.length === 0) return;
 
 				this.panelVisibilityShowPart('spinner');
 
-				let searchResults = [];
 				const controller = new AbortController();
 				this.pendingRequests.set(this, controller);
 
-				fetch('https://api.datacite.org/dois?query=*' + this.searchPhraseUri + '*', {
+				fetch('https://api.datacite.org/dois?query=' + query + '', {
 					signal: controller.signal
 				})
 					.then(response => response.json())
 					.then(responseData => {
-						let items = responseData.data;
-						items.forEach((item) => {
-							if (this.resourceTypes.includes(
-								item.attributes.types['resourceTypeGeneral'].toLowerCase())
-							) {
-								let label = '';
-								for (let i = 0; i < item.attributes.titles.length; i++) {
-									label = item.attributes.titles[i].title;
-								}
-								let row = {
-									id: item.id, label: label
-								};
-								searchResults.push(row);
-							}
-						});
-						this.searchResults = searchResults;
-
+						this.setSearchResults(responseData.data);
 						this.panelVisibilityShowPart('list');
 						if (this.searchResults.length === 0) this.panelVisibilityShowPart('empty');
 					})
 					.catch(error => {
-						if (error.name === 'AbortError') {
-							console.log(error.name);
-							return;
-						}
+						if (error.name === 'AbortError') return;
 						console.log(error);
 					});
-
+			},
+			getQueryPart: function(query) {
+				query = query.trim();
+				query = query.replace(/\s\s+/g, ' ');
+				query = query.replaceAll(' ', '*+*');
+				query = '*' + query + '*';
+				return query;
+			},
+			setSearchResults: function(items) {
+				let searchResults = [];
+				items.forEach((item) => {
+					if (this.resourceTypes.includes(
+						item.attributes.types['resourceTypeGeneral'].toLowerCase())
+					) {
+						let label = '';
+						for (let i = 0; i < item.attributes.titles.length; i++) {
+							label = item.attributes.titles[i].title;
+						}
+						let row = {
+							id: item.id, label: label
+						};
+						searchResults.push(row);
+					}
+				});
+				this.searchResults = searchResults;
 			}
 		},
 		watch: {

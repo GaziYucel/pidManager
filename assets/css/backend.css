@@ -63,7 +63,7 @@
 
 #pidManagerSearchResults span {
     display: inline-block;
-    padding-top: 6%;
+    padding-top: 30px;
     width: 100%;
     text-align: center;
 }
@@ -85,6 +85,12 @@
 
 #pidManagerSearchResults td a:hover {
     background-color: #f1f1f1;
+}
+
+.pidManager-Disabled {
+    pointer-events: none;
+    cursor: default;
+    opacity: 0.6;
 }
 
 .pidManager-Hide {
