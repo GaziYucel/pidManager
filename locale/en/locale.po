@@ -17,20 +17,25 @@ msgstr "PID Manager Plugin"
 msgid "plugins.generic.pidManager.description"
 msgstr "Plugin for managing Persistent Identifiers (PIDs) and depositing to external services."
 
-msgid "plugins.generic.pidManager.igsn.name"
+msgid "plugins.generic.pidManager.igsn.workflow.name"
 msgstr "IGSN"
 
-msgid "plugins.generic.pidManager.igsn.label"
+msgid "plugins.generic.pidManager.igsn.workflow.label"
 msgstr "IGSN"
-
-msgid "plugins.generic.pidManager.igsn.description"
-msgstr "The International Generic Sample Number or IGSN is a persistent identifier for samples. Learn more at <a href=\"https://igsn.org\" target=\"_blank\">igsn.org</a>."
 
 msgid "plugins.generic.pidManager.igsn.workflow.description"
-msgstr "Persistent Identifier for samples. Learn more at <a href=\"https://igsn.org\" target=\"_blank\">igsn.org</a>."
+msgstr "The International Generic Sample Number or IGSN is a persistent identifier for samples. "
+"Learn more at <a href=\"https://igsn.org\" target=\"_blank\">igsn.org</a>. "
+"If you want to search on DataCite, fill your search phrase at PID and or label and click on the search button."
+
+msgid "plugins.generic.pidManager.igsn.workflow.table.pid"
+msgstr "PID"
+
+msgid "plugins.generic.pidManager.igsn.workflow.table.label"
+msgstr "Label"
 
 msgid "plugins.generic.pidManager.igsn.button.add"
-msgstr "Add"
+msgstr "Add new row"
 
 msgid "plugins.generic.pidManager.igsn.button.remove.confirm"
 msgstr "Are you sure you want to remove?"
