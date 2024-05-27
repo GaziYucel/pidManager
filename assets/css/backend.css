@@ -15,7 +15,7 @@
 
 #pidManagerIgsn .content .pkpButton {
     height: 40px;
-    width: 40px;
+    min-width: 40px;
     line-height: 40px;
 }
 
@@ -57,13 +57,13 @@
 #pidManagerSearchResults {
     background-color: #fafafa;
     border: 1px solid #ccc;
-    height: 100px;
+    height: 150px;
     overflow-y: scroll;
 }
 
 #pidManagerSearchResults span {
     display: inline-block;
-    padding-top: 30px;
+    padding-top: 60px;
     width: 100%;
     text-align: center;
 }
@@ -95,6 +95,10 @@
 
 .pidManager-Hide {
     display: none !important;
+}
+
+.pidManager-Strikethrough {
+    text-decoration: line-through;
 }
 
 /* OJS elements */
