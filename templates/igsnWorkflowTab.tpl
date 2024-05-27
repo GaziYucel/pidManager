@@ -14,18 +14,18 @@
 <link rel="stylesheet" href="{$assetsUrl}/css/frontend.css" type="text/css" />
 
 <tab id="pidManagerIgsn" class="pkpTab" role="tabpanel"
-     label="{translate key="plugins.generic.pidManager.igsn.label"}">
+     label="{translate key="plugins.generic.pidManager.igsn.workflow.name"}">
 
     <div class="header">
-        <h4>{translate key="plugins.generic.pidManager.igsn.label"}</h4>
+        <h4>{translate key="plugins.generic.pidManager.igsn.workflow.label"}</h4>
         <span>{translate key="plugins.generic.pidManager.igsn.workflow.description"}</span>
     </div>
 
     <div class="content">
         <table>
             <tr>
-                <th class="grid-column column1">Id</th>
-                <th class="grid-column column2">Label</th>
+                <th class="grid-column column1">{translate key="plugins.generic.pidManager.igsn.workflow.table.pid"}</th>
+                <th class="grid-column column2">{translate key="plugins.generic.pidManager.igsn.workflow.table.label"}</th>
                 <th class="grid-column column3"></th>
             </tr>
             <tbody>
@@ -68,7 +68,8 @@
                                         </a>
                                     </td>
                                     <td class="column2">
-                                        <a @click.prevent="pidManagerIgsnApp.select(i, j)">
+                                        <a @click.prevent="pidManagerIgsnApp.select(i, j)"
+                                           :class="{ 'pidManager-Strikethrough': row.exists }">
                                             {{ row.label }} [{{ row.id }}]
                                         </a>
                                     </td>
@@ -126,13 +127,13 @@
 			igsnSClean: function() {
 				let result = JSON.parse(JSON.stringify(this.igsnS));
 				for (let i = 0; i < result.length; i++) {
-					let rowIsNull = true;
+					let rowIsEmpty = true;
 					for (let key in result[i]) {
 						if (result[i][key] !== null && result[i][key].length > 0) {
-							rowIsNull = false;
+							rowIsEmpty = false;
 						}
 					}
-					if (rowIsNull === true) {
+					if (rowIsEmpty === true) {
 						result.splice(i);
 					}
 				}
@@ -234,13 +235,17 @@
 						item.attributes.types['resourceTypeGeneral'].toLowerCase())
 					) {
 						let label = '';
+						let exists = false;
+
 						for (let i = 0; i < item.attributes.titles.length; i++) {
 							label = item.attributes.titles[i].title;
 						}
-						let row = {
-							id: item.id, label: label
-						};
-						searchResults.push(row);
+
+						for (let i = 0; i < this.igsnS.length; i++) {
+							if (this.igsnS[i].id === item.id) exists = true;
+						}
+
+						searchResults.push({ /**/ id: item.id, label: label, exists: exists});
 					}
 				});
 				this.searchResults = searchResults;
