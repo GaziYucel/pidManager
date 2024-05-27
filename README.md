@@ -6,7 +6,7 @@ PID Manager for OJS
 
 - [PID Manager Manager Plugin](#pid-manager-plugin)
 - [Features](#features)
-    - [Feature 1](#feature-1)
+    - [IGSN](#igsn)
 - [Screenshot(s) / screen recording(s)](#screenshots--screen-recordings)
 - [Install and configure the plugin](#install-and-configure-the-plugin)
     - [Requirements](#requirements)
@@ -29,19 +29,15 @@ PID Manager for OJS
 
 # Features
 
-## Feature 1
+## IGSN
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam accumsan aliquet orci
-eu ultricies. Curabitur accumsan varius nibh ut sollicitudin. Duis lacus metus,
-rhoncus a suscipit vitae, consectetur quis nunc. Quisque nunc dolor, dignissim quis
-justo in, porttitor lacinia quam. Donec ac lorem vel neque egestas viverra. Sed
-lobortis maximus molestie. Aliquam luctus augue volutpat turpis feugiat, a condimentum
-elit volutpat. Nulla scelerisque leo lobortis, scelerisque eros nec, porta ligula.
-Sed mi ligula, congue nec erat in, cursus molestie erat.
+- Manual adding sample PIDs and labels
+- Allows suggesting PIDs and Labels from DataCite
+- Marks samples already added with text strike through
 
 # Screenshot(s) / screen recording(s)
 
-![screen recording workflowTab.gif](.assets/images/komet_logo_full_bg_white.png)
+![igsn-screenrecording.gif](.project/screenrecordings/igsn-screenrecording.gif)
 
 # Install and configure the plugin
 
