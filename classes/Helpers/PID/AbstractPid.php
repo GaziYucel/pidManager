@@ -10,7 +10,7 @@
  * @brief AbstractPid class
  */
 
-namespace APP\plugins\generic\pidManager\classes\PID;
+namespace APP\plugins\generic\pidManager\classes\Helpers\PID;
 
 abstract class AbstractPid
 {

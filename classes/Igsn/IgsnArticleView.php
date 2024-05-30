@@ -12,7 +12,7 @@
 
 namespace APP\plugins\generic\pidManager\classes\Igsn;
 
-use APP\plugins\generic\pidManager\classes\PID\Doi;
+use APP\plugins\generic\pidManager\classes\Helpers\PID\Doi;
 use APP\plugins\generic\pidManager\PidManagerPlugin;
 use APP\template\TemplateManager;
 

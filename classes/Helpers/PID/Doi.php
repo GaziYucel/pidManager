@@ -12,7 +12,7 @@
  * https://www.crossref.org/blog/dois-and-matching-regular-expressions/
  */
 
-namespace APP\plugins\generic\pidManager\classes\PID;
+namespace APP\plugins\generic\pidManager\classes\Helpers\PID;
 
 class Doi extends AbstractPid
 {

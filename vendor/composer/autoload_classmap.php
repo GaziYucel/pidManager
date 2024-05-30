@@ -6,6 +6,8 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'APP\\plugins\\generic\\pidManager\\classes\\Helpers\\PID\\AbstractPid' => $baseDir . '/classes/Helpers/PID/AbstractPid.php',
+    'APP\\plugins\\generic\\pidManager\\classes\\Helpers\\PID\\Doi' => $baseDir . '/classes/Helpers/PID/Doi.php',
     'APP\\plugins\\generic\\pidManager\\classes\\Igsn\\IgsnArticleView' => $baseDir . '/classes/Igsn/IgsnArticleView.php',
     'APP\\plugins\\generic\\pidManager\\classes\\Igsn\\IgsnConstants' => $baseDir . '/classes/Igsn/IgsnConstants.php',
     'APP\\plugins\\generic\\pidManager\\classes\\Igsn\\IgsnDao' => $baseDir . '/classes/Igsn/IgsnDao.php',
@@ -13,7 +15,5 @@ return array(
     'APP\\plugins\\generic\\pidManager\\classes\\Igsn\\IgsnSchema' => $baseDir . '/classes/Igsn/IgsnSchema.php',
     'APP\\plugins\\generic\\pidManager\\classes\\Igsn\\IgsnWorkflowForm' => $baseDir . '/classes/Igsn/IgsnWorkflowForm.php',
     'APP\\plugins\\generic\\pidManager\\classes\\Igsn\\IgsnWorkflowTab' => $baseDir . '/classes/Igsn/IgsnWorkflowTab.php',
-    'APP\\plugins\\generic\\pidManager\\classes\\PID\\AbstractPid' => $baseDir . '/classes/PID/AbstractPid.php',
-    'APP\\plugins\\generic\\pidManager\\classes\\PID\\Doi' => $baseDir . '/classes/PID/Doi.php',
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
 );
