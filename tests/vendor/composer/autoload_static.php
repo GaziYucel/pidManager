@@ -16,7 +16,6 @@ class ComposerStaticInitd129e47fcb8ccfa4857a7e42930b1cc8
         'APP\\plugins\\generic\\pidManager\\classes\\Igsn\\IgsnWorkflowTab' => __DIR__ . '/../..' . '/../classes/Igsn/IgsnWorkflowTab.php',
         'APP\\plugins\\generic\\pidManager\\classes\\PID\\AbstractPid' => __DIR__ . '/../..' . '/../classes/PID/AbstractPid.php',
         'APP\\plugins\\generic\\pidManager\\classes\\PID\\Doi' => __DIR__ . '/../..' . '/../classes/PID/Doi.php',
-        'APP\\plugins\\generic\\pidManager\\classes\\PID\\Handle' => __DIR__ . '/../..' . '/../classes/PID/Handle.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
     );
 

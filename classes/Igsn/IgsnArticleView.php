@@ -13,7 +13,6 @@
 namespace APP\plugins\generic\pidManager\classes\Igsn;
 
 use APP\plugins\generic\pidManager\classes\PID\Doi;
-use APP\plugins\generic\pidManager\classes\PID\Handle;
 use APP\plugins\generic\pidManager\PidManagerPlugin;
 use APP\template\TemplateManager;
 
@@ -43,18 +42,10 @@ class IgsnArticleView
         $igsnDao = new IgsnDao();
         $igsnS = $igsnDao->getIgsns($templateMgr->getTemplateVars('currentPublication'));
 
-        $url = "<a href='{prefix}/{id}' target='_blank'>{id}</a>";
-
         for ($i = 0; $i < count($igsnS); $i++) {
-            $id = $igsnS[$i]->id;
-            if (!empty(Doi::extractFromString($id))) {
-                $id = Doi::removePrefix($id);
-                $id = str_replace(['{prefix}', '{id}'], [Doi::prefix, $id], $url);
-            } else if (!empty(Handle::extractFromString($id))) {
-                $id = Handle::removePrefix($id);
-                $id = str_replace(['{prefix}', '{id}'], [Handle::prefix, $id], $url);
-            }
-            $igsnS[$i]->id = $id;
+            $id = Doi::removePrefix($igsnS[$i]->id);
+            $prefix = Doi::prefix;
+            $igsnS[$i]->id = "<a href='$prefix/$id' target='_blank'>$id</a>";
         }
 
         $templateParameters = ['igsnS' => $igsnS];

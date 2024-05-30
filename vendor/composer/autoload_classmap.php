@@ -15,6 +15,5 @@ return array(
     'APP\\plugins\\generic\\pidManager\\classes\\Igsn\\IgsnWorkflowTab' => $baseDir . '/classes/Igsn/IgsnWorkflowTab.php',
     'APP\\plugins\\generic\\pidManager\\classes\\PID\\AbstractPid' => $baseDir . '/classes/PID/AbstractPid.php',
     'APP\\plugins\\generic\\pidManager\\classes\\PID\\Doi' => $baseDir . '/classes/PID/Doi.php',
-    'APP\\plugins\\generic\\pidManager\\classes\\PID\\Handle' => $baseDir . '/classes/PID/Handle.php',
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
 );
