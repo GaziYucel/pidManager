@@ -6,12 +6,13 @@
  * @license Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
  *
  * IGSN tab
+ *
  * https://schema.datacite.org/meta/kernel-4.5/
  * https://support.datacite.org/docs/api-queries#selecting-which-metadata-fields-to-retrieve
  *}
 
-<link rel="stylesheet" href="{$assetsUrl}/css/backend.css" type="text/css" />
-<link rel="stylesheet" href="{$assetsUrl}/css/frontend.css" type="text/css" />
+<link rel="stylesheet" href="{$assetsUrl}/css/backend.css" type="text/css"/>
+<link rel="stylesheet" href="{$assetsUrl}/css/frontend.css" type="text/css"/>
 
 <tab id="pidManagerIgsn" class="pkpTab" role="tabpanel"
      label="{translate key="plugins.generic.pidManager.igsn.workflow.name"}">
@@ -24,20 +25,26 @@
     <div class="content">
         <table>
             <tr>
-                <th class="grid-column column1">{translate key="plugins.generic.pidManager.igsn.workflow.table.pid"}</th>
-                <th class="grid-column column2">{translate key="plugins.generic.pidManager.igsn.workflow.table.label"}</th>
-                <th class="grid-column column3"></th>
+                <th class="grid-column column1">
+                    <span>{translate key="plugins.generic.pidManager.igsn.workflow.table.pid"}</span>
+                </th>
+                <th class="grid-column column2">
+                    <span>{translate key="plugins.generic.pidManager.igsn.workflow.table.label"}</span>
+                </th>
+                <th class="grid-column column3">
+                    &nbsp;
+                </th>
             </tr>
             <tbody>
             <template v-for="(igsn, i) in pidManagerIgsnApp.igsnS" class="pidManager-Row">
                 <tr>
                     <td class="column1">
                         <input v-model="igsn.id" type="text"
-                               class="pkpFormField__input pkpFormField--text__input" />
+                               class="pkpFormField__input pkpFormField--text__input"/>
                     </td>
                     <td class="column2">
                         <input v-model="igsn.label" type="text"
-                               class="pkpFormField__input pkpFormField--text__input" />
+                               class="pkpFormField__input pkpFormField--text__input"/>
                     </td>
                     <td class="column3">
                         <a @click="pidManagerIgsnApp.apiLookup(i)"
@@ -108,161 +115,157 @@
 </tab>
 
 <script>
-	let pidManagerIgsnApp = new pkp.Vue({
-		data() {
-			return {
-				resourceTypes: ['dataset'],
-				igsnS: {$igsnS},
-				focusedIndex: -1,
-				searchResults: [], // [ { 'id': '', 'label': '' }, ... ]
-				panelVisibility: { /**/ info: true, empty: false, spinner: false, list: false},
-				igsnModel: { /**/ 'id': '', 'label': ''},
-				minimumSearchPhraseLength: 3,
-				pendingRequests: new WeakMap(),
-				publication: { /**/ id: 0},
-				workingPublication: { /**/ id: 0} // workingPublication
-			};
-		},
-		computed: {
-			igsnSClean: function() {
-				let result = JSON.parse(JSON.stringify(this.igsnS));
-				for (let i = 0; i < result.length; i++) {
-					let rowIsEmpty = true;
-					for (let key in result[i]) {
-						if (result[i][key] !== null && result[i][key].length > 0) {
-							rowIsEmpty = false;
-						}
-					}
-					if (rowIsEmpty === true) {
-						result.splice(i);
-					}
-				}
-				return result;
-			},
-			isPublished: function() {
-				let isPublished = false;
-				if (pkp.const.STATUS_PUBLISHED === this.workingPublication.status) {
-					isPublished = true;
-				}
-				return isPublished;
-			}
-		},
-		methods: {
-			pkpFormConfig: function() {
-				if (document.querySelector('#pidManagerIgsn button.pkpButton') !== null) {
-					let saveBtn = document.querySelector('#pidManagerIgsn button.pkpButton');
-					saveBtn.disabled = this.isPublished;
-				}
-			},
-			add: function() {
-				this.igsnS.push(JSON.parse(JSON.stringify(this.igsnModel)));
-			},
-			remove: function(index) {
-				if (confirm('{translate key="plugins.generic.pidManager.igsn.button.remove.confirm"}') !== true) {
-					return;
-				}
-				this.igsnS.splice(index, 1);
-			},
-			searchReset: function() {
-				this.searchResults = [];
-				this.panelVisibilityReset();
-				this.stopPendingRequests();
-			},
-			searchClose: function() {
-				this.searchReset();
-				this.focusedIndex = -1;
-			},
-			select: function(indexIgsnS, indexSearchResults) {
-				this.igsnS[indexIgsnS].id = this.searchResults[indexSearchResults].id;
-				this.igsnS[indexIgsnS].label = this.searchResults[indexSearchResults].label;
-			},
-			stopPendingRequests: function() {
-				const previousController = this.pendingRequests.get(this);
-				if (previousController) previousController.abort();
-			},
-			panelVisibilityShowPart: function(part) {
-				Object.keys(this.panelVisibility).forEach((key) => {
-					this.panelVisibility[key] = false;
-				});
-				this.panelVisibility[part] = true;
-			},
-			panelVisibilityReset: function() {
-				this.panelVisibility = { /**/ info: true, empty: false, spinner: false, list: false};
-			},
-			apiLookup: function(index) {
-				this.searchReset();
-				this.focusedIndex = index;
-				let query = '';
-				if (this.igsnS[index].id.length >= this.minimumSearchPhraseLength) {
-					query += 'doi:' + this.getQueryPart(this.igsnS[index].id);
-				}
-				if (this.igsnS[index].label.length >= this.minimumSearchPhraseLength) {
-					if (query.length > 0) query += '&';
-					query += 'titles.title:' + this.getQueryPart(this.igsnS[index].label);
-				}
-				if (query.length === 0) return;
+    let pidManagerIgsnApp = new pkp.Vue({
+        data() {
+            return {
+                igsnS: {$igsnS},
+                focusedIndex: -1,
+                searchResults: [], // [ { 'id': '', 'label': '' }, ... ]
+                panelVisibility: { /**/ info: true, empty: false, spinner: false, list: false},
+                igsnModel: { /**/ 'id': '', 'label': ''},
+                minimumSearchPhraseLength: 3,
+                pendingRequests: new WeakMap(),
+                publication: { /**/ id: 0},
+                workingPublication: { /**/ id: 0}, // workingPublication
+                apiBaseQuery: '?fields[dois]=titles&query=relatedIdentifiers.relatedIdentifierType:IGSN AND types.resourceTypeGeneral:PhysicalObject'
+            };
+        },
+        computed: {
+            igsnSClean: function () {
+                let result = JSON.parse(JSON.stringify(this.igsnS));
+                for (let i = 0; i < result.length; i++) {
+                    let rowIsEmpty = true;
+                    for (let key in result[i]) {
+                        if (result[i][key] !== null && result[i][key].length > 0) {
+                            rowIsEmpty = false;
+                        }
+                    }
+                    if (rowIsEmpty === true) {
+                        result.splice(i);
+                    }
+                }
+                return result;
+            },
+            isPublished: function () {
+                let isPublished = false;
+                if (pkp.const.STATUS_PUBLISHED === this.workingPublication.status) {
+                    isPublished = true;
+                }
+                return isPublished;
+            }
+        },
+        methods: {
+            pkpFormConfig: function () {
+                if (document.querySelector('#pidManagerIgsn button.pkpButton') !== null) {
+                    let saveBtn = document.querySelector('#pidManagerIgsn button.pkpButton');
+                    saveBtn.disabled = this.isPublished;
+                }
+            },
+            add: function () {
+                this.igsnS.push(JSON.parse(JSON.stringify(this.igsnModel)));
+            },
+            remove: function (index) {
+                if (confirm('{translate key="plugins.generic.pidManager.igsn.button.remove.confirm"}') !== true) {
+                    return;
+                }
+                this.igsnS.splice(index, 1);
+            },
+            searchReset: function () {
+                this.searchResults = [];
+                this.panelVisibilityReset();
+                this.stopPendingRequests();
+            },
+            searchClose: function () {
+                this.searchReset();
+                this.focusedIndex = -1;
+            },
+            select: function (indexIgsnS, indexSearchResults) {
+                this.igsnS[indexIgsnS].id = this.searchResults[indexSearchResults].id;
+                this.igsnS[indexIgsnS].label = this.searchResults[indexSearchResults].label;
+            },
+            stopPendingRequests: function () {
+                const previousController = this.pendingRequests.get(this);
+                if (previousController) previousController.abort();
+            },
+            panelVisibilityShowPart: function (part) {
+                Object.keys(this.panelVisibility).forEach((key) => {
+                    this.panelVisibility[key] = false;
+                });
+                this.panelVisibility[part] = true;
+            },
+            panelVisibilityReset: function () {
+                this.panelVisibility = { /**/ info: true, empty: false, spinner: false, list: false};
+            },
+            apiLookup: function (index) {
+                this.searchReset();
+                this.focusedIndex = index;
+                let query = '';
+                if (this.igsnS[index].id.length >= this.minimumSearchPhraseLength) {
+                    query += ' AND id:' + this.getQueryPart(this.igsnS[index].id);
+                }
+                if (this.igsnS[index].label.length >= this.minimumSearchPhraseLength) {
+                    query += ' AND titles.title:' + this.getQueryPart(this.igsnS[index].label);
+                }
+                if (query.length === 0) return;
 
-				this.panelVisibilityShowPart('spinner');
+                this.panelVisibilityShowPart('spinner');
 
-				const controller = new AbortController();
-				this.pendingRequests.set(this, controller);
+                const controller = new AbortController();
+                this.pendingRequests.set(this, controller);
 
-				fetch('https://api.datacite.org/dois?query=' + query + '', {
-					signal: controller.signal
-				})
-					.then(response => response.json())
-					.then(responseData => {
-						this.setSearchResults(responseData.data);
-						this.panelVisibilityShowPart('list');
-						if (this.searchResults.length === 0) this.panelVisibilityShowPart('empty');
-					})
-					.catch(error => {
-						if (error.name === 'AbortError') return;
-						console.log(error);
-					});
-			},
-			getQueryPart: function(query) {
-				query = query.trim();
-				query = query.replace(/\s\s+/g, ' ');
-				query = query.replaceAll(' ', '*+*');
-				query = '*' + query + '*';
-				return query;
-			},
-			setSearchResults: function(items) {
-				let searchResults = [];
-				items.forEach((item) => {
-					if (this.resourceTypes.includes(
-						item.attributes.types['resourceTypeGeneral'].toLowerCase())
-					) {
-						let label = '';
-						let exists = false;
+                fetch('https://api.datacite.org/dois' + this.apiBaseQuery + query + '', {
+                    signal: controller.signal
+                })
+                    .then(response => response.json())
+                    .then(responseData => {
+                        this.setSearchResults(responseData.data);
+                        this.panelVisibilityShowPart('list');
+                        if (this.searchResults.length === 0) this.panelVisibilityShowPart('empty');
+                    })
+                    .catch(error => {
+                        if (error.name === 'AbortError') return;
+                        console.log(error);
+                    });
+            },
+            getQueryPart: function (query) {
+                query = query.trim();
+                query = query.replace(/[.,\/#!$%^&*;:{}=\-_`~()—+]/g, ' ');
+                query = query.replace(/\s\s+/g, ' ');
+                query = query.replaceAll(' ', '*+*');
+                query = '*' + query + '*';
+                return query;
+            },
+            setSearchResults: function (items) {
+                let searchResults = [];
+                items.forEach((item) => {
+                    let label = '';
+                    let exists = false;
 
-						for (let i = 0; i < item.attributes.titles.length; i++) {
-							label = item.attributes.titles[i].title;
-						}
+                    for (let i = 0; i < item.attributes.titles.length; i++) {
+                        label = item.attributes.titles[i].title;
+                    }
 
-						for (let i = 0; i < this.igsnS.length; i++) {
-							if (this.igsnS[i].id === item.id) exists = true;
-						}
+                    for (let i = 0; i < this.igsnS.length; i++) {
+                        if (this.igsnS[i].id === item.id) exists = true;
+                    }
 
-						searchResults.push({ /**/ id: item.id, label: label, exists: exists});
-					}
-				});
-				this.searchResults = searchResults;
-			}
-		},
-		watch: {
-			workingPublication(newValue, oldValue) {
-				if (newValue !== oldValue) {
-					this.publication = this.workingPublication;
-					console.log('pidManagerIgsn:workingPublication: ' + oldValue['id'] + ' > ' + newValue['id']);
-				}
-			}
-		},
-		created() {
-			if (this.igsnS.length === 0) {
-				this.igsnS.push(JSON.parse(JSON.stringify(this.igsnModel)));
-			}
-		}
-	});
+                    searchResults.push({ /**/ id: item.id, label: label, exists: exists});
+                });
+                this.searchResults = searchResults;
+            }
+        },
+        watch: {
+            workingPublication(newValue, oldValue) {
+                if (newValue !== oldValue) {
+                    this.publication = this.workingPublication;
+                    console.log('pidManagerIgsn:workingPublication: ' + oldValue['id'] + ' > ' + newValue['id']);
+                }
+            }
+        },
+        created() {
+            if (this.igsnS.length === 0) {
+                this.igsnS.push(JSON.parse(JSON.stringify(this.igsnModel)));
+            }
+        }
+    });
 </script>
