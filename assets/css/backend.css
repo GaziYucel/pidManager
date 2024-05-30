@@ -13,6 +13,10 @@
     max-height: unset;
 }
 
+#pidManagerIgsn .content {
+    padding-top: 1rem;
+}
+
 #pidManagerIgsn .content .pkpButton {
     height: 40px;
     min-width: 40px;
@@ -29,15 +33,19 @@
 
 #pidManagerIgsn .content th.column1 {
     width: 30%;
-    background-color: #f9f9f9;
 }
 
 #pidManagerIgsn .content th.column2 {
-    background-color: #f9f9f9;
 }
 
 #pidManagerIgsn .content th.column3 {
     width: 86px;
+}
+
+#pidManagerIgsn .content th span {
+    display: block;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
 }
 
 #pidManagerIgsn .footer {
