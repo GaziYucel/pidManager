@@ -24,9 +24,10 @@ msgid "plugins.generic.pidManager.igsn.workflow.label"
 msgstr "IGSN"
 
 msgid "plugins.generic.pidManager.igsn.workflow.description"
-msgstr "The International Generic Sample Number or IGSN is a persistent identifier for samples. "
-"Learn more at <a href=\"https://igsn.org\" target=\"_blank\">igsn.org</a>. "
-"If you want to search on DataCite, fill your search phrase at PID and or label and click on the search button."
+msgstr "The International Generic Sample Number (IGSN) is a persistent identifier, which is a code "
+"that uniquely identifies physical samples from our natural environment and related features-of-interest. "
+"Learn more at <a href=\"https://igsn.org\" target=\"_blank\">igsn.org</a>. <br/>"
+"If you want to search for an IGSN, fill your search phrase at PID and or Label and click on the search button."
 
 msgid "plugins.generic.pidManager.igsn.workflow.table.pid"
 msgstr "PID"
