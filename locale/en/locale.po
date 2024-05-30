@@ -32,6 +32,9 @@ msgstr "The International Generic Sample Number (IGSN) is a persistent identifie
 "Learn more at <a href=\"https://igsn.org\" target=\"_blank\">igsn.org</a>. <br/>"
 "If you want to search for an IGSN, fill your search phrase at PID and or Label and click on the search button."
 
+msgid "plugins.generic.pidManager.igsn.workflow.empty"
+msgstr "There are no IGSNs found for this publication."
+
 msgid "plugins.generic.pidManager.igsn.workflow.table.pid"
 msgstr "PID"
 

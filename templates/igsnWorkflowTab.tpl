@@ -91,12 +91,21 @@
                     </td>
                 </tr>
             </template>
+            <tr v-show="pidManagerIgsnApp.igsnS.length === 0">
+                <td colspan="3">
+                    <p>
+                        {translate key="plugins.generic.pidManager.igsn.workflow.empty"}
+                    </p>
+                </td>
+            </tr>
             <tr>
                 <td colspan="3">
-                    <a class="pkpButton" v-on:click="pidManagerIgsnApp.add()"
-                       :class="{ 'pidManager-Disabled': pidManagerIgsnApp.isPublished }">
-                        {translate key="plugins.generic.pidManager.igsn.button.add"}
-                    </a>
+                    <p>
+                        <a class="pkpButton" v-on:click="pidManagerIgsnApp.add()"
+                           v-show="!pidManagerIgsnApp.isPublished">
+                            {translate key="plugins.generic.pidManager.igsn.button.add"}
+                        </a>
+                    </p>
                 </td>
             </tr>
             </tbody>
@@ -109,7 +118,7 @@
         	{{ pidManagerIgsnApp.workingPublication = workingPublication }}
         	{{ components.{PidManagerPlugin::IGSN}.fields[0]['value'] = JSON.stringify(pidManagerIgsnApp.igsnSClean) }}
         	{{ components.{PidManagerPlugin::IGSN}.action = '{$apiBaseUrl}submissions/' + workingPublication.submissionId + '/publications/' + workingPublication.id }}
-        	{{ pidManagerIgsnApp.pkpFormConfig() }}
+        	{{ pidManagerIgsnApp.configure() }}
     	</span>
     </div>
 </tab>
@@ -155,7 +164,7 @@
             }
         },
         methods: {
-            pkpFormConfig: function () {
+            configure: function () {
                 if (document.querySelector('#pidManagerIgsn button.pkpButton') !== null) {
                     let saveBtn = document.querySelector('#pidManagerIgsn button.pkpButton');
                     saveBtn.disabled = this.isPublished;
@@ -260,11 +269,6 @@
                     this.publication = this.workingPublication;
                     console.log('pidManagerIgsn:workingPublication: ' + oldValue['id'] + ' > ' + newValue['id']);
                 }
-            }
-        },
-        created() {
-            if (this.igsnS.length === 0) {
-                this.igsnS.push(JSON.parse(JSON.stringify(this.igsnModel)));
             }
         }
     });
