@@ -49,14 +49,13 @@ PID Manager for OJS
 
 Get the correct version for your OJS version:
 
-- branch stable-3_3_0: use this version for OJS version 3.3.0.x
-  `git clone -b stable-3_3_0 https://github.com/TIBHannover/pidManager`
+- branch main: development version, don't use for production
 - branch stable-3_4_0: use this version for OJS version 3.4.0.x
-  `git clone -b stable-3_4_0 https://github.com/TIBHannover/pidManager`
+- branch stable-3_5_0: use this version for OJS version 3.5.0.x
 
 ## Install via direct download
 
-- Download release for your OJS version from [here](https://github.com/TIBHannover/pidManager/releases).
+- Download release for your OJS version from [here](https://github.com/GaziYucel/pidManager/releases).
   _Note the correct version for you OJS version._
 - Alternatively, download the code with the option 'Download ZIP'.
   _Note the correct branch for your OJS version._
@@ -67,9 +66,6 @@ Get the correct version for your OJS version:
 - Login in your OJS instance as an Administrator or Manager
 - Navigate to Website > Plugins > Installed Plugins > Generic Plugins > PID Manager Plugin
     - Activate the plugin by clicking the checkbox
-- Click on the arrow at the left and click "Settings"
-- Fill in the form ...
-- Click Save
 
 # Development
 
@@ -78,10 +74,8 @@ Get the correct version for your OJS version:
     .
     ├─ assets                        # Styles, images, javascript files
     ├─ classes                       # Main folder with models / logic
-    │  ├─ Handlers                   # Handlers, e.g. Outbound, Inbound, API
-    │  ├─ Helpers                    # Helper classes
-    │  ├─ Settings                   # Settings classes
-    │  └─ Workflow                   # Classes or the workflow and submission wizard
+    │  ├─ Igsn                       # Classes for IGSN
+    │  └─ PID                        # PID helper classes
     ├─ docs                          # Documentation, examples
     ├─ locale                        # Language files
     ├─ templates                     # Templates folder
@@ -92,7 +86,6 @@ Get the correct version for your OJS version:
     ├─ vendor                        # Composer autoload and dependencies
     ├─ .gitignore                    # Git ignore file
     ├─ composer.json                 # Composer configuration file
-    ├─ index.php                     # Entry point plugin (ojs version 3.3.0)
     ├─ LICENSE                       # License file
     ├─ PidManagerPlugin.php          # Main class of plugin
     ├─ README.md                     # This file
@@ -117,6 +110,7 @@ Debug information is written to the log file in the `files_dir` directory of you
 You can find the `files_dir` constant in your config.inc.php file.
 
 Please put the following in the file config.inc.php to enable this:
+
 ```
 [PidManagerPlugin]
 isDebugMode=true
@@ -139,6 +133,7 @@ First the classes in `tests/classes/` are loaded, after which the classes in `cl
 By doing this in this order, all classes present in `tests/classes/` will override the classes in `classes/`.
 
 Please put the following in the file config.inc.php to enable this:
+
 ```
 [PidManagerPlugin]
 isTestMode=true
@@ -146,14 +141,21 @@ isTestMode=true
 
 # Data models
 
-## Metadata of OJS models
+## IGSN
 
-**MetadataPublication**
+De IGSNs are saved in the publication_settings as an array of IGSN data models. 
 
-| name            | description                            |
-|-----------------|----------------------------------------|
-| openAlexId      | The OpenAlex ID of the work            |
-| wikidataId      | The Wikidata QID of the work           |
+| name  | description                         |
+|-------|-------------------------------------|
+| id   | Persistent identifier of the sample |
+| label | Label of the sample                 |
+
+```
+[
+  { 'id': '10.58031/kiel0188gczz101', 'label': 'Sediment core SO257_1-5' },
+  { 'id': '10.58031/kiel0188gczi201', 'label': 'Sediment core SO257_6-2' },
+]
+```
 
 # Contribute
 
