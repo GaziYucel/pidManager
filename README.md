@@ -65,7 +65,7 @@ Get the correct version for your OJS version:
 
 - Login in your OJS instance as an Administrator or Manager
 - Navigate to Website > Plugins > Installed Plugins > Generic Plugins > PID Manager Plugin
-    - Activate the plugin by clicking the checkbox
+- Activate the plugin by clicking the checkbox
 
 # Development
 
@@ -74,8 +74,8 @@ Get the correct version for your OJS version:
     .
     ├─ assets                        # Styles, images, javascript files
     ├─ classes                       # Main folder with models / logic
-    │  ├─ Igsn                       # Classes for IGSN
-    │  └─ PID                        # PID helper classes
+    │  ├─ Helpers                    # Helper classes
+    │  └─ Igsn                       # Classes for IGSN
     ├─ docs                          # Documentation, examples
     ├─ locale                        # Language files
     ├─ templates                     # Templates folder
@@ -143,11 +143,11 @@ isTestMode=true
 
 ## IGSN
 
-De IGSNs are saved in the publication_settings as an array of IGSN data models. 
+De IGSNs are saved in the publication_settings as an array of IGSN data models.
 
 | name  | description                         |
 |-------|-------------------------------------|
-| id   | Persistent identifier of the sample |
+| id    | Persistent identifier of the sample |
 | label | Label of the sample                 |
 
 ```
