@@ -6,7 +6,6 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
-    'APP\\plugins\\generic\\pidManager\\classes\\Db\\PluginDao' => $baseDir . '/classes/Db/PluginDao.php',
     'APP\\plugins\\generic\\pidManager\\classes\\Igsn\\IgsnArticleView' => $baseDir . '/classes/Igsn/IgsnArticleView.php',
     'APP\\plugins\\generic\\pidManager\\classes\\Igsn\\IgsnConstants' => $baseDir . '/classes/Igsn/IgsnConstants.php',
     'APP\\plugins\\generic\\pidManager\\classes\\Igsn\\IgsnDao' => $baseDir . '/classes/Igsn/IgsnDao.php',
