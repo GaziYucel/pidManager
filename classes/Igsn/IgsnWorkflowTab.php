@@ -62,13 +62,13 @@ class IgsnWorkflowTab
             array_keys($locales), $locales);
 
         $form = new IgsnWorkflowForm(
-            PidManagerPlugin::IGSN,
+            IgsnConstants::igsn,
             'PUT',
             $apiBaseUrl . 'submissions/' . $submissionId . '/publications/' . $publicationId,
             $locales);
 
         $state = $templateMgr->getTemplateVars('state');
-        $state['components'][PidManagerPlugin::IGSN] = $form->getConfig();
+        $state['components'][IgsnConstants::igsn] = $form->getConfig();
         $templateMgr->assign('state', $state);
 
         $templateParameters = [

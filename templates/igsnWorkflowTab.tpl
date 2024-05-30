@@ -113,11 +113,11 @@
     </div>
 
     <div class="footer">
-        <pkp-form v-bind="components.{PidManagerPlugin::IGSN}" @set="set"></pkp-form>
+        <pkp-form v-bind="components.{APP\plugins\generic\pidManager\classes\Igsn\IgsnConstants::igsn}" @set="set"></pkp-form>
         <span class="pidManager-Hide">
         	{{ pidManagerIgsnApp.workingPublication = workingPublication }}
-        	{{ components.{PidManagerPlugin::IGSN}.fields[0]['value'] = JSON.stringify(pidManagerIgsnApp.igsnSClean) }}
-        	{{ components.{PidManagerPlugin::IGSN}.action = '{$apiBaseUrl}submissions/' + workingPublication.submissionId + '/publications/' + workingPublication.id }}
+        	{{ components.{APP\plugins\generic\pidManager\classes\Igsn\IgsnConstants::igsn}.fields[0]['value'] = JSON.stringify(pidManagerIgsnApp.igsnSClean) }}
+        	{{ components.{APP\plugins\generic\pidManager\classes\Igsn\IgsnConstants::igsn}.action = '{$apiBaseUrl}submissions/' + workingPublication.submissionId + '/publications/' + workingPublication.id }}
         	{{ pidManagerIgsnApp.configure() }}
     	</span>
     </div>

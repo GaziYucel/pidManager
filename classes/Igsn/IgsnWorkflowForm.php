@@ -13,7 +13,6 @@
 namespace APP\plugins\generic\pidManager\classes\Igsn;
 
 use APP\facades\Repo;
-use APP\plugins\generic\pidManager\PidManagerPlugin;
 use PKP\components\forms\FieldText;
 use PKP\components\forms\FormComponent;
 
@@ -30,11 +29,11 @@ class IgsnWorkflowForm extends FormComponent
         $igsnDao = new IgsnDao();
 
         $this->addField(new FieldText(
-            PidManagerPlugin::IGSN, [
+            IgsnConstants::igsn, [
             'label' => '',
             'description' => '',
             'isMultilingual' => false,
-            'value' => $publication->getData(PidManagerPlugin::IGSN)
+            'value' => $publication->getData(IgsnConstants::igsn)
         ]));
     }
 }

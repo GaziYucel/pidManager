@@ -12,8 +12,6 @@
 
 namespace APP\plugins\generic\pidManager\classes\Igsn;
 
-use APP\plugins\generic\pidManager\PidManagerPlugin;
-
 class IgsnSchema
 {
     /**
@@ -27,7 +25,7 @@ class IgsnSchema
     {
         $schema = &$args[0];
 
-        $schema->properties->{PidManagerPlugin::IGSN} = (object)[
+        $schema->properties->{IgsnConstants::igsn} = (object)[
             'type' => 'string',
             'multilingual' => false,
             'apiSummary' => true,

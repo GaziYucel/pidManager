@@ -26,9 +26,6 @@ define('PID_MANAGER_PLUGIN_NAME', basename(__FILE__, '.php'));
 
 class PidManagerPlugin extends GenericPlugin
 {
-    /** @var string Key for igsn saved in publications */
-    public const IGSN = 'igsn';
-
     /** @copydoc Plugin::register */
     public function register($category, $path, $mainContextId = null): bool
     {
@@ -63,11 +60,7 @@ class PidManagerPlugin extends GenericPlugin
         return __('plugins.generic.pidManager.displayName');
     }
 
-    /**
-     * Get isDebugMode from config, return false if setting not present
-     *
-     * @return bool
-     */
+    /** @return bool Get isDebugMode from config, return false if setting not present */
     public static function isDebugMode(): bool
     {
         $config_value = \PKP\config\Config::getVar(CITATION_MANAGER_PLUGIN_NAME, 'isDebugMode');
@@ -81,11 +74,7 @@ class PidManagerPlugin extends GenericPlugin
         return false;
     }
 
-    /**
-     * Get isTestMode from config, return false if setting not present
-     *
-     * @return bool
-     */
+    /** @return bool Get isTestMode from config, return false if setting not present */
     public static function isTestMode(): bool
     {
         $config_value = Config::getVar(CITATION_MANAGER_PLUGIN_NAME, 'isTestMode');
@@ -99,11 +88,7 @@ class PidManagerPlugin extends GenericPlugin
         return false;
     }
 
-    /**
-     * Return composer autoload file path
-     *
-     * @return string
-     */
+    /** @return string Return composer autoload file path */
     public static function autoloadFile(): string
     {
         if (self::isTestMode()) return __DIR__ . '/tests/vendor/autoload.php';

@@ -13,7 +13,6 @@
 namespace APP\plugins\generic\pidManager\classes\Igsn;
 
 use APP\plugins\generic\pidManager\classes\Helpers\ClassHelper;
-use APP\plugins\generic\pidManager\PidManagerPlugin;
 use APP\publication\Publication;
 
 class IgsnDao
@@ -30,7 +29,7 @@ class IgsnDao
     {
         if (empty($publication)) return [];
 
-        $igsnsIn = json_decode($publication->getData(PidManagerPlugin::IGSN), true);
+        $igsnsIn = json_decode($publication->getData(IgsnConstants::igsn), true);
 
         if (empty($igsnsIn) || json_last_error() !== JSON_ERROR_NONE) return [];
 
