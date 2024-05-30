@@ -1,5 +1,5 @@
 {
-  "name": "ojs/pidnmanager",
+  "name": "ojs/pidmanager",
   "description": "OJS plugin which manages PIDs and deposits to external open access data services",
   "type": "project",
   "license": "GPL-3.0 license",
