@@ -8,10 +8,6 @@ class ComposerStaticInit15d5b6ff68f0a1ed6524c4b013f4e435
 {
     public static $classMap = array (
         'APP\\plugins\\generic\\pidManager\\classes\\Db\\PluginDao' => __DIR__ . '/../..' . '/classes/Db/PluginDao.php',
-        'APP\\plugins\\generic\\pidManager\\classes\\Helpers\\ArrayHelper' => __DIR__ . '/../..' . '/classes/Helpers/ArrayHelper.php',
-        'APP\\plugins\\generic\\pidManager\\classes\\Helpers\\ClassHelper' => __DIR__ . '/../..' . '/classes/Helpers/ClassHelper.php',
-        'APP\\plugins\\generic\\pidManager\\classes\\Helpers\\LogHelper' => __DIR__ . '/../..' . '/classes/Helpers/LogHelper.php',
-        'APP\\plugins\\generic\\pidManager\\classes\\Helpers\\StringHelper' => __DIR__ . '/../..' . '/classes/Helpers/StringHelper.php',
         'APP\\plugins\\generic\\pidManager\\classes\\Igsn\\IgsnArticleView' => __DIR__ . '/../..' . '/classes/Igsn/IgsnArticleView.php',
         'APP\\plugins\\generic\\pidManager\\classes\\Igsn\\IgsnConstants' => __DIR__ . '/../..' . '/classes/Igsn/IgsnConstants.php',
         'APP\\plugins\\generic\\pidManager\\classes\\Igsn\\IgsnDao' => __DIR__ . '/../..' . '/classes/Igsn/IgsnDao.php',

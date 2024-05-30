@@ -7,10 +7,6 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'APP\\plugins\\generic\\pidManager\\classes\\Db\\PluginDao' => $baseDir . '/classes/Db/PluginDao.php',
-    'APP\\plugins\\generic\\pidManager\\classes\\Helpers\\ArrayHelper' => $baseDir . '/classes/Helpers/ArrayHelper.php',
-    'APP\\plugins\\generic\\pidManager\\classes\\Helpers\\ClassHelper' => $baseDir . '/classes/Helpers/ClassHelper.php',
-    'APP\\plugins\\generic\\pidManager\\classes\\Helpers\\LogHelper' => $baseDir . '/classes/Helpers/LogHelper.php',
-    'APP\\plugins\\generic\\pidManager\\classes\\Helpers\\StringHelper' => $baseDir . '/classes/Helpers/StringHelper.php',
     'APP\\plugins\\generic\\pidManager\\classes\\Igsn\\IgsnArticleView' => $baseDir . '/classes/Igsn/IgsnArticleView.php',
     'APP\\plugins\\generic\\pidManager\\classes\\Igsn\\IgsnConstants' => $baseDir . '/classes/Igsn/IgsnConstants.php',
     'APP\\plugins\\generic\\pidManager\\classes\\Igsn\\IgsnDao' => $baseDir . '/classes/Igsn/IgsnDao.php',

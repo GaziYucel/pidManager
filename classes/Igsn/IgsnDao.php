@@ -12,8 +12,9 @@
 
 namespace APP\plugins\generic\pidManager\classes\Igsn;
 
-use APP\plugins\generic\pidManager\classes\Helpers\ClassHelper;
 use APP\publication\Publication;
+use ReflectionClass;
+use ReflectionProperty;
 
 class IgsnDao
 {
@@ -37,7 +38,15 @@ class IgsnDao
 
         foreach ($igsnsIn as $igsn) {
             if (!empty($igsn) && (is_object($igsn) || is_array($igsn))) {
-                $igsnsOut[] = ClassHelper::getClassWithValuesAssigned(new IgsnDataModel(), $igsn);
+                $igsnDataModel = new IgsnDataModel();
+                $reflect = new ReflectionClass(new IgsnDataModel());
+                $properties = $reflect->getProperties(ReflectionProperty::IS_PUBLIC);
+                foreach ($properties as $property) {
+                    if (!empty($igsn[$property->getName()])) {
+                        $igsnDataModel->{$property->getName()} = $igsn[$property->getName()];
+                    }
+                }
+                $igsnsOut[] = $igsnDataModel;
             }
         }
 
