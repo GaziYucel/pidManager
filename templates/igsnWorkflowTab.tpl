@@ -76,7 +76,7 @@
                                     </td>
                                     <td class="column2">
                                         <a @click.prevent="pidManagerIgsnApp.select(i, j)"
-                                           :class="{ 'pidManager-Strikethrough': row.exists }">
+                                           :class="{ 'pidManager-Disabled': row.exists }">
                                             {{ row.label }} [{{ row.id }}]
                                         </a>
                                     </td>
