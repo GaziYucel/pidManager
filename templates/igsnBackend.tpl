@@ -96,18 +96,15 @@
                 </td>
             </tr>
         </template>
-{*        <tr v-show="pidManagerIgsnApp.igsnS.length === 0">*}
-{*            <td colspan="3">*}
-{*                <p>*}
-{*                    {translate key="plugins.generic.pidManager.igsn.workflow.empty"}*}
-{*                </p>*}
-{*            </td>*}
-{*        </tr>*}
-        <tr>
+        <tr v-show="pidManagerIgsnApp.igsnS.length === 0">
             <td colspan="3">
-                <p v-show="pidManagerIgsnApp.igsnS.length === 0">
+                <p>
                     {translate key="plugins.generic.pidManager.igsn.workflow.empty"}
                 </p>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
                 <p>
                     <a class="pkpButton" v-on:click="pidManagerIgsnApp.add()"
                        v-show="!pidManagerIgsnApp.isPublished">
