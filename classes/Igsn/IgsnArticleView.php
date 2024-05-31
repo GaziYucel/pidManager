@@ -43,9 +43,9 @@ class IgsnArticleView
         $igsnS = $igsnDao->getIgsns($templateMgr->getTemplateVars('currentPublication'));
 
         for ($i = 0; $i < count($igsnS); $i++) {
-            $id = Doi::removePrefix($igsnS[$i]->id);
+            $doi = Doi::removePrefix($igsnS[$i]->doi);
             $prefix = Doi::prefix;
-            $igsnS[$i]->id = "<a href='$prefix/$id' target='_blank'>$id</a>";
+            $igsnS[$i]->doi = "<a href='$prefix/$doi' target='_blank'>$doi</a>";
         }
 
         $templateParameters = ['igsnS' => $igsnS];

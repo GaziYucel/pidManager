@@ -15,7 +15,7 @@
         </h2>
         <div class="value">
             {foreach from=$igsnS item="igsn"}
-                <p>{$igsn->id}<br />{$igsn->label}</p>
+                <p>{$igsn->doi}<br />{$igsn->label}</p>
             {/foreach}
         </div>
     </section>
