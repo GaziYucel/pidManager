@@ -39,7 +39,7 @@
             <template v-for="(igsn, i) in pidManagerIgsnApp.igsnS" class="pidManager-Row">
                 <tr>
                     <td class="column1">
-                        <input v-model="igsn.id" type="text"
+                        <input v-model="igsn.doi" type="text"
                                class="pkpFormField__input pkpFormField--text__input"/>
                     </td>
                     <td class="column2">
@@ -70,14 +70,14 @@
                             <table v-show="pidManagerIgsnApp.panelVisibility.list">
                                 <tr v-for="(row, j) in pidManagerIgsnApp.searchResults">
                                     <td class="column1">
-                                        <a :href="'https://doi.org/' + row.id" target="_blank">
+                                        <a :href="'https://doi.org/' + row.doi" target="_blank">
                                             <i class="fa fa-external-link"></i>
                                         </a>
                                     </td>
                                     <td class="column2">
                                         <a @click.prevent="pidManagerIgsnApp.select(i, j)"
                                            :class="{ 'pidManager-Disabled': row.exists }">
-                                            {{ row.label }} [{{ row.id }}]
+                                            {{ row.label }} [{{ row.doi }}]
                                         </a>
                                     </td>
                                 </tr>
@@ -131,7 +131,7 @@
                 focusedIndex: -1,
                 searchResults: [], // [ { 'id': '', 'label': '' }, ... ]
                 panelVisibility: { /**/ info: true, empty: false, spinner: false, list: false},
-                igsnModel: { /**/ 'id': '', 'label': ''},
+                igsnModel: { /**/ 'doi': '', 'label': ''},
                 minimumSearchPhraseLength: 3,
                 pendingRequests: new WeakMap(),
                 publication: { /**/ id: 0},
@@ -189,7 +189,7 @@
                 this.focusedIndex = -1;
             },
             select: function (indexIgsnS, indexSearchResults) {
-                this.igsnS[indexIgsnS].id = this.searchResults[indexSearchResults].id;
+                this.igsnS[indexIgsnS].doi = this.searchResults[indexSearchResults].doi;
                 this.igsnS[indexIgsnS].label = this.searchResults[indexSearchResults].label;
             },
             stopPendingRequests: function () {
@@ -209,8 +209,8 @@
                 this.searchReset();
                 this.focusedIndex = index;
                 let query = '';
-                if (this.igsnS[index].id.length >= this.minimumSearchPhraseLength) {
-                    query += ' AND id:' + this.getQueryPart(this.igsnS[index].id);
+                if (this.igsnS[index].doi.length >= this.minimumSearchPhraseLength) {
+                    query += ' AND id:' + this.getQueryPart(this.igsnS[index].doi);
                 }
                 if (this.igsnS[index].label.length >= this.minimumSearchPhraseLength) {
                     query += ' AND titles.title:' + this.getQueryPart(this.igsnS[index].label);
@@ -255,10 +255,10 @@
                     }
 
                     for (let i = 0; i < this.igsnS.length; i++) {
-                        if (this.igsnS[i].id === item.id) exists = true;
+                        if (this.igsnS[i].doi === item.id) exists = true;
                     }
 
-                    searchResults.push({ /**/ id: item.id, label: label, exists: exists});
+                    searchResults.push({ /**/ doi: item.id, label: label, exists: exists});
                 });
                 this.searchResults = searchResults;
             }

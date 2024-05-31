@@ -36,7 +36,7 @@ msgid "plugins.generic.pidManager.igsn.workflow.empty"
 msgstr "There are no IGSNs found for this publication."
 
 msgid "plugins.generic.pidManager.igsn.workflow.table.pid"
-msgstr "PID"
+msgstr "DOI"
 
 msgid "plugins.generic.pidManager.igsn.workflow.table.label"
 msgstr "Label"
