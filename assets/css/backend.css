@@ -31,15 +31,8 @@
     vertical-align: top;
 }
 
-#pidManagerIgsn .content th.column1 {
-    width: 30%;
-}
-
-#pidManagerIgsn .content th.column2 {
-}
-
 #pidManagerIgsn .content th.column3 {
-    width: 86px;
+    width: 88px;
 }
 
 #pidManagerIgsn .content th span {
@@ -54,13 +47,13 @@
     border-bottom: 1px solid #ddd;
 }
 
-#pidManagerSearchResultsPhrase table td.column2 {
-    width: 34px;
-}
+/*#pidManagerSearchResultsPhrase table td.column2 {*/
+/*    width: 34px;*/
+/*}*/
 
-#pidManagerSearchResultsPhrase input {
-    background-color: #fafafa;
-}
+/*#pidManagerSearchResultsPhrase input {*/
+/*    background-color: #fafafa;*/
+/*}*/
 
 #pidManagerSearchResults {
     background-color: #fafafa;

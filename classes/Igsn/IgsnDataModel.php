@@ -6,8 +6,8 @@
  * @copyright (c) 2021+ Gazi Yücel
  * @license Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
  *
- * @class CitationModel
- * @brief Citations are scholarly documents like journal articles, books, datasets, and theses.
+ * @class IgsnDataModel
+ * @brief Igsn data model.
  */
 
 namespace APP\plugins\generic\pidManager\classes\Igsn;

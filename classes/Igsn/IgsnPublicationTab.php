@@ -13,11 +13,12 @@
 namespace APP\plugins\generic\pidManager\classes\Igsn;
 
 use APP\plugins\generic\pidManager\PidManagerPlugin;
+use APP\template\TemplateManager;
 use Exception;
 use PKP\core\PKPApplication;
 use Publication;
 
-class IgsnWorkflowTab
+class IgsnPublicationTab
 {
     /** @var PidManagerPlugin */
     public PidManagerPlugin $plugin;
@@ -39,6 +40,7 @@ class IgsnWorkflowTab
     public function execute(string $hookName, array $args): void
     {
         /* @var Publication $publication */
+        /* @var TemplateManager $templateMgr */
         $templateMgr = &$args[1];
 
         $igsnDao = new IgsnDao();
@@ -61,7 +63,7 @@ class IgsnWorkflowTab
             fn(string $locale, string $name) => ['key' => $locale, 'label' => $name],
             array_keys($locales), $locales);
 
-        $form = new IgsnWorkflowForm(
+        $form = new IgsnForm(
             IgsnConstants::igsn,
             'PUT',
             $apiBaseUrl . 'submissions/' . $submissionId . '/publications/' . $publicationId,
@@ -72,12 +74,13 @@ class IgsnWorkflowTab
         $templateMgr->assign('state', $state);
 
         $templateParameters = [
+            'location' => 'PublicationTab',
             'assetsUrl' => $request->getBaseUrl() . '/' . $this->plugin->getPluginPath() . '/assets',
             'apiBaseUrl' => $apiBaseUrl,
             'igsnS' => json_encode($igsnDao->getIgsns($publication))
         ];
         $templateMgr->assign($templateParameters);
 
-        $templateMgr->display($this->plugin->getTemplateResource("igsnWorkflowTab.tpl"));
+        $templateMgr->display($this->plugin->getTemplateResource("igsnBackend.tpl"));
     }
 }

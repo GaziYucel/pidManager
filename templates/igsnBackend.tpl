@@ -1,5 +1,5 @@
 {**
- * templates/igsnWorkflowTab.tpl
+ * templates/igsnPublicationTab.tpl
  *
  * @copyright (c) 2024+ TIB Hannover
  * @copyright (c) 2024+ Gazi Yücel
@@ -11,117 +11,127 @@
  * https://support.datacite.org/docs/api-queries#selecting-which-metadata-fields-to-retrieve
  *}
 
+{assign var="ConstantsIgsn" value=APP\plugins\generic\pidManager\classes\Igsn\IgsnConstants::igsn}
+{assign var="SubmissionWizardOpen" value="<div id='pidManagerIgsn' v-if='section.id === \"titleAbstract\"'>"}
+{assign var="SubmissionWizardClose" value="</div>"}
+{assign var="PublicationTabOpen" value="<tab id='pidManagerIgsn' class='pkpTab' role='tabpanel' label='"|cat:__("plugins.generic.pidManager.igsn.workflow.name")|cat:"'>"}
+{assign var="PublicationTabClose" value="</tab>"}
+
+{if $location==="SubmissionWizard"}{$SubmissionWizardOpen}{/if}
+{if $location==="PublicationTab"}{$PublicationTabOpen}{/if}
+
 <link rel="stylesheet" href="{$assetsUrl}/css/backend.css" type="text/css"/>
-<link rel="stylesheet" href="{$assetsUrl}/css/frontend.css" type="text/css"/>
 
-<tab id="pidManagerIgsn" class="pkpTab" role="tabpanel"
-     label="{translate key="plugins.generic.pidManager.igsn.workflow.name"}">
+<div class="header">
+    <h4>{translate key="plugins.generic.pidManager.igsn.workflow.label"}</h4>
+    <span>{translate key="plugins.generic.pidManager.igsn.workflow.description"}</span>
+</div>
 
-    <div class="header">
-        <h4>{translate key="plugins.generic.pidManager.igsn.workflow.label"}</h4>
-        <span>{translate key="plugins.generic.pidManager.igsn.workflow.description"}</span>
-    </div>
-
-    <div class="content">
-        <table>
+<div class="content">
+    <table>
+        <tr>
+            <th class="column1">
+                <span>{translate key="plugins.generic.pidManager.igsn.workflow.table.pid"}</span>
+            </th>
+            <th class="column2">
+                <span>{translate key="plugins.generic.pidManager.igsn.workflow.table.label"}</span>
+            </th>
+            <th class="column3">
+                <span> &nbsp; </span>
+            </th>
+        </tr>
+        <tbody>
+        <template v-for="(igsn, i) in pidManagerIgsnApp.igsnS" class="pidManager-Row">
             <tr>
-                <th class="grid-column column1">
-                    <span>{translate key="plugins.generic.pidManager.igsn.workflow.table.pid"}</span>
-                </th>
-                <th class="grid-column column2">
-                    <span>{translate key="plugins.generic.pidManager.igsn.workflow.table.label"}</span>
-                </th>
-                <th class="grid-column column3">
-                    &nbsp;
-                </th>
+                <td class="column1">
+                    <input v-model="igsn.doi" type="text"
+                           class="pkpFormField__input pkpFormField--text__input"/>
+                </td>
+                <td class="column2">
+                    <input v-model="igsn.label" type="text"
+                           class="pkpFormField__input pkpFormField--text__input"/>
+                </td>
+                <td class="column3">
+                    <a @click="pidManagerIgsnApp.apiLookup(i)"
+                       class="pkpButton"
+                       :class="{ 'pidManager-Disabled': pidManagerIgsnApp.isPublished }">
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                    </a>
+                    <a @click="pidManagerIgsnApp.remove(i)" class="pkpButton"
+                       :class="{ 'pidManager-Disabled': pidManagerIgsnApp.isPublished }">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                    </a>
+                </td>
             </tr>
-            <tbody>
-            <template v-for="(igsn, i) in pidManagerIgsnApp.igsnS" class="pidManager-Row">
-                <tr>
-                    <td class="column1">
-                        <input v-model="igsn.doi" type="text"
-                               class="pkpFormField__input pkpFormField--text__input"/>
-                    </td>
-                    <td class="column2">
-                        <input v-model="igsn.label" type="text"
-                               class="pkpFormField__input pkpFormField--text__input"/>
-                    </td>
-                    <td class="column3">
-                        <a @click="pidManagerIgsnApp.apiLookup(i)"
-                           class="pkpButton"
-                           :class="{ 'pidManager-Disabled': pidManagerIgsnApp.isPublished }">
-                            <i class="fa fa-search" aria-hidden="true"></i>
-                        </a>
-                        <a @click="pidManagerIgsnApp.remove(i)" class="pkpButton"
-                           :class="{ 'pidManager-Disabled': pidManagerIgsnApp.isPublished }">
-                            <i class="fa fa-trash" aria-hidden="true"></i>
-                        </a>
-                    </td>
-                </tr>
-                <tr v-if="pidManagerIgsnApp.focusedIndex === i">
-                    <td class="column1" colspan="2">
-                        <div id="pidManagerSearchResults">
+            <tr v-if="pidManagerIgsnApp.focusedIndex === i">
+                <td class="column1" colspan="2">
+                    <div id="pidManagerSearchResults">
 							<span v-show="pidManagerIgsnApp.panelVisibility.info">
 								{translate key="plugins.generic.pidManager.igsn.datacite.info"}</span>
-                            <span v-show="pidManagerIgsnApp.panelVisibility.empty">
+                        <span v-show="pidManagerIgsnApp.panelVisibility.empty">
 								{translate key="plugins.generic.pidManager.igsn.datacite.empty"}</span>
-                            <span v-show="pidManagerIgsnApp.panelVisibility.spinner" aria-hidden="true"
-                                  class="pkpSpinner"></span>
-                            <table v-show="pidManagerIgsnApp.panelVisibility.list">
-                                <tr v-for="(row, j) in pidManagerIgsnApp.searchResults">
-                                    <td class="column1">
-                                        <a :href="'https://doi.org/' + row.doi" target="_blank">
-                                            <i class="fa fa-external-link"></i>
-                                        </a>
-                                    </td>
-                                    <td class="column2">
-                                        <a @click.prevent="pidManagerIgsnApp.select(i, j)"
-                                           :class="{ 'pidManager-Disabled': row.exists }">
-                                            {{ row.label }} [{{ row.doi }}]
-                                        </a>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                    </td>
-                    <td class="column3">
-                        <a @click="pidManagerIgsnApp.searchClose()" class="pkpButton">
-                            <icon icon="times"></icon>
-                        </a>
-                    </td>
-                </tr>
-            </template>
-            <tr v-show="pidManagerIgsnApp.igsnS.length === 0">
-                <td colspan="3">
-                    <p>
-                        {translate key="plugins.generic.pidManager.igsn.workflow.empty"}
-                    </p>
+                        <span v-show="pidManagerIgsnApp.panelVisibility.spinner" aria-hidden="true"
+                              class="pkpSpinner"></span>
+                        <table v-show="pidManagerIgsnApp.panelVisibility.list">
+                            <tr v-for="(row, j) in pidManagerIgsnApp.searchResults">
+                                <td class="column1">
+                                    <a :href="'https://doi.org/' + row.doi" target="_blank">
+                                        <i class="fa fa-external-link"></i>
+                                    </a>
+                                </td>
+                                <td class="column2">
+                                    <a @click.prevent="pidManagerIgsnApp.select(i, j)"
+                                       :class="{ 'pidManager-Disabled': row.exists }">
+                                        {{ row.label }} [{{ row.doi }}]
+                                    </a>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </td>
+                <td class="column3">
+                    <a @click="pidManagerIgsnApp.searchClose()" class="pkpButton">
+                        <icon icon="times"></icon>
+                    </a>
                 </td>
             </tr>
-            <tr>
-                <td colspan="3">
-                    <p>
-                        <a class="pkpButton" v-on:click="pidManagerIgsnApp.add()"
-                           v-show="!pidManagerIgsnApp.isPublished">
-                            {translate key="plugins.generic.pidManager.igsn.button.add"}
-                        </a>
-                    </p>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+        </template>
+{*        <tr v-show="pidManagerIgsnApp.igsnS.length === 0">*}
+{*            <td colspan="3">*}
+{*                <p>*}
+{*                    {translate key="plugins.generic.pidManager.igsn.workflow.empty"}*}
+{*                </p>*}
+{*            </td>*}
+{*        </tr>*}
+        <tr>
+            <td colspan="3">
+                <p v-show="pidManagerIgsnApp.igsnS.length === 0">
+                    {translate key="plugins.generic.pidManager.igsn.workflow.empty"}
+                </p>
+                <p>
+                    <a class="pkpButton" v-on:click="pidManagerIgsnApp.add()"
+                       v-show="!pidManagerIgsnApp.isPublished">
+                        {translate key="plugins.generic.pidManager.igsn.button.add"}
+                    </a>
+                </p>
+            </td>
+        </tr>
+        <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+        </tbody>
+    </table>
+</div>
 
+{if $location==="PublicationTab"}
     <div class="footer">
-        <pkp-form v-bind="components.{APP\plugins\generic\pidManager\classes\Igsn\IgsnConstants::igsn}" @set="set"></pkp-form>
+        <pkp-form v-bind="components.{$ConstantsIgsn}" @set="set"></pkp-form>
         <span class="pidManager-Hide">
-        	{{ pidManagerIgsnApp.workingPublication = workingPublication }}
-        	{{ components.{APP\plugins\generic\pidManager\classes\Igsn\IgsnConstants::igsn}.fields[0]['value'] = JSON.stringify(pidManagerIgsnApp.igsnSClean) }}
-        	{{ components.{APP\plugins\generic\pidManager\classes\Igsn\IgsnConstants::igsn}.action = '{$apiBaseUrl}submissions/' + workingPublication.submissionId + '/publications/' + workingPublication.id }}
-        	{{ pidManagerIgsnApp.configure() }}
+      	    {{ pidManagerIgsnApp.workingPublication = workingPublication }}
+            {{ pidManagerIgsnApp.configure() }}
+        	{{ components.{$ConstantsIgsn}.fields[0]['value'] = JSON.stringify(pidManagerIgsnApp.igsnSClean) }}
+        	{{ components.{$ConstantsIgsn}.action = '{$apiBaseUrl}submissions/' + workingPublication.submissionId + '/publications/' + workingPublication.id }}
     	</span>
     </div>
-</tab>
+{/if}
 
 <script>
     let pidManagerIgsnApp = new pkp.Vue({
@@ -237,9 +247,9 @@
                     });
             },
             getQueryPart: function (query) {
-                query = query.trim();
-                query = query.replace(/[.,\/#!$%^&*;:{}=\-_`~()—+]/g, ' ');
+                query = query.replace(/[.,\/#!$%^&*;:{ }=\-_`~()—+]/g, ' ');
                 query = query.replace(/\s\s+/g, ' ');
+                query = query.trim();
                 query = query.replaceAll(' ', '*+*');
                 query = '*' + query + '*';
                 return query;
@@ -273,3 +283,6 @@
         }
     });
 </script>
+
+{if $location==="PublicationTab"}{$PublicationTabClose}{/if}
+{if $location==="SubmissionWizard"}{$SubmissionWizardClose}{/if}

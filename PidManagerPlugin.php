@@ -17,7 +17,8 @@ require_once(PidManagerPlugin::autoloadFile());
 use APP\core\Application;
 use APP\plugins\generic\pidManager\classes\Igsn\IgsnArticleView;
 use APP\plugins\generic\pidManager\classes\Igsn\IgsnSchema;
-use APP\plugins\generic\pidManager\classes\Igsn\IgsnWorkflowTab;
+use APP\plugins\generic\pidManager\classes\Igsn\IgsnSubmissionWizard;
+use APP\plugins\generic\pidManager\classes\Igsn\IgsnPublicationTab;
 use Config;
 use PKP\plugins\GenericPlugin;
 use PKP\plugins\Hook;
@@ -35,10 +36,12 @@ class PidManagerPlugin extends GenericPlugin
             if ($this->getEnabled()) {
                 // IGSN
                 $igsnSchema = new IgsnSchema();
-                $igsnWorkflowTab = new IgsnWorkflowTab($this);
+                $igsnWorkflowTab = new IgsnPublicationTab($this);
                 $igsnArticleView = new IgsnArticleView($this);
                 Hook::add('Schema::get::publication', [$igsnSchema, 'addToSchemaPublication']);
                 Hook::add('Template::Workflow::Publication', [$igsnWorkflowTab, 'execute']);
+                $igsnSubmissionWizard = new IgsnSubmissionWizard($this);
+                Hook::add('Template::SubmissionWizard::Section', [$igsnSubmissionWizard, 'execute']);
                 Hook::add('Templates::Article::Main', [$igsnArticleView, 'execute']);
             }
 
