@@ -147,13 +147,13 @@ De IGSNs are saved in the publication_settings as an array of IGSN data models.
 
 | name  | description                         |
 |-------|-------------------------------------|
-| id    | Persistent identifier of the sample |
+| doi   | Persistent identifier of the sample |
 | label | Label of the sample                 |
 
 ```
 [
-  { 'id': '10.58031/kiel0188gczz101', 'label': 'Sediment core SO257_1-5' },
-  { 'id': '10.58031/kiel0188gczi201', 'label': 'Sediment core SO257_6-2' },
+  { 'doi': '10.58031/kiel0188gczz101', 'label': 'Sediment core SO257_1-5' },
+  { 'doi': '10.58031/kiel0188gczi201', 'label': 'Sediment core SO257_6-2' },
 ]
 ```
 
