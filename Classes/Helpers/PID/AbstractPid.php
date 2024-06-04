@@ -1,6 +1,6 @@
 <?php
 /**
- * @file classes/PID/AbstractPid.php
+ * @file Classes/PID/AbstractPid.php
  *
  * @copyright (c) 2021+ TIB Hannover
  * @copyright (c) 2021+ Gazi Yücel
@@ -10,7 +10,7 @@
  * @brief AbstractPid class
  */
 
-namespace APP\plugins\generic\pidManager\classes\Helpers\PID;
+namespace APP\plugins\generic\pidManager\Classes\Helpers\PID;
 
 abstract class AbstractPid
 {

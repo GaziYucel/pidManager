@@ -1,6 +1,6 @@
 <?php
 /**
- * @file classes/Workflow/WorkflowTab.php
+ * @file Classes/Workflow/WorkflowTab.php
  *
  * @copyright (c) 2021+ TIB Hannover
  * @copyright (c) 2021+ Gazi Yücel
@@ -10,7 +10,7 @@
  * @brief Workflow Publication Tab
  */
 
-namespace APP\plugins\generic\pidManager\classes\Igsn;
+namespace APP\plugins\generic\pidManager\Classes\Igsn;
 
 use APP\plugins\generic\pidManager\PidManagerPlugin;
 use APP\publication\Publication;

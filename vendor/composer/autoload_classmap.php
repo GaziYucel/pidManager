@@ -6,15 +6,15 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
-    'APP\\plugins\\generic\\pidManager\\classes\\Helpers\\PID\\AbstractPid' => $baseDir . '/classes/Helpers/PID/AbstractPid.php',
-    'APP\\plugins\\generic\\pidManager\\classes\\Helpers\\PID\\Doi' => $baseDir . '/classes/Helpers/PID/Doi.php',
-    'APP\\plugins\\generic\\pidManager\\classes\\Igsn\\IgsnArticleDetails' => $baseDir . '/classes/Igsn/IgsnArticleDetails.php',
-    'APP\\plugins\\generic\\pidManager\\classes\\Igsn\\IgsnConstants' => $baseDir . '/classes/Igsn/IgsnConstants.php',
-    'APP\\plugins\\generic\\pidManager\\classes\\Igsn\\IgsnDao' => $baseDir . '/classes/Igsn/IgsnDao.php',
-    'APP\\plugins\\generic\\pidManager\\classes\\Igsn\\IgsnDataModel' => $baseDir . '/classes/Igsn/IgsnDataModel.php',
-    'APP\\plugins\\generic\\pidManager\\classes\\Igsn\\IgsnForm' => $baseDir . '/classes/Igsn/IgsnForm.php',
-    'APP\\plugins\\generic\\pidManager\\classes\\Igsn\\IgsnPublicationTab' => $baseDir . '/classes/Igsn/IgsnPublicationTab.php',
-    'APP\\plugins\\generic\\pidManager\\classes\\Igsn\\IgsnSchema' => $baseDir . '/classes/Igsn/IgsnSchema.php',
-    'APP\\plugins\\generic\\pidManager\\classes\\Igsn\\IgsnSubmissionWizard' => $baseDir . '/classes/Igsn/IgsnSubmissionWizard.php',
+    'APP\\plugins\\generic\\pidManager\\Classes\\Helpers\\PID\\AbstractPid' => $baseDir . '/Classes/Helpers/PID/AbstractPid.php',
+    'APP\\plugins\\generic\\pidManager\\Classes\\Helpers\\PID\\Doi' => $baseDir . '/Classes/Helpers/PID/Doi.php',
+    'APP\\plugins\\generic\\pidManager\\Classes\\Igsn\\IgsnArticleDetails' => $baseDir . '/Classes/Igsn/IgsnArticleDetails.php',
+    'APP\\plugins\\generic\\pidManager\\Classes\\Igsn\\IgsnConstants' => $baseDir . '/Classes/Igsn/IgsnConstants.php',
+    'APP\\plugins\\generic\\pidManager\\Classes\\Igsn\\IgsnDao' => $baseDir . '/Classes/Igsn/IgsnDao.php',
+    'APP\\plugins\\generic\\pidManager\\Classes\\Igsn\\IgsnDataModel' => $baseDir . '/Classes/Igsn/IgsnDataModel.php',
+    'APP\\plugins\\generic\\pidManager\\Classes\\Igsn\\IgsnForm' => $baseDir . '/Classes/Igsn/IgsnForm.php',
+    'APP\\plugins\\generic\\pidManager\\Classes\\Igsn\\IgsnPublicationTab' => $baseDir . '/Classes/Igsn/IgsnPublicationTab.php',
+    'APP\\plugins\\generic\\pidManager\\Classes\\Igsn\\IgsnSchema' => $baseDir . '/Classes/Igsn/IgsnSchema.php',
+    'APP\\plugins\\generic\\pidManager\\Classes\\Igsn\\IgsnSubmissionWizard' => $baseDir . '/Classes/Igsn/IgsnSubmissionWizard.php',
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
 );

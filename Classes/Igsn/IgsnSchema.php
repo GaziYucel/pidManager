@@ -1,6 +1,6 @@
 <?php
 /**
- * @file classes/igsn/IgsnSchema.php
+ * @file Classes/igsn/IgsnSchema.php
  *
  * @copyright (c) 2021+ TIB Hannover
  * @copyright (c) 2021+ Gazi Yücel
@@ -10,7 +10,7 @@
  * @brief Schema for Igsn
  */
 
-namespace APP\plugins\generic\pidManager\classes\Igsn;
+namespace APP\plugins\generic\pidManager\Classes\Igsn;
 
 class IgsnSchema
 {

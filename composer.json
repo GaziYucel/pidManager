@@ -22,7 +22,7 @@
   ],
   "autoload": {
     "classmap": [
-      "classes/"
+      "Classes/"
     ]
   },
   "minimum-stability": "stable",

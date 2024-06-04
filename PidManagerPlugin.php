@@ -15,10 +15,10 @@ namespace APP\plugins\generic\pidManager;
 require_once(PidManagerPlugin::autoloadFile());
 
 use APP\core\Application;
-use APP\plugins\generic\pidManager\classes\Igsn\IgsnArticleDetails;
-use APP\plugins\generic\pidManager\classes\Igsn\IgsnSchema;
-use APP\plugins\generic\pidManager\classes\Igsn\IgsnSubmissionWizard;
-use APP\plugins\generic\pidManager\classes\Igsn\IgsnPublicationTab;
+use APP\plugins\generic\pidManager\Classes\Igsn\IgsnArticleDetails;
+use APP\plugins\generic\pidManager\Classes\Igsn\IgsnSchema;
+use APP\plugins\generic\pidManager\Classes\Igsn\IgsnSubmissionWizard;
+use APP\plugins\generic\pidManager\Classes\Igsn\IgsnPublicationTab;
 use PKP\config\Config;
 use PKP\plugins\GenericPlugin;
 use PKP\plugins\Hook;

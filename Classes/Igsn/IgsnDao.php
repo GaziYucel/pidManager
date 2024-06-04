@@ -1,6 +1,6 @@
 <?php
 /**
- * @file classes/IgsnIgsnDao.php
+ * @file Classes/IgsnIgsnDao.php
  *
  * @copyright (c) 2021+ TIB Hannover
  * @copyright (c) 2021+ Gazi Yücel
@@ -10,7 +10,7 @@
  * @brief Igsn Dao
  */
 
-namespace APP\plugins\generic\pidManager\classes\Igsn;
+namespace APP\plugins\generic\pidManager\Classes\Igsn;
 
 use APP\publication\Publication;
 use ReflectionClass;

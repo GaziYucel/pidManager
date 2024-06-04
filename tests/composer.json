@@ -22,8 +22,8 @@
   ],
   "autoload": {
     "classmap": [
-      "../tests/classes",
-      "../classes/"
+      "../tests/Classes",
+      "../Classes/"
     ]
   },
   "minimum-stability": "stable",

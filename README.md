@@ -73,14 +73,14 @@ Get the correct version for your OJS version:
 
     .
     ├─ assets                        # Styles, images, javascript files
-    ├─ classes                       # Main folder with models / logic
+    ├─ Classes                       # Main folder with models / logic
     │  ├─ Helpers                    # Helper classes
     │  └─ Igsn                       # Classes for IGSN
     ├─ docs                          # Documentation, examples
     ├─ locale                        # Language files
     ├─ templates                     # Templates folder
     ├─ tests                         # Tests folder
-    │  ├─ classes                    # Classes for tests
+    │  ├─ Classes                    # Classes for tests
     │  ├─ composer.json              # Composer configuration file for tests
     │  └─ vendor                     # Composer autoload and dependencies
     ├─ vendor                        # Composer autoload and dependencies

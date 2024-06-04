@@ -1,6 +1,6 @@
 <?php
 /**
- * @file classes/Igsn/IgsnArticleView.php
+ * @file Classes/Igsn/IgsnArticleView.php
  *
  * @copyright (c) 2021+ TIB Hannover
  * @copyright (c) 2021+ Gazi Yücel
@@ -10,9 +10,9 @@
  * @brief Article page view
  */
 
-namespace APP\plugins\generic\pidManager\classes\Igsn;
+namespace APP\plugins\generic\pidManager\Classes\Igsn;
 
-use APP\plugins\generic\pidManager\classes\Helpers\PID\Doi;
+use APP\plugins\generic\pidManager\Classes\Helpers\PID\Doi;
 use APP\plugins\generic\pidManager\PidManagerPlugin;
 use APP\template\TemplateManager;
 

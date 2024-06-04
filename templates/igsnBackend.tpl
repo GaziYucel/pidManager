@@ -11,7 +11,7 @@
  * https://support.datacite.org/docs/api-queries#selecting-which-metadata-fields-to-retrieve
  *}
 
-{assign var="ConstantsIgsn" value=APP\plugins\generic\pidManager\classes\Igsn\IgsnConstants::igsn}
+{assign var="ConstantsIgsn" value=APP\plugins\generic\pidManager\Classes\Igsn\IgsnConstants::igsn}
 {assign var="SubmissionWizardOpen" value="<div id='pidManagerIgsn' v-if='section.id === \"titleAbstract\"'>"}
 {assign var="SubmissionWizardClose" value="</div>"}
 {assign var="PublicationTabOpen" value="<tab id='pidManagerIgsn' class='pkpTab' role='tabpanel' label='"|cat:__("plugins.generic.pidManager.igsn.workflow.name")|cat:"'>"}
