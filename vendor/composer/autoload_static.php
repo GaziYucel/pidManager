@@ -4,12 +4,12 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit15d5b6ff68f0a1ed6524c4b013f4e435
+class ComposerStaticInit2b03230030f32cc9f01d55800ef310fe
 {
     public static $classMap = array (
         'APP\\plugins\\generic\\pidManager\\classes\\Helpers\\PID\\AbstractPid' => __DIR__ . '/../..' . '/classes/Helpers/PID/AbstractPid.php',
         'APP\\plugins\\generic\\pidManager\\classes\\Helpers\\PID\\Doi' => __DIR__ . '/../..' . '/classes/Helpers/PID/Doi.php',
-        'APP\\plugins\\generic\\pidManager\\classes\\Igsn\\IgsnArticleView' => __DIR__ . '/../..' . '/classes/Igsn/IgsnArticleView.php',
+        'APP\\plugins\\generic\\pidManager\\classes\\Igsn\\IgsnArticleDetails' => __DIR__ . '/../..' . '/classes/Igsn/IgsnArticleDetails.php',
         'APP\\plugins\\generic\\pidManager\\classes\\Igsn\\IgsnConstants' => __DIR__ . '/../..' . '/classes/Igsn/IgsnConstants.php',
         'APP\\plugins\\generic\\pidManager\\classes\\Igsn\\IgsnDao' => __DIR__ . '/../..' . '/classes/Igsn/IgsnDao.php',
         'APP\\plugins\\generic\\pidManager\\classes\\Igsn\\IgsnDataModel' => __DIR__ . '/../..' . '/classes/Igsn/IgsnDataModel.php',
@@ -23,7 +23,7 @@ class ComposerStaticInit15d5b6ff68f0a1ed6524c4b013f4e435
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->classMap = ComposerStaticInit15d5b6ff68f0a1ed6524c4b013f4e435::$classMap;
+            $loader->classMap = ComposerStaticInit2b03230030f32cc9f01d55800ef310fe::$classMap;
 
         }, null, ClassLoader::class);
     }

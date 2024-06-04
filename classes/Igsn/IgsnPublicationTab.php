@@ -13,10 +13,11 @@
 namespace APP\plugins\generic\pidManager\classes\Igsn;
 
 use APP\plugins\generic\pidManager\PidManagerPlugin;
+use APP\publication\Publication;
 use APP\template\TemplateManager;
 use Exception;
 use PKP\core\PKPApplication;
-use Publication;
+
 
 class IgsnPublicationTab
 {

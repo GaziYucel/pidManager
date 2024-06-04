@@ -8,7 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'APP\\plugins\\generic\\pidManager\\classes\\Helpers\\PID\\AbstractPid' => $baseDir . '/../classes/Helpers/PID/AbstractPid.php',
     'APP\\plugins\\generic\\pidManager\\classes\\Helpers\\PID\\Doi' => $baseDir . '/../classes/Helpers/PID/Doi.php',
-    'APP\\plugins\\generic\\pidManager\\classes\\Igsn\\IgsnArticleView' => $baseDir . '/../classes/Igsn/IgsnArticleView.php',
+    'APP\\plugins\\generic\\pidManager\\classes\\Igsn\\IgsnArticleDetails' => $baseDir . '/../classes/Igsn/IgsnArticleDetails.php',
     'APP\\plugins\\generic\\pidManager\\classes\\Igsn\\IgsnConstants' => $baseDir . '/../classes/Igsn/IgsnConstants.php',
     'APP\\plugins\\generic\\pidManager\\classes\\Igsn\\IgsnDao' => $baseDir . '/../classes/Igsn/IgsnDao.php',
     'APP\\plugins\\generic\\pidManager\\classes\\Igsn\\IgsnDataModel' => $baseDir . '/../classes/Igsn/IgsnDataModel.php',
