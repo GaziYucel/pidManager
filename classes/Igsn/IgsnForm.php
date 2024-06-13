@@ -1,6 +1,6 @@
 <?php
 /**
- * @file Classes/Components/Forms/IgsnForm.php
+ * @file classes/Components/Forms/IgsnForm.php
  *
  * @copyright (c) 2021+ TIB Hannover
  * @copyright (c) 2021+ Gazi Yücel
@@ -10,7 +10,7 @@
  * @brief A preset form for setting a publication's igsns
  */
 
-namespace APP\plugins\generic\pidManager\Classes\Igsn;
+namespace APP\plugins\generic\pidManager\classes\Igsn;
 
 use APP\facades\Repo;
 use PKP\components\forms\FieldText;
@@ -26,7 +26,7 @@ class IgsnForm extends FormComponent
         $publication = Repo::publication()->get(
             array_reverse(explode('/', $action))[0]);
 
-        $igsnDao = new IgsnDao();
+        $igsnDao = new IgsnRepo();
 
         $this->addField(new FieldText(
             IgsnConstants::igsn, [

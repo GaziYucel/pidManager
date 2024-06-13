@@ -1,6 +1,6 @@
 <?php
 /**
- * @file Classes/Igsn/IgsnConstants.php
+ * @file classes/Igsn/IgsnConstants.php
  *
  * @copyright (c) 2021+ TIB Hannover
  * @copyright (c) 2021+ Gazi Yücel
@@ -10,7 +10,7 @@
  * @brief Constants for IGSN
  */
 
-namespace APP\plugins\generic\pidManager\Classes\Igsn;
+namespace APP\plugins\generic\pidManager\classes\Igsn;
 
 class IgsnConstants
 {

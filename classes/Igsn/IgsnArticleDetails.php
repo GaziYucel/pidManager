@@ -1,6 +1,6 @@
 <?php
 /**
- * @file Classes/Igsn/IgsnArticleView.php
+ * @file classes/Igsn/IgsnArticleView.php
  *
  * @copyright (c) 2021+ TIB Hannover
  * @copyright (c) 2021+ Gazi Yücel
@@ -10,9 +10,9 @@
  * @brief Article page view
  */
 
-namespace APP\plugins\generic\pidManager\Classes\Igsn;
+namespace APP\plugins\generic\pidManager\classes\Igsn;
 
-use APP\plugins\generic\pidManager\Classes\Helpers\PID\Doi;
+use APP\plugins\generic\pidManager\classes\Helpers\PID\Doi;
 use APP\plugins\generic\pidManager\PidManagerPlugin;
 use APP\template\TemplateManager;
 
@@ -39,7 +39,7 @@ class IgsnArticleDetails
         /* @var TemplateManager $templateMgr */
         $templateMgr = &$args[1];
 
-        $igsnDao = new IgsnDao();
+        $igsnDao = new IgsnRepo();
         $igsnS = $igsnDao->getIgsns($templateMgr->getTemplateVars('currentPublication'));
 
         for ($i = 0; $i < count($igsnS); $i++) {

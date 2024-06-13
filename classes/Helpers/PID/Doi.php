@@ -1,6 +1,6 @@
 <?php
 /**
- * @file Classes/PID/Doi.php
+ * @file classes/PID/Doi.php
  *
  * @copyright (c) 2021+ TIB Hannover
  * @copyright (c) 2021+ Gazi Yücel
@@ -12,7 +12,7 @@
  * https://www.crossref.org/blog/dois-and-matching-regular-expressions/
  */
 
-namespace APP\plugins\generic\pidManager\Classes\Helpers\PID;
+namespace APP\plugins\generic\pidManager\classes\Helpers\PID;
 
 class Doi extends AbstractPid
 {

@@ -1,22 +1,22 @@
 <?php
 /**
- * @file Classes/IgsnIgsnDao.php
+ * @file classes/Igsn/IgsnRepo.php
  *
  * @copyright (c) 2021+ TIB Hannover
  * @copyright (c) 2021+ Gazi Yücel
  * @license Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
  *
- * @class IgsnDao
- * @brief Igsn Dao
+ * @class IgsnRepo
+ * @brief Igsn Repo
  */
 
-namespace APP\plugins\generic\pidManager\Classes\Igsn;
+namespace APP\plugins\generic\pidManager\classes\Igsn;
 
 use APP\publication\Publication;
 use ReflectionClass;
 use ReflectionProperty;
 
-class IgsnDao
+class IgsnRepo
 {
     /**
      * This method retrieves the igsns for a publication from the publication object.
