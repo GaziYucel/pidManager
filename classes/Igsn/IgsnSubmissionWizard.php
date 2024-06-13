@@ -30,13 +30,31 @@ class IgsnSubmissionWizard
     }
 
     /**
-     * Add section to the details step of the submission wizard
+     * Permit requests to the Funder grid handler
      *
-     * @param $hookName
-     * @param $params
+     * @param string $hookName The name of the hook being invoked
+     * @param array $params The parameters to the invoked hook
      * @return bool
      */
-    function addToSubmissionWizardSteps($hookName, $params): bool
+    function setupGridHandler(string $hookName, array $params): bool
+    {
+        $component =& $params[0];
+        if ($component == 'plugins.generic.pidManager.controllers.grid.IgsnGridHandler') {
+            import($component);
+//            FunderGridHandler::setPlugin($this);
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Add section to the details step of the submission wizard
+     *
+     * @param string $hookName The name of the hook being invoked
+     * * @param array $params The parameters to the invoked hook
+     * @return bool
+     */
+    function addToSubmissionWizardSteps(string $hookName, array $params): bool
     {
         $request = Application::get()->getRequest();
 
@@ -49,8 +67,6 @@ class IgsnSubmissionWizard
             ->getAuthorizedContextObject(Application::ASSOC_TYPE_SUBMISSION);
 
         if (!$submission || !$submission->getData('submissionProgress')) return false;
-
-        $igsn = [];
 
         /** @var TemplateManager $templateMgr */
         $templateMgr = $params[0];
@@ -68,8 +84,10 @@ class IgsnSubmissionWizard
             return $step;
         }, $steps);
 
+        echo '<!-- ' . json_encode($steps, true) . ' -->';
+
         $templateMgr->setState([
-            'igsn' => $igsn,
+            'igsn' => [],
             'steps' => $steps,
         ]);
 
@@ -99,11 +117,11 @@ class IgsnSubmissionWizard
     /**
      * Insert template to review in the submission wizard before completing the submission
      *
-     * @param $hookName
-     * @param $params
+     * @param string $hookName The name of the hook being invoked
+     * * @param array $params The parameters to the invoked hook
      * @return bool
      */
-    function addToSubmissionWizardReviewTemplate($hookName, $params): bool
+    function addToSubmissionWizardReviewTemplate(string $hookName, array $params): bool
     {
         $submission = $params[0]['submission'];
         /** @var Submission $submission */
@@ -113,7 +131,7 @@ class IgsnSubmissionWizard
         /** @var TemplateManager $templateMgr */
         $output =& $params[2];
 
-        if ($step === 'igsn') {
+        if ($step === 'details') {
             $output .= $templateMgr->fetch($this->plugin->getTemplateResource('igsnReview.tpl'));
         }
 
