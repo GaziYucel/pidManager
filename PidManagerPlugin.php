@@ -43,10 +43,10 @@ class PidManagerPlugin extends GenericPlugin
                 Hook::add('Templates::Article::Main', [$igsnArticleView, 'execute']);
 
                 $igsnSubmissionWizard = new IgsnSubmissionWizard($this);
-                Hook::add('LoadComponentHandler', [$igsnSubmissionWizard, 'setupGridHandler']);
-                Hook::add('TemplateManager::display', [$igsnSubmissionWizard, 'addToSubmissionWizardSteps']);
-                Hook::add('Template::SubmissionWizard::Section', [$igsnSubmissionWizard, 'addToSubmissionWizardTemplate']);
-                Hook::add('Template::SubmissionWizard::Section::Review', [$igsnSubmissionWizard, 'addToSubmissionWizardReviewTemplate']);
+//                Hook::add('LoadComponentHandler', [$igsnSubmissionWizard, 'setupGridHandler']);
+//                Hook::add('TemplateManager::display', [$igsnSubmissionWizard, 'addToSubmissionWizardSteps']);
+//                Hook::add('Template::SubmissionWizard::Section', [$igsnSubmissionWizard, 'addToSubmissionWizardTemplate']);
+//                Hook::add('Template::SubmissionWizard::Section::Review', [$igsnSubmissionWizard, 'addToSubmissionWizardReviewTemplate']);
             }
 
             return true;
