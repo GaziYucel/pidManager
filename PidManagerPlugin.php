@@ -12,18 +12,21 @@
 
 namespace APP\plugins\generic\pidManager;
 
+define('PID_MANAGER_PLUGIN_NAME', basename(__FILE__, '.php'));
+
 require_once(PidManagerPlugin::autoloadFile());
 
 use APP\core\Application;
 use APP\plugins\generic\pidManager\classes\Igsn\IgsnArticleDetails;
 use APP\plugins\generic\pidManager\classes\Igsn\IgsnSchema;
+use APP\plugins\generic\pidManager\classes\Igsn\IgsnSchemaMigration;
 use APP\plugins\generic\pidManager\classes\Igsn\IgsnSubmissionWizard;
 use APP\plugins\generic\pidManager\classes\Igsn\IgsnPublicationTab;
+use Exception;
 use PKP\config\Config;
+use PKP\install\Installer;
 use PKP\plugins\GenericPlugin;
 use PKP\plugins\Hook;
-
-define('PID_MANAGER_PLUGIN_NAME', basename(__FILE__, '.php'));
 
 class PidManagerPlugin extends GenericPlugin
 {
@@ -44,15 +47,39 @@ class PidManagerPlugin extends GenericPlugin
 
                 $igsnSubmissionWizard = new IgsnSubmissionWizard($this);
 //                Hook::add('LoadComponentHandler', [$igsnSubmissionWizard, 'setupGridHandler']);
-//                Hook::add('TemplateManager::display', [$igsnSubmissionWizard, 'addToSubmissionWizardSteps']);
-//                Hook::add('Template::SubmissionWizard::Section', [$igsnSubmissionWizard, 'addToSubmissionWizardTemplate']);
-//                Hook::add('Template::SubmissionWizard::Section::Review', [$igsnSubmissionWizard, 'addToSubmissionWizardReviewTemplate']);
+                Hook::add('TemplateManager::display', [$igsnSubmissionWizard, 'addToSubmissionWizardSteps']);
+                Hook::add('Template::SubmissionWizard::Section', [$igsnSubmissionWizard, 'addToSubmissionWizardTemplate']);
+                Hook::add('Template::SubmissionWizard::Section::Review', [$igsnSubmissionWizard, 'addToSubmissionWizardReviewTemplate']);
+
+                Hook::add('Installer::postInstall', [$this, 'updateSchema']);
+//                Hook::add('Installer::updateVersion', [$this, 'updateSchema']);
+//                $migration = new IgsnSchemaMigration();
+//                $migration->up();
             }
 
             return true;
         }
 
         return false;
+    }
+
+    /**
+     * @copydoc Plugin::updateSchema()
+     */
+    public function updateSchema($hookName, $args): void
+    {
+        error_log('updateSchema');
+
+        $installer = $args[0];
+        $result = &$args[1];
+
+        $migration = new IgsnSchemaMigration();
+        try {
+            $migration->up();
+        } catch (Exception $e) {
+            $installer->setError(Installer::INSTALLER_ERROR_DB, __('installer.installMigrationError', ['class' => get_class($migration), 'message' => $e->getMessage()]));
+            $result = false;
+        }
     }
 
     /** @copydoc PKPPlugin::getDescription */
@@ -67,10 +94,18 @@ class PidManagerPlugin extends GenericPlugin
         return __('plugins.generic.pidManager.displayName');
     }
 
+    /** @copydoc Plugin::getInstallMigration() */
+//    function getInstallMigration()
+//    {
+//        error_log('getInstallMigration');
+//        $this->updateSchema();
+//        return new IgsnSchemaMigration();
+//    }
+
     /** @return bool Get isDebugMode from config, return false if setting not present */
     public static function isDebugMode(): bool
     {
-        $config_value = \PKP\config\Config::getVar(CITATION_MANAGER_PLUGIN_NAME, 'isDebugMode');
+        $config_value = Config::getVar(PID_MANAGER_PLUGIN_NAME, 'isDebugMode');
 
         if (!empty($config_value)
             && (strtolower($config_value) === 'true' || (string)$config_value === '1')
@@ -84,7 +119,7 @@ class PidManagerPlugin extends GenericPlugin
     /** @return bool Get isTestMode from config, return false if setting not present */
     public static function isTestMode(): bool
     {
-        $config_value = Config::getVar(CITATION_MANAGER_PLUGIN_NAME, 'isTestMode');
+        $config_value = Config::getVar(PID_MANAGER_PLUGIN_NAME, 'isTestMode');
 
         if (!empty($config_value)
             && (strtolower($config_value) === 'true' || (string)$config_value === '1')

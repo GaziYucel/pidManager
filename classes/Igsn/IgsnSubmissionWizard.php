@@ -84,8 +84,6 @@ class IgsnSubmissionWizard
             return $step;
         }, $steps);
 
-        echo '<!-- ' . json_encode($steps, true) . ' -->';
-
         $templateMgr->setState([
             'igsn' => [],
             'steps' => $steps,
