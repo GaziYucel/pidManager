@@ -26,8 +26,6 @@ class IgsnForm extends FormComponent
         $publication = Repo::publication()->get(
             array_reverse(explode('/', $action))[0]);
 
-        $igsnDao = new IgsnRepo();
-
         $this->addField(new FieldText(
             IgsnConstants::igsn, [
             'label' => '',

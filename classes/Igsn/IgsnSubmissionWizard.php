@@ -41,7 +41,6 @@ class IgsnSubmissionWizard
         $component =& $params[0];
         if ($component == 'plugins.generic.pidManager.controllers.grid.IgsnGridHandler') {
             import($component);
-//            FunderGridHandler::setPlugin($this);
             return true;
         }
         return false;
@@ -116,7 +115,7 @@ class IgsnSubmissionWizard
      * Insert template to review in the submission wizard before completing the submission
      *
      * @param string $hookName The name of the hook being invoked
-     * * @param array $params The parameters to the invoked hook
+     * @param array $params The parameters to the invoked hook
      * @return bool
      */
     function addToSubmissionWizardReviewTemplate(string $hookName, array $params): bool
