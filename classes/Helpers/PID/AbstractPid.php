@@ -29,7 +29,7 @@ abstract class AbstractPid
     /**
      * Add prefix
      * @param string|null $string e.g. 10.123/tib123
-     * @return string e.g. https://doi.org10.123/tib123
+     * @return string e.g. https://doi.org/10.123/tib123
      */
     public static function addPrefix(?string $string): string
     {
