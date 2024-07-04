@@ -14,15 +14,18 @@ namespace APP\plugins\generic\pidManager;
 
 define('PID_MANAGER_PLUGIN_NAME', basename(__FILE__, '.php'));
 
-require_once(PidManagerPlugin::autoloadFile());
+//require_once(PidManagerPlugin::autoloadFile());
 
 use APP\core\Application;
+use APP\plugins\generic\pidManager\classes\Settings\Actions;
 use APP\plugins\generic\pidManager\classes\Igsn\IgsnArticleDetails;
 use APP\plugins\generic\pidManager\classes\Igsn\IgsnSchema;
 use APP\plugins\generic\pidManager\classes\Igsn\IgsnSchemaMigration;
 use APP\plugins\generic\pidManager\classes\Igsn\IgsnSubmissionWizard;
 use APP\plugins\generic\pidManager\classes\Igsn\IgsnPublicationTab;
+use APP\plugins\generic\pidManager\classes\Settings\Manage;
 use PKP\config\Config;
+use PKP\core\JSONMessage;
 use PKP\plugins\GenericPlugin;
 use PKP\plugins\Hook;
 
@@ -66,6 +69,20 @@ class PidManagerPlugin extends GenericPlugin
     public function getDisplayName(): string
     {
         return __('plugins.generic.pidManager.displayName');
+    }
+
+    /** @copydoc Plugin::getActions() */
+    public function getActions($request, $actionArgs): array
+    {
+        $actions = new Actions($this);
+        return $actions->execute($request, $actionArgs, parent::getActions($request, $actionArgs));
+    }
+
+    /** @copydoc Plugin::manage() */
+    public function manage($args, $request): JSONMessage
+    {
+        $manage = new Manage($this);
+        return $manage->execute($args, $request);
     }
 
     /** @copydoc Plugin::getInstallMigration() */
