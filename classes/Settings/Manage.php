@@ -15,6 +15,7 @@ namespace APP\plugins\generic\pidManager\classes\Settings;
 use APP\core\Application;
 use APP\notification\Notification;
 use APP\notification\NotificationManager;
+use APP\plugins\generic\pidManager\classes\Igsn\IgsnSchemaMigration;
 use APP\plugins\generic\pidManager\PidManagerPlugin;
 use PKP\core\JSONMessage;
 use PKP\db\DAO;
@@ -35,7 +36,8 @@ class Manage
     {
         switch ($request->getUserVar('verb')) {
             case 'initialise':
-                // do something useful
+                $igsnSchemaMigration = new IgsnSchemaMigration();
+                $igsnSchemaMigration->up();
                 $notificationManager = new NotificationManager();
                 $notificationManager->createTrivialNotification(
                     Application::get()->getRequest()->getUser()->getId(),

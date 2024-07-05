@@ -25,21 +25,8 @@ class IgsnSchemaMigration extends Migration
      */
     public function up(): void
     {
-        error_log('IgsnSchemaMigration->up()');
-
-        # igsn
-        if (!Schema::hasTable('igsns')) {
-            $this->createTableIgsns();
-        } else {
-            $this->updateTableIgsns();
-        }
-
-        // igsn_settings
-        if (!Schema::hasTable('igsn_settings')) {
-            $this->createTableIgsnSettings();
-        } else {
-            $this->updateTableIgsnSettings();
-        }
+        $this->createTableIgsns();
+        $this->createTableIgsnSettings();
     }
 
     /**
@@ -49,21 +36,14 @@ class IgsnSchemaMigration extends Migration
      */
     private function createTableIgsns(): void
     {
-        Schema::create('igsns', function (Blueprint $table) {
-            $table->bigInteger('igsn_id')->autoIncrement();
-            $table->string('igsn_identification', 255);
-            $table->bigInteger('publication_id');
-            $table->bigInteger('context_id');
-        });
-    }
-
-    /**
-     * Update table igsn to latest version.
-     *
-     * @return void
-     */
-    private function updateTableIgsns(): void
-    {
+        if (!Schema::hasTable('igsns')) {
+            Schema::create('igsns', function (Blueprint $table) {
+                $table->bigInteger('igsn_id')->autoIncrement();
+                $table->string('igsn_identification', 255);
+                $table->bigInteger('publication_id');
+                $table->bigInteger('context_id');
+            });
+        }
     }
 
     /**
@@ -73,23 +53,16 @@ class IgsnSchemaMigration extends Migration
      */
     private function createTableIgsnSettings(): void
     {
-        Schema::create('igsn_settings', function (Blueprint $table) {
-            $table->bigIncrements('igsn_setting_id');
-            $table->bigInteger('igsn_id');
-            $table->string('locale', 14)->default('');
-            $table->string('setting_name', 255);
-            $table->mediumText('setting_value')->nullable();
-            $table->index(['igsn_id'], 'igsn_settings_id');
-            $table->unique(['igsn_id', 'locale', 'setting_name'], 'igsn_settings_pkey');
-        });
-    }
-
-    /**
-     * Update table igsn_settings to latest version.
-     *
-     * @return void
-     */
-    private function updateTableIgsnSettings(): void
-    {
+        if (!Schema::hasTable('igsn_settings')) {
+            Schema::create('igsn_settings', function (Blueprint $table) {
+                $table->bigIncrements('igsn_setting_id');
+                $table->bigInteger('igsn_id');
+                $table->string('locale', 14)->default('');
+                $table->string('setting_name', 255);
+                $table->mediumText('setting_value')->nullable();
+                $table->index(['igsn_id'], 'igsn_settings_id');
+                $table->unique(['igsn_id', 'locale', 'setting_name'], 'igsn_settings_pkey');
+            });
+        }
     }
 }
