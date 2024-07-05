@@ -13,12 +13,11 @@
 namespace APP\plugins\generic\pidManager\classes\Settings;
 
 use APP\core\Application;
-use APP\notification\Notification;
 use APP\notification\NotificationManager;
 use APP\plugins\generic\pidManager\classes\Igsn\IgsnSchemaMigration;
 use APP\plugins\generic\pidManager\PidManagerPlugin;
 use PKP\core\JSONMessage;
-use PKP\db\DAO;
+use PKP\notification\PKPNotification;
 
 class Manage
 {
@@ -34,18 +33,23 @@ class Manage
     /** @copydoc Plugin::manage() */
     public function execute($args, $request): JSONMessage
     {
+        $json = new JSONMessage(false);
+
         switch ($request->getUserVar('verb')) {
             case 'initialise':
                 $igsnSchemaMigration = new IgsnSchemaMigration();
                 $igsnSchemaMigration->up();
+
                 $notificationManager = new NotificationManager();
                 $notificationManager->createTrivialNotification(
                     Application::get()->getRequest()->getUser()->getId(),
-                    Notification::NOTIFICATION_TYPE_SUCCESS,
+                    PKPNotification::NOTIFICATION_TYPE_SUCCESS,
                     array('contents' => __('plugins.generic.pidManager.settings.initialise.notification')));
-                return DAO::getDataChangedEvent();
+
+                $json->setStatus(true);
+                $json->setEvent('dataChanged');
         }
 
-        return new JSONMessage(false);
+        return $json;
     }
 }
