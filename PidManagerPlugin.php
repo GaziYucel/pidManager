@@ -14,8 +14,6 @@ namespace APP\plugins\generic\pidManager;
 
 define('PID_MANAGER_PLUGIN_NAME', basename(__FILE__, '.php'));
 
-//require_once(PidManagerPlugin::autoloadFile());
-
 use APP\core\Application;
 use APP\plugins\generic\pidManager\classes\Settings\Actions;
 use APP\plugins\generic\pidManager\classes\Igsn\IgsnArticleDetails;
@@ -24,7 +22,6 @@ use APP\plugins\generic\pidManager\classes\Igsn\IgsnSchemaMigration;
 use APP\plugins\generic\pidManager\classes\Igsn\IgsnSubmissionWizard;
 use APP\plugins\generic\pidManager\classes\Igsn\IgsnPublicationTab;
 use APP\plugins\generic\pidManager\classes\Settings\Manage;
-use PKP\config\Config;
 use PKP\core\JSONMessage;
 use PKP\plugins\GenericPlugin;
 use PKP\plugins\Hook;
@@ -89,41 +86,6 @@ class PidManagerPlugin extends GenericPlugin
     function getInstallMigration(): IgsnSchemaMigration
     {
         return new IgsnSchemaMigration();
-    }
-
-    /** @return bool Get isDebugMode from config, return false if setting not present */
-    public static function isDebugMode(): bool
-    {
-        $config_value = Config::getVar(PID_MANAGER_PLUGIN_NAME, 'isDebugMode');
-
-        if (!empty($config_value)
-            && (strtolower($config_value) === 'true' || (string)$config_value === '1')
-        ) {
-            return true;
-        }
-
-        return false;
-    }
-
-    /** @return bool Get isTestMode from config, return false if setting not present */
-    public static function isTestMode(): bool
-    {
-        $config_value = Config::getVar(PID_MANAGER_PLUGIN_NAME, 'isTestMode');
-
-        if (!empty($config_value)
-            && (strtolower($config_value) === 'true' || (string)$config_value === '1')
-        ) {
-            return true;
-        }
-
-        return false;
-    }
-
-    /** @return string Return composer autoload file path */
-    public static function autoloadFile(): string
-    {
-        if (self::isTestMode()) return __DIR__ . '/tests/vendor/autoload.php';
-        return __DIR__ . '/vendor/autoload.php';
     }
 }
 
