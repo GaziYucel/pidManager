@@ -20,11 +20,6 @@
     "open",
     "science"
   ],
-  "autoload": {
-    "classmap": [
-      "classes/"
-    ]
-  },
   "minimum-stability": "stable",
   "require": {
     "php": ">=8.0"
