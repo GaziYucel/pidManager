@@ -17,9 +17,7 @@ PID Manager for OJS
     - [Structure](#structure)
     - [Notes](#notes)
     - [Debugging](#debugging)
-    - [Tests](#tests)
 - [Data Models](#data-models)
-    - [Metadata of OJS models](#metadata-of-ojs-models)
 - [Contribute](#contribute)
     - [How to contribute](#how-to-contribute)
 - [License](#license)
@@ -72,18 +70,16 @@ Get the correct version for your OJS version:
 ## Structure
 
     .
+    ├─ .github                       # Github specific
+    ├─ .project                      # Project related files
     ├─ assets                        # Styles, images, javascript files
     ├─ Classes                       # Main folder with models / logic
     │  ├─ Helpers                    # Helper classes
-    │  └─ Igsn                       # Classes for IGSN
+    │  ├─ Igsn                       # Classes for IGSN
+    │  └─ Settings                   # Classes for Plugin Settings
     ├─ docs                          # Documentation, examples
     ├─ locale                        # Language files
     ├─ templates                     # Templates folder
-    ├─ tests                         # Tests folder
-    │  ├─ Classes                    # Classes for tests
-    │  ├─ composer.json              # Composer configuration file for tests
-    │  └─ vendor                     # Composer autoload and dependencies
-    ├─ vendor                        # Composer autoload and dependencies
     ├─ .gitignore                    # Git ignore file
     ├─ composer.json                 # Composer configuration file
     ├─ LICENSE                       # License file
@@ -93,19 +89,13 @@ Get the correct version for your OJS version:
 
 ## Notes
 
-- Autoload of the classes in the folder `classes/` is done with composer according
-  to the PSR-4 specification.
+- Autoload of the classes in the folder `classes/` is done according to the PSR-4 specification.
 - All classes have namespaces and are structured according to PSR-4 standard.
-- If you add or remove classes in the `classes` folder, run the following
-  command to update autoload files: `composer dump-autoload -o`.
-- Running `composer install -o` or `composer update -o` will also generate the autoload files.
-- The `-o` option generates the optimised files ready for production.
 
 ## Debugging
 
 There is a debug mode possibility in this plugin. This constant puts the plugin in debugging mode.
-Extra debug information will be written to the log file (see LogHelper class)
-such as API calls.
+Extra debug information will be written to the log file (see LogHelper class) such as API calls.
 Debug information is written to the log file in the `files_dir` directory of your OJS instance.
 You can find the `files_dir` constant in your config.inc.php file.
 
@@ -117,27 +107,6 @@ isDebugMode=true
 ```
 
 _Careful with sensitive information, (passwords, tokens) will be written in plain text._
-
-## Tests
-
-**Test classes**
-
-If you are developing, you might use the classes in `tests/classes/`.
-The classes in this folder have the same folder and namespace structure as in `classes` folder.
-The purpose of these classes is to override the main classes.
-You can accomplish this by running the composer command `composer dump-autoload -o -d tests`.
-If this is done, then test or sandbox versions of API's will be used.
-For example test.wikidata.org instead of www.wikidata.org.
-Autoload of the classes is done with composer [classmap](https://getcomposer.org/doc/04-schema.md#classmap).
-First the classes in `tests/classes/` are loaded, after which the classes in `classes/` are loaded.
-By doing this in this order, all classes present in `tests/classes/` will override the classes in `classes/`.
-
-Please put the following in the file config.inc.php to enable this:
-
-```
-[PidManagerPlugin]
-isTestMode=true
-```
 
 # Data models
 
