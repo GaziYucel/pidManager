@@ -13,11 +13,11 @@
 namespace APP\plugins\generic\pidManager\classes\Settings;
 
 use APP\core\Application;
+use APP\notification\Notification;
 use APP\notification\NotificationManager;
 use APP\plugins\generic\pidManager\classes\Igsn\IgsnSchemaMigration;
 use APP\plugins\generic\pidManager\PidManagerPlugin;
 use PKP\core\JSONMessage;
-use PKP\notification\PKPNotification;
 
 class Manage
 {
@@ -43,7 +43,7 @@ class Manage
                 $notificationManager = new NotificationManager();
                 $notificationManager->createTrivialNotification(
                     Application::get()->getRequest()->getUser()->getId(),
-                    PKPNotification::NOTIFICATION_TYPE_SUCCESS,
+                    Notification::NOTIFICATION_TYPE_SUCCESS,
                     array('contents' => __('plugins.generic.pidManager.settings.initialise.notification')));
 
                 $json->setStatus(true);
