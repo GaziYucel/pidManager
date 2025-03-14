@@ -22,7 +22,9 @@ use APP\plugins\generic\pidManager\classes\Igsn\IgsnSchemaMigration;
 use APP\plugins\generic\pidManager\classes\Igsn\IgsnSubmissionWizard;
 use APP\plugins\generic\pidManager\classes\Igsn\IgsnPublicationTab;
 use APP\plugins\generic\pidManager\classes\Settings\Manage;
+use APP\template\TemplateManager;
 use PKP\core\JSONMessage;
+use PKP\core\Registry;
 use PKP\plugins\GenericPlugin;
 use PKP\plugins\Hook;
 
@@ -40,8 +42,10 @@ class PidManagerPlugin extends GenericPlugin
                 $igsnWorkflowTab = new IgsnPublicationTab($this);
                 $igsnArticleView = new IgsnArticleDetails($this);
                 Hook::add('Schema::get::publication', [$igsnSchema, 'addToSchemaPublication']);
-                Hook::add('Template::Workflow::Publication', [$igsnWorkflowTab, 'execute']);
+//                Hook::add('Template::Workflow::Publication', [$igsnWorkflowTab, 'execute']);
                 Hook::add('Templates::Article::Main', [$igsnArticleView, 'execute']);
+                Hook::add('TemplateManager::display', $this->registerJS(...));
+
 
                 $igsnSubmissionWizard = new IgsnSubmissionWizard($this);
                 // Hook::add('LoadComponentHandler', [$igsnSubmissionWizard, 'setupGridHandler']);
@@ -56,6 +60,28 @@ class PidManagerPlugin extends GenericPlugin
 
             return true;
         }
+
+        return false;
+    }
+
+    /**
+     * Register the TinyMCE JavaScript file
+     *
+     * Hooked to the the `display` callback in TemplateManager
+     */
+    public function registerJS(string $hookName, array $args): bool
+    {
+        $request = &Registry::get('request');
+        /** @var TemplateManager $templateManager */
+        $templateManager = &$args[0];
+
+        $templateManager->addJavaScript(
+            'pidManager',
+            "{$request->getBaseUrl()}/{$this->getPluginPath()}/public/build.js",
+            [
+                'contexts' => 'backend',
+            ]
+        );
 
         return false;
     }
