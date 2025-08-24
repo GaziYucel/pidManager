@@ -13,10 +13,8 @@
 
 namespace APP\plugins\generic\pidManager\classes\Igsn;
 
-use Application;
+use APP\_helper\LogHelper;
 use PidManagerPlugin;
-use Submission;
-use TemplateManager;
 
 class IgsnSubmissionWizard
 {
@@ -29,109 +27,21 @@ class IgsnSubmissionWizard
     $this->plugin = &$plugin;
   }
 
-  /**
-   * Permit requests to the Funder grid handler
-   *
-   * @param string $hookName The name of the hook being invoked
-   * @param array $params The parameters to the invoked hook
-   * @return bool
-   */
-  function setupGridHandler(string $hookName, array $params): bool
+  public function execute(string $hookName, array $args): void
   {
-    $component =& $params[0];
-    if ($component == 'plugins.generic.pidManager.controllers.grid.IgsnGridHandler') {
-      import($component);
-      return true;
-    }
-    return false;
-  }
+    LogHelper::logInfo($args);
+    LogHelper::logInfo('--hello--');
+    $templateMgr = &$args[1];
 
-  /**
-   * Add section to the details step of the submission wizard
-   *
-   * @param string $hookName The name of the hook being invoked
-   * * @param array $params The parameters to the invoked hook
-   * @return bool
-   */
-  function addToSubmissionWizardSteps(string $hookName, array $params): bool
-  {
-    $request = Application::get()->getRequest();
+    $request = $this->plugin->getRequest();
 
-    if ($request->getRequestedPage() !== 'submission') return false;
-    if ($request->getRequestedOp() === 'saved') return false;
+    $templateParameters = [
+      'assetsUrl' => $request->getBaseUrl() . '/' . $this->plugin->getPluginPath() . '/assets'
+    ];
+    $templateMgr->assign($templateParameters);
 
-    $submission = $request
-      ->getRouter()
-      ->getHandler()
-      ->getAuthorizedContextObject(ASSOC_TYPE_SUBMISSION);
-
-    if (!$submission || !$submission->getData('submissionProgress')) return false;
-
-    /** @var TemplateManager $templateMgr */
-    $templateMgr = $params[0];
-
-    $steps = $templateMgr->getState('steps');
-    $steps = array_map(function ($step) {
-      if ($step['id'] === 'details') {
-        $step['sections'][] = [
-          'id' => 'igsn',
-          'name' => __('plugins.generic.pidManager.igsn.label'),
-          'description' => __('plugins.generic.pidManager.igsn.workflow.description'),
-          'type' => 'template',
-        ];
-      }
-      return $step;
-    }, $steps);
-
-    $templateMgr->setState([
-      'igsn' => [],
-      'steps' => $steps,
-    ]);
-
-    return false;
-  }
-
-  /**
-   * Insert template to display grid in submission wizard
-   *
-   * @param string $hookName
-   * @param array $args
-   * @return bool
-   */
-  public function addToSubmissionWizardTemplate(string $hookName, array $args): bool
-  {
-    $smarty = $args[1];
-    $output = &$args[2];
-
-    $output .= sprintf(
-      '<template v-else-if="section.id === \'igsn\'">%s</template>',
-      $smarty->fetch($this->plugin->getTemplateResource('igsnSubmissionWizard.tpl'))
+    $templateMgr->display(
+      $this->plugin->getTemplateResource("IgsnSubmissionWizard.tpl")
     );
-
-    return false;
-  }
-
-  /**
-   * Insert template to review in the submission wizard before completing the submission
-   *
-   * @param string $hookName The name of the hook being invoked
-   * @param array $params The parameters to the invoked hook
-   * @return bool
-   */
-  function addToSubmissionWizardReviewTemplate(string $hookName, array $params): bool
-  {
-    $submission = $params[0]['submission'];
-    /** @var Submission $submission */
-    $step = $params[0]['step'];
-    /** @var string $step */
-    $templateMgr = $params[1];
-    /** @var TemplateManager $templateMgr */
-    $output =& $params[2];
-
-    if ($step === 'details') {
-      $output .= $templateMgr->fetch($this->plugin->getTemplateResource('igsnReview.tpl'));
-    }
-
-    return false;
   }
 }

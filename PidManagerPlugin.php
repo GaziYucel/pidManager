@@ -32,6 +32,7 @@ class PidManagerPlugin extends GenericPlugin
   {
     if (parent::register($category, $path, $mainContextId)) {
       if ($this->getEnabled()) {
+
         // IGSN
         $igsnSchema = new IgsnSchema();
         $igsnWorkflowTab = new IgsnPublicationTab($this);
@@ -41,14 +42,7 @@ class PidManagerPlugin extends GenericPlugin
         HookRegistry::register('Templates::Article::Main', [$igsnArticleDetails, 'execute']);
 
         $igsnSubmissionWizard = new IgsnSubmissionWizard($this);
-        // Hook::add('LoadComponentHandler', [$igsnSubmissionWizard, 'setupGridHandler']);
-        HookRegistry::register('TemplateManager::display', [$igsnSubmissionWizard, 'addToSubmissionWizardSteps']);
-        HookRegistry::register('Template::SubmissionWizard::Section', [$igsnSubmissionWizard, 'addToSubmissionWizardTemplate']);
-        HookRegistry::register('Template::SubmissionWizard::Section::Review', [$igsnSubmissionWizard, 'addToSubmissionWizardReviewTemplate']);
-
-        // PIDINST
-        // $pidinstSchema = new PidinstSchema();
-        // HookRegistry::register('Schema::get::publication', [$pidinstSchema, 'addToSchemaPublication']);
+        HookRegistry::register('Templates::Submission::SubmissionMetadataForm::AdditionalMetadata', [$igsnSubmissionWizard, 'execute']);
       }
       return true;
     }

@@ -1,5 +1,11 @@
 <div>
-  <h1>igsnSubmissionWizard.tpl</h1>
-  <p>section.id: {{ section.id }}</p>
-  <p>step.id: {{ step.id }}</p>
+  <label class="label">
+    {translate key="plugins.generic.pidManager.igsn.label"}
+  </label>
+  <p>
+    {translate key="plugins.generic.pidManager.igsn.workflow.description"}
+  </p>
+  <p>
+    -- do something useful here --
+  </p>
 </div>
