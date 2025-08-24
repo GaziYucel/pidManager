@@ -141,7 +141,6 @@
     </tr>
     </tbody>
   </table>
-  <br/><br/>
 </div>
 
 {if $location==="PublicationTab"}
