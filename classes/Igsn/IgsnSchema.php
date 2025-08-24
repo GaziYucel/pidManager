@@ -14,24 +14,24 @@ namespace APP\plugins\generic\pidManager\classes\Igsn;
 
 class IgsnSchema
 {
-    /**
-     * This method adds properties to the schema of a publication.
-     *
-     * @param string $hookName
-     * @param array $args
-     * @return bool
-     */
-    public function addToSchemaPublication(string $hookName, array $args): bool
-    {
-        $schema = &$args[0];
+  /**
+   * This method adds properties to the schema of a publication.
+   *
+   * @param string $hookName
+   * @param array $args
+   * @return bool
+   */
+  public function addToSchemaPublication(string $hookName, array $args): bool
+  {
+    $schema = &$args[0];
 
-        $schema->properties->{IgsnConstants::igsn} = (object)[
-            'type' => 'string',
-            'multilingual' => false,
-            'apiSummary' => true,
-            'validation' => ['nullable']
-        ];
+    $schema->properties->{IgsnConstants::igsn} = (object)[
+      'type' => 'string',
+      'multilingual' => false,
+      'apiSummary' => true,
+      'validation' => ['nullable']
+    ];
 
-        return false;
-    }
+    return false;
+  }
 }

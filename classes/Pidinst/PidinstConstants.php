@@ -14,6 +14,6 @@ namespace APP\plugins\generic\pidManager\classes\Pidinst;
 
 class PidinstConstants
 {
-    /** @var string Key for pidinst saved in publications */
-    public const pidinst = 'pidinst';
+  /** @var string Key for pidinst saved in publications */
+  public const pidinst = 'pidinst';
 }

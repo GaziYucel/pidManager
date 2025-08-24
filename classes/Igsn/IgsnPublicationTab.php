@@ -12,76 +12,75 @@
 
 namespace APP\plugins\generic\pidManager\classes\Igsn;
 
-use APP\plugins\generic\pidManager\PidManagerPlugin;
-use APP\publication\Publication;
-use APP\template\TemplateManager;
+use PidManagerPlugin;
+use Publication;
+use TemplateManager;
 use Exception;
-use PKP\core\PKPApplication;
 
 
 class IgsnPublicationTab
 {
-    /** @var PidManagerPlugin */
-    public PidManagerPlugin $plugin;
+  /** @var PidManagerPlugin */
+  public PidManagerPlugin $plugin;
 
-    /** @param PidManagerPlugin $plugin */
-    public function __construct(PidManagerPlugin &$plugin)
-    {
-        $this->plugin = &$plugin;
-    }
+  /** @param PidManagerPlugin $plugin */
+  public function __construct(PidManagerPlugin &$plugin)
+  {
+    $this->plugin = &$plugin;
+  }
 
-    /**
-     * Show tab under Publications
-     *
-     * @param string $hookName
-     * @param array $args [string, TemplateManager]
-     * @return void
-     * @throws Exception
-     */
-    public function execute(string $hookName, array $args): void
-    {
-        /* @var Publication $publication */
-        /* @var TemplateManager $templateMgr */
-        $templateMgr = &$args[1];
+  /**
+   * Show tab under Publications
+   *
+   * @param string $hookName
+   * @param array $args [string, TemplateManager]
+   * @return void
+   * @throws Exception
+   */
+  public function execute(string $hookName, array $args): void
+  {
+    /* @var Publication $publication */
+    /* @var TemplateManager $templateMgr */
+    $templateMgr = &$args[1];
 
-        $igsnDao = new IgsnRepo();
-        $request = $this->plugin->getRequest();
-        $context = $request->getContext();
-        $submission = $templateMgr->getTemplateVars('submission');
-        $submissionId = $submission->getId();
-        $publication = $submission->getLatestPublication();
-        $publicationId = $publication->getId();
-        $locale = $publication->getData('locale');
+    $igsnDao = new IgsnRepo();
+    $request = $this->plugin->getRequest();
+    $context = $request->getContext();
+    $submission = $templateMgr->getTemplateVars('submission');
+    $submissionId = $submission->getId();
+    $publication = $submission->getLatestPublication();
+    $publicationId = $publication->getId();
+    $locale = $publication->getData('locale');
 
-        $apiBaseUrl = $request->getDispatcher()->url(
-            $request,
-            PKPApplication::ROUTE_API,
-            $context->getData('urlPath'),
-            '');
+    $apiBaseUrl = $request->getDispatcher()->url(
+      $request,
+      ROUTE_API,
+      $context->getData('urlPath'),
+      '');
 
-        $locales = $context->getSupportedLocaleNames();
-        $locales = array_map(
-            fn(string $locale, string $name) => ['key' => $locale, 'label' => $name],
-            array_keys($locales), $locales);
+    $locales = $context->getSupportedLocaleNames();
+    $locales = array_map(
+      fn(string $locale, string $name) => ['key' => $locale, 'label' => $name],
+      array_keys($locales), $locales);
 
-        $form = new IgsnForm(
-            IgsnConstants::igsn,
-            'PUT',
-            $apiBaseUrl . 'submissions/' . $submissionId . '/publications/' . $publicationId,
-            $locales);
+    $form = new IgsnForm(
+      IgsnConstants::igsn,
+      'PUT',
+      $apiBaseUrl . 'submissions/' . $submissionId . '/publications/' . $publicationId,
+      $locales);
 
-        $state = $templateMgr->getTemplateVars('state');
-        $state['components'][IgsnConstants::igsn] = $form->getConfig();
-        $templateMgr->assign('state', $state);
+    $state = $templateMgr->getTemplateVars('state');
+    $state['components'][IgsnConstants::igsn] = $form->getConfig();
+    $templateMgr->assign('state', $state);
 
-        $templateParameters = [
-            'location' => 'PublicationTab',
-            'assetsUrl' => $request->getBaseUrl() . '/' . $this->plugin->getPluginPath() . '/assets',
-            'apiBaseUrl' => $apiBaseUrl,
-            'igsnS' => json_encode($igsnDao->getIgsns($publication))
-        ];
-        $templateMgr->assign($templateParameters);
+    $templateParameters = [
+      'location' => 'PublicationTab',
+      'assetsUrl' => $request->getBaseUrl() . '/' . $this->plugin->getPluginPath() . '/assets',
+      'apiBaseUrl' => $apiBaseUrl,
+      'igsns' => json_encode($igsnDao->getIgsns($publication))
+    ];
+    $templateMgr->assign($templateParameters);
 
-        $templateMgr->display($this->plugin->getTemplateResource("igsnBackend.tpl"));
-    }
+    $templateMgr->display($this->plugin->getTemplateResource("igsnBackend.tpl"));
+  }
 }

@@ -14,6 +14,6 @@ namespace APP\plugins\generic\pidManager\classes\Igsn;
 
 class IgsnConstants
 {
-    /** @var string Key for igsn saved in publications */
-    public const igsn = 'igsn';
+  /** @var string Key for igsn saved in publications */
+  public const igsn = 'igsn';
 }

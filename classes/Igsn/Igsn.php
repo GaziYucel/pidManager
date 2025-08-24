@@ -13,48 +13,48 @@
 
 namespace APP\plugins\generic\pidManager\classes\Igsn;
 
-use PKP\core\DataObject;
+use DataObject;
 
 class Igsn extends DataObject
 {
-    /**
-     * Get context ID.
-     *
-     * @return int
-     */
-    function getContextId(): int
-    {
-        return $this->getData('contextId');
-    }
+  /**
+   * Get context ID.
+   *
+   * @return int
+   */
+  function getContextId(): int
+  {
+    return $this->getData('contextId');
+  }
 
-    /**
-     * Set context ID.
-     *
-     * @param $contextId int
-     * @return void
-     */
-    function setContextId(int $contextId): void
-    {
-        $this->setData('contextId', $contextId);
-    }
+  /**
+   * Set context ID.
+   *
+   * @param $contextId int
+   * @return void
+   */
+  function setContextId(int $contextId): void
+  {
+    $this->setData('contextId', $contextId);
+  }
 
-    /**
-     * Get submission ID.
-     *
-     * @return int
-     */
-    function getSubmissionId(): int
-    {
-        return $this->getData('submissionId');
-    }
+  /**
+   * Get submission ID.
+   *
+   * @return int
+   */
+  function getSubmissionId(): int
+  {
+    return $this->getData('submissionId');
+  }
 
-    /**
-     * Set submission ID.
-     *
-     * @param $submissionId int
-     */
-    function setSubmissionId(int $submissionId): void
-    {
-        $this->setData('submissionId', $submissionId);
-    }
+  /**
+   * Set submission ID.
+   *
+   * @param $submissionId int
+   */
+  function setSubmissionId(int $submissionId): void
+  {
+    $this->setData('submissionId', $submissionId);
+  }
 }

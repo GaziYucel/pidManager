@@ -12,26 +12,26 @@
 
 namespace APP\plugins\generic\pidManager\classes\Igsn;
 
-use APP\facades\Repo;
+use PKPPublicationDAO;
 use PKP\components\forms\FieldText;
 use PKP\components\forms\FormComponent;
 
 class IgsnForm extends FormComponent
 {
-    /** @copydoc FormComponent::__construct */
-    public function __construct(string $id, string $method, string $action, array $locales)
-    {
-        parent::__construct($id, $method, $action, $locales);
+  /** @copydoc FormComponent::__construct */
+  public function __construct(string $id, string $method, string $action, array $locales)
+  {
+    parent::__construct($id, $method, $action, $locales);
 
-        $publication = Repo::publication()->get(
-            array_reverse(explode('/', $action))[0]);
+    $publicationDao = new PKPPublicationDAO();
+    $publication = $publicationDao->getById(array_reverse(explode('/', $action))[0]);
 
-        $this->addField(new FieldText(
-            IgsnConstants::igsn, [
-            'label' => '',
-            'description' => '',
-            'isMultilingual' => false,
-            'value' => $publication->getData(IgsnConstants::igsn)
-        ]));
-    }
+    $this->addField(new FieldText(
+      IgsnConstants::igsn, [
+      'label' => '',
+      'description' => '',
+      'isMultilingual' => false,
+      'value' => $publication->getData(IgsnConstants::igsn)
+    ]));
+  }
 }

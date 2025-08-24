@@ -16,15 +16,15 @@ namespace APP\plugins\generic\pidManager\classes\Helpers\PID;
 
 class Doi extends AbstractPid
 {
-    /** @copydoc AbstractPid::regex */
-    public const regex = '(10[.][0-9]{4,}[^\s"/<>]*/[^\s"<>]+)';
+  /** @copydoc AbstractPid::regex */
+  public const regex = '(10[.][0-9]{4,}[^\s"/<>]*/[^\s"<>]+)';
 
-    /** @copydoc AbstractPid::prefix */
-    public const prefix = 'https://doi.org';
+  /** @copydoc AbstractPid::prefix */
+  public const prefix = 'https://doi.org';
 
-    /** @copydoc AbstractPid::prefixInCorrect */
-    public const prefixInCorrect = [
-        'doi:',
-        'dx.doi.org'
-    ];
+  /** @copydoc AbstractPid::prefixInCorrect */
+  public const prefixInCorrect = [
+    'doi:',
+    'dx.doi.org'
+  ];
 }

@@ -10,11 +10,15 @@
  * @brief Plugin for managing Persistent Identifiers (PIDs) and depositing to external services.
  */
 
-namespace APP\plugins\generic\pidManager;
-
 define('PID_MANAGER_PLUGIN_NAME', basename(__FILE__, '.php'));
 
-use APP\core\Application;
+require_once(PidManagerPlugin::autoloadFile());
+
+import('lib.pkp.classes.plugins.GenericPlugin');
+import('lib.pkp.classes.site.VersionCheck');
+import('lib.pkp.classes.handler.APIHandler');
+import('lib.pkp.classes.linkAction.request.AjaxAction');
+
 use APP\plugins\generic\pidManager\classes\Settings\Actions;
 use APP\plugins\generic\pidManager\classes\Igsn\IgsnArticleDetails;
 use APP\plugins\generic\pidManager\classes\Igsn\IgsnSchema;
@@ -22,78 +26,78 @@ use APP\plugins\generic\pidManager\classes\Igsn\IgsnSchemaMigration;
 use APP\plugins\generic\pidManager\classes\Igsn\IgsnSubmissionWizard;
 use APP\plugins\generic\pidManager\classes\Igsn\IgsnPublicationTab;
 use APP\plugins\generic\pidManager\classes\Settings\Manage;
-use PKP\core\JSONMessage;
-use PKP\plugins\GenericPlugin;
-use PKP\plugins\Hook;
 
 class PidManagerPlugin extends GenericPlugin
 {
-    /** @copydoc Plugin::register */
-    public function register($category, $path, $mainContextId = null): bool
-    {
-        if (parent::register($category, $path, $mainContextId)) {
-            if (Application::isUnderMaintenance()) return true;
+  /** @copydoc Plugin::register */
+  public function register($category, $path, $mainContextId = null): bool
+  {
+    if (parent::register($category, $path, $mainContextId)) {
+      if ($this->getEnabled()) {
+        // IGSN
+        $igsnSchema = new IgsnSchema();
+        $igsnWorkflowTab = new IgsnPublicationTab($this);
+        $igsnArticleView = new IgsnArticleDetails($this);
+        HookRegistry::register('Schema::get::publication', [$igsnSchema, 'addToSchemaPublication']);
+        HookRegistry::register('Template::Workflow::Publication', [$igsnWorkflowTab, 'execute']);
+        HookRegistry::register('Templates::Article::Main', [$igsnArticleView, 'execute']);
 
-            if ($this->getEnabled()) {
-                // IGSN
-                $igsnSchema = new IgsnSchema();
-                $igsnWorkflowTab = new IgsnPublicationTab($this);
-                $igsnArticleView = new IgsnArticleDetails($this);
-                Hook::add('Schema::get::publication', [$igsnSchema, 'addToSchemaPublication']);
-                Hook::add('Template::Workflow::Publication', [$igsnWorkflowTab, 'execute']);
-                Hook::add('Templates::Article::Main', [$igsnArticleView, 'execute']);
+        $igsnSubmissionWizard = new IgsnSubmissionWizard($this);
+        // Hook::add('LoadComponentHandler', [$igsnSubmissionWizard, 'setupGridHandler']);
+        HookRegistry::register('TemplateManager::display', [$igsnSubmissionWizard, 'addToSubmissionWizardSteps']);
+        HookRegistry::register('Template::SubmissionWizard::Section', [$igsnSubmissionWizard, 'addToSubmissionWizardTemplate']);
+        HookRegistry::register('Template::SubmissionWizard::Section::Review', [$igsnSubmissionWizard, 'addToSubmissionWizardReviewTemplate']);
 
-                $igsnSubmissionWizard = new IgsnSubmissionWizard($this);
-                // Hook::add('LoadComponentHandler', [$igsnSubmissionWizard, 'setupGridHandler']);
-                Hook::add('TemplateManager::display', [$igsnSubmissionWizard, 'addToSubmissionWizardSteps']);
-                Hook::add('Template::SubmissionWizard::Section', [$igsnSubmissionWizard, 'addToSubmissionWizardTemplate']);
-                Hook::add('Template::SubmissionWizard::Section::Review', [$igsnSubmissionWizard, 'addToSubmissionWizardReviewTemplate']);
+        // PIDINST
+        // $pidinstSchema = new PidinstSchema();
+        // HookRegistry::register('Schema::get::publication', [$pidinstSchema, 'addToSchemaPublication']);
+      }
 
-                // PIDINST
-                // $pidinstSchema = new PidinstSchema();
-                // Hook::add('Schema::get::publication', [$pidinstSchema, 'addToSchemaPublication']);
-            }
-
-            return true;
-        }
-
-        return false;
+      return true;
     }
 
-    /** @copydoc PKPPlugin::getDescription */
-    public function getDescription(): string
-    {
-        return __('plugins.generic.pidManager.description');
-    }
+    return false;
+  }
 
-    /** @copydoc PKPPlugin::getDisplayName */
-    public function getDisplayName(): string
-    {
-        return __('plugins.generic.pidManager.displayName');
-    }
+  /** @copydoc PKPPlugin::getDescription */
+  public function getDescription(): string
+  {
+    return __('plugins.generic.pidManager.description');
+  }
 
-    /** @copydoc Plugin::getActions() */
-    public function getActions($request, $actionArgs): array
-    {
-        $actions = new Actions($this);
-        return $actions->execute($request, $actionArgs, parent::getActions($request, $actionArgs));
-    }
+  /** @copydoc PKPPlugin::getDisplayName */
+  public function getDisplayName(): string
+  {
+    return __('plugins.generic.pidManager.displayName');
+  }
 
-    /** @copydoc Plugin::manage() */
-    public function manage($args, $request): JSONMessage
-    {
-        $manage = new Manage($this);
-        return $manage->execute($args, $request);
-    }
+  /** @copydoc Plugin::getActions() */
+  public function getActions($request, $actionArgs): array
+  {
+    $actions = new Actions($this);
+    return $actions->execute($request, $actionArgs, parent::getActions($request, $actionArgs));
+  }
 
-    /** @copydoc Plugin::getInstallMigration() */
-    function getInstallMigration(): IgsnSchemaMigration
-    {
-        return new IgsnSchemaMigration();
-    }
-}
+  /** @copydoc Plugin::manage() */
+  public function manage($args, $request): JSONMessage
+  {
+    $manage = new Manage($this);
+    return $manage->execute($args, $request);
+  }
 
-// For backwards compatibility -- expect this to be removed approx. OJS/OMP/OPS 3.6
-if (!PKP_STRICT_MODE) {
-    class_alias('\APP\plugins\generic\pidManager\PidManagerPlugin', '\PidManagerPlugin');
+  /** @copydoc Plugin::getInstallMigration() */
+  function getInstallMigration(): IgsnSchemaMigration
+  {
+    return new IgsnSchemaMigration();
+  }
+
+  /**
+   * Return composer autoload file path
+   *
+   * @return string
+   */
+  public static function autoloadFile(): string
+  {
+    return __DIR__ . '/vendor/autoload.php';
+  }
 }

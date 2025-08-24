@@ -10,104 +10,96 @@
  */
 
 #pidManagerIgsn .header {
-    max-height: unset;
+  max-height: unset;
 }
 
 #pidManagerIgsn .content {
-    padding-top: 1rem;
+  padding-top: 1rem;
 }
 
 #pidManagerIgsn .content .pkpButton {
-    height: 40px;
-    min-width: 40px;
-    line-height: 40px;
+  height: 40px;
+  min-width: 40px;
+  line-height: 40px;
 }
 
 #pidManagerIgsn .content table {
-    width: 100%;
+  width: 100%;
 }
 
 #pidManagerIgsn .content td {
-    vertical-align: top;
+  vertical-align: top;
 }
 
 #pidManagerIgsn .content th.column3 {
-    width: 88px;
+  width: 42px;
 }
 
 #pidManagerIgsn .content th span {
-    display: block;
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
+  display: block;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
 }
 
 #pidManagerIgsn .footer {
-    margin-right: -2rem;
-    margin-left: -2rem;
-    border-bottom: 1px solid #ddd;
+  margin-right: -2rem;
+  margin-left: -2rem;
+  border-bottom: 1px solid #ddd;
 }
 
-/*#pidManagerSearchResultsPhrase table td.column2 {*/
-/*    width: 34px;*/
-/*}*/
-
-/*#pidManagerSearchResultsPhrase input {*/
-/*    background-color: #fafafa;*/
-/*}*/
-
 #pidManagerSearchResults {
-    background-color: #fafafa;
-    border: 1px solid #ccc;
-    height: 150px;
-    overflow-y: scroll;
+  background-color: #fafafa;
+  border: 1px solid #ccc;
+  height: 150px;
+  overflow-y: scroll;
 }
 
 #pidManagerSearchResults span {
-    display: inline-block;
-    padding-top: 60px;
-    width: 100%;
-    text-align: center;
+  display: inline-block;
+  padding-top: 60px;
+  width: 100%;
+  text-align: center;
 }
 
 #pidManagerSearchResults td {
-    padding: 0;
+  padding: 0;
 }
 
 #pidManagerSearchResults td.column1 {
-    width: 24px;
+  width: 24px;
 }
 
 #pidManagerSearchResults td a {
-    display: block;
-    cursor: pointer;
-    padding: 0.3rem;
-    line-height: 1.4rem;
+  display: block;
+  cursor: pointer;
+  padding: 0.3rem;
+  line-height: 1.4rem;
 }
 
 #pidManagerSearchResults td a:hover {
-    background-color: #f1f1f1;
+  background-color: #f1f1f1;
 }
 
 .pidManager-Disabled {
-    pointer-events: none;
-    cursor: default;
-    opacity: 0.6;
+  pointer-events: none;
+  cursor: default;
+  opacity: 0.6;
 }
 
 .pidManager-Hide {
-    display: none !important;
+  display: none !important;
 }
 
 .pidManager-Strikethrough {
-    text-decoration: line-through;
+  text-decoration: line-through;
 }
 
 /* OJS elements */
 #pidManagerIgsn .pkpFormField--text__input {
-    width: 100%;
+  width: 100%;
 }
 
 #pidManagerIgsn .pkpFormPages .pkpFormPage .pkpFormGroup {
-    display: none;
-    padding: .35em .75em .625em;
+  display: none;
+  padding: .35em .75em .625em;
 }

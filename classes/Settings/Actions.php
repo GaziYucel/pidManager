@@ -12,45 +12,45 @@
 
 namespace APP\plugins\generic\pidManager\classes\Settings;
 
-use APP\plugins\generic\pidManager\PidManagerPlugin;
-use PKP\linkAction\LinkAction;
-use PKP\linkAction\request\AjaxAction;
+use PidManagerPlugin;
+use LinkAction;
+use AjaxAction;
 
 class Actions
 {
-    /** @var PidManagerPlugin */
-    public PidManagerPlugin $plugin;
+  /** @var PidManagerPlugin */
+  public PidManagerPlugin $plugin;
 
-    /** @param PidManagerPlugin $plugin */
-    public function __construct(PidManagerPlugin &$plugin)
-    {
-        $this->plugin = &$plugin;
-    }
+  /** @param PidManagerPlugin $plugin */
+  public function __construct(PidManagerPlugin &$plugin)
+  {
+    $this->plugin = &$plugin;
+  }
 
-    /** @copydoc Plugin::getActions() */
-    public function execute($request, $actionArgs, $parentActions): array
-    {
-        if (!$this->plugin->getEnabled()) return $parentActions;
+  /** @copydoc Plugin::getActions() */
+  public function execute($request, $actionArgs, $parentActions): array
+  {
+    if (!$this->plugin->getEnabled()) return $parentActions;
 
-        $router = $request->getRouter();
+    $router = $request->getRouter();
 
-        $linkAction[] = new LinkAction(
-            'initialise',
-            new AjaxAction(
-                $router->url(
-                    $request, null, null, 'manage', null,
-                    [
-                        'verb' => 'initialise',
-                        'plugin' => $this->plugin->getName(),
-                        'category' => 'generic'
-                    ]
-                )
-            ),
-            __('plugins.generic.pidManager.settings.initialise.button'),
-            null);
+    $linkAction[] = new LinkAction(
+      'initialise',
+      new AjaxAction(
+        $router->url(
+          $request, null, null, 'manage', null,
+          [
+            'verb' => 'initialise',
+            'plugin' => $this->plugin->getName(),
+            'category' => 'generic'
+          ]
+        )
+      ),
+      __('plugins.generic.pidManager.settings.initialise.button'),
+      null);
 
-        array_unshift($parentActions, ...$linkAction);
+    array_unshift($parentActions, ...$linkAction);
 
-        return $parentActions;
-    }
+    return $parentActions;
+  }
 }

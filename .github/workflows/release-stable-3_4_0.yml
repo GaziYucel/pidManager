@@ -1,4 +1,4 @@
-name: release-package-stable-3_4_0
+name: release-package-stable-3_3_0
 
 on:
   workflow_dispatch: ~
@@ -27,6 +27,6 @@ jobs:
           content="${dateTime} "
           repositoryOwner=${{ env.REPOSITORY_OWNER }}
           repositoryName=${{ env.REPOSITORY_NAME }}
-        
+          
           echo $repositoryOwner
           echo $repositoryName

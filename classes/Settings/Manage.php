@@ -12,44 +12,43 @@
 
 namespace APP\plugins\generic\pidManager\classes\Settings;
 
-use APP\core\Application;
-use APP\notification\NotificationManager;
+use Application;
+use NotificationManager;
 use APP\plugins\generic\pidManager\classes\Igsn\IgsnSchemaMigration;
-use APP\plugins\generic\pidManager\PidManagerPlugin;
-use PKP\core\JSONMessage;
-use PKP\notification\PKPNotification;
+use PidManagerPlugin;
+use JSONMessage;
 
 class Manage
 {
-    /** @var PidManagerPlugin */
-    public PidManagerPlugin $plugin;
+  /** @var PidManagerPlugin */
+  public PidManagerPlugin $plugin;
 
-    /** @param PidManagerPlugin $plugin */
-    public function __construct(PidManagerPlugin &$plugin)
-    {
-        $this->plugin = &$plugin;
+  /** @param PidManagerPlugin $plugin */
+  public function __construct(PidManagerPlugin &$plugin)
+  {
+    $this->plugin = &$plugin;
+  }
+
+  /** @copydoc Plugin::manage() */
+  public function execute($args, $request): JSONMessage
+  {
+    $json = new JSONMessage(false);
+
+    switch ($request->getUserVar('verb')) {
+      case 'initialise':
+        $igsnSchemaMigration = new IgsnSchemaMigration();
+        $igsnSchemaMigration->up();
+
+        $notificationManager = new NotificationManager();
+        $notificationManager->createTrivialNotification(
+          Application::get()->getRequest()->getUser()->getId(),
+          NOTIFICATION_TYPE_SUCCESS,
+          array('contents' => __('plugins.generic.pidManager.settings.initialise.notification')));
+
+        $json->setStatus(true);
+        $json->setEvent('dataChanged');
     }
 
-    /** @copydoc Plugin::manage() */
-    public function execute($args, $request): JSONMessage
-    {
-        $json = new JSONMessage(false);
-
-        switch ($request->getUserVar('verb')) {
-            case 'initialise':
-                $igsnSchemaMigration = new IgsnSchemaMigration();
-                $igsnSchemaMigration->up();
-
-                $notificationManager = new NotificationManager();
-                $notificationManager->createTrivialNotification(
-                    Application::get()->getRequest()->getUser()->getId(),
-                    PKPNotification::NOTIFICATION_TYPE_SUCCESS,
-                    array('contents' => __('plugins.generic.pidManager.settings.initialise.notification')));
-
-                $json->setStatus(true);
-                $json->setEvent('dataChanged');
-        }
-
-        return $json;
-    }
+    return $json;
+  }
 }
