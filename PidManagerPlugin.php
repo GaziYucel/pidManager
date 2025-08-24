@@ -23,7 +23,7 @@ import('lib.pkp.classes.linkAction.request.AjaxAction');
 use APP\plugins\generic\pidManager\classes\Igsn\IgsnArticleDetails;
 use APP\plugins\generic\pidManager\classes\Igsn\IgsnSchema;
 use APP\plugins\generic\pidManager\classes\Igsn\IgsnSubmissionWizard;
-use APP\plugins\generic\pidManager\classes\Igsn\IgsnPublicationTab;
+use APP\plugins\generic\pidManager\classes\Igsn\IgsnWorkflow;
 
 class PidManagerPlugin extends GenericPlugin
 {
@@ -35,10 +35,10 @@ class PidManagerPlugin extends GenericPlugin
 
         // IGSN
         $igsnSchema = new IgsnSchema();
-        $igsnWorkflowTab = new IgsnPublicationTab($this);
+        $igsnWorkflow = new IgsnWorkflow($this);
         $igsnArticleDetails = new IgsnArticleDetails($this);
         HookRegistry::register('Schema::get::publication', [$igsnSchema, 'addToSchemaPublication']);
-        HookRegistry::register('Template::Workflow::Publication', [$igsnWorkflowTab, 'execute']);
+        HookRegistry::register('Template::Workflow::Publication', [$igsnWorkflow, 'execute']);
         HookRegistry::register('Templates::Article::Main', [$igsnArticleDetails, 'execute']);
 
         $igsnSubmissionWizard = new IgsnSubmissionWizard($this);

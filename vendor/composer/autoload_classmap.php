@@ -10,9 +10,9 @@ return array(
     'APP\\plugins\\generic\\pidManager\\classes\\Igsn\\IgsnArticleDetails' => $baseDir . '/classes/Igsn/IgsnArticleDetails.php',
     'APP\\plugins\\generic\\pidManager\\classes\\Igsn\\IgsnDataModel' => $baseDir . '/classes/Igsn/IgsnDataModel.php',
     'APP\\plugins\\generic\\pidManager\\classes\\Igsn\\IgsnForm' => $baseDir . '/classes/Igsn/IgsnForm.php',
-    'APP\\plugins\\generic\\pidManager\\classes\\Igsn\\IgsnPublicationTab' => $baseDir . '/classes/Igsn/IgsnPublicationTab.php',
     'APP\\plugins\\generic\\pidManager\\classes\\Igsn\\IgsnRepo' => $baseDir . '/classes/Igsn/IgsnRepo.php',
     'APP\\plugins\\generic\\pidManager\\classes\\Igsn\\IgsnSchema' => $baseDir . '/classes/Igsn/IgsnSchema.php',
     'APP\\plugins\\generic\\pidManager\\classes\\Igsn\\IgsnSubmissionWizard' => $baseDir . '/classes/Igsn/IgsnSubmissionWizard.php',
+    'APP\\plugins\\generic\\pidManager\\classes\\Igsn\\IgsnWorkflow' => $baseDir . '/classes/Igsn/IgsnWorkflow.php',
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
 );

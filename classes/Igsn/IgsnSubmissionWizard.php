@@ -13,7 +13,6 @@
 
 namespace APP\plugins\generic\pidManager\classes\Igsn;
 
-use APP\_helper\LogHelper;
 use PidManagerPlugin;
 
 class IgsnSubmissionWizard
@@ -29,8 +28,6 @@ class IgsnSubmissionWizard
 
   public function execute(string $hookName, array $args): void
   {
-    LogHelper::logInfo($args);
-    LogHelper::logInfo('--hello--');
     $templateMgr = &$args[1];
 
     $request = $this->plugin->getRequest();

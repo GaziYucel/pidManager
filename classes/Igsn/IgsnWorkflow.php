@@ -19,7 +19,7 @@ use Publication;
 use TemplateManager;
 use Exception;
 
-class IgsnPublicationTab
+class IgsnWorkflow
 {
   /** @var PidManagerPlugin */
   public PidManagerPlugin $plugin;
@@ -81,6 +81,6 @@ class IgsnPublicationTab
     ];
     $templateMgr->assign($templateParameters);
 
-    $templateMgr->display($this->plugin->getTemplateResource("igsnBackend.tpl"));
+    $templateMgr->display($this->plugin->getTemplateResource("igsnWorkflow.tpl"));
   }
 }

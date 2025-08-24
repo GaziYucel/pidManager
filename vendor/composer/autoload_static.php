@@ -11,10 +11,10 @@ class ComposerStaticInitdb0506f73b171ab12c3437ae07e258c1
         'APP\\plugins\\generic\\pidManager\\classes\\Igsn\\IgsnArticleDetails' => __DIR__ . '/../..' . '/classes/Igsn/IgsnArticleDetails.php',
         'APP\\plugins\\generic\\pidManager\\classes\\Igsn\\IgsnDataModel' => __DIR__ . '/../..' . '/classes/Igsn/IgsnDataModel.php',
         'APP\\plugins\\generic\\pidManager\\classes\\Igsn\\IgsnForm' => __DIR__ . '/../..' . '/classes/Igsn/IgsnForm.php',
-        'APP\\plugins\\generic\\pidManager\\classes\\Igsn\\IgsnPublicationTab' => __DIR__ . '/../..' . '/classes/Igsn/IgsnPublicationTab.php',
         'APP\\plugins\\generic\\pidManager\\classes\\Igsn\\IgsnRepo' => __DIR__ . '/../..' . '/classes/Igsn/IgsnRepo.php',
         'APP\\plugins\\generic\\pidManager\\classes\\Igsn\\IgsnSchema' => __DIR__ . '/../..' . '/classes/Igsn/IgsnSchema.php',
         'APP\\plugins\\generic\\pidManager\\classes\\Igsn\\IgsnSubmissionWizard' => __DIR__ . '/../..' . '/classes/Igsn/IgsnSubmissionWizard.php',
+        'APP\\plugins\\generic\\pidManager\\classes\\Igsn\\IgsnWorkflow' => __DIR__ . '/../..' . '/classes/Igsn/IgsnWorkflow.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
     );
 
