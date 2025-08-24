@@ -14,100 +14,105 @@
   padding-bottom: 0;
   margin-bottom: 32px;
   border-left: 1px solid #ddd;
-}
 
-#pidManagerIgsn .header {
-  max-height: unset;
-}
+  .header {
+    max-height: unset;
+  }
 
-#pidManagerIgsn .content {
-  padding-top: 1rem;
-}
+  .header h4 {
+    margin-top: 0;
+  }
 
-#pidManagerIgsn .content .pkpButton {
-  height: 40px;
-  min-width: 40px;
-  line-height: 40px;
-}
+  .content {
+    padding-top: 1rem;
+  }
 
-#pidManagerIgsn .content table {
-  width: 100%;
-}
+  .content .pkpButton {
+    height: 40px;
+    min-width: 40px;
+    line-height: 40px;
+  }
 
-#pidManagerIgsn .content td {
-  vertical-align: top;
-}
+  .content table {
+    width: 100%;
+  }
 
-#pidManagerIgsn .content th.column3 {
-  width: 42px;
-}
+  .content td {
+    vertical-align: top;
+  }
 
-#pidManagerIgsn .content th span {
-  display: block;
-  background-color: #f9f9f9;
-  border: 1px solid #ddd;
-}
+  .content td.column3 {
+    text-align: center;
+  }
 
-#pidManagerIgsn .footer {
-}
+  .content th.column3 {
+    width: 42px;
+  }
 
-#pidManagerSearchResults {
-  background-color: #fafafa;
-  border: 1px solid #ccc;
-  height: 150px;
-  overflow-y: scroll;
-}
+  .content th span {
+    display: block;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+  }
 
-#pidManagerSearchResults span {
-  display: inline-block;
-  padding-top: 60px;
-  width: 100%;
-  text-align: center;
-}
+  #pidManagerSearchResults {
+    background-color: #fafafa;
+    border: 1px solid #ccc;
+    height: 150px;
+    overflow-y: scroll;
+  }
 
-#pidManagerSearchResults td {
-  padding: 0;
-}
+  #pidManagerSearchResults span {
+    display: inline-block;
+    padding-top: 60px;
+    width: 100%;
+    text-align: center;
+  }
 
-#pidManagerSearchResults td.column1 {
-  width: 24px;
-}
+  #pidManagerSearchResults td {
+    padding: 0;
+  }
 
-#pidManagerSearchResults td a {
-  display: block;
-  cursor: pointer;
-  padding: 0.3rem;
-  line-height: 1.4rem;
-}
+  #pidManagerSearchResults td.column1 {
+    width: 24px;
+  }
 
-#pidManagerSearchResults td a:hover {
-  background-color: #f1f1f1;
-}
+  #pidManagerSearchResults td a {
+    display: block;
+    cursor: pointer;
+    padding: 0.3rem;
+    line-height: 1.4rem;
+  }
 
-.pidManager-Disabled {
-  pointer-events: none;
-  cursor: default;
-  opacity: 0.6;
-}
+  #pidManagerSearchResults td a:hover {
+    background-color: #f1f1f1;
+  }
 
-.pidManager-Hide {
-  display: none !important;
-}
+  .pidManager-Disabled {
+    pointer-events: none;
+    cursor: default;
+    opacity: 0.6;
+  }
 
-.pidManager-Strikethrough {
-  text-decoration: line-through;
+  .pidManager-Hide {
+    display: none !important;
+  }
+
+  .pidManager-Strikethrough {
+    text-decoration: line-through;
+  }
+
+  .pkpFormField--text__input {
+    width: 100%;
+  }
+
+  .pkpFormPages .pkpFormPage .pkpFormGroup {
+    display: none;
+    padding: .35em .75em .625em;
+  }
 }
 
 /* OJS elements */
 .pkpPublication__tabs > .pkpTabs__buttons {
   border-right: 0;
-}
-
-#pidManagerIgsn .pkpFormField--text__input {
-  width: 100%;
-}
-
-#pidManagerIgsn .pkpFormPages .pkpFormPage .pkpFormGroup {
-  display: none;
-  padding: .35em .75em .625em;
 }

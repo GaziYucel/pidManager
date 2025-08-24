@@ -11,7 +11,7 @@
  * https://support.datacite.org/docs/api-queries#selecting-which-metadata-fields-to-retrieve
  *}
 
-{assign var="ConstantsIgsn" value=APP\plugins\generic\pidManager\classes\Igsn\Constants::igsn}
+{assign var="ConstantsIgsn" value=APP\plugins\generic\pidManager\classes\Constants::igsn}
 {assign var="SubmissionWizardOpen" value="<div id='pidManagerIgsn' v-if='section.id === \"titleAbstract\"'>"}
 {assign var="SubmissionWizardClose" value="</div>"}
 {assign var="PublicationTabOpen" value="<tab id='pidManagerIgsn' class='pkpTab' role='tabpanel' label='"|cat:__("plugins.generic.pidManager.igsn.workflow.name")|cat:"'>"}
@@ -41,15 +41,15 @@
       </th>
     </tr>
     <tr>
-      <td>
+      <td class="column1">
         <input v-model="pidManagerIgsnApp.searchPhraseDoi" type="text"
                class="pkpFormField__input pkpFormField--text__input"/>
       </td>
-      <td>
+      <td class="column2">
         <input v-model="pidManagerIgsnApp.searchPhraseLabel" type="text"
                class="pkpFormField__input pkpFormField--text__input"/>
-      </td>
-      <td>
+      </td class="column3">
+      <td class="column3">
         <a @click="pidManagerIgsnApp.apiLookup()" class="pkpButton"
            :class="{ 'pidManager-Disabled': pidManagerIgsnApp.isPublished }">
           <i class="fa fa-search" aria-hidden="true"></i>
