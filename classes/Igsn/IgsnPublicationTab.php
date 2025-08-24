@@ -78,7 +78,7 @@ class IgsnPublicationTab
             'location' => 'PublicationTab',
             'assetsUrl' => $request->getBaseUrl() . '/' . $this->plugin->getPluginPath() . '/assets',
             'apiBaseUrl' => $apiBaseUrl,
-            'igsnS' => json_encode($igsnDao->getIgsns($publication))
+            'igsns' => json_encode($igsnDao->getIgsns($publication))
         ];
         $templateMgr->assign($templateParameters);
 

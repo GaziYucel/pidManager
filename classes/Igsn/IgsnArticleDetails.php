@@ -40,15 +40,15 @@ class IgsnArticleDetails
         $templateMgr = &$args[1];
 
         $igsnDao = new IgsnRepo();
-        $igsnS = $igsnDao->getIgsns($templateMgr->getTemplateVars('currentPublication'));
+        $igsns = $igsnDao->getIgsns($templateMgr->getTemplateVars('currentPublication'));
 
-        for ($i = 0; $i < count($igsnS); $i++) {
-            $doi = Doi::removePrefix($igsnS[$i]->doi);
+        for ($i = 0; $i < count($igsns); $i++) {
+            $doi = Doi::removePrefix($igsns[$i]->doi);
             $prefix = Doi::prefix;
-            $igsnS[$i]->doi = "<a href='$prefix/$doi' target='_blank'>$doi</a>";
+            $igsns[$i]->doi = "<a href='$prefix/$doi' target='_blank'>$doi</a>";
         }
 
-        $templateParameters = ['igsnS' => $igsnS];
+        $templateParameters = ['igsns' => $igsns];
         $templateMgr->assign($templateParameters);
         $templateMgr->display($this->plugin->getTemplateResource("igsnArticleView.tpl"));
 

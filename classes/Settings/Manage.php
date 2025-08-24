@@ -37,6 +37,7 @@ class Manage
 
         switch ($request->getUserVar('verb')) {
             case 'initialise':
+              $this->plugin->updateSchema();
                 $igsnSchemaMigration = new IgsnSchemaMigration();
                 $igsnSchemaMigration->up();
 

@@ -32,7 +32,7 @@
 }
 
 #pidManagerIgsn .content th.column3 {
-    width: 88px;
+    width: 42px;
 }
 
 #pidManagerIgsn .content th span {
@@ -46,14 +46,6 @@
     margin-left: -2rem;
     border-bottom: 1px solid #ddd;
 }
-
-/*#pidManagerSearchResultsPhrase table td.column2 {*/
-/*    width: 34px;*/
-/*}*/
-
-/*#pidManagerSearchResultsPhrase input {*/
-/*    background-color: #fafafa;*/
-/*}*/
 
 #pidManagerSearchResults {
     background-color: #fafafa;

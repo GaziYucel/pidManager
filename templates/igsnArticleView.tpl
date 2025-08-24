@@ -8,13 +8,13 @@
  * IGSN Article View
  *}
 
-{if $igsnS}
+{if $igsns}
     <section class="item igsn">
         <h2 class="label">
             {translate key="plugins.generic.pidManager.igsn.label"}
         </h2>
         <div class="value">
-            {foreach from=$igsnS item="igsn"}
+            {foreach from=$igsns item="igsn"}
                 <p>{$igsn->doi}<br />{$igsn->label}</p>
             {/foreach}
         </div>
