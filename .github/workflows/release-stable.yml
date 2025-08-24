@@ -1,4 +1,4 @@
-name: release-package-stable-3_3_0
+name: release-package-stable
 
 on:
   workflow_dispatch: ~
@@ -21,7 +21,7 @@ jobs:
         run:
           echo "variables"
           dateTime=$(date +%Y-%m-%d_%H-%M-%S)
-          branchName="stable-3_4_0"
+          branchName="stable-3_3_0"
           file="_simpleTest_$dateTime.txt"
           message="Update $file on $dateTime"
           content="${dateTime} "

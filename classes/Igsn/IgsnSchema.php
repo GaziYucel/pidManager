@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file classes/Igsn/IgsnSchema.php
  *
@@ -11,6 +12,8 @@
  */
 
 namespace APP\plugins\generic\pidManager\classes\Igsn;
+
+use APP\plugins\generic\pidManager\classes\Constants;
 
 class IgsnSchema
 {
@@ -25,7 +28,7 @@ class IgsnSchema
   {
     $schema = &$args[0];
 
-    $schema->properties->{IgsnConstants::igsn} = (object)[
+    $schema->properties->{Constants::igsn} = (object)[
       'type' => 'string',
       'multilingual' => false,
       'apiSummary' => true,

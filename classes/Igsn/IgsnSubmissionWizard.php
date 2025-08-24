@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file classes/Igsn/IgsnSubmissionWizard.php
  *
@@ -104,7 +105,7 @@ class IgsnSubmissionWizard
 
     $output .= sprintf(
       '<template v-else-if="section.id === \'igsn\'">%s</template>',
-      $smarty->fetch($this->plugin->getTemplateResource('igsnTest.tpl'))
+      $smarty->fetch($this->plugin->getTemplateResource('igsnSubmissionWizard.tpl'))
     );
 
     return false;

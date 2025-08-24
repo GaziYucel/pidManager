@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file classes/Components/Forms/IgsnForm.php
  *
@@ -12,9 +13,11 @@
 
 namespace APP\plugins\generic\pidManager\classes\Igsn;
 
-use PKPPublicationDAO;
+use APP\plugins\generic\pidManager\classes\Constants;
+use DAORegistry;
 use PKP\components\forms\FieldText;
 use PKP\components\forms\FormComponent;
+use PublicationDAO;
 
 class IgsnForm extends FormComponent
 {
@@ -23,15 +26,16 @@ class IgsnForm extends FormComponent
   {
     parent::__construct($id, $method, $action, $locales);
 
-    $publicationDao = new PKPPublicationDAO();
+    $publicationDao = DAORegistry::getDAO('PublicationDAO');
+    /** @var PublicationDAO $publicationDao */
     $publication = $publicationDao->getById(array_reverse(explode('/', $action))[0]);
 
     $this->addField(new FieldText(
-      IgsnConstants::igsn, [
+      Constants::igsn, [
       'label' => '',
       'description' => '',
       'isMultilingual' => false,
-      'value' => $publication->getData(IgsnConstants::igsn)
+      'value' => $publication->getData(Constants::igsn)
     ]));
   }
 }

@@ -11,7 +11,7 @@
  * https://support.datacite.org/docs/api-queries#selecting-which-metadata-fields-to-retrieve
  *}
 
-{assign var="ConstantsIgsn" value=APP\plugins\generic\pidManager\classes\Igsn\IgsnConstants::igsn}
+{assign var="ConstantsIgsn" value=APP\plugins\generic\pidManager\classes\Igsn\Constants::igsn}
 {assign var="SubmissionWizardOpen" value="<div id='pidManagerIgsn' v-if='section.id === \"titleAbstract\"'>"}
 {assign var="SubmissionWizardClose" value="</div>"}
 {assign var="PublicationTabOpen" value="<tab id='pidManagerIgsn' class='pkpTab' role='tabpanel' label='"|cat:__("plugins.generic.pidManager.igsn.workflow.name")|cat:"'>"}
@@ -27,7 +27,7 @@
   <span>{translate key="plugins.generic.pidManager.igsn.workflow.description"}</span>
 </div>
 
-<div class="content">
+<div class="content" id="pidManager-igsn-workflow-content">
   <table>
     <tr>
       <th class="column1">
@@ -145,7 +145,7 @@
 </div>
 
 {if $location==="PublicationTab"}
-  <div class="footer">
+  <div class="footer" id="pidManager-igsn-workflow-footer">
     <pkp-form v-bind="components.{$ConstantsIgsn}" @set="set"></pkp-form>
     <span class="pidManager-Hide">
       {{ pidManagerIgsnApp.workingPublication = workingPublication }}

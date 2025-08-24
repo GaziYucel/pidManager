@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file classes/Igsn/IgsnRepo.php
  *
@@ -12,6 +13,7 @@
 
 namespace APP\plugins\generic\pidManager\classes\Igsn;
 
+use APP\plugins\generic\pidManager\classes\Constants;
 use Publication;
 use ReflectionClass;
 use ReflectionProperty;
@@ -30,7 +32,7 @@ class IgsnRepo
   {
     if (empty($publication)) return [];
 
-    $igsnsIn = json_decode($publication->getData(IgsnConstants::igsn), true);
+    $igsnsIn = json_decode($publication->getData(Constants::igsn), true);
 
     if (empty($igsnsIn) || json_last_error() !== JSON_ERROR_NONE) return [];
 

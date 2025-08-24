@@ -9,6 +9,13 @@
  * @brief Backend stylesheet for the plugin.
  */
 
+#pidManagerIgsn {
+  padding-top: 32px;
+  padding-bottom: 0;
+  margin-bottom: 32px;
+  border-left: 1px solid #ddd;
+}
+
 #pidManagerIgsn .header {
   max-height: unset;
 }
@@ -42,9 +49,6 @@
 }
 
 #pidManagerIgsn .footer {
-  margin-right: -2rem;
-  margin-left: -2rem;
-  border-bottom: 1px solid #ddd;
 }
 
 #pidManagerSearchResults {
@@ -95,6 +99,10 @@
 }
 
 /* OJS elements */
+.pkpPublication__tabs > .pkpTabs__buttons {
+  border-right: 0;
+}
+
 #pidManagerIgsn .pkpFormField--text__input {
   width: 100%;
 }
