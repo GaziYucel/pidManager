@@ -49,7 +49,7 @@ class IgsnArticleDetails
 
     $templateParameters = ['igsns' => $igsns];
     $templateMgr->assign($templateParameters);
-    $templateMgr->display($this->plugin->getTemplateResource("igsnArticleDetails.tpl"));
+    $templateMgr->display($this->plugin->getTemplateResource("igsn/igsnArticleDetails.tpl"));
 
     return false;
   }

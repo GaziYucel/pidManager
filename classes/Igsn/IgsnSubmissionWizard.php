@@ -38,7 +38,7 @@ class IgsnSubmissionWizard
     $templateMgr->assign($templateParameters);
 
     $templateMgr->display(
-      $this->plugin->getTemplateResource("IgsnSubmissionWizard.tpl")
+      $this->plugin->getTemplateResource("igsn/igsnSubmissionWizard.tpl")
     );
   }
 }

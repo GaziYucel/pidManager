@@ -1,5 +1,5 @@
 {**
- * templates/igsnWorkflow.tpl
+ * templates/igsn/igsnWorkflow.tpl
  *
  * @copyright (c) 2024+ TIB Hannover
  * @copyright (c) 2024+ Gazi Yücel
@@ -13,10 +13,8 @@
 
 {assign var="ConstantsIgsn" value=APP\plugins\generic\pidManager\classes\Constants::igsn}
 
-<tab id='pidManagerIgsn'
-     role='tabpanel'
-     label="{translate key='plugins.generic.pidManager.igsn.workflow.name'}"
-     class='pkpTab'>
+<tab id='pidManagerIgsn' role='tabpanel' class='pkpTab'
+     label="{translate key='plugins.generic.pidManager.igsn.workflow.name'}">
 
   <link rel="stylesheet" href="{$assetsUrl}/css/backend.css" type="text/css"/>
 
@@ -29,19 +27,15 @@
     <table class="w-full pt-16">
       <tr>
         <td>
-          <input
-            v-model="pidManagerIgsnApp.searchPhraseDoi"
-            type="text"
-            class="pkpFormField__input pkpFormField--text__input"
-            placeholder="{translate key="plugins.generic.pidManager.igsn.datacite.searchPhraseDoi.placeholder"}"
+          <input v-model="pidManagerIgsnApp.searchPhraseDoi" type="text"
+                 class="pkpFormField__input pkpFormField--text__input"
+                 placeholder="{translate key="plugins.generic.pidManager.igsn.datacite.searchPhraseDoi.placeholder"}"
           />
         </td>
         <td>
-          <input
-            v-model="pidManagerIgsnApp.searchPhraseLabel"
-            type="text"
-            class="pkpFormField__input pkpFormField--text__input"
-            placeholder="{translate key="plugins.generic.pidManager.igsn.datacite.searchPhraseLabel.placeholder"}"
+          <input v-model="pidManagerIgsnApp.searchPhraseLabel" type="text"
+                 class="pkpFormField__input pkpFormField--text__input"
+                 placeholder="{translate key="plugins.generic.pidManager.igsn.datacite.searchPhraseLabel.placeholder"}"
           />
         </td>
         <td class="center w-42">
@@ -55,13 +49,14 @@
       <tr v-if="pidManagerIgsnApp.showSearchResultsPane">
         <td colspan="2">
           <div id="pidManagerSearchResults">
-          <span
-            v-if="pidManagerIgsnApp.panelVisibility.empty"
-            class="center w-full">
-            {translate key="plugins.generic.pidManager.igsn.datacite.empty"}</span>
             <span
-              v-else-if="pidManagerIgsnApp.panelVisibility.spinner"
-              class="pkpSpinner center w-full inline-block pt-60"></span>
+              v-if="pidManagerIgsnApp.panelVisibility.empty"
+              class="center w-full">
+              {translate key="plugins.generic.pidManager.igsn.datacite.empty"}
+            </span>
+            <span v-else-if="pidManagerIgsnApp.panelVisibility.spinner"
+                  class="pkpSpinner center w-full inline-block pt-60">
+            </span>
             <table v-else-if="pidManagerIgsnApp.panelVisibility.list" class="w-full">
               <template v-for="(row, j) in pidManagerIgsnApp.searchResultsFiltered">
                 <tr>
@@ -71,11 +66,10 @@
                     </a>
                   </td>
                   <td class="p-0">
-                    <a
-                      @click.prevent="pidManagerIgsnApp.select(j)"
-                      :class="{ 'disabled': row.exists }"
-                      class="searchRowLink"
-                    >{{ row.label }} [{{ row.doi }}]</a>
+                    <a @click="pidManagerIgsnApp.select(j)" class="searchRowLink"
+                       :class="{ 'disabled': row.exists }">
+                      {{ row.label }} [{{ row.doi }}]
+                    </a>
                   </td>
                 </tr>
               </template>
@@ -83,10 +77,9 @@
           </div>
         </td>
         <td class="center w-42">
-          <a
-            @click="pidManagerIgsnApp.clearSearch()"
-            class="pkpButton h-40 min-w-40 line-height-40"
-          ><i aria-hidden="true" class="fa fa-times"></i></a>
+          <a @click="pidManagerIgsnApp.clearSearch()" class="pkpButton h-40 min-w-40 line-height-40">
+            <i aria-hidden="true" class="fa fa-times"></i>
+          </a>
         </td>
       </tr>
       <tr v-else>
@@ -114,11 +107,10 @@
           <td><input v-model="igsn.doi" type="text" class="pkpFormField__input pkpFormField--text__input"/></td>
           <td><input v-model="igsn.label" type="text" class="pkpFormField__input pkpFormField--text__input"/></td>
           <td class="center w-42">
-            <a
-              @click="pidManagerIgsnApp.remove(i)"
-              class="pkpButton h-40 min-w-40 line-height-40"
-              :class="{ 'disabled': pidManagerIgsnApp.isPublished }"
-            ><i class="fa fa-trash" aria-hidden="true"></i></a>
+            <a @click="pidManagerIgsnApp.remove(i)" class="pkpButton h-40 min-w-40 line-height-40"
+               :class="{ 'disabled': pidManagerIgsnApp.isPublished }">
+              <i class="fa fa-trash" aria-hidden="true"></i>
+            </a>
           </td>
         </tr>
       </template>
@@ -130,10 +122,9 @@
       <tr>
         <td colspan="3">
           <p>
-            <a
-              class="pkpButton" v-on:click="pidManagerIgsnApp.add()"
-              v-show="!pidManagerIgsnApp.isPublished"
-            >{translate key="plugins.generic.pidManager.igsn.button.add"}</a>
+            <a @click="pidManagerIgsnApp.add()" v-show="!pidManagerIgsnApp.isPublished" class="pkpButton">
+              {translate key="plugins.generic.pidManager.igsn.button.add"}
+            </a>
           </p>
         </td>
       </tr>

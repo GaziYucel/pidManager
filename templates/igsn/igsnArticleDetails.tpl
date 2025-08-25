@@ -1,5 +1,5 @@
 {**
- * templates/igsnArticleDetails.tpl
+ * templates/igsn/igsnArticleDetails.tpl
  *
  * @copyright (c) 2024+ TIB Hannover
  * @copyright (c) 2024+ Gazi Yücel

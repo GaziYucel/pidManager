@@ -16,7 +16,6 @@ PID Manager for OJS
 - [Development](#development)
   - [Structure](#structure)
   - [Notes](#notes)
-  - [Debugging](#debugging)
 - [Data Models](#data-models)
 - [Contribute](#contribute)
   - [How to contribute](#how-to-contribute)
@@ -31,7 +30,7 @@ PID Manager for OJS
 
 - Manual adding sample PIDs and labels
 - Allows suggesting PIDs and Labels from DataCite
-- Marks samples already added with text strike through
+- Marks samples already added to the list
 
 # Screenshot(s) / screen recording(s)
 
@@ -77,7 +76,6 @@ Get the correct version for your OJS version:
     ├─ templates                     # Templates folder
     ├─ .gitignore                    # Git ignore file
     ├─ composer.json                 # Composer configuration file
-    ├─ index.php                     # Only needed for OJS 3.3
     ├─ LICENSE                       # License file
     ├─ PidManagerPlugin.php          # Main class of plugin
     ├─ README.md                     # This file

@@ -17,7 +17,6 @@ use APP\plugins\generic\pidManager\classes\Constants;
 use PidManagerPlugin;
 use Publication;
 use TemplateManager;
-use Exception;
 
 class IgsnWorkflow
 {
@@ -36,7 +35,6 @@ class IgsnWorkflow
    * @param string $hookName
    * @param array $args [string, TemplateManager]
    * @return void
-   * @throws Exception
    */
   public function execute(string $hookName, array $args): void
   {
@@ -80,6 +78,6 @@ class IgsnWorkflow
     ];
     $templateMgr->assign($templateParameters);
 
-    $templateMgr->display($this->plugin->getTemplateResource("igsnWorkflow.tpl"));
+    $templateMgr->display($this->plugin->getTemplateResource("igsn/igsnWorkflow.tpl"));
   }
 }
