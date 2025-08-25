@@ -15,9 +15,9 @@ namespace APP\plugins\generic\pidManager\classes;
 
 class Constants
 {
-  /** @var string Correct prefix for DOI, e.g. https://doi.org */
-  public const doiPrefix = 'https://doi.org';
+    /** @var string Correct prefix for DOI, e.g. https://doi.org */
+    public const doiPrefix = 'https://doi.org';
 
-  /** @var string Key for igsn saved in publications */
-  public const igsn = 'igsn';
+    /** @var string Key for igsn saved in publications */
+    public const igsn = 'igsn';
 }

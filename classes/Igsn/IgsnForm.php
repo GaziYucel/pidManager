@@ -21,21 +21,21 @@ use PublicationDAO;
 
 class IgsnForm extends FormComponent
 {
-  /** @copydoc FormComponent::__construct */
-  public function __construct(string $id, string $method, string $action, array $locales)
-  {
-    parent::__construct($id, $method, $action, $locales);
+    /** @copydoc FormComponent::__construct */
+    public function __construct(string $id, string $method, string $action, array $locales)
+    {
+        parent::__construct($id, $method, $action, $locales);
 
-    $publicationDao = DAORegistry::getDAO('PublicationDAO');
-    /** @var PublicationDAO $publicationDao */
-    $publication = $publicationDao->getById(array_reverse(explode('/', $action))[0]);
+        $publicationDao = DAORegistry::getDAO('PublicationDAO');
+        /** @var PublicationDAO $publicationDao */
+        $publication = $publicationDao->getById(array_reverse(explode('/', $action))[0]);
 
-    $this->addField(new FieldText(
-      Constants::igsn, [
-      'label' => '',
-      'description' => '',
-      'isMultilingual' => false,
-      'value' => $publication->getData(Constants::igsn)
-    ]));
-  }
+        $this->addField(new FieldText(
+            Constants::igsn, [
+            'label' => '',
+            'description' => '',
+            'isMultilingual' => false,
+            'value' => $publication->getData(Constants::igsn)
+        ]));
+    }
 }

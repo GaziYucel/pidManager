@@ -15,9 +15,9 @@ namespace APP\plugins\generic\pidManager\classes\Igsn;
 
 class IgsnDataModel
 {
-  /** @var string|null The DOI) for the sample. */
-  public ?string $doi = null;
+    /** @var string|null The DOI) for the sample. */
+    public ?string $doi = null;
 
-  /** @var string|null The label of the sample. */
-  public ?string $label = null;
+    /** @var string|null The label of the sample. */
+    public ?string $label = null;
 }

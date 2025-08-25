@@ -20,38 +20,38 @@ use ReflectionProperty;
 
 class IgsnRepo
 {
-  /**
-   * This method retrieves the igsns for a publication from the publication object.
-   * After this, the method returns an array of IgsnDataModels.
-   * If no igsns are found, the method returns an empty array.
-   *
-   * @param Publication|null $publication
-   * @return array
-   */
-  public function getIgsns(Publication|null $publication): array
-  {
-    if (empty($publication)) return [];
+    /**
+     * This method retrieves the igsns for a publication from the publication object.
+     * After this, the method returns an array of IgsnDataModels.
+     * If no igsns are found, the method returns an empty array.
+     *
+     * @param Publication|null $publication
+     * @return array
+     */
+    public function getIgsns(Publication|null $publication): array
+    {
+        if (empty($publication)) return [];
 
-    $igsnsIn = json_decode($publication->getData(Constants::igsn), true);
+        $igsnsIn = json_decode($publication->getData(Constants::igsn), true);
 
-    if (empty($igsnsIn) || json_last_error() !== JSON_ERROR_NONE) return [];
+        if (empty($igsnsIn) || json_last_error() !== JSON_ERROR_NONE) return [];
 
-    $igsnsOut = [];
+        $igsnsOut = [];
 
-    foreach ($igsnsIn as $igsn) {
-      if (!empty($igsn) && (is_object($igsn) || is_array($igsn))) {
-        $igsnDataModel = new IgsnDataModel();
-        $reflect = new ReflectionClass(new IgsnDataModel());
-        $properties = $reflect->getProperties(ReflectionProperty::IS_PUBLIC);
-        foreach ($properties as $property) {
-          if (!empty($igsn[$property->getName()])) {
-            $igsnDataModel->{$property->getName()} = $igsn[$property->getName()];
-          }
+        foreach ($igsnsIn as $igsn) {
+            if (!empty($igsn) && (is_object($igsn) || is_array($igsn))) {
+                $igsnDataModel = new IgsnDataModel();
+                $reflect = new ReflectionClass(new IgsnDataModel());
+                $properties = $reflect->getProperties(ReflectionProperty::IS_PUBLIC);
+                foreach ($properties as $property) {
+                    if (!empty($igsn[$property->getName()])) {
+                        $igsnDataModel->{$property->getName()} = $igsn[$property->getName()];
+                    }
+                }
+                $igsnsOut[] = $igsnDataModel;
+            }
         }
-        $igsnsOut[] = $igsnDataModel;
-      }
-    }
 
-    return $igsnsOut;
-  }
+        return $igsnsOut;
+    }
 }

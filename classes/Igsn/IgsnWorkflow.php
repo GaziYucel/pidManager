@@ -20,64 +20,64 @@ use TemplateManager;
 
 class IgsnWorkflow
 {
-  /** @var PidManagerPlugin */
-  public PidManagerPlugin $plugin;
+    /** @var PidManagerPlugin */
+    public PidManagerPlugin $plugin;
 
-  /** @param PidManagerPlugin $plugin */
-  public function __construct(PidManagerPlugin &$plugin)
-  {
-    $this->plugin = &$plugin;
-  }
+    /** @param PidManagerPlugin $plugin */
+    public function __construct(PidManagerPlugin &$plugin)
+    {
+        $this->plugin = &$plugin;
+    }
 
-  /**
-   * Show tab under Publications
-   *
-   * @param string $hookName
-   * @param array $args [string, TemplateManager]
-   * @return void
-   */
-  public function execute(string $hookName, array $args): void
-  {
-    /* @var Publication $publication */
-    /* @var TemplateManager $templateMgr */
-    $templateMgr = &$args[1];
+    /**
+     * Show tab under Publications
+     *
+     * @param string $hookName
+     * @param array $args [string, TemplateManager]
+     * @return void
+     */
+    public function execute(string $hookName, array $args): void
+    {
+        /* @var Publication $publication */
+        /* @var TemplateManager $templateMgr */
+        $templateMgr = &$args[1];
 
-    $igsnRepo = new IgsnRepo();
-    $request = $this->plugin->getRequest();
-    $context = $request->getContext();
-    $submission = $templateMgr->getTemplateVars('submission');
-    $submissionId = $submission->getId();
-    $publication = $submission->getLatestPublication();
-    $publicationId = $publication->getId();
+        $igsnRepo = new IgsnRepo();
+        $request = $this->plugin->getRequest();
+        $context = $request->getContext();
+        $submission = $templateMgr->getTemplateVars('submission');
+        $submissionId = $submission->getId();
+        $publication = $submission->getLatestPublication();
+        $publicationId = $publication->getId();
 
-    $apiBaseUrl = $request->getDispatcher()->url(
-      $request,
-      ROUTE_API,
-      $context->getData('urlPath'),
-      '');
+        $apiBaseUrl = $request->getDispatcher()->url(
+            $request,
+            ROUTE_API,
+            $context->getData('urlPath'),
+            '');
 
-    $locales = $context->getSupportedLocaleNames();
-    $locales = array_map(
-      fn(string $locale, string $name) => ['key' => $publication->getData('locale'), 'label' => $name],
-      array_keys($locales), $locales);
+        $locales = $context->getSupportedLocaleNames();
+        $locales = array_map(
+            fn(string $locale, string $name) => ['key' => $publication->getData('locale'), 'label' => $name],
+            array_keys($locales), $locales);
 
-    $form = new IgsnForm(
-      Constants::igsn,
-      'PUT',
-      $apiBaseUrl . 'submissions/' . $submissionId . '/publications/' . $publicationId,
-      $locales);
+        $form = new IgsnForm(
+            Constants::igsn,
+            'PUT',
+            $apiBaseUrl . 'submissions/' . $submissionId . '/publications/' . $publicationId,
+            $locales);
 
-    $state = $templateMgr->getTemplateVars('state');
-    $state['components'][Constants::igsn] = $form->getConfig();
-    $templateMgr->assign('state', $state);
+        $state = $templateMgr->getTemplateVars('state');
+        $state['components'][Constants::igsn] = $form->getConfig();
+        $templateMgr->assign('state', $state);
 
-    $templateParameters = [
-      'assetsUrl' => $request->getBaseUrl() . '/' . $this->plugin->getPluginPath() . '/assets',
-      'apiBaseUrl' => $apiBaseUrl,
-      'igsns' => json_encode($igsnRepo->getIgsns($publication))
-    ];
-    $templateMgr->assign($templateParameters);
+        $templateParameters = [
+            'assetsUrl' => $request->getBaseUrl() . '/' . $this->plugin->getPluginPath() . '/assets',
+            'apiBaseUrl' => $apiBaseUrl,
+            'igsns' => json_encode($igsnRepo->getIgsns($publication))
+        ];
+        $templateMgr->assign($templateParameters);
 
-    $templateMgr->display($this->plugin->getTemplateResource("igsn/igsnWorkflow.tpl"));
-  }
+        $templateMgr->display($this->plugin->getTemplateResource("igsn/igsnWorkflow.tpl"));
+    }
 }

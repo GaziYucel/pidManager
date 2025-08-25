@@ -17,24 +17,24 @@ use APP\plugins\generic\pidManager\classes\Constants;
 
 class IgsnSchema
 {
-  /**
-   * This method adds properties to the schema of a publication.
-   *
-   * @param string $hookName
-   * @param array $args
-   * @return bool
-   */
-  public function addToSchemaPublication(string $hookName, array $args): bool
-  {
-    $schema = &$args[0];
+    /**
+     * This method adds properties to the schema of a publication.
+     *
+     * @param string $hookName
+     * @param array $args
+     * @return bool
+     */
+    public function addToSchemaPublication(string $hookName, array $args): bool
+    {
+        $schema = &$args[0];
 
-    $schema->properties->{Constants::igsn} = (object)[
-      'type' => 'string',
-      'multilingual' => false,
-      'apiSummary' => true,
-      'validation' => ['nullable']
-    ];
+        $schema->properties->{Constants::igsn} = (object)[
+            'type' => 'string',
+            'multilingual' => false,
+            'apiSummary' => true,
+            'validation' => ['nullable']
+        ];
 
-    return false;
-  }
+        return false;
+    }
 }

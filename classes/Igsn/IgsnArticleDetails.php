@@ -19,38 +19,38 @@ use TemplateManager;
 
 class IgsnArticleDetails
 {
-  /** @var PidManagerPlugin */
-  public PidManagerPlugin $plugin;
+    /** @var PidManagerPlugin */
+    public PidManagerPlugin $plugin;
 
-  /** @param PidManagerPlugin $plugin */
-  public function __construct(PidManagerPlugin &$plugin)
-  {
-    $this->plugin = &$plugin;
-  }
-
-  /**
-   * Hook callback: register output filter to replace raw with structured citations.
-   *
-   * @param string $hookName
-   * @param array $args
-   * @return bool
-   */
-  public function execute(string $hookName, array $args): bool
-  {
-    /* @var TemplateManager $templateMgr */
-    $templateMgr = &$args[1];
-
-    $igsnRepo = new IgsnRepo();
-    $igsns = $igsnRepo->getIgsns($templateMgr->getTemplateVars('currentPublication'));
-
-    for ($i = 0; $i < count($igsns); $i++) {
-      $igsns[$i]->doi = '<a href="' . Constants::doiPrefix . '/' . $igsns[$i]->doi . '" target="_blank">' . $igsns[$i]->doi . '</a>';
+    /** @param PidManagerPlugin $plugin */
+    public function __construct(PidManagerPlugin &$plugin)
+    {
+        $this->plugin = &$plugin;
     }
 
-    $templateParameters = ['igsns' => $igsns];
-    $templateMgr->assign($templateParameters);
-    $templateMgr->display($this->plugin->getTemplateResource("igsn/igsnArticleDetails.tpl"));
+    /**
+     * Hook callback: register output filter to replace raw with structured citations.
+     *
+     * @param string $hookName
+     * @param array $args
+     * @return bool
+     */
+    public function execute(string $hookName, array $args): bool
+    {
+        /* @var TemplateManager $templateMgr */
+        $templateMgr = &$args[1];
 
-    return false;
-  }
+        $igsnRepo = new IgsnRepo();
+        $igsns = $igsnRepo->getIgsns($templateMgr->getTemplateVars('currentPublication'));
+
+        for ($i = 0; $i < count($igsns); $i++) {
+            $igsns[$i]->doi = '<a href="' . Constants::doiPrefix . '/' . $igsns[$i]->doi . '" target="_blank">' . $igsns[$i]->doi . '</a>';
+        }
+
+        $templateParameters = ['igsns' => $igsns];
+        $templateMgr->assign($templateParameters);
+        $templateMgr->display($this->plugin->getTemplateResource("igsn/igsnArticleDetails.tpl"));
+
+        return false;
+    }
 }

@@ -9,14 +9,14 @@
  *}
 
 {if $igsns}
-  <section class="item igsn">
-    <h2 class="label">
-      {translate key="plugins.generic.pidManager.igsn.label"}
-    </h2>
-    <div class="value">
-      {foreach from=$igsns item="igsn"}
-        <p>{$igsn->doi}<br/>{$igsn->label}</p>
-      {/foreach}
-    </div>
-  </section>
+    <section class="item igsn">
+        <h2 class="label">
+            {translate key="plugins.generic.pidManager.igsn.label"}
+        </h2>
+        <div class="value">
+            {foreach from=$igsns item="igsn"}
+                <p>{$igsn->doi}<br/>{$igsn->label}</p>
+            {/foreach}
+        </div>
+    </section>
 {/if}

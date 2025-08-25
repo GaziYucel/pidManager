@@ -17,28 +17,28 @@ use PidManagerPlugin;
 
 class IgsnSubmissionWizard
 {
-  /**@var PidManagerPlugin */
-  public PidManagerPlugin $plugin;
+    /**@var PidManagerPlugin */
+    public PidManagerPlugin $plugin;
 
-  /** @param PidManagerPlugin $plugin */
-  public function __construct(PidManagerPlugin &$plugin)
-  {
-    $this->plugin = &$plugin;
-  }
+    /** @param PidManagerPlugin $plugin */
+    public function __construct(PidManagerPlugin &$plugin)
+    {
+        $this->plugin = &$plugin;
+    }
 
-  public function execute(string $hookName, array $args): void
-  {
-    $templateMgr = &$args[1];
+    public function execute(string $hookName, array $args): void
+    {
+        $templateMgr = &$args[1];
 
-    $request = $this->plugin->getRequest();
+        $request = $this->plugin->getRequest();
 
-    $templateParameters = [
-      'assetsUrl' => $request->getBaseUrl() . '/' . $this->plugin->getPluginPath() . '/assets'
-    ];
-    $templateMgr->assign($templateParameters);
+        $templateParameters = [
+            'assetsUrl' => $request->getBaseUrl() . '/' . $this->plugin->getPluginPath() . '/assets'
+        ];
+        $templateMgr->assign($templateParameters);
 
-    $templateMgr->display(
-      $this->plugin->getTemplateResource("igsn/igsnSubmissionWizard.tpl")
-    );
-  }
+        $templateMgr->display(
+            $this->plugin->getTemplateResource("igsn/igsnSubmissionWizard.tpl")
+        );
+    }
 }

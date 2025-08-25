@@ -27,37 +27,37 @@ use APP\plugins\generic\pidManager\classes\Igsn\IgsnWorkflow;
 
 class PidManagerPlugin extends GenericPlugin
 {
-  /** @copydoc Plugin::register */
-  public function register($category, $path, $mainContextId = null): bool
-  {
-    if (parent::register($category, $path, $mainContextId)) {
-      if ($this->getEnabled()) {
+    /** @copydoc Plugin::register */
+    public function register($category, $path, $mainContextId = null): bool
+    {
+        if (parent::register($category, $path, $mainContextId)) {
+            if ($this->getEnabled()) {
 
-        // IGSN
-        $igsnSchema = new IgsnSchema();
-        $igsnWorkflow = new IgsnWorkflow($this);
-        $igsnArticleDetails = new IgsnArticleDetails($this);
-        HookRegistry::register('Schema::get::publication', [$igsnSchema, 'addToSchemaPublication']);
-        HookRegistry::register('Template::Workflow::Publication', [$igsnWorkflow, 'execute']);
-        HookRegistry::register('Templates::Article::Main', [$igsnArticleDetails, 'execute']);
+                // IGSN
+                $igsnSchema = new IgsnSchema();
+                $igsnWorkflow = new IgsnWorkflow($this);
+                $igsnArticleDetails = new IgsnArticleDetails($this);
+                HookRegistry::register('Schema::get::publication', [$igsnSchema, 'addToSchemaPublication']);
+                HookRegistry::register('Template::Workflow::Publication', [$igsnWorkflow, 'execute']);
+                HookRegistry::register('Templates::Article::Main', [$igsnArticleDetails, 'execute']);
 
-        $igsnSubmissionWizard = new IgsnSubmissionWizard($this);
-        HookRegistry::register('Templates::Submission::SubmissionMetadataForm::AdditionalMetadata', [$igsnSubmissionWizard, 'execute']);
-      }
-      return true;
+                $igsnSubmissionWizard = new IgsnSubmissionWizard($this);
+                HookRegistry::register('Templates::Submission::SubmissionMetadataForm::AdditionalMetadata', [$igsnSubmissionWizard, 'execute']);
+            }
+            return true;
+        }
+        return false;
     }
-    return false;
-  }
 
-  /** @copydoc PKPPlugin::getDescription */
-  public function getDescription(): string
-  {
-    return __('plugins.generic.pidManager.description');
-  }
+    /** @copydoc PKPPlugin::getDescription */
+    public function getDescription(): string
+    {
+        return __('plugins.generic.pidManager.description');
+    }
 
-  /** @copydoc PKPPlugin::getDisplayName */
-  public function getDisplayName(): string
-  {
-    return __('plugins.generic.pidManager.displayName');
-  }
+    /** @copydoc PKPPlugin::getDisplayName */
+    public function getDisplayName(): string
+    {
+        return __('plugins.generic.pidManager.displayName');
+    }
 }
