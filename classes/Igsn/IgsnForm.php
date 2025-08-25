@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file classes/Components/Forms/IgsnForm.php
  *
@@ -13,6 +14,7 @@
 namespace APP\plugins\generic\pidManager\classes\Igsn;
 
 use APP\facades\Repo;
+use APP\plugins\generic\pidManager\classes\Constants;
 use PKP\components\forms\FieldText;
 use PKP\components\forms\FormComponent;
 
@@ -23,15 +25,14 @@ class IgsnForm extends FormComponent
     {
         parent::__construct($id, $method, $action, $locales);
 
-        $publication = Repo::publication()->get(
-            array_reverse(explode('/', $action))[0]);
+        $publication = Repo::publication()->get(array_reverse(explode('/', $action))[0]);
 
         $this->addField(new FieldText(
-            IgsnConstants::igsn, [
+            Constants::igsn, [
             'label' => '',
             'description' => '',
             'isMultilingual' => false,
-            'value' => $publication->getData(IgsnConstants::igsn)
+            'value' => $publication->getData(Constants::igsn)
         ]));
     }
 }

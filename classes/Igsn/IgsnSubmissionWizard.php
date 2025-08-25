@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file classes/Igsn/IgsnSubmissionWizard.php
  *
@@ -27,23 +28,6 @@ class IgsnSubmissionWizard
     public function __construct(PidManagerPlugin &$plugin)
     {
         $this->plugin = &$plugin;
-    }
-
-    /**
-     * Permit requests to the Funder grid handler
-     *
-     * @param string $hookName The name of the hook being invoked
-     * @param array $params The parameters to the invoked hook
-     * @return bool
-     */
-    function setupGridHandler(string $hookName, array $params): bool
-    {
-        $component =& $params[0];
-        if ($component == 'plugins.generic.pidManager.controllers.grid.IgsnGridHandler') {
-            import($component);
-            return true;
-        }
-        return false;
     }
 
     /**
@@ -76,7 +60,7 @@ class IgsnSubmissionWizard
                 $step['sections'][] = [
                     'id' => 'igsn',
                     'name' => __('plugins.generic.pidManager.igsn.label'),
-                    'description' => __('plugins.generic.pidManager.igsn.workflow.description'),
+                    'description' => '',
                     'type' => SubmissionHandler::SECTION_TYPE_TEMPLATE,
                 ];
             }
@@ -105,7 +89,7 @@ class IgsnSubmissionWizard
 
         $output .= sprintf(
             '<template v-else-if="section.id === \'igsn\'">%s</template>',
-            $smarty->fetch($this->plugin->getTemplateResource('igsnTest.tpl'))
+            $smarty->fetch($this->plugin->getTemplateResource('igsn/igsnSubmissionWizard.tpl'))
         );
 
         return false;
@@ -129,7 +113,7 @@ class IgsnSubmissionWizard
         $output =& $params[2];
 
         if ($step === 'details') {
-            $output .= $templateMgr->fetch($this->plugin->getTemplateResource('igsnReview.tpl'));
+            $output .= $templateMgr->fetch($this->plugin->getTemplateResource('igsn/igsnSubmissionWizardReview.tpl'));
         }
 
         return false;

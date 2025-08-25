@@ -1,20 +1,21 @@
 <?php
+
 /**
- * @file classes/Igsn/IgsnArticleView.php
+ * @file classes/Igsn/IgsnArticleDetails.php
  *
  * @copyright (c) 2021+ TIB Hannover
  * @copyright (c) 2021+ Gazi Yücel
  * @license Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
  *
- * @class IgsnArticleView
+ * @class IgsnArticleDetails
  * @brief Article page view
  */
 
 namespace APP\plugins\generic\pidManager\classes\Igsn;
 
-use APP\plugins\generic\pidManager\classes\Helpers\PID\Doi;
-use APP\plugins\generic\pidManager\PidManagerPlugin;
-use APP\template\TemplateManager;
+use APP\plugins\generic\pidManager\classes\Constants;
+use PidManagerPlugin;
+use TemplateManager;
 
 class IgsnArticleDetails
 {
@@ -39,18 +40,16 @@ class IgsnArticleDetails
         /* @var TemplateManager $templateMgr */
         $templateMgr = &$args[1];
 
-        $igsnDao = new IgsnRepo();
-        $igsns = $igsnDao->getIgsns($templateMgr->getTemplateVars('currentPublication'));
+        $igsnRepo = new IgsnRepo();
+        $igsns = $igsnRepo->getIgsns($templateMgr->getTemplateVars('currentPublication'));
 
         for ($i = 0; $i < count($igsns); $i++) {
-            $doi = Doi::removePrefix($igsns[$i]->doi);
-            $prefix = Doi::prefix;
-            $igsns[$i]->doi = "<a href='$prefix/$doi' target='_blank'>$doi</a>";
+            $igsns[$i]->doi = '<a href="' . Constants::doiPrefix . '/' . $igsns[$i]->doi . '" target="_blank">' . $igsns[$i]->doi . '</a>';
         }
 
         $templateParameters = ['igsns' => $igsns];
         $templateMgr->assign($templateParameters);
-        $templateMgr->display($this->plugin->getTemplateResource("igsnArticleView.tpl"));
+        $templateMgr->display($this->plugin->getTemplateResource("igsn/igsnArticleDetails.tpl"));
 
         return false;
     }

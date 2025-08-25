@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file classes/Workflow/WorkflowTab.php
  *
@@ -12,14 +13,13 @@
 
 namespace APP\plugins\generic\pidManager\classes\Igsn;
 
-use APP\plugins\generic\pidManager\PidManagerPlugin;
-use APP\publication\Publication;
-use APP\template\TemplateManager;
-use Exception;
+use APP\plugins\generic\pidManager\classes\Constants;
+use PidManagerPlugin;
 use PKP\core\PKPApplication;
+use Publication;
+use TemplateManager;
 
-
-class IgsnPublicationTab
+class IgsnWorkflow
 {
     /** @var PidManagerPlugin */
     public PidManagerPlugin $plugin;
@@ -36,7 +36,6 @@ class IgsnPublicationTab
      * @param string $hookName
      * @param array $args [string, TemplateManager]
      * @return void
-     * @throws Exception
      */
     public function execute(string $hookName, array $args): void
     {
@@ -44,14 +43,13 @@ class IgsnPublicationTab
         /* @var TemplateManager $templateMgr */
         $templateMgr = &$args[1];
 
-        $igsnDao = new IgsnRepo();
+        $igsnRepo = new IgsnRepo();
         $request = $this->plugin->getRequest();
         $context = $request->getContext();
         $submission = $templateMgr->getTemplateVars('submission');
         $submissionId = $submission->getId();
         $publication = $submission->getLatestPublication();
         $publicationId = $publication->getId();
-        $locale = $publication->getData('locale');
 
         $apiBaseUrl = $request->getDispatcher()->url(
             $request,
@@ -61,27 +59,26 @@ class IgsnPublicationTab
 
         $locales = $context->getSupportedLocaleNames();
         $locales = array_map(
-            fn(string $locale, string $name) => ['key' => $locale, 'label' => $name],
+            fn(string $locale, string $name) => ['key' => $publication->getData('locale'), 'label' => $name],
             array_keys($locales), $locales);
 
         $form = new IgsnForm(
-            IgsnConstants::igsn,
+            Constants::igsn,
             'PUT',
             $apiBaseUrl . 'submissions/' . $submissionId . '/publications/' . $publicationId,
             $locales);
 
         $state = $templateMgr->getTemplateVars('state');
-        $state['components'][IgsnConstants::igsn] = $form->getConfig();
+        $state['components'][Constants::igsn] = $form->getConfig();
         $templateMgr->assign('state', $state);
 
         $templateParameters = [
-            'location' => 'PublicationTab',
             'assetsUrl' => $request->getBaseUrl() . '/' . $this->plugin->getPluginPath() . '/assets',
             'apiBaseUrl' => $apiBaseUrl,
-            'igsns' => json_encode($igsnDao->getIgsns($publication))
+            'igsns' => json_encode($igsnRepo->getIgsns($publication))
         ];
         $templateMgr->assign($templateParameters);
 
-        $templateMgr->display($this->plugin->getTemplateResource("igsnBackend.tpl"));
+        $templateMgr->display($this->plugin->getTemplateResource("igsn/igsnWorkflow.tpl"));
     }
 }

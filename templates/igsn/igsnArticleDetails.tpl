@@ -1,5 +1,5 @@
 {**
- * templates/igsnArticleView.tpl
+ * templates/igsn/igsnArticleDetails.tpl
  *
  * @copyright (c) 2024+ TIB Hannover
  * @copyright (c) 2024+ Gazi Yücel
@@ -15,7 +15,7 @@
         </h2>
         <div class="value">
             {foreach from=$igsns item="igsn"}
-                <p>{$igsn->doi}<br />{$igsn->label}</p>
+                <p>{$igsn->doi}<br/>{$igsn->label}</p>
             {/foreach}
         </div>
     </section>

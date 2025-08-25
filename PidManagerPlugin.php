@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file PidManagerPlugin.php
  *
@@ -15,14 +16,10 @@ namespace APP\plugins\generic\pidManager;
 define('PID_MANAGER_PLUGIN_NAME', basename(__FILE__, '.php'));
 
 use APP\core\Application;
-use APP\plugins\generic\pidManager\classes\Settings\Actions;
 use APP\plugins\generic\pidManager\classes\Igsn\IgsnArticleDetails;
 use APP\plugins\generic\pidManager\classes\Igsn\IgsnSchema;
-use APP\plugins\generic\pidManager\classes\Igsn\IgsnSchemaMigration;
 use APP\plugins\generic\pidManager\classes\Igsn\IgsnSubmissionWizard;
-use APP\plugins\generic\pidManager\classes\Igsn\IgsnPublicationTab;
-use APP\plugins\generic\pidManager\classes\Settings\Manage;
-use PKP\core\JSONMessage;
+use APP\plugins\generic\pidManager\classes\Igsn\IgsnWorkflow;
 use PKP\plugins\GenericPlugin;
 use PKP\plugins\Hook;
 
@@ -32,31 +29,23 @@ class PidManagerPlugin extends GenericPlugin
     public function register($category, $path, $mainContextId = null): bool
     {
         if (parent::register($category, $path, $mainContextId)) {
-            if (Application::isUnderMaintenance()) return true;
-
             if ($this->getEnabled()) {
+
                 // IGSN
                 $igsnSchema = new IgsnSchema();
-                $igsnWorkflowTab = new IgsnPublicationTab($this);
+                $igsnWorkflow = new IgsnWorkflow($this);
                 $igsnArticleView = new IgsnArticleDetails($this);
                 Hook::add('Schema::get::publication', [$igsnSchema, 'addToSchemaPublication']);
-                Hook::add('Template::Workflow::Publication', [$igsnWorkflowTab, 'execute']);
+                Hook::add('Template::Workflow::Publication', [$igsnWorkflow, 'execute']);
                 Hook::add('Templates::Article::Main', [$igsnArticleView, 'execute']);
 
                 $igsnSubmissionWizard = new IgsnSubmissionWizard($this);
-                // Hook::add('LoadComponentHandler', [$igsnSubmissionWizard, 'setupGridHandler']);
                 Hook::add('TemplateManager::display', [$igsnSubmissionWizard, 'addToSubmissionWizardSteps']);
                 Hook::add('Template::SubmissionWizard::Section', [$igsnSubmissionWizard, 'addToSubmissionWizardTemplate']);
                 Hook::add('Template::SubmissionWizard::Section::Review', [$igsnSubmissionWizard, 'addToSubmissionWizardReviewTemplate']);
-
-                // PIDINST
-                // $pidinstSchema = new PidinstSchema();
-                // Hook::add('Schema::get::publication', [$pidinstSchema, 'addToSchemaPublication']);
             }
-
             return true;
         }
-
         return false;
     }
 
@@ -70,26 +59,6 @@ class PidManagerPlugin extends GenericPlugin
     public function getDisplayName(): string
     {
         return __('plugins.generic.pidManager.displayName');
-    }
-
-    /** @copydoc Plugin::getActions() */
-    public function getActions($request, $actionArgs): array
-    {
-        $actions = new Actions($this);
-        return $actions->execute($request, $actionArgs, parent::getActions($request, $actionArgs));
-    }
-
-    /** @copydoc Plugin::manage() */
-    public function manage($args, $request): JSONMessage
-    {
-        $manage = new Manage($this);
-        return $manage->execute($args, $request);
-    }
-
-    /** @copydoc Plugin::getInstallMigration() */
-    function getInstallMigration(): IgsnSchemaMigration
-    {
-        return new IgsnSchemaMigration();
     }
 }
 

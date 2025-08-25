@@ -1,19 +1,23 @@
 <?php
+
 /**
- * @file classes/Igsn/IgsnConstants.php
+ * @file classes/Constants.php
  *
  * @copyright (c) 2021+ TIB Hannover
  * @copyright (c) 2021+ Gazi Yücel
  * @license Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
  *
- * @class IgsnConstants
- * @brief Constants for IGSN
+ * @class Constants
+ * @brief Constants
  */
 
-namespace APP\plugins\generic\pidManager\classes\Igsn;
+namespace APP\plugins\generic\pidManager\classes;
 
-class IgsnConstants
+class Constants
 {
+    /** @var string Correct prefix for DOI, e.g. https://doi.org */
+    public const doiPrefix = 'https://doi.org';
+
     /** @var string Key for igsn saved in publications */
     public const igsn = 'igsn';
 }

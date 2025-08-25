@@ -6,20 +6,19 @@ PID Manager for OJS
 
 - [PID Manager Manager Plugin](#pid-manager-plugin)
 - [Features](#features)
-    - [IGSN](#igsn)
+  - [IGSN](#igsn)
 - [Screenshot(s) / screen recording(s)](#screenshots--screen-recordings)
 - [Install and configure the plugin](#install-and-configure-the-plugin)
-    - [Requirements](#requirements)
-    - [Install with Git](#install-with-git)
-    - [Install via direct download](#install-via-direct-download)
-    - [Configuration of the plugin](#configuration-of-the-plugin)
+  - [Requirements](#requirements)
+  - [Install with Git](#install-with-git)
+  - [Install via direct download](#install-via-direct-download)
+  - [Configuration of the plugin](#configuration-of-the-plugin)
 - [Development](#development)
-    - [Structure](#structure)
-    - [Notes](#notes)
-    - [Debugging](#debugging)
+  - [Structure](#structure)
+  - [Notes](#notes)
 - [Data Models](#data-models)
 - [Contribute](#contribute)
-    - [How to contribute](#how-to-contribute)
+  - [How to contribute](#how-to-contribute)
 - [License](#license)
 
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
@@ -31,7 +30,7 @@ PID Manager for OJS
 
 - Manual adding sample PIDs and labels
 - Allows suggesting PIDs and Labels from DataCite
-- Marks samples already added with text strike through
+- Marks samples already added to the list
 
 # Screenshot(s) / screen recording(s)
 
@@ -49,14 +48,12 @@ Get the correct version for your OJS version:
 
 - branch main: development version, don't use for production
 - branch stable-3_4_0: use this version for OJS version 3.4.0.x
-- branch stable-3_5_0: use this version for OJS version 3.5.0.x
+- branch stable-3_3_0: use this version for OJS version 3.3.0.x
 
 ## Install via direct download
 
-- Download release for your OJS version from [here](https://github.com/GaziYucel/pidManager/releases).
-  _Note the correct version for you OJS version._
-- Alternatively, download the code with the option 'Download ZIP'.
-  _Note the correct branch for your OJS version._
+- Download release for your OJS version. _Note the correct version for you OJS version._
+- Alternatively, download the code with the option 'Download ZIP'. _Note the correct branch for your OJS version._
 - Extract the downloaded file to `/plugins/generic/pidManager`.
 
 ## Configuration of the plugin
@@ -74,10 +71,7 @@ Get the correct version for your OJS version:
     ├─ .project                      # Project related files
     ├─ assets                        # Styles, images, javascript files
     ├─ Classes                       # Main folder with models / logic
-    │  ├─ Helpers                    # Helper classes
-    │  ├─ Igsn                       # Classes for IGSN
-    │  └─ Settings                   # Classes for Plugin Settings
-    ├─ docs                          # Documentation, examples
+    │  └─ Igsn                       # Classes for IGSN
     ├─ locale                        # Language files
     ├─ templates                     # Templates folder
     ├─ .gitignore                    # Git ignore file
@@ -89,24 +83,14 @@ Get the correct version for your OJS version:
 
 ## Notes
 
-- Autoload of the classes in the folder `classes/` is done according to the PSR-4 specification.
-- All classes have namespaces and are structured according to PSR-4 standard.
-
-## Debugging
-
-There is a debug mode possibility in this plugin. This constant puts the plugin in debugging mode.
-Extra debug information will be written to the log file (see LogHelper class) such as API calls.
-Debug information is written to the log file in the `files_dir` directory of your OJS instance.
-You can find the `files_dir` constant in your config.inc.php file.
-
-Please put the following in the file config.inc.php to enable this:
-
-```
-[PidManagerPlugin]
-isDebugMode=true
-```
-
-_Careful with sensitive information, (passwords, tokens) will be written in plain text._
+- OJS 3.3.0
+  - Loading of the classes in the folder classes is done with composer classmap.
+  - If you add or remove classes in this folder, run the following command to update the autoload files: composer dump-autoload -o.
+  - Running composer install -o or composer update -o will also generate the autoload files.
+  - The -o option generates the optimised files ready for production.
+- OJS 3.4.0+
+  - Loading of classes depends on PSR-4.
+  - No composer.json file or vendor directory is needed.
 
 # Data models
 
