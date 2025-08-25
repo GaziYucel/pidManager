@@ -1,5 +1,5 @@
 {**
- * templates/igsn/igsnSubmissionWizard.tpl
+ * templates/pidinst/submissionWizard.tpl
  *
  * @copyright (c) 2024+ TIB Hannover
  * @copyright (c) 2024+ Gazi Yücel
@@ -10,9 +10,9 @@
 
 <div>
     <label class="label">
-        {translate key="plugins.generic.pidManager.igsn.label"}
+        {translate key="plugins.generic.pidManager.pidinst.label"}
     </label>
     <p>
-        {translate key="plugins.generic.pidManager.igsn.submission.description"}
+        {translate key="plugins.generic.pidManager.pidinst.submission.description"}
     </p>
 </div>

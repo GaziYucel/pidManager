@@ -1,5 +1,5 @@
 {**
- * templates/pidinst/pidinstWorkflow.tpl
+ * templates/igsn/workflow.tpl
  *
  * @copyright (c) 2024+ TIB Hannover
  * @copyright (c) 2024+ Gazi Yücel
@@ -11,53 +11,53 @@
  * https://support.datacite.org/docs/api-queries#selecting-which-metadata-fields-to-retrieve
  *}
 
-{assign var="ConstantsPidinst" value=APP\plugins\generic\pidManager\classes\Constants::pidinst}
+{assign var="ConstantsIgsn" value=APP\plugins\generic\pidManager\classes\Constants::igsn}
 
-<tab id='pidManagerPidinst' role='tabpanel' class='pkpTab'
-     label="{translate key='plugins.generic.pidManager.pidinst.workflow.name'}">
+<tab id='pidManagerIgsn' role='tabpanel' class='pkpTab'
+     label="{translate key='plugins.generic.pidManager.igsn.workflow.name'}">
 
     <link rel="stylesheet" href="{$assetsUrl}/css/backend.css" type="text/css"/>
 
     <div class="header">
-        <h4 class="mt-0">{translate key="plugins.generic.pidManager.pidinst.workflow.label"}</h4>
-        <span>{translate key="plugins.generic.pidManager.pidinst.workflow.description"}</span>
+        <h4 class="mt-0">{translate key="plugins.generic.pidManager.igsn.workflow.label"}</h4>
+        <span>{translate key="plugins.generic.pidManager.igsn.workflow.description"}</span>
     </div>
 
     <div class="content">
         <table class="w-full pt-16">
             <tr>
                 <td>
-                    <input v-model="pidManagerPidinstApp.searchPhraseDoi" type="text"
+                    <input v-model="pidManagerIgsnApp.searchPhraseDoi" type="text"
                            class="pkpFormField__input pkpFormField--text__input"
-                           placeholder="{translate key="plugins.generic.pidManager.pidinst.datacite.searchPhraseDoi.placeholder"}"
+                           placeholder="{translate key="plugins.generic.pidManager.igsn.datacite.searchPhraseDoi.placeholder"}"
                     />
                 </td>
                 <td>
-                    <input v-model="pidManagerPidinstApp.searchPhraseLabel" type="text"
+                    <input v-model="pidManagerIgsnApp.searchPhraseLabel" type="text"
                            class="pkpFormField__input pkpFormField--text__input"
-                           placeholder="{translate key="plugins.generic.pidManager.pidinst.datacite.searchPhraseLabel.placeholder"}"
+                           placeholder="{translate key="plugins.generic.pidManager.igsn.datacite.searchPhraseLabel.placeholder"}"
                     />
                 </td>
                 <td class="center w-42">
-                    <a @click="pidManagerPidinstApp.apiLookup()"
+                    <a @click="pidManagerIgsnApp.apiLookup()"
                        class="pkpButton h-40 min-w-40 line-height-40"
-                       :class="{ 'disabled': pidManagerPidinstApp.isPublished }">
+                       :class="{ 'disabled': pidManagerIgsnApp.isPublished }">
                         <i class="fa fa-search" aria-hidden="true"></i>
                     </a>
                 </td>
             </tr>
-            <tr v-if="pidManagerPidinstApp.showSearchResultsPane">
+            <tr v-if="pidManagerIgsnApp.showSearchResultsPane">
                 <td colspan="2">
                     <div id="pidManagerSearchResults">
-                        <span v-if="pidManagerPidinstApp.panelVisibility.empty"
+                        <span v-if="pidManagerIgsnApp.panelVisibility.empty"
                               class="center w-full inline-block pt-60">
-                            {translate key="plugins.generic.pidManager.pidinst.datacite.empty"}
+                          {translate key="plugins.generic.pidManager.igsn.datacite.empty"}
                         </span>
-                        <span v-else-if="pidManagerPidinstApp.panelVisibility.spinner"
+                        <span v-else-if="pidManagerIgsnApp.panelVisibility.spinner"
                               class="pkpSpinner center w-full inline-block pt-60">
                         </span>
-                        <table v-else-if="pidManagerPidinstApp.panelVisibility.list" class="w-full">
-                            <template v-for="(row, j) in pidManagerPidinstApp.searchResultsFiltered">
+                        <table v-else-if="pidManagerIgsnApp.panelVisibility.list" class="w-full">
+                            <template v-for="(row, j) in pidManagerIgsnApp.searchResultsFiltered">
                                 <tr>
                                     <td class="center w-42 p-0">
                                         <a :href="'https://doi.org/' + row.doi" target="_blank">
@@ -65,7 +65,7 @@
                                         </a>
                                     </td>
                                     <td class="p-0">
-                                        <a @click="pidManagerPidinstApp.select(j)" class="searchRowLink"
+                                        <a @click="pidManagerIgsnApp.select(j)" class="searchRowLink"
                                            :class="{ 'disabled': row.exists }">
                                             {{ row.label }} [{{ row.doi }}]
                                         </a>
@@ -76,7 +76,7 @@
                     </div>
                 </td>
                 <td class="center w-42">
-                    <a @click="pidManagerPidinstApp.clearSearch()" class="pkpButton h-40 min-w-40 line-height-40">
+                    <a @click="pidManagerIgsnApp.clearSearch()" class="pkpButton h-40 min-w-40 line-height-40">
                         <i aria-hidden="true" class="fa fa-times"></i>
                     </a>
                 </td>
@@ -89,19 +89,19 @@
             <tr>
                 <th>
                     <span class="block">
-                        {translate key="plugins.generic.pidManager.pidinst.workflow.table.pid"}
+                        {translate key="plugins.generic.pidManager.igsn.workflow.table.pid"}
                     </span>
                 </th>
                 <th>
                     <span class="block">
-                        {translate key="plugins.generic.pidManager.pidinst.workflow.table.label"}
-                    </span>
+                        {translate key="plugins.generic.pidManager.igsn.workflow.table.label"}
+                  </span>
                 </th>
                 <th class="center w-42">
                     &nbsp;
                 </th>
             </tr>
-            <template v-for="(item, i) in pidManagerPidinstApp.items" class="pidManager-Row">
+            <template v-for="(item, i) in pidManagerIgsnApp.items" class="pidManager-Row">
                 <tr>
                     <td><input v-model="item.doi" type="text"
                                class="pkpFormField__input pkpFormField--text__input"/>
@@ -110,24 +110,24 @@
                                class="pkpFormField__input pkpFormField--text__input"/>
                     </td>
                     <td class="center w-42">
-                        <a @click="pidManagerPidinstApp.remove(i)" class="pkpButton h-40 min-w-40 line-height-40"
-                           :class="{ 'disabled': pidManagerPidinstApp.isPublished }">
+                        <a @click="pidManagerIgsnApp.remove(i)" class="pkpButton h-40 min-w-40 line-height-40"
+                           :class="{ 'disabled': pidManagerIgsnApp.isPublished }">
                             <i class="fa fa-trash" aria-hidden="true"></i>
                         </a>
                     </td>
                 </tr>
             </template>
-            <tr v-show="pidManagerPidinstApp.items.length === 0">
+            <tr v-show="pidManagerIgsnApp.items.length === 0">
                 <td colspan="3" class="center w-42 h-42">
-                    {translate key="plugins.generic.pidManager.pidinst.workflow.empty"}
+                    {translate key="plugins.generic.pidManager.igsn.workflow.empty"}
                 </td>
             </tr>
             <tr>
                 <td colspan="3">
                     <p>
-                        <a @click="pidManagerPidinstApp.add()" v-show="!pidManagerPidinstApp.isPublished"
+                        <a @click="pidManagerIgsnApp.add()" v-show="!pidManagerIgsnApp.isPublished" 
                            class="pkpButton">
-                            {translate key="plugins.generic.pidManager.pidinst.button.add"}
+                            {translate key="plugins.generic.pidManager.igsn.button.add"}
                         </a>
                     </p>
                 </td>
@@ -136,17 +136,17 @@
     </div>
 
     <div class="footer">
-        <pkp-form v-bind="components.{$ConstantsPidinst}" @set="set"></pkp-form>
+        <pkp-form v-bind="components.{$ConstantsIgsn}" @set="set"></pkp-form>
         <span class="hide">
-            {{ pidManagerPidinstApp.workingPublication = workingPublication }}
-            {{ pidManagerPidinstApp.configure() }}
-            {{ components.{$ConstantsPidinst}.fields[0]['value'] = JSON.stringify(pidManagerPidinstApp.itemListCleaned) }}
-            {{ components.{$ConstantsPidinst}.action = '{$apiBaseUrl}submissions/' + workingPublication.submissionId + '/publications/' + workingPublication.id }}
+            {{ pidManagerIgsnApp.workingPublication = workingPublication }}
+            {{ pidManagerIgsnApp.configure() }}
+            {{ components.{$ConstantsIgsn}.fields[0]['value'] = JSON.stringify(pidManagerIgsnApp.itemListCleaned) }}
+            {{ components.{$ConstantsIgsn}.action = '{$apiBaseUrl}submissions/' + workingPublication.submissionId + '/publications/' + workingPublication.id }}
         </span>
     </div>
 
     <script>
-        let pidManagerPidinstApp = new pkp.Vue({
+        let pidManagerIgsnApp = new pkp.Vue({
             data() {
                 return {
                     items: {$items},
@@ -160,7 +160,7 @@
                     pendingRequests: new WeakMap(),
                     publication: { /**/ id: 0},
                     workingPublication: { /**/ id: 0}, // workingPublication
-                    apiUrl: 'https://api.datacite.org/dois?fields[dois]=titles&query=relatedIdentifiers.relatedIdentifierType:PIDINST AND types.resourceTypeGeneral:Instrument'
+                    apiUrl: 'https://api.datacite.org/dois?fields[dois]=titles&query=relatedIdentifiers.relatedIdentifierType:IGSN AND types.resourceTypeGeneral:PhysicalObject'
                 };
             },
             computed: {
@@ -206,8 +206,8 @@
             },
             methods: {
                 configure: function () {
-                    if (document.querySelector('#pidManagerPidinst button.pkpButton') !== null) {
-                        let saveBtn = document.querySelector('#pidManagerPidinst button.pkpButton');
+                    if (document.querySelector('#pidManagerIgsn button.pkpButton') !== null) {
+                        let saveBtn = document.querySelector('#pidManagerIgsn button.pkpButton');
                         saveBtn.disabled = this.isPublished;
                     }
                 },
@@ -219,7 +219,7 @@
                         this.items.splice(index, 1);
                         return;
                     }
-                    if (confirm('{translate key="plugins.generic.pidManager.pidinst.remove.confirm"}') === true) {
+                    if (confirm('{translate key="plugins.generic.pidManager.igsn.remove.confirm"}') === true) {
                         this.items.splice(index, 1);
                     }
                 },

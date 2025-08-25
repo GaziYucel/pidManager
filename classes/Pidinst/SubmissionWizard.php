@@ -1,17 +1,17 @@
 <?php
 
 /**
- * @file classes/Igsn/SubmissionWizard.php
+ * @file classes/Pidinst/SubmissionWizard.php
  *
  * @copyright (c) 2021+ TIB Hannover
  * @copyright (c) 2021+ Gazi Yücel
  * @license Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
  *
  * @class SubmissionWizard
- * @brief Igsn submission wizard
+ * @brief Pidinst submission wizard
  */
 
-namespace APP\plugins\generic\pidManager\classes\Igsn;
+namespace APP\plugins\generic\pidManager\classes\Pidinst;
 
 use PidManagerPlugin;
 
@@ -38,7 +38,7 @@ class SubmissionWizard
         $templateMgr->assign($templateParameters);
 
         $templateMgr->display(
-            $this->plugin->getTemplateResource("igsn/submissionWizard.tpl")
+            $this->plugin->getTemplateResource("pidinst/submissionWizard.tpl")
         );
     }
 }

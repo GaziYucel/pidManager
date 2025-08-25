@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @file classes/Igsn/WorkflowTab.php
+ * @file classes/Pidinst/WorkflowTab.php
  *
  * @copyright (c) 2021+ TIB Hannover
  * @copyright (c) 2021+ Gazi Yücel
@@ -11,7 +11,7 @@
  * @brief Workflow Publication Tab
  */
 
-namespace APP\plugins\generic\pidManager\classes\Igsn;
+namespace APP\plugins\generic\pidManager\classes\Pidinst;
 
 use APP\plugins\generic\pidManager\classes\Constants;
 use PidManagerPlugin;
@@ -62,13 +62,13 @@ class Workflow
             array_keys($locales), $locales);
 
         $form = new Form(
-            Constants::igsn,
+            Constants::pidinst,
             'PUT',
             $apiBaseUrl . 'submissions/' . $submissionId . '/publications/' . $publicationId,
             $locales);
 
         $state = $templateMgr->getTemplateVars('state');
-        $state['components'][Constants::igsn] = $form->getConfig();
+        $state['components'][Constants::pidinst] = $form->getConfig();
         $templateMgr->assign('state', $state);
 
         $templateParameters = [
@@ -78,6 +78,6 @@ class Workflow
         ];
         $templateMgr->assign($templateParameters);
 
-        $templateMgr->display($this->plugin->getTemplateResource("igsn/workflow.tpl"));
+        $templateMgr->display($this->plugin->getTemplateResource("pidinst/workflow.tpl"));
     }
 }

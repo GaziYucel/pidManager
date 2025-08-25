@@ -1,5 +1,5 @@
 {**
- * templates/pidinst/pidinstArticleDetails.tpl
+ * templates/igsn/articleDetails.tpl
  *
  * @copyright (c) 2024+ TIB Hannover
  * @copyright (c) 2024+ Gazi Yücel
@@ -9,9 +9,9 @@
  *}
 
 {if $items}
-    <section class="item pidinst">
+    <section class="item igsn">
         <h2 class="label">
-            {translate key="plugins.generic.pidManager.pidinst.label"}
+            {translate key="plugins.generic.pidManager.igsn.label"}
         </h2>
         <div class="value">
             {foreach from=$items item="item"}

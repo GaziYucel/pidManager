@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @file classes/Igsn/ArticleDetails.php
+ * @file classes/Pidinst/ArticleDetails.php
  *
  * @copyright (c) 2021+ TIB Hannover
  * @copyright (c) 2021+ Gazi Yücel
@@ -11,7 +11,7 @@
  * @brief Article page view
  */
 
-namespace APP\plugins\generic\pidManager\classes\Igsn;
+namespace APP\plugins\generic\pidManager\classes\Pidinst;
 
 use APP\plugins\generic\pidManager\classes\Constants;
 use PidManagerPlugin;
@@ -49,7 +49,7 @@ class ArticleDetails
 
         $templateParameters = ['items' => $items];
         $templateMgr->assign($templateParameters);
-        $templateMgr->display($this->plugin->getTemplateResource("igsn/articleDetails.tpl"));
+        $templateMgr->display($this->plugin->getTemplateResource("pidinst/articleDetails.tpl"));
 
         return false;
     }
