@@ -1,4 +1,4 @@
-name: release-package-stable-3_4_0
+name: release-package-stable
 
 on:
   workflow_dispatch: ~
