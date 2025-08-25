@@ -17,11 +17,14 @@ msgstr "PID Manager Plugin"
 msgid "plugins.generic.pidManager.description"
 msgstr "Plugin for managing Persistent Identifiers (PIDs) and depositing to external services."
 
-msgid "plugins.generic.pidManager.settings.initialise.button"
-msgstr "Initialise"
+msgid "plugins.generic.pidManager.settings.title"
+msgstr "Enable PIDs by selecting below"
 
-msgid "plugins.generic.pidManager.settings.initialise.notification"
-msgstr "Initialisation complete"
+msgid "plugins.generic.pidManager.settings.igsn.label"
+msgstr "Enable IGSN"
+
+msgid "plugins.generic.pidManager.settings.pidinst.label"
+msgstr "Enable PIDINST"
 
 msgid "plugins.generic.pidManager.igsn.label"
 msgstr "International Generic Sample Number (IGSN)"
@@ -72,4 +75,56 @@ msgid "plugins.generic.pidManager.igsn.datacite.info"
 msgstr "Please type your search phrase above and search on DataCite."
 
 msgid "plugins.generic.pidManager.igsn.datacite.empty"
+msgstr "Your search phrase returned empty."
+
+
+msgid "plugins.generic.pidManager.pidinst.label"
+msgstr "International Generic Sample Number (Pidinst)"
+
+msgid "plugins.generic.pidManager.pidinst.workflow.name"
+msgstr "PIDINST"
+
+msgid "plugins.generic.pidManager.pidinst.workflow.label"
+msgstr "PIDINST"
+
+msgid "plugins.generic.pidManager.pidinst.workflow.description"
+msgstr ""
+"The International Generic Sample Number (PIDINST) is a persistent identifier, which is a code "
+"that uniquely identifies physical samples from our natural environment and related features-of-interest. "
+"Learn more at <a href=\"https://pidinst.org\" target=\"_blank\">pidinst.org</a>.<br/>"
+"If you want to search for an PIDINST, fill your search phrase at DOI and or Label and click on the search button."
+
+msgid "plugins.generic.pidManager.pidinst.submission.description"
+msgstr ""
+"The International Generic Sample Number (PIDINST) is a persistent identifier, which is a code "
+"that uniquely identifies physical samples from our natural environment and related features-of-interest. "
+"Learn more at <a href=\"https://pidinst.org\" target=\"_blank\">pidinst.org</a>.<br>"
+"The PIDINSTs can be entered later by the journal manager or another authorised user. "
+"Unfortunately, this cannot be done by the author."
+
+msgid "plugins.generic.pidManager.pidinst.workflow.empty"
+msgstr "There are no PIDINSTs found for this publication."
+
+msgid "plugins.generic.pidManager.pidinst.workflow.table.pid"
+msgstr "DOI"
+
+msgid "plugins.generic.pidManager.pidinst.workflow.table.label"
+msgstr "Label"
+
+msgid "plugins.generic.pidManager.pidinst.button.add"
+msgstr "Add new row"
+
+msgid "plugins.generic.pidManager.pidinst.button.remove.confirm"
+msgstr "Are you sure you want to remove?"
+
+msgid "plugins.generic.pidManager.pidinst.datacite.searchPhraseDoi.placeholder"
+msgstr "Type your DOI here, e.g. 10.12345/12.3456"
+
+msgid "plugins.generic.pidManager.pidinst.datacite.searchPhraseLabel.placeholder"
+msgstr "Type your label here, e.g. Sediment core"
+
+msgid "plugins.generic.pidManager.pidinst.datacite.info"
+msgstr "Please type your search phrase above and search on DataCite."
+
+msgid "plugins.generic.pidManager.pidinst.datacite.empty"
 msgstr "Your search phrase returned empty."

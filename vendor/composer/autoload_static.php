@@ -15,6 +15,16 @@ class ComposerStaticInitdb0506f73b171ab12c3437ae07e258c1
         'APP\\plugins\\generic\\pidManager\\classes\\Igsn\\IgsnSchema' => __DIR__ . '/../..' . '/classes/Igsn/IgsnSchema.php',
         'APP\\plugins\\generic\\pidManager\\classes\\Igsn\\IgsnSubmissionWizard' => __DIR__ . '/../..' . '/classes/Igsn/IgsnSubmissionWizard.php',
         'APP\\plugins\\generic\\pidManager\\classes\\Igsn\\IgsnWorkflow' => __DIR__ . '/../..' . '/classes/Igsn/IgsnWorkflow.php',
+        'APP\\plugins\\generic\\pidManager\\classes\\Pidinst\\PidinstArticleDetails' => __DIR__ . '/../..' . '/classes/Pidinst/IgsnArticleDetails.php',
+        'APP\\plugins\\generic\\pidManager\\classes\\Pidinst\\PidinstDataModel' => __DIR__ . '/../..' . '/classes/Pidinst/IgsnDataModel.php',
+        'APP\\plugins\\generic\\pidManager\\classes\\Pidinst\\PidinstForm' => __DIR__ . '/../..' . '/classes/Pidinst/IgsnForm.php',
+        'APP\\plugins\\generic\\pidManager\\classes\\Pidinst\\PidinstRepo' => __DIR__ . '/../..' . '/classes/Pidinst/IgsnRepo.php',
+        'APP\\plugins\\generic\\pidManager\\classes\\Pidinst\\PidinstSchema' => __DIR__ . '/../..' . '/classes/Pidinst/IgsnSchema.php',
+        'APP\\plugins\\generic\\pidManager\\classes\\Pidinst\\PidinstSubmissionWizard' => __DIR__ . '/../..' . '/classes/Pidinst/IgsnSubmissionWizard.php',
+        'APP\\plugins\\generic\\pidManager\\classes\\Pidinst\\PidinstWorkflow' => __DIR__ . '/../..' . '/classes/Pidinst/IgsnWorkflow.php',
+        'APP\\plugins\\generic\\pidManager\\classes\\Settings\\Actions' => __DIR__ . '/../..' . '/classes/Settings/Actions.php',
+        'APP\\plugins\\generic\\pidManager\\classes\\Settings\\Manage' => __DIR__ . '/../..' . '/classes/Settings/Manage.php',
+        'APP\\plugins\\generic\\pidManager\\classes\\Settings\\SettingsForm' => __DIR__ . '/../..' . '/classes/Settings/SettingsForm.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
     );
 
