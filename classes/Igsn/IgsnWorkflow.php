@@ -74,7 +74,6 @@ class IgsnWorkflow
     $templateMgr->assign('state', $state);
 
     $templateParameters = [
-      'location' => 'PublicationTab',
       'assetsUrl' => $request->getBaseUrl() . '/' . $this->plugin->getPluginPath() . '/assets',
       'apiBaseUrl' => $apiBaseUrl,
       'igsns' => json_encode($igsnRepo->getIgsns($publication))

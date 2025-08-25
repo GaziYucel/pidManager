@@ -15,93 +15,115 @@
   margin-bottom: 32px;
   border-left: 1px solid #ddd;
 
-  .header {
-    max-height: unset;
-  }
-
-  .header h4 {
-    margin-top: 0;
-  }
-
-  .content {
-    padding-top: 1rem;
-  }
-
-  .content .pkpButton {
-    height: 40px;
-    min-width: 40px;
-    line-height: 40px;
-  }
-
-  .content table {
-    width: 100%;
-  }
-
-  .content td {
-    vertical-align: top;
-  }
-
-  .content td.column3 {
-    text-align: center;
-  }
-
-  .content th.column3 {
-    width: 42px;
-  }
-
-  .content th span {
-    display: block;
+  table th span {
     background-color: #f9f9f9;
-    border: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
   }
 
   #pidManagerSearchResults {
     background-color: #fafafa;
     border: 1px solid #ccc;
     height: 150px;
-    overflow-y: scroll;
+    overflow-y: auto;
+    position: absolute;
+    width: calc(100% - 160px);
+    box-shadow: 0 .75rem .75rem #0003;
+    margin-top: -30px;
+    margin-left: 10px;
+
+    td a {
+      display: block;
+      cursor: pointer;
+      padding: 0.3rem;
+      color: inherit;
+    }
+
+    td a:hover {
+      background-color: #f1f1f1;
+    }
   }
 
-  #pidManagerSearchResults span {
-    display: inline-block;
-    padding-top: 60px;
-    width: 100%;
-    text-align: center;
-  }
+  /* class focussed */
 
-  #pidManagerSearchResults td {
-    padding: 0;
-  }
-
-  #pidManagerSearchResults td.column1 {
-    width: 24px;
-  }
-
-  #pidManagerSearchResults td a {
-    display: block;
-    cursor: pointer;
-    padding: 0.3rem;
-    line-height: 1.4rem;
-  }
-
-  #pidManagerSearchResults td a:hover {
-    background-color: #f1f1f1;
-  }
-
-  .pidManager-Disabled {
+  .disabled {
     pointer-events: none;
     cursor: default;
-    opacity: 0.6;
+    opacity: 0.3;
   }
 
-  .pidManager-Hide {
+  .hide {
     display: none !important;
   }
 
-  .pidManager-Strikethrough {
-    text-decoration: line-through;
+  .center {
+    text-align: center;
   }
 
+  .h-40 {
+    height: 40px;
+  }
+
+  .h-42 {
+    height: 42px;
+  }
+
+  .min-w-40 {
+    min-width: 40px;
+  }
+
+  .line-height-40 {
+    line-height: 40px;
+  }
+
+  .w-42 {
+    width: 42px;
+  }
+
+  .w-full {
+    width: 100%;
+  }
+
+  .p-0 {
+    padding: 0;
+  }
+
+  .p-5 {
+    padding: 5px;
+  }
+
+  .pb-0 {
+    padding-bottom: 0;
+  }
+
+  .pt-16 {
+    padding-top: 16px;
+  }
+
+  .pt-32 {
+    padding-top: 32px;
+  }
+
+  .pt-60 {
+    padding-top: 60px;
+  }
+
+  .mb-32 {
+    margin-bottom: 32px;
+  }
+
+  .mt-0 {
+    margin-top: 0;
+  }
+
+  .block {
+    display: block;
+  }
+
+  .inline-block {
+    display: inline-block;
+  }
+
+  /* OJS elements */
   .pkpFormField--text__input {
     width: 100%;
   }

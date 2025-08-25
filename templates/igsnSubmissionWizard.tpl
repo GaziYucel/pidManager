@@ -3,9 +3,6 @@
     {translate key="plugins.generic.pidManager.igsn.label"}
   </label>
   <p>
-    {translate key="plugins.generic.pidManager.igsn.workflow.description"}
-  </p>
-  <p>
-    -- do something useful here --
+    {translate key="plugins.generic.pidManager.igsn.submission.description"}
   </p>
 </div>
