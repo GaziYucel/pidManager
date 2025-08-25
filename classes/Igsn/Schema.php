@@ -1,13 +1,13 @@
 <?php
 
 /**
- * @file classes/Igsn/IgsnSchema.php
+ * @file classes/Igsn/Schema.php
  *
  * @copyright (c) 2021+ TIB Hannover
  * @copyright (c) 2021+ Gazi Yücel
  * @license Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
  *
- * @class IgsnSchema
+ * @class Schema
  * @brief Schema for Igsn
  */
 
@@ -15,7 +15,7 @@ namespace APP\plugins\generic\pidManager\classes\Igsn;
 
 use APP\plugins\generic\pidManager\classes\Constants;
 
-class IgsnSchema
+class Schema
 {
     /**
      * This method adds properties to the schema of a publication.

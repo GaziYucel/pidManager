@@ -8,14 +8,14 @@
  * IGSN Article View
  *}
 
-{if $pidinsts}
+{if $items}
     <section class="item pidinst">
         <h2 class="label">
             {translate key="plugins.generic.pidManager.pidinst.label"}
         </h2>
         <div class="value">
-            {foreach from=$pidinsts item="pidinst"}
-                <p>{$pidinst->doi}<br/>{$pidinst->label}</p>
+            {foreach from=$items item="item"}
+                <p>{$item->doi}<br/>{$item->label}</p>
             {/foreach}
         </div>
     </section>

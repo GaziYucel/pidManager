@@ -1,13 +1,13 @@
 <?php
 
 /**
- * @file classes/Workflow/WorkflowTab.php
+ * @file classes/Igsn/WorkflowTab.php
  *
  * @copyright (c) 2021+ TIB Hannover
  * @copyright (c) 2021+ Gazi Yücel
  * @license Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
  *
- * @class WorkflowTab
+ * @class Workflow
  * @brief Workflow Publication Tab
  */
 
@@ -18,7 +18,7 @@ use PidManagerPlugin;
 use Publication;
 use TemplateManager;
 
-class IgsnWorkflow
+class Workflow
 {
     /** @var PidManagerPlugin */
     public PidManagerPlugin $plugin;
@@ -42,7 +42,7 @@ class IgsnWorkflow
         /* @var TemplateManager $templateMgr */
         $templateMgr = &$args[1];
 
-        $igsnRepo = new IgsnRepo();
+        $repo = new Repo();
         $request = $this->plugin->getRequest();
         $context = $request->getContext();
         $submission = $templateMgr->getTemplateVars('submission');
@@ -61,7 +61,7 @@ class IgsnWorkflow
             fn(string $locale, string $name) => ['key' => $publication->getData('locale'), 'label' => $name],
             array_keys($locales), $locales);
 
-        $form = new IgsnForm(
+        $form = new Form(
             Constants::igsn,
             'PUT',
             $apiBaseUrl . 'submissions/' . $submissionId . '/publications/' . $publicationId,
@@ -74,7 +74,7 @@ class IgsnWorkflow
         $templateParameters = [
             'assetsUrl' => $request->getBaseUrl() . '/' . $this->plugin->getPluginPath() . '/assets',
             'apiBaseUrl' => $apiBaseUrl,
-            'igsns' => json_encode($igsnRepo->getIgsns($publication))
+            'items' => json_encode($repo->getByPublication($publication))
         ];
         $templateMgr->assign($templateParameters);
 

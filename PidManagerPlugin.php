@@ -23,14 +23,14 @@ import('lib.pkp.classes.linkAction.request.AjaxAction');
 use APP\plugins\generic\pidManager\classes\Constants;
 use APP\plugins\generic\pidManager\classes\Settings\Actions;
 use APP\plugins\generic\pidManager\classes\Settings\Manage;
-use APP\plugins\generic\pidManager\classes\Igsn\IgsnArticleDetails;
-use APP\plugins\generic\pidManager\classes\Igsn\IgsnSchema;
-use APP\plugins\generic\pidManager\classes\Igsn\IgsnSubmissionWizard;
-use APP\plugins\generic\pidManager\classes\Igsn\IgsnWorkflow;
-use APP\plugins\generic\pidManager\classes\Pidinst\PidinstArticleDetails;
-use APP\plugins\generic\pidManager\classes\Pidinst\PidinstSchema;
-use APP\plugins\generic\pidManager\classes\Pidinst\PidinstSubmissionWizard;
-use APP\plugins\generic\pidManager\classes\Pidinst\PidinstWorkflow;
+use APP\plugins\generic\pidManager\classes\Igsn\ArticleDetails as IgsnArticleDetails;
+use APP\plugins\generic\pidManager\classes\Igsn\Schema as IgsnSchema;
+use APP\plugins\generic\pidManager\classes\Igsn\SubmissionWizard as IgsnSubmissionWizard;
+use APP\plugins\generic\pidManager\classes\Igsn\Workflow as IgsnWorkflow;
+use APP\plugins\generic\pidManager\classes\Pidinst\ArticleDetails as PidinstArticleDetails;
+use APP\plugins\generic\pidManager\classes\Pidinst\Schema as PidinstSchema;
+use APP\plugins\generic\pidManager\classes\Pidinst\SubmissionWizard as PidinstSubmissionWizard;
+use APP\plugins\generic\pidManager\classes\Pidinst\Workflow as PidinstWorkflow;
 
 class PidManagerPlugin extends GenericPlugin
 {

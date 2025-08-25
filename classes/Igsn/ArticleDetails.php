@@ -1,23 +1,23 @@
 <?php
 
 /**
- * @file classes/Pidinst/PidinstArticleDetails.php
+ * @file classes/Igsn/ArticleDetails.php
  *
  * @copyright (c) 2021+ TIB Hannover
  * @copyright (c) 2021+ Gazi Yücel
  * @license Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
  *
- * @class PidinstArticleDetails
+ * @class ArticleDetails
  * @brief Article page view
  */
 
-namespace APP\plugins\generic\pidManager\classes\Pidinst;
+namespace APP\plugins\generic\pidManager\classes\Igsn;
 
 use APP\plugins\generic\pidManager\classes\Constants;
 use PidManagerPlugin;
 use TemplateManager;
 
-class PidinstArticleDetails
+class ArticleDetails
 {
     /** @var PidManagerPlugin */
     public PidManagerPlugin $plugin;
@@ -40,16 +40,16 @@ class PidinstArticleDetails
         /* @var TemplateManager $templateMgr */
         $templateMgr = &$args[1];
 
-        $pidinstRepo = new PidinstRepo();
-        $pidinsts = $pidinstRepo->getPidinsts($templateMgr->getTemplateVars('currentPublication'));
+        $repo = new Repo();
+        $items = $repo->getByPublication($templateMgr->getTemplateVars('currentPublication'));
 
-        for ($i = 0; $i < count($pidinsts); $i++) {
-            $pidinsts[$i]->doi = '<a href="' . Constants::doiPrefix . '/' . $pidinsts[$i]->doi . '" target="_blank">' . $pidinsts[$i]->doi . '</a>';
+        for ($i = 0; $i < count($items); $i++) {
+            $items[$i]->doi = '<a href="' . Constants::doiPrefix . '/' . $items[$i]->doi . '" target="_blank">' . $items[$i]->doi . '</a>';
         }
 
-        $templateParameters = ['pidinsts' => $pidinsts];
+        $templateParameters = ['items' => $items];
         $templateMgr->assign($templateParameters);
-        $templateMgr->display($this->plugin->getTemplateResource("pidinst/pidinstArticleDetails.tpl"));
+        $templateMgr->display($this->plugin->getTemplateResource("igsn/igsnArticleDetails.tpl"));
 
         return false;
     }

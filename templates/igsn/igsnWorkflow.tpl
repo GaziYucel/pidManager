@@ -23,7 +23,7 @@
         <span>{translate key="plugins.generic.pidManager.igsn.workflow.description"}</span>
     </div>
 
-    <div class="content" id="pidManager-igsn-workflow-content">
+    <div class="content">
         <table class="w-full pt-16">
             <tr>
                 <td>
@@ -49,14 +49,13 @@
             <tr v-if="pidManagerIgsnApp.showSearchResultsPane">
                 <td colspan="2">
                     <div id="pidManagerSearchResults">
-            <span
-                    v-if="pidManagerIgsnApp.panelVisibility.empty"
-                    class="center w-full">
-              {translate key="plugins.generic.pidManager.igsn.datacite.empty"}
-            </span>
+                        <span v-if="pidManagerIgsnApp.panelVisibility.empty"
+                              class="center w-full inline-block pt-60">
+                          {translate key="plugins.generic.pidManager.igsn.datacite.empty"}
+                        </span>
                         <span v-else-if="pidManagerIgsnApp.panelVisibility.spinner"
                               class="pkpSpinner center w-full inline-block pt-60">
-            </span>
+                        </span>
                         <table v-else-if="pidManagerIgsnApp.panelVisibility.list" class="w-full">
                             <template v-for="(row, j) in pidManagerIgsnApp.searchResultsFiltered">
                                 <tr>
@@ -89,24 +88,26 @@
             </tr>
             <tr>
                 <th>
-          <span class="block">
-            {translate key="plugins.generic.pidManager.igsn.workflow.table.pid"}
-          </span>
+                    <span class="block">
+                        {translate key="plugins.generic.pidManager.igsn.workflow.table.pid"}
+                    </span>
                 </th>
                 <th>
-          <span class="block">
-            {translate key="plugins.generic.pidManager.igsn.workflow.table.label"}
-          </span>
+                    <span class="block">
+                        {translate key="plugins.generic.pidManager.igsn.workflow.table.label"}
+                  </span>
                 </th>
                 <th class="center w-42">
                     &nbsp;
                 </th>
             </tr>
-            <template v-for="(igsn, i) in pidManagerIgsnApp.igsns" class="pidManager-Row">
+            <template v-for="(item, i) in pidManagerIgsnApp.items" class="pidManager-Row">
                 <tr>
-                    <td><input v-model="igsn.doi" type="text" class="pkpFormField__input pkpFormField--text__input"/>
+                    <td><input v-model="item.doi" type="text"
+                               class="pkpFormField__input pkpFormField--text__input"/>
                     </td>
-                    <td><input v-model="igsn.label" type="text" class="pkpFormField__input pkpFormField--text__input"/>
+                    <td><input v-model="item.label" type="text"
+                               class="pkpFormField__input pkpFormField--text__input"/>
                     </td>
                     <td class="center w-42">
                         <a @click="pidManagerIgsnApp.remove(i)" class="pkpButton h-40 min-w-40 line-height-40"
@@ -116,7 +117,7 @@
                     </td>
                 </tr>
             </template>
-            <tr v-show="pidManagerIgsnApp.igsns.length === 0">
+            <tr v-show="pidManagerIgsnApp.items.length === 0">
                 <td colspan="3" class="center w-42 h-42">
                     {translate key="plugins.generic.pidManager.igsn.workflow.empty"}
                 </td>
@@ -124,7 +125,8 @@
             <tr>
                 <td colspan="3">
                     <p>
-                        <a @click="pidManagerIgsnApp.add()" v-show="!pidManagerIgsnApp.isPublished" class="pkpButton">
+                        <a @click="pidManagerIgsnApp.add()" v-show="!pidManagerIgsnApp.isPublished" 
+                           class="pkpButton">
                             {translate key="plugins.generic.pidManager.igsn.button.add"}
                         </a>
                     </p>
@@ -133,22 +135,22 @@
         </table>
     </div>
 
-    <div class="footer" id="pidManager-igsn-workflow-footer">
+    <div class="footer">
         <pkp-form v-bind="components.{$ConstantsIgsn}" @set="set"></pkp-form>
         <span class="hide">
-      {{ pidManagerIgsnApp.workingPublication = workingPublication }}
-      {{ pidManagerIgsnApp.configure() }}
-      {{ components.{$ConstantsIgsn}.fields[0]['value'] = JSON.stringify(pidManagerIgsnApp.igsnListClean) }}
-      {{ components.{$ConstantsIgsn}.action = '{$apiBaseUrl}submissions/' + workingPublication.submissionId + '/publications/' + workingPublication.id }}
-    </span>
+            {{ pidManagerIgsnApp.workingPublication = workingPublication }}
+            {{ pidManagerIgsnApp.configure() }}
+            {{ components.{$ConstantsIgsn}.fields[0]['value'] = JSON.stringify(pidManagerIgsnApp.itemListCleaned) }}
+            {{ components.{$ConstantsIgsn}.action = '{$apiBaseUrl}submissions/' + workingPublication.submissionId + '/publications/' + workingPublication.id }}
+        </span>
     </div>
 
     <script>
         let pidManagerIgsnApp = new pkp.Vue({
             data() {
                 return {
-                    igsns: {$igsns},
-                    igsnModel: { /**/ 'doi': '', 'label': ''},
+                    items: {$items},
+                    dataModel: { /**/ 'doi': '', 'label': ''},
                     searchPhraseDoi: '',
                     searchPhraseLabel: '',
                     searchResults: [], // [ { 'id': '', 'label': '' }, ... ]
@@ -162,8 +164,8 @@
                 };
             },
             computed: {
-                igsnListClean: function () {
-                    let result = JSON.parse(JSON.stringify(this.igsns));
+                itemListCleaned: function () {
+                    let result = JSON.parse(JSON.stringify(this.items));
                     for (let i = 0; i < result.length; i++) {
                         let rowIsEmpty = true;
                         for (let key in result[i]) {
@@ -186,8 +188,8 @@
                 },
                 searchResultsFiltered: function () {
                     this.searchResults.forEach((item) => {
-                        for (let i = 0; i < this.igsns.length; i++) {
-                            if (this.igsns[i].doi === item.doi) {
+                        for (let i = 0; i < this.items.length; i++) {
+                            if (this.items[i].doi === item.doi) {
                                 item.exists = true;
                             }
                         }
@@ -210,15 +212,15 @@
                     }
                 },
                 add: function () {
-                    this.igsns.push(JSON.parse(JSON.stringify(this.igsnModel)));
+                    this.items.push(JSON.parse(JSON.stringify(this.dataModel)));
                 },
                 remove: function (index) {
-                    if (!this.igsns[index].doi && !this.igsns[index].label) {
-                        this.igsns.splice(index, 1);
+                    if (!this.items[index].doi && !this.items[index].label) {
+                        this.items.splice(index, 1);
                         return;
                     }
-                    if (confirm('{translate key="plugins.generic.pidManager.igsn.button.remove.confirm"}') === true) {
-                        this.igsns.splice(index, 1);
+                    if (confirm('{translate key="plugins.generic.pidManager.igsn.remove.confirm"}') === true) {
+                        this.items.splice(index, 1);
                     }
                 },
                 clearSearch: function () {
@@ -292,8 +294,8 @@
                             label = item.attributes.titles[i].title;
                         }
 
-                        for (let i = 0; i < this.igsns.length; i++) {
-                            if (this.igsns[i].doi === item.id) exists = true;
+                        for (let i = 0; i < this.items.length; i++) {
+                            if (this.items[i].doi === item.id) exists = true;
                         }
 
                         searchResults.push({ /**/ doi: item.id, label: label, exists: exists});
@@ -301,11 +303,11 @@
                     this.searchResults = searchResults;
                 },
                 select: function (index) {
-                    let newIgsn = {
+                    let newItem = {
                         doi: this.searchResults[index].doi,
                         label: this.searchResults[index].label,
                     };
-                    this.igsns.push(newIgsn);
+                    this.items.push(newItem);
                 },
             },
             watch: {

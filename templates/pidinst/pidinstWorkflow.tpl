@@ -23,7 +23,7 @@
         <span>{translate key="plugins.generic.pidManager.pidinst.workflow.description"}</span>
     </div>
 
-    <div class="content" id="pidManager-pidinst-workflow-content">
+    <div class="content">
         <table class="w-full pt-16">
             <tr>
                 <td>
@@ -49,9 +49,8 @@
             <tr v-if="pidManagerPidinstApp.showSearchResultsPane">
                 <td colspan="2">
                     <div id="pidManagerSearchResults">
-                        <span
-                                v-if="pidManagerPidinstApp.panelVisibility.empty"
-                                class="center w-full">
+                        <span v-if="pidManagerPidinstApp.panelVisibility.empty"
+                              class="center w-full inline-block pt-60">
                             {translate key="plugins.generic.pidManager.pidinst.datacite.empty"}
                         </span>
                         <span v-else-if="pidManagerPidinstApp.panelVisibility.spinner"
@@ -89,24 +88,25 @@
             </tr>
             <tr>
                 <th>
-          <span class="block">
-            {translate key="plugins.generic.pidManager.pidinst.workflow.table.pid"}
-          </span>
+                    <span class="block">
+                        {translate key="plugins.generic.pidManager.pidinst.workflow.table.pid"}
+                    </span>
                 </th>
                 <th>
-          <span class="block">
-            {translate key="plugins.generic.pidManager.pidinst.workflow.table.label"}
-          </span>
+                    <span class="block">
+                        {translate key="plugins.generic.pidManager.pidinst.workflow.table.label"}
+                    </span>
                 </th>
                 <th class="center w-42">
                     &nbsp;
                 </th>
             </tr>
-            <template v-for="(pidinst, i) in pidManagerPidinstApp.pidinsts" class="pidManager-Row">
+            <template v-for="(item, i) in pidManagerPidinstApp.items" class="pidManager-Row">
                 <tr>
-                    <td><input v-model="pidinst.doi" type="text" class="pkpFormField__input pkpFormField--text__input"/>
+                    <td><input v-model="item.doi" type="text"
+                               class="pkpFormField__input pkpFormField--text__input"/>
                     </td>
-                    <td><input v-model="pidinst.label" type="text"
+                    <td><input v-model="item.label" type="text"
                                class="pkpFormField__input pkpFormField--text__input"/>
                     </td>
                     <td class="center w-42">
@@ -117,7 +117,7 @@
                     </td>
                 </tr>
             </template>
-            <tr v-show="pidManagerPidinstApp.pidinsts.length === 0">
+            <tr v-show="pidManagerPidinstApp.items.length === 0">
                 <td colspan="3" class="center w-42 h-42">
                     {translate key="plugins.generic.pidManager.pidinst.workflow.empty"}
                 </td>
@@ -135,12 +135,12 @@
         </table>
     </div>
 
-    <div class="footer" id="pidManager-pidinst-workflow-footer">
+    <div class="footer">
         <pkp-form v-bind="components.{$ConstantsPidinst}" @set="set"></pkp-form>
         <span class="hide">
             {{ pidManagerPidinstApp.workingPublication = workingPublication }}
             {{ pidManagerPidinstApp.configure() }}
-            {{ components.{$ConstantsPidinst}.fields[0]['value'] = JSON.stringify(pidManagerPidinstApp.pidinstListClean) }}
+            {{ components.{$ConstantsPidinst}.fields[0]['value'] = JSON.stringify(pidManagerPidinstApp.itemListCleaned) }}
             {{ components.{$ConstantsPidinst}.action = '{$apiBaseUrl}submissions/' + workingPublication.submissionId + '/publications/' + workingPublication.id }}
         </span>
     </div>
@@ -149,8 +149,8 @@
         let pidManagerPidinstApp = new pkp.Vue({
             data() {
                 return {
-                    pidinsts: {$pidinsts},
-                    pidinstModel: { /**/ 'doi': '', 'label': ''},
+                    items: {$items},
+                    dataModel: { /**/ 'doi': '', 'label': ''},
                     searchPhraseDoi: '',
                     searchPhraseLabel: '',
                     searchResults: [], // [ { 'id': '', 'label': '' }, ... ]
@@ -160,12 +160,12 @@
                     pendingRequests: new WeakMap(),
                     publication: { /**/ id: 0},
                     workingPublication: { /**/ id: 0}, // workingPublication
-                    apiUrl: 'https://api.datacite.org/dois?fields[dois]=titles&query=relatedIdentifiers.relatedIdentifierType:IGSN AND types.resourceTypeGeneral:PhysicalObject'
+                    apiUrl: 'https://api.datacite.org/dois?fields[dois]=titles&query=relatedIdentifiers.relatedIdentifierType:PIDINST AND types.resourceTypeGeneral:Instrument'
                 };
             },
             computed: {
-                pidinstListClean: function () {
-                    let result = JSON.parse(JSON.stringify(this.pidinsts));
+                itemListCleaned: function () {
+                    let result = JSON.parse(JSON.stringify(this.items));
                     for (let i = 0; i < result.length; i++) {
                         let rowIsEmpty = true;
                         for (let key in result[i]) {
@@ -188,8 +188,8 @@
                 },
                 searchResultsFiltered: function () {
                     this.searchResults.forEach((item) => {
-                        for (let i = 0; i < this.pidinsts.length; i++) {
-                            if (this.pidinsts[i].doi === item.doi) {
+                        for (let i = 0; i < this.items.length; i++) {
+                            if (this.items[i].doi === item.doi) {
                                 item.exists = true;
                             }
                         }
@@ -212,15 +212,15 @@
                     }
                 },
                 add: function () {
-                    this.pidinsts.push(JSON.parse(JSON.stringify(this.pidinstModel)));
+                    this.items.push(JSON.parse(JSON.stringify(this.dataModel)));
                 },
                 remove: function (index) {
-                    if (!this.pidinsts[index].doi && !this.pidinsts[index].label) {
-                        this.pidinsts.splice(index, 1);
+                    if (!this.items[index].doi && !this.items[index].label) {
+                        this.items.splice(index, 1);
                         return;
                     }
-                    if (confirm('{translate key="plugins.generic.pidManager.pidinst.button.remove.confirm"}') === true) {
-                        this.pidinsts.splice(index, 1);
+                    if (confirm('{translate key="plugins.generic.pidManager.pidinst.remove.confirm"}') === true) {
+                        this.items.splice(index, 1);
                     }
                 },
                 clearSearch: function () {
@@ -294,8 +294,8 @@
                             label = item.attributes.titles[i].title;
                         }
 
-                        for (let i = 0; i < this.pidinsts.length; i++) {
-                            if (this.pidinsts[i].doi === item.id) exists = true;
+                        for (let i = 0; i < this.items.length; i++) {
+                            if (this.items[i].doi === item.id) exists = true;
                         }
 
                         searchResults.push({ /**/ doi: item.id, label: label, exists: exists});
@@ -303,11 +303,11 @@
                     this.searchResults = searchResults;
                 },
                 select: function (index) {
-                    let newPidinst = {
+                    let newItem = {
                         doi: this.searchResults[index].doi,
                         label: this.searchResults[index].label,
                     };
-                    this.pidinsts.push(newPidinst);
+                    this.items.push(newItem);
                 },
             },
             watch: {

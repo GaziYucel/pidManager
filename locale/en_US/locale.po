@@ -62,7 +62,7 @@ msgstr "Label"
 msgid "plugins.generic.pidManager.igsn.button.add"
 msgstr "Add new row"
 
-msgid "plugins.generic.pidManager.igsn.button.remove.confirm"
+msgid "plugins.generic.pidManager.igsn.remove.confirm"
 msgstr "Are you sure you want to remove?"
 
 msgid "plugins.generic.pidManager.igsn.datacite.searchPhraseDoi.placeholder"
@@ -114,7 +114,7 @@ msgstr "Label"
 msgid "plugins.generic.pidManager.pidinst.button.add"
 msgstr "Add new row"
 
-msgid "plugins.generic.pidManager.pidinst.button.remove.confirm"
+msgid "plugins.generic.pidManager.pidinst.remove.confirm"
 msgstr "Are you sure you want to remove?"
 
 msgid "plugins.generic.pidManager.pidinst.datacite.searchPhraseDoi.placeholder"
