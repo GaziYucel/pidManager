@@ -44,7 +44,10 @@ class ArticleDetails
         $items = $repo->getByPublication($templateMgr->getTemplateVars('currentPublication'));
 
         for ($i = 0; $i < count($items); $i++) {
-            $items[$i]->doi = '<a href="' . Constants::doiPrefix . '/' . $items[$i]->doi . '" target="_blank">' . $items[$i]->doi . '</a>';
+            $items[$i]->doi =
+                '<a href="' . Constants::doiPrefix . '/' . $items[$i]->doi . '" target="_blank">' .
+                Constants::doiPrefix . '/' . $items[$i]->doi .
+                '</a>';
         }
 
         $templateParameters = ['items' => $items];
