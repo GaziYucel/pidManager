@@ -1,21 +1,21 @@
 {**
- * templates/igsn/igsnArticleDetails.tpl
+ * templates/igsn/articleDetails.tpl
  *
  * @copyright (c) 2024+ TIB Hannover
  * @copyright (c) 2024+ Gazi Yücel
  * @license Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
  *
- * IGSN Article View
+ * Article Details View
  *}
 
-{if $igsns}
-    <section class="item igsn">
+{if $items}
+    <section class="item {$pidName}">
         <h2 class="label">
-            {translate key="plugins.generic.pidManager.igsn.label"}
+            {translate key="plugins.generic.pidManager.{$pidName}.label"}
         </h2>
         <div class="value">
-            {foreach from=$igsns item="igsn"}
-                <p>{$igsn->doi}<br/>{$igsn->label}</p>
+            {foreach from=$items item="item"}
+                <p>{$item->doi}<br/>{$item->label}</p>
             {/foreach}
         </div>
     </section>

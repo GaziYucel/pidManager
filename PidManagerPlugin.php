@@ -3,8 +3,8 @@
 /**
  * @file PidManagerPlugin.php
  *
- * @copyright (c) 2021+ TIB Hannover
- * @copyright (c) 2021+ Gazi Yücel
+ * @copyright (c) 2024+ TIB Hannover
+ * @copyright (c) 2024+ Gazi Yücel
  * @license Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
  *
  * @class PidManagerPlugin
@@ -15,11 +15,20 @@ namespace APP\plugins\generic\pidManager;
 
 define('PID_MANAGER_PLUGIN_NAME', basename(__FILE__, '.php'));
 
-use APP\core\Application;
-use APP\plugins\generic\pidManager\classes\Igsn\IgsnArticleDetails;
-use APP\plugins\generic\pidManager\classes\Igsn\IgsnSchema;
-use APP\plugins\generic\pidManager\classes\Igsn\IgsnSubmissionWizard;
-use APP\plugins\generic\pidManager\classes\Igsn\IgsnWorkflow;
+use APP\plugins\generic\pidManager\classes\Constants;
+use APP\plugins\generic\pidManager\classes\Settings\Actions;
+use APP\plugins\generic\pidManager\classes\Settings\Manage;
+use APP\plugins\generic\pidManager\classes\Igsn\ArticleDetails as IgsnArticleDetails;
+use APP\plugins\generic\pidManager\classes\Igsn\DataModel as IgsnDataModel;
+use APP\plugins\generic\pidManager\classes\Igsn\Schema as IgsnSchema;
+use APP\plugins\generic\pidManager\classes\Igsn\SubmissionWizard as IgsnSubmissionWizard;
+use APP\plugins\generic\pidManager\classes\Igsn\Workflow as IgsnWorkflow;
+use APP\plugins\generic\pidManager\classes\Pidinst\ArticleDetails as PidinstArticleDetails;
+use APP\plugins\generic\pidManager\classes\Pidinst\DataModel as PidinstDataModel;
+use APP\plugins\generic\pidManager\classes\Pidinst\Schema as PidinstSchema;
+use APP\plugins\generic\pidManager\classes\Pidinst\SubmissionWizard as PidinstSubmissionWizard;
+use APP\plugins\generic\pidManager\classes\Pidinst\Workflow as PidinstWorkflow;
+use PKP\core\JSONMessage;
 use PKP\plugins\GenericPlugin;
 use PKP\plugins\Hook;
 
@@ -30,19 +39,37 @@ class PidManagerPlugin extends GenericPlugin
     {
         if (parent::register($category, $path, $mainContextId)) {
             if ($this->getEnabled()) {
+                $contextId = ($mainContextId === null) ? $this->getCurrentContextId() : $mainContextId;
 
-                // IGSN
-                $igsnSchema = new IgsnSchema();
-                $igsnWorkflow = new IgsnWorkflow($this);
-                $igsnArticleView = new IgsnArticleDetails($this);
-                Hook::add('Schema::get::publication', [$igsnSchema, 'addToSchemaPublication']);
-                Hook::add('Template::Workflow::Publication', [$igsnWorkflow, 'execute']);
-                Hook::add('Templates::Article::Main', [$igsnArticleView, 'execute']);
+                /** IGSN */
+                if ($this->getSetting($contextId, Constants::settingEnableIgsn)) {
+                    $igsnSchema = new IgsnSchema(Constants::igsn);
+                    $igsnWorkflow = new IgsnWorkflow($this, 'igsn/workflow.tpl', Constants::igsn, new IgsnDataModel());
+                    $igsnArticleDetails = new IgsnArticleDetails($this, 'igsn/articleDetails.tpl', Constants::igsn, new IgsnDataModel());
+                    $igsnSubmissionWizard = new IgsnSubmissionWizard($this, "igsn/submissionWizard.tpl", Constants::igsn);
 
-                $igsnSubmissionWizard = new IgsnSubmissionWizard($this);
-                Hook::add('TemplateManager::display', [$igsnSubmissionWizard, 'addToSubmissionWizardSteps']);
-                Hook::add('Template::SubmissionWizard::Section', [$igsnSubmissionWizard, 'addToSubmissionWizardTemplate']);
-                Hook::add('Template::SubmissionWizard::Section::Review', [$igsnSubmissionWizard, 'addToSubmissionWizardReviewTemplate']);
+                    Hook::add('Schema::get::publication', [$igsnSchema, 'addToSchemaPublication']);
+                    Hook::add('Template::Workflow::Publication', [$igsnWorkflow, 'execute']);
+                    Hook::add('Templates::Article::Main', [$igsnArticleDetails, 'execute']);
+                    Hook::add('TemplateManager::display', [$igsnSubmissionWizard, 'addToSubmissionWizardSteps']);
+                    Hook::add('Template::SubmissionWizard::Section', [$igsnSubmissionWizard, 'addToSubmissionWizardTemplate']);
+                    Hook::add('Template::SubmissionWizard::Section::Review', [$igsnSubmissionWizard, 'addToSubmissionWizardReviewTemplate']);
+                }
+
+                /** PIDINST */
+                if ($this->getSetting($contextId, Constants::settingEnablePidinst)) {
+                    $pidinstSchema = new PidinstSchema(Constants::pidinst);
+                    $pidinstWorkflow = new PidinstWorkflow($this, 'pidinst/workflow.tpl', Constants::pidinst, new PidinstDataModel());
+                    $pidinstArticleDetails = new PidinstArticleDetails($this, 'pidinst/articleDetails.tpl', Constants::pidinst, new PidinstDataModel());
+                    $pidinstSubmissionWizard = new PidinstSubmissionWizard($this, 'pidinst/submissionWizard.tpl', Constants::pidinst);
+
+                    Hook::add('Schema::get::publication', [$pidinstSchema, 'addToSchemaPublication']);
+                    Hook::add('Template::Workflow::Publication', [$pidinstWorkflow, 'execute']);
+                    Hook::add('Templates::Article::Main', [$pidinstArticleDetails, 'execute']);
+                    Hook::add('TemplateManager::display', [$pidinstSubmissionWizard, 'addToSubmissionWizardSteps']);
+                    Hook::add('Template::SubmissionWizard::Section', [$pidinstSubmissionWizard, 'addToSubmissionWizardTemplate']);
+                    Hook::add('Template::SubmissionWizard::Section::Review', [$pidinstSubmissionWizard, 'addToSubmissionWizardReviewTemplate']);
+                }
             }
             return true;
         }
@@ -59,6 +86,20 @@ class PidManagerPlugin extends GenericPlugin
     public function getDisplayName(): string
     {
         return __('plugins.generic.pidManager.displayName');
+    }
+
+    /** @copydoc Plugin::getActions() */
+    public function getActions($request, $actionArgs): array
+    {
+        $actions = new Actions($this);
+        return $actions->execute($request, $actionArgs, parent::getActions($request, $actionArgs));
+    }
+
+    /** @copydoc Plugin::manage() */
+    public function manage($args, $request): JSONMessage
+    {
+        $manage = new Manage($this);
+        return $manage->execute($args, $request);
     }
 }
 

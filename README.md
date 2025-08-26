@@ -6,19 +6,19 @@ PID Manager for OJS
 
 - [PID Manager Manager Plugin](#pid-manager-plugin)
 - [Features](#features)
-  - [IGSN](#igsn)
+    - [IGSN](#igsn)
 - [Screenshot(s) / screen recording(s)](#screenshots--screen-recordings)
 - [Install and configure the plugin](#install-and-configure-the-plugin)
-  - [Requirements](#requirements)
-  - [Install with Git](#install-with-git)
-  - [Install via direct download](#install-via-direct-download)
-  - [Configuration of the plugin](#configuration-of-the-plugin)
+    - [Requirements](#requirements)
+    - [Install with Git](#install-with-git)
+    - [Install via direct download](#install-via-direct-download)
+    - [Configuration of the plugin](#configuration-of-the-plugin)
 - [Development](#development)
-  - [Structure](#structure)
-  - [Notes](#notes)
+    - [Structure](#structure)
+    - [Notes](#notes)
 - [Data Models](#data-models)
 - [Contribute](#contribute)
-  - [How to contribute](#how-to-contribute)
+    - [How to contribute](#how-to-contribute)
 - [License](#license)
 
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
@@ -61,6 +61,8 @@ Get the correct version for your OJS version:
 - Login in your OJS instance as an Administrator or Manager
 - Navigate to Website > Plugins > Installed Plugins > Generic Plugins > PID Manager Plugin
 - Activate the plugin by clicking the checkbox
+- Click on 'Settings'
+- Activate all PIDs you want to use
 
 # Development
 
@@ -71,7 +73,10 @@ Get the correct version for your OJS version:
     ├─ .project                      # Project related files
     ├─ assets                        # Styles, images, javascript files
     ├─ Classes                       # Main folder with models / logic
-    │  └─ Igsn                       # Classes for IGSN
+    │  ├─ Base                       # Base classes used by all PIDs
+    │  ├─ Igsn                       # Classes for IGSN
+    │  ├─ Pidinst                    # Classes for PIDINST
+    │  └─ Settings                   # Classes for plugin settings
     ├─ locale                        # Language files
     ├─ templates                     # Templates folder
     ├─ .gitignore                    # Git ignore file
@@ -84,13 +89,14 @@ Get the correct version for your OJS version:
 ## Notes
 
 - OJS 3.3.0
-  - Loading of the classes in the folder classes is done with composer classmap.
-  - If you add or remove classes in this folder, run the following command to update the autoload files: composer dump-autoload -o.
-  - Running composer install -o or composer update -o will also generate the autoload files.
-  - The -o option generates the optimised files ready for production.
+    - Loading of the classes in the folder classes is done with composer classmap.
+    - If you add or remove classes in this folder, run the following command to update the autoload files: composer
+      dump-autoload -o.
+    - Running composer install -o or composer update -o will also generate the autoload files.
+    - The -o option generates the optimised files ready for production.
 - OJS 3.4.0+
-  - Loading of classes depends on PSR-4.
-  - No composer.json file or vendor directory is needed.
+    - Loading of classes depends on PSR-4.
+    - No composer.json file or vendor directory is needed.
 
 # Data models
 
@@ -106,7 +112,23 @@ De IGSNs are saved in the publication_settings as an array of IGSN data models.
 ```
 [
   { 'doi': '10.58031/kiel0188gczz101', 'label': 'Sediment core SO257_1-5' },
-  { 'doi': '10.58031/kiel0188gczi201', 'label': 'Sediment core SO257_6-2' },
+  { 'doi': '10.58031/kiel0188gczi201', 'label': 'Sediment core SO257_6-2' }
+]
+```
+
+## PIDINST
+
+De PIDINSTs are saved in the publication_settings as an array of PIDINST data models.
+
+| name  | description                             |
+|-------|-----------------------------------------|
+| doi   | Persistent identifier of the instrument |
+| label | Label of the instrument                 |
+
+```
+[
+  { 'doi': '10.5286/isis.instrument.1189', 'label': 'CHRONUS' },
+  { 'doi': '10.5286/isis.instrument.5418', 'label': 'LARMOR' }
 ]
 ```
 

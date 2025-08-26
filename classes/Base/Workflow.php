@@ -1,49 +1,47 @@
 <?php
 
 /**
- * @file classes/Workflow/WorkflowTab.php
+ * @file classes/Base/WorkflowTab.php
  *
- * @copyright (c) 2021+ TIB Hannover
- * @copyright (c) 2021+ Gazi Yücel
+ * @copyright (c) 2024+ TIB Hannover
+ * @copyright (c) 2024+ Gazi Yücel
  * @license Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
  *
- * @class WorkflowTab
- * @brief Workflow Publication Tab
+ * @class Workflow
+ * @ingroup plugins_generic_pidmanager
+ *
+ * @brief Workflow
  */
 
-namespace APP\plugins\generic\pidManager\classes\Igsn;
+namespace APP\plugins\generic\pidManager\classes\Base;
 
-use APP\plugins\generic\pidManager\classes\Constants;
+use APP\core\Application;
+use APP\plugins\generic\pidManager\classes\Repo;
 use PidManagerPlugin;
-use PKP\core\PKPApplication;
 use Publication;
 use TemplateManager;
 
-class IgsnWorkflow
+class Workflow
 {
-    /** @var PidManagerPlugin */
     public PidManagerPlugin $plugin;
+    public string $template = '';
+    public string $fieldName = '';
+    public object $dataModel;
 
-    /** @param PidManagerPlugin $plugin */
-    public function __construct(PidManagerPlugin &$plugin)
+    public function __construct(PidManagerPlugin &$plugin, string $template, string $fieldName, object $dataModel)
     {
         $this->plugin = &$plugin;
+        $this->template = $template;
+        $this->fieldName = $fieldName;
+        $this->dataModel = $dataModel;
     }
 
-    /**
-     * Show tab under Publications
-     *
-     * @param string $hookName
-     * @param array $args [string, TemplateManager]
-     * @return void
-     */
     public function execute(string $hookName, array $args): void
     {
-        /* @var Publication $publication */
         /* @var TemplateManager $templateMgr */
         $templateMgr = &$args[1];
 
-        $igsnRepo = new IgsnRepo();
+        $repo = new Repo($this->fieldName, $this->dataModel);
         $request = $this->plugin->getRequest();
         $context = $request->getContext();
         $submission = $templateMgr->getTemplateVars('submission');
@@ -53,7 +51,7 @@ class IgsnWorkflow
 
         $apiBaseUrl = $request->getDispatcher()->url(
             $request,
-            PKPApplication::ROUTE_API,
+            Application::ROUTE_API,
             $context->getData('urlPath'),
             '');
 
@@ -62,23 +60,26 @@ class IgsnWorkflow
             fn(string $locale, string $name) => ['key' => $publication->getData('locale'), 'label' => $name],
             array_keys($locales), $locales);
 
-        $form = new IgsnForm(
-            Constants::igsn,
+        $form = new Form(
+            $this->fieldName,
             'PUT',
             $apiBaseUrl . 'submissions/' . $submissionId . '/publications/' . $publicationId,
-            $locales);
+            $locales,
+            $this->fieldName
+        );
 
         $state = $templateMgr->getTemplateVars('state');
-        $state['components'][Constants::igsn] = $form->getConfig();
+        $state['components'][$this->fieldName] = $form->getConfig();
         $templateMgr->assign('state', $state);
 
         $templateParameters = [
+            'pidName' => $this->fieldName,
             'assetsUrl' => $request->getBaseUrl() . '/' . $this->plugin->getPluginPath() . '/assets',
             'apiBaseUrl' => $apiBaseUrl,
-            'igsns' => json_encode($igsnRepo->getIgsns($publication))
+            'items' => json_encode($repo->getPidsByPublication($publication))
         ];
         $templateMgr->assign($templateParameters);
 
-        $templateMgr->display($this->plugin->getTemplateResource("igsn/igsnWorkflow.tpl"));
+        $templateMgr->display($this->plugin->getTemplateResource($this->template));
     }
 }

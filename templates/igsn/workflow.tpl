@@ -1,5 +1,5 @@
 {**
- * templates/igsn/igsnWorkflow.tpl
+ * templates/igsn/workflow.tpl
  *
  * @copyright (c) 2024+ TIB Hannover
  * @copyright (c) 2024+ Gazi Yücel
@@ -11,54 +11,51 @@
  * https://support.datacite.org/docs/api-queries#selecting-which-metadata-fields-to-retrieve
  *}
 
-{assign var="ConstantsIgsn" value=APP\plugins\generic\pidManager\classes\Constants::igsn}
-
-<tab id='pidManagerIgsn' role='tabpanel' class='pkpTab'
-     label="{translate key='plugins.generic.pidManager.igsn.workflow.name'}">
+<tab id='pidManager__{$pidName}' role='tabpanel' class='pkpTab'
+     label="{translate key="plugins.generic.pidManager.{$pidName}.workflow.name"}">
 
     <link rel="stylesheet" href="{$assetsUrl}/css/backend.css" type="text/css"/>
 
     <div class="header">
-        <h4 class="mt-0">{translate key="plugins.generic.pidManager.igsn.workflow.label"}</h4>
-        <span>{translate key="plugins.generic.pidManager.igsn.workflow.description"}</span>
+        <h4 class="mt-0">{translate key="plugins.generic.pidManager.{$pidName}.workflow.label"}</h4>
+        <span>{translate key="plugins.generic.pidManager.{$pidName}.workflow.description"}</span>
     </div>
 
-    <div class="content" id="pidManager-igsn-workflow-content">
+    <div class="content">
         <table class="w-full pt-16">
             <tr>
                 <td>
-                    <input v-model="pidManagerIgsnApp.searchPhraseDoi" type="text"
+                    <input v-model="pidManagerApp{$pidName}.searchPhraseDoi" type="text"
                            class="pkpFormField__input pkpFormField--text__input"
-                           placeholder="{translate key="plugins.generic.pidManager.igsn.datacite.searchPhraseDoi.placeholder"}"
+                           placeholder="{translate key="plugins.generic.pidManager.{$pidName}.datacite.searchPhraseDoi.placeholder"}"
                     />
                 </td>
                 <td>
-                    <input v-model="pidManagerIgsnApp.searchPhraseLabel" type="text"
+                    <input v-model="pidManagerApp{$pidName}.searchPhraseLabel" type="text"
                            class="pkpFormField__input pkpFormField--text__input"
-                           placeholder="{translate key="plugins.generic.pidManager.igsn.datacite.searchPhraseLabel.placeholder"}"
+                           placeholder="{translate key="plugins.generic.pidManager.{$pidName}.datacite.searchPhraseLabel.placeholder"}"
                     />
                 </td>
                 <td class="center w-42">
-                    <a @click="pidManagerIgsnApp.apiLookup()"
+                    <a @click="pidManagerApp{$pidName}.apiLookup()"
                        class="pkpButton h-40 min-w-40 line-height-40"
-                       :class="{ 'disabled': pidManagerIgsnApp.isPublished }">
+                       :class="{ 'disabled': pidManagerApp{$pidName}.isPublished }">
                         <i class="fa fa-search" aria-hidden="true"></i>
                     </a>
                 </td>
             </tr>
-            <tr v-if="pidManagerIgsnApp.showSearchResultsPane">
+            <tr v-if="pidManagerApp{$pidName}.showSearchResultsPane">
                 <td colspan="2">
                     <div id="pidManagerSearchResults">
-            <span
-                    v-if="pidManagerIgsnApp.panelVisibility.empty"
-                    class="center w-full">
-              {translate key="plugins.generic.pidManager.igsn.datacite.empty"}
-            </span>
-                        <span v-else-if="pidManagerIgsnApp.panelVisibility.spinner"
+                        <span v-if="pidManagerApp{$pidName}.panelVisibility.empty"
+                              class="center w-full inline-block pt-60">
+                            {translate key="plugins.generic.pidManager.{$pidName}.datacite.empty"}
+                        </span>
+                        <span v-else-if="pidManagerApp{$pidName}.panelVisibility.spinner"
                               class="pkpSpinner center w-full inline-block pt-60">
-            </span>
-                        <table v-else-if="pidManagerIgsnApp.panelVisibility.list" class="w-full">
-                            <template v-for="(row, j) in pidManagerIgsnApp.searchResultsFiltered">
+                        </span>
+                        <table v-else-if="pidManagerApp{$pidName}.panelVisibility.list" class="w-full">
+                            <template v-for="(row, j) in pidManagerApp{$pidName}.searchResultsFiltered">
                                 <tr>
                                     <td class="center w-42 p-0">
                                         <a :href="'https://doi.org/' + row.doi" target="_blank">
@@ -66,7 +63,7 @@
                                         </a>
                                     </td>
                                     <td class="p-0">
-                                        <a @click="pidManagerIgsnApp.select(j)" class="searchRowLink"
+                                        <a @click="pidManagerApp{$pidName}.select(j)" class="searchRowLink"
                                            :class="{ 'disabled': row.exists }">
                                             {{ row.label }} [{{ row.doi }}]
                                         </a>
@@ -77,7 +74,7 @@
                     </div>
                 </td>
                 <td class="center w-42">
-                    <a @click="pidManagerIgsnApp.clearSearch()" class="pkpButton h-40 min-w-40 line-height-40">
+                    <a @click="pidManagerApp{$pidName}.clearSearch()" class="pkpButton h-40 min-w-40 line-height-40">
                         <i aria-hidden="true" class="fa fa-times"></i>
                     </a>
                 </td>
@@ -89,43 +86,46 @@
             </tr>
             <tr>
                 <th>
-          <span class="block">
-            {translate key="plugins.generic.pidManager.igsn.workflow.table.pid"}
-          </span>
+                    <span class="block">
+                        {translate key="plugins.generic.pidManager.{$pidName}.workflow.table.pid"}
+                    </span>
                 </th>
                 <th>
-          <span class="block">
-            {translate key="plugins.generic.pidManager.igsn.workflow.table.label"}
-          </span>
+                    <span class="block">
+                        {translate key="plugins.generic.pidManager.{$pidName}.workflow.table.label"}
+                    </span>
                 </th>
                 <th class="center w-42">
                     &nbsp;
                 </th>
             </tr>
-            <template v-for="(igsn, i) in pidManagerIgsnApp.igsns" class="pidManager-Row">
+            <template v-for="(item, i) in pidManagerApp{$pidName}.items" class="pidManager-Row">
                 <tr>
-                    <td><input v-model="igsn.doi" type="text" class="pkpFormField__input pkpFormField--text__input"/>
+                    <td><input v-model="item.doi" type="text"
+                               class="pkpFormField__input pkpFormField--text__input"/>
                     </td>
-                    <td><input v-model="igsn.label" type="text" class="pkpFormField__input pkpFormField--text__input"/>
+                    <td><input v-model="item.label" type="text"
+                               class="pkpFormField__input pkpFormField--text__input"/>
                     </td>
                     <td class="center w-42">
-                        <a @click="pidManagerIgsnApp.remove(i)" class="pkpButton h-40 min-w-40 line-height-40"
-                           :class="{ 'disabled': pidManagerIgsnApp.isPublished }">
+                        <a @click="pidManagerApp{$pidName}.remove(i)" class="pkpButton h-40 min-w-40 line-height-40"
+                           :class="{ 'disabled': pidManagerApp{$pidName}.isPublished }">
                             <i class="fa fa-trash" aria-hidden="true"></i>
                         </a>
                     </td>
                 </tr>
             </template>
-            <tr v-show="pidManagerIgsnApp.igsns.length === 0">
+            <tr v-show="pidManagerApp{$pidName}.items.length === 0">
                 <td colspan="3" class="center w-42 h-42">
-                    {translate key="plugins.generic.pidManager.igsn.workflow.empty"}
+                    {translate key="plugins.generic.pidManager.{$pidName}.workflow.empty"}
                 </td>
             </tr>
             <tr>
                 <td colspan="3">
                     <p>
-                        <a @click="pidManagerIgsnApp.add()" v-show="!pidManagerIgsnApp.isPublished" class="pkpButton">
-                            {translate key="plugins.generic.pidManager.igsn.button.add"}
+                        <a @click="pidManagerApp{$pidName}.add()" v-show="!pidManagerApp{$pidName}.isPublished"
+                           class="pkpButton">
+                            {translate key="plugins.generic.pidManager.{$pidName}.button.add"}
                         </a>
                     </p>
                 </td>
@@ -133,22 +133,22 @@
         </table>
     </div>
 
-    <div class="footer" id="pidManager-igsn-workflow-footer">
-        <pkp-form v-bind="components.{$ConstantsIgsn}" @set="set"></pkp-form>
+    <div class="footer">
+        <pkp-form v-bind="components.{$pidName}" @set="set"></pkp-form>
         <span class="hide">
-      {{ pidManagerIgsnApp.workingPublication = workingPublication }}
-      {{ pidManagerIgsnApp.configure() }}
-      {{ components.{$ConstantsIgsn}.fields[0]['value'] = JSON.stringify(pidManagerIgsnApp.igsnListClean) }}
-      {{ components.{$ConstantsIgsn}.action = '{$apiBaseUrl}submissions/' + workingPublication.submissionId + '/publications/' + workingPublication.id }}
-    </span>
+            {{ pidManagerApp{$pidName}.workingPublication = workingPublication }}
+            {{ pidManagerApp{$pidName}.configure() }}
+            {{ components.{$pidName}.fields[0]['value'] = JSON.stringify(pidManagerApp{$pidName}.itemListCleaned) }}
+            {{ components.{$pidName}.action = '{$apiBaseUrl}submissions/' + workingPublication.submissionId + '/publications/' + workingPublication.id }}
+        </span>
     </div>
 
     <script>
-        let pidManagerIgsnApp = new pkp.Vue({
+        let pidManagerApp{$pidName} = new pkp.Vue({
             data() {
                 return {
-                    igsns: {$igsns},
-                    igsnModel: { /**/ 'doi': '', 'label': ''},
+                    items: {$items},
+                    dataModel: { /**/ 'doi': '', 'label': ''},
                     searchPhraseDoi: '',
                     searchPhraseLabel: '',
                     searchResults: [], // [ { 'id': '', 'label': '' }, ... ]
@@ -162,8 +162,8 @@
                 };
             },
             computed: {
-                igsnListClean: function () {
-                    let result = JSON.parse(JSON.stringify(this.igsns));
+                itemListCleaned: function () {
+                    let result = JSON.parse(JSON.stringify(this.items));
                     for (let i = 0; i < result.length; i++) {
                         let rowIsEmpty = true;
                         for (let key in result[i]) {
@@ -186,8 +186,8 @@
                 },
                 searchResultsFiltered: function () {
                     this.searchResults.forEach((item) => {
-                        for (let i = 0; i < this.igsns.length; i++) {
-                            if (this.igsns[i].doi === item.doi) {
+                        for (let i = 0; i < this.items.length; i++) {
+                            if (this.items[i].doi === item.doi) {
                                 item.exists = true;
                             }
                         }
@@ -204,21 +204,21 @@
             },
             methods: {
                 configure: function () {
-                    if (document.querySelector('#pidManagerIgsn button.pkpButton') !== null) {
-                        let saveBtn = document.querySelector('#pidManagerIgsn button.pkpButton');
+                    if (document.querySelector('#pidManager__{$pidName} button.pkpButton') !== null) {
+                        let saveBtn = document.querySelector('#pidManager__{$pidName} button.pkpButton');
                         saveBtn.disabled = this.isPublished;
                     }
                 },
                 add: function () {
-                    this.igsns.push(JSON.parse(JSON.stringify(this.igsnModel)));
+                    this.items.push(JSON.parse(JSON.stringify(this.dataModel)));
                 },
                 remove: function (index) {
-                    if (!this.igsns[index].doi && !this.igsns[index].label) {
-                        this.igsns.splice(index, 1);
+                    if (!this.items[index].doi && !this.items[index].label) {
+                        this.items.splice(index, 1);
                         return;
                     }
-                    if (confirm('{translate key="plugins.generic.pidManager.igsn.button.remove.confirm"}') === true) {
-                        this.igsns.splice(index, 1);
+                    if (confirm('{translate key="plugins.generic.pidManager.{$pidName}.remove.confirm"}') === true) {
+                        this.items.splice(index, 1);
                     }
                 },
                 clearSearch: function () {
@@ -239,13 +239,16 @@
                 panelVisibilityReset: function () {
                     this.panelVisibility = { /**/ ...this.panelVisibilityDefault};
                 },
-                getQueryPart: function (query) {
-                    query = query.replace(/[.,\/#!$%^&*;:{ }=\-_`~()—+]/g, ' ');
-                    query = query.replace(/\s\s+/g, ' ');
-                    query = query.trim();
-                    query = query.replaceAll(' ', '*+*');
-                    query = '*' + query + '*';
-                    return query;
+                getDoiCleaned: function (doi) {
+                    doi = doi.replace( /  +/g, ' ' );
+                    doi = doi.trim();
+                    doi = doi.replaceAll(' ', '*+*');
+                    doi = '*' + doi + '*';
+                    return doi;
+                },
+                getLabelCleaned: function (label) {
+                    label = label.replace(/[.,\/#!$%^&*;:{ }=\-_`~()—+]/g, ' ');
+                    return this.getDoiCleaned(label);
                 },
                 apiLookup: function () {
                     if (this.searchPhraseDoi.length < this.minimumSearchPhraseLength &&
@@ -255,10 +258,10 @@
                     }
                     let query = '';
                     if (this.searchPhraseDoi.length >= this.minimumSearchPhraseLength) {
-                        query += ' AND id:' + this.getQueryPart(this.searchPhraseDoi);
+                        query += ' AND id:' + this.getDoiCleaned(this.searchPhraseDoi);
                     }
                     if (this.searchPhraseLabel.length >= this.minimumSearchPhraseLength) {
-                        query += ' AND titles.title:' + this.getQueryPart(this.searchPhraseLabel);
+                        query += ' AND titles.title:' + this.getLabelCleaned(this.searchPhraseLabel);
                     }
                     if (query.length === 0) return;
 
@@ -292,8 +295,8 @@
                             label = item.attributes.titles[i].title;
                         }
 
-                        for (let i = 0; i < this.igsns.length; i++) {
-                            if (this.igsns[i].doi === item.id) exists = true;
+                        for (let i = 0; i < this.items.length; i++) {
+                            if (this.items[i].doi === item.id) exists = true;
                         }
 
                         searchResults.push({ /**/ doi: item.id, label: label, exists: exists});
@@ -301,11 +304,11 @@
                     this.searchResults = searchResults;
                 },
                 select: function (index) {
-                    let newIgsn = {
+                    let newItem = {
                         doi: this.searchResults[index].doi,
                         label: this.searchResults[index].label,
                     };
-                    this.igsns.push(newIgsn);
+                    this.items.push(newItem);
                 },
             },
             watch: {

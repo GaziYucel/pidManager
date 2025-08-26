@@ -1,17 +1,19 @@
 <?php
 
 /**
- * @file classes/Igsn/IgsnSubmissionWizard.php
+ * @file classes/Base/SubmissionWizard.php
  *
- * @copyright (c) 2021+ TIB Hannover
- * @copyright (c) 2021+ Gazi Yücel
+ * @copyright (c) 2024+ TIB Hannover
+ * @copyright (c) 2024+ Gazi Yücel
  * @license Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
  *
- * @class IgsnSubmissionWizard
- * @brief Igsn submission wizard
+ * @class SubmissionWizard
+ * @ingroup plugins_generic_pidmanager
+ *
+ * @brief SubmissionWizard
  */
 
-namespace APP\plugins\generic\pidManager\classes\Igsn;
+namespace APP\plugins\generic\pidManager\classes\Base;
 
 use APP\core\Application;
 use APP\pages\submission\SubmissionHandler;
@@ -19,23 +21,21 @@ use APP\plugins\generic\pidManager\PidManagerPlugin;
 use APP\submission\Submission;
 use APP\template\TemplateManager;
 
-class IgsnSubmissionWizard
+class SubmissionWizard
 {
-    /**@var PidManagerPlugin */
     public PidManagerPlugin $plugin;
+    public string $template = '';
+    public string $fieldName = '';
 
-    /** @param PidManagerPlugin $plugin */
-    public function __construct(PidManagerPlugin &$plugin)
+    public function __construct(PidManagerPlugin &$plugin, string $template, string $fieldName)
     {
         $this->plugin = &$plugin;
+        $this->template = $template;
+        $this->fieldName = $fieldName;
     }
 
     /**
-     * Add section to the details step of the submission wizard
-     *
-     * @param string $hookName The name of the hook being invoked
-     * * @param array $params The parameters to the invoked hook
-     * @return bool
+     * Add section to the details step of the submission wizard.
      */
     function addToSubmissionWizardSteps(string $hookName, array $params): bool
     {
@@ -76,11 +76,7 @@ class IgsnSubmissionWizard
     }
 
     /**
-     * Insert template to display grid in submission wizard
-     *
-     * @param string $hookName
-     * @param array $args
-     * @return bool
+     * Insert template to display grid in submission wizard.
      */
     public function addToSubmissionWizardTemplate(string $hookName, array $args): bool
     {
@@ -89,31 +85,32 @@ class IgsnSubmissionWizard
 
         $output .= sprintf(
             '<template v-else-if="section.id === \'igsn\'">%s</template>',
-            $smarty->fetch($this->plugin->getTemplateResource('igsn/igsnSubmissionWizard.tpl'))
+            $smarty->fetch($this->plugin->getTemplateResource($this->template))
         );
 
         return false;
     }
 
     /**
-     * Insert template to review in the submission wizard before completing the submission
-     *
-     * @param string $hookName The name of the hook being invoked
-     * @param array $params The parameters to the invoked hook
-     * @return bool
+     * Insert template to review in the submission wizard before completing the submission.
      */
     function addToSubmissionWizardReviewTemplate(string $hookName, array $params): bool
     {
-        $submission = $params[0]['submission'];
         /** @var Submission $submission */
-        $step = $params[0]['step'];
         /** @var string $step */
-        $templateMgr = $params[1];
         /** @var TemplateManager $templateMgr */
+        $submission = $params[0]['submission'];
+        $step = $params[0]['step'];
+        $templateMgr = $params[1];
         $output =& $params[2];
 
+        $templateParameters = [
+            'pidName' => $this->fieldName
+        ];
+        $templateMgr->assign($templateParameters);
+
         if ($step === 'details') {
-            $output .= $templateMgr->fetch($this->plugin->getTemplateResource('igsn/igsnSubmissionWizardReview.tpl'));
+            $output .= $templateMgr->fetch($this->plugin->getTemplateResource($this->fieldName . '/SubmissionWizardReview.tpl'));
         }
 
         return false;

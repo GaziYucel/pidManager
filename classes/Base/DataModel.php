@@ -1,19 +1,21 @@
 <?php
 
 /**
- * @file classes/Igsn/IgsnDataModel.php
+ * @file classes/Base/DataModel.php
  *
- * @copyright (c) 2021+ TIB Hannover
- * @copyright (c) 2021+ Gazi Yücel
+ * @copyright (c) 2024+ TIB Hannover
+ * @copyright (c) 2024+ Gazi Yücel
  * @license Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
  *
- * @class IgsnDataModel
- * @brief Igsn data model.
+ * @class DataModel
+ * @ingroup plugins_generic_pidmanager
+ *
+ * @brief DataModel
  */
 
-namespace APP\plugins\generic\pidManager\classes\Igsn;
+namespace APP\plugins\generic\pidManager\classes\Base;
 
-class IgsnDataModel
+class DataModel
 {
     /** @var string|null The DOI) for the sample. */
     public ?string $doi = null;
