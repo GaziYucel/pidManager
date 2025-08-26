@@ -71,7 +71,10 @@ Get the correct version for your OJS version:
     ├─ .project                      # Project related files
     ├─ assets                        # Styles, images, javascript files
     ├─ Classes                       # Main folder with models / logic
-    │  └─ Igsn                       # Classes for IGSN
+    │  ├─ Base                       # Base classes used by all PIDs
+    │  ├─ Igsn                       # Classes for IGSN
+    │  ├─ Pidinst                    # Classes for PIDINST
+    │  └─ Settings                   # Classes for plugin settings
     ├─ locale                        # Language files
     ├─ templates                     # Templates folder
     ├─ .gitignore                    # Git ignore file
