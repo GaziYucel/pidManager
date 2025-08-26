@@ -11,7 +11,7 @@
  * https://support.datacite.org/docs/api-queries#selecting-which-metadata-fields-to-retrieve
  *}
 
-<tab id='pidManager__{$pidName}' role='tabpanel' class='pkpTab'
+<tab id='{$pidName}' role='tabpanel' class='pkpTab'
      label="{translate key="plugins.generic.pidManager.{$pidName}.workflow.name"}">
 
     <link rel="stylesheet" href="{$assetsUrl}/css/backend.css" type="text/css"/>
