@@ -17,20 +17,18 @@ namespace APP\plugins\generic\pidManager\classes\Base;
 
 use APP\plugins\generic\pidManager\classes\Constants;
 use APP\plugins\generic\pidManager\classes\Repo;
-use PidManagerPlugin;
+use APP\plugins\generic\pidManager\PidManagerPlugin;
 use TemplateManager;
 
 class ArticleDetails
 {
     public PidManagerPlugin $plugin;
-    public string $template = '';
     public string $fieldName = '';
     public object $dataModel;
 
-    public function __construct(PidManagerPlugin &$plugin, string $template, string $fieldName, object $dataModel)
+    public function __construct(PidManagerPlugin &$plugin, string $fieldName, object $dataModel)
     {
         $this->plugin = &$plugin;
-        $this->template = $template;
         $this->fieldName = $fieldName;
         $this->dataModel = $dataModel;
     }
@@ -55,7 +53,8 @@ class ArticleDetails
             'pidName' => $this->fieldName
         ];
         $templateMgr->assign($templateParameters);
-        $templateMgr->display($this->plugin->getTemplateResource($this->template));
+        $templateMgr->display($this->plugin->getTemplateResource(
+            $this->fieldName . '/articleDetails.tpl'));
 
         return false;
     }

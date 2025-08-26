@@ -20,13 +20,11 @@ use PidManagerPlugin;
 class SubmissionWizard
 {
     public PidManagerPlugin $plugin;
-    public string $template = '';
     public string $fieldName = '';
 
-    public function __construct(PidManagerPlugin &$plugin, string $template, string $fieldName)
+    public function __construct(PidManagerPlugin &$plugin, string $fieldName)
     {
         $this->plugin = &$plugin;
-        $this->template = $template;
         $this->fieldName = $fieldName;
     }
 
@@ -42,6 +40,8 @@ class SubmissionWizard
         ];
         $templateMgr->assign($templateParameters);
 
-        $templateMgr->display($this->plugin->getTemplateResource($this->template));
+        $templateMgr->display($this->plugin->getTemplateResource(
+            $this->fieldName . '/submissionWizard.tpl'
+        ));
     }
 }

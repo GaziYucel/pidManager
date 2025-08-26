@@ -46,9 +46,9 @@ class PidManagerPlugin extends GenericPlugin
                 /** IGSN */
                 if ($this->getSetting($contextId, Constants::settingEnableIgsn)) {
                     $igsnSchema = new IgsnSchema(Constants::igsn);
-                    $igsnWorkflow = new IgsnWorkflow($this, 'igsn/workflow.tpl', Constants::igsn, new IgsnDataModel());
-                    $igsnArticleDetails = new IgsnArticleDetails($this, 'igsn/articleDetails.tpl', Constants::igsn, new IgsnDataModel());
-                    $igsnSubmissionWizard = new IgsnSubmissionWizard($this, "igsn/submissionWizard.tpl", Constants::igsn);
+                    $igsnWorkflow = new IgsnWorkflow($this, Constants::igsn, new IgsnDataModel());
+                    $igsnArticleDetails = new IgsnArticleDetails($this, Constants::igsn, new IgsnDataModel());
+                    $igsnSubmissionWizard = new IgsnSubmissionWizard($this, Constants::igsn);
 
                     HookRegistry::register('Schema::get::publication', [$igsnSchema, 'addToSchemaPublication']);
                     HookRegistry::register('Template::Workflow::Publication', [$igsnWorkflow, 'execute']);
@@ -59,9 +59,9 @@ class PidManagerPlugin extends GenericPlugin
                 /** PIDINST */
                 if ($this->getSetting($contextId, Constants::settingEnablePidinst)) {
                     $pidinstSchema = new PidinstSchema(Constants::pidinst);
-                    $pidinstWorkflow = new PidinstWorkflow($this, 'pidinst/workflow.tpl', Constants::pidinst, new PidinstDataModel());
-                    $pidinstArticleDetails = new PidinstArticleDetails($this, 'pidinst/articleDetails.tpl', Constants::pidinst, new PidinstDataModel());
-                    $pidinstSubmissionWizard = new PidinstSubmissionWizard($this, 'pidinst/submissionWizard.tpl', Constants::pidinst);
+                    $pidinstWorkflow = new PidinstWorkflow($this, Constants::pidinst, new PidinstDataModel());
+                    $pidinstArticleDetails = new PidinstArticleDetails($this, Constants::pidinst, new PidinstDataModel());
+                    $pidinstSubmissionWizard = new PidinstSubmissionWizard($this, Constants::pidinst);
 
                     HookRegistry::register('Schema::get::publication', [$pidinstSchema, 'addToSchemaPublication']);
                     HookRegistry::register('Template::Workflow::Publication', [$pidinstWorkflow, 'execute']);
