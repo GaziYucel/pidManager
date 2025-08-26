@@ -113,6 +113,22 @@ De IGSNs are saved in the publication_settings as an array of IGSN data models.
 ]
 ```
 
+## PIDINST
+
+De PIDINSTs are saved in the publication_settings as an array of PIDINST data models.
+
+| name  | description                             |
+|-------|-----------------------------------------|
+| doi   | Persistent identifier of the instrument |
+| label | Label of the instrument                 |
+
+```
+[
+  { 'doi': '10.58031/kiel0188gczz101', 'label': 'Sediment core SO257_1-5' },
+  { 'doi': '10.58031/kiel0188gczi201', 'label': 'Sediment core SO257_6-2' },
+]
+```
+
 # Contribute
 
 All help is welcome: asking questions, providing documentation, testing, or even development.
