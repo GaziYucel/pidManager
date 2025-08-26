@@ -17,21 +17,18 @@ namespace APP\plugins\generic\pidManager\classes\Base;
 
 use APP\core\Application;
 use APP\plugins\generic\pidManager\classes\Repo;
-use PidManagerPlugin;
-use Publication;
-use TemplateManager;
+use APP\plugins\generic\pidManager\PidManagerPlugin;
+use APP\template\TemplateManager;
 
 class Workflow
 {
     public PidManagerPlugin $plugin;
-    public string $template = '';
     public string $fieldName = '';
     public object $dataModel;
 
-    public function __construct(PidManagerPlugin &$plugin, string $template, string $fieldName, object $dataModel)
+    public function __construct(PidManagerPlugin &$plugin, string $fieldName, object $dataModel)
     {
         $this->plugin = &$plugin;
-        $this->template = $template;
         $this->fieldName = $fieldName;
         $this->dataModel = $dataModel;
     }
@@ -80,6 +77,7 @@ class Workflow
         ];
         $templateMgr->assign($templateParameters);
 
-        $templateMgr->display($this->plugin->getTemplateResource($this->template));
+        $templateMgr->display($this->plugin->getTemplateResource(
+            $this->fieldName . '/workflow.tpl'));
     }
 }

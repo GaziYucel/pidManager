@@ -18,7 +18,6 @@ namespace APP\plugins\generic\pidManager\classes\Settings;
 use APP\plugins\generic\pidManager\PidManagerPlugin;
 use PKP\core\JSONMessage;
 
-
 class Manage
 {
     public PidManagerPlugin $plugin;

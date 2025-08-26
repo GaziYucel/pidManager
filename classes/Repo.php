@@ -15,7 +15,7 @@
 
 namespace APP\plugins\generic\pidManager\classes;
 
-use Publication;
+use APP\publication\Publication;
 use ReflectionClass;
 use ReflectionProperty;
 

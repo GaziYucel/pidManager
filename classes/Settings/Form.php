@@ -21,9 +21,9 @@ use APP\notification\NotificationManager;
 use APP\plugins\generic\pidManager\classes\Constants;
 use APP\plugins\generic\pidManager\PidManagerPlugin;
 use APP\template\TemplateManager;
+use PKP\form\Form as PKPForm;
 use PKP\form\validation\FormValidatorCSRF;
 use PKP\form\validation\FormValidatorPost;
-use PKP\form\Form as PKPForm;
 
 class Form extends PKPForm
 {

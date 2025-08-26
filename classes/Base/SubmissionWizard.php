@@ -24,13 +24,11 @@ use APP\template\TemplateManager;
 class SubmissionWizard
 {
     public PidManagerPlugin $plugin;
-    public string $template = '';
     public string $fieldName = '';
 
-    public function __construct(PidManagerPlugin &$plugin, string $template, string $fieldName)
+    public function __construct(PidManagerPlugin &$plugin, string $fieldName)
     {
         $this->plugin = &$plugin;
-        $this->template = $template;
         $this->fieldName = $fieldName;
     }
 
@@ -85,7 +83,9 @@ class SubmissionWizard
 
         $output .= sprintf(
             '<template v-else-if="section.id === \'igsn\'">%s</template>',
-            $smarty->fetch($this->plugin->getTemplateResource($this->template))
+            $smarty->fetch(
+                $this->plugin->getTemplateResource(
+                    $this->fieldName . '/submissionWizard.tpl'))
         );
 
         return false;
@@ -110,7 +110,9 @@ class SubmissionWizard
         $templateMgr->assign($templateParameters);
 
         if ($step === 'details') {
-            $output .= $templateMgr->fetch($this->plugin->getTemplateResource($this->fieldName . '/SubmissionWizardReview.tpl'));
+            $output .= $templateMgr->fetch(
+                $this->plugin->getTemplateResource(
+                    $this->fieldName . '/SubmissionWizardReview.tpl'));
         }
 
         return false;
