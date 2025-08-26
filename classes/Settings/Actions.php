@@ -1,12 +1,15 @@
 <?php
+
 /**
  * @file classes/Settings/Actions.php
  *
- * @copyright (c) 2021+ TIB Hannover
- * @copyright (c) 2021+ Gazi Yücel
+ * @copyright (c) 2024+ TIB Hannover
+ * @copyright (c) 2024+ Gazi Yücel
  * @license Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
  *
  * @class Actions
+ * @ingroup plugins_generic_pidmanager
+ *
  * @brief Actions on the settings page
  */
 
@@ -18,19 +21,18 @@ use AjaxModal;
 
 class Actions
 {
-    /** @var PidManagerPlugin */
     public PidManagerPlugin $plugin;
 
-    /** @param PidManagerPlugin $plugin */
     public function __construct(PidManagerPlugin &$plugin)
     {
         $this->plugin = &$plugin;
     }
 
-    /** @copydoc Plugin::getActions() */
     public function execute($request, $actionArgs, $parentActions): array
     {
-        if (!$this->plugin->getEnabled()) return $parentActions;
+        if (!$this->plugin->getEnabled()) {
+            return $parentActions;
+        }
 
         $router = $request->getRouter();
 

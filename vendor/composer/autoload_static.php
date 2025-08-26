@@ -7,24 +7,29 @@ namespace Composer\Autoload;
 class ComposerStaticInitdb0506f73b171ab12c3437ae07e258c1
 {
     public static $classMap = array (
+        'APP\\plugins\\generic\\pidManager\\classes\\Base\\ArticleDetails' => __DIR__ . '/../..' . '/classes/Base/ArticleDetails.php',
+        'APP\\plugins\\generic\\pidManager\\classes\\Base\\DataModel' => __DIR__ . '/../..' . '/classes/Base/DataModel.php',
+        'APP\\plugins\\generic\\pidManager\\classes\\Base\\Form' => __DIR__ . '/../..' . '/classes/Base/Form.php',
+        'APP\\plugins\\generic\\pidManager\\classes\\Base\\Schema' => __DIR__ . '/../..' . '/classes/Base/Schema.php',
+        'APP\\plugins\\generic\\pidManager\\classes\\Base\\SubmissionWizard' => __DIR__ . '/../..' . '/classes/Base/SubmissionWizard.php',
+        'APP\\plugins\\generic\\pidManager\\classes\\Base\\Workflow' => __DIR__ . '/../..' . '/classes/Base/Workflow.php',
         'APP\\plugins\\generic\\pidManager\\classes\\Constants' => __DIR__ . '/../..' . '/classes/Constants.php',
         'APP\\plugins\\generic\\pidManager\\classes\\Igsn\\ArticleDetails' => __DIR__ . '/../..' . '/classes/Igsn/ArticleDetails.php',
         'APP\\plugins\\generic\\pidManager\\classes\\Igsn\\DataModel' => __DIR__ . '/../..' . '/classes/Igsn/DataModel.php',
         'APP\\plugins\\generic\\pidManager\\classes\\Igsn\\Form' => __DIR__ . '/../..' . '/classes/Igsn/Form.php',
-        'APP\\plugins\\generic\\pidManager\\classes\\Igsn\\Repo' => __DIR__ . '/../..' . '/classes/Igsn/Repo.php',
         'APP\\plugins\\generic\\pidManager\\classes\\Igsn\\Schema' => __DIR__ . '/../..' . '/classes/Igsn/Schema.php',
         'APP\\plugins\\generic\\pidManager\\classes\\Igsn\\SubmissionWizard' => __DIR__ . '/../..' . '/classes/Igsn/SubmissionWizard.php',
         'APP\\plugins\\generic\\pidManager\\classes\\Igsn\\Workflow' => __DIR__ . '/../..' . '/classes/Igsn/Workflow.php',
         'APP\\plugins\\generic\\pidManager\\classes\\Pidinst\\ArticleDetails' => __DIR__ . '/../..' . '/classes/Pidinst/ArticleDetails.php',
         'APP\\plugins\\generic\\pidManager\\classes\\Pidinst\\DataModel' => __DIR__ . '/../..' . '/classes/Pidinst/DataModel.php',
         'APP\\plugins\\generic\\pidManager\\classes\\Pidinst\\Form' => __DIR__ . '/../..' . '/classes/Pidinst/Form.php',
-        'APP\\plugins\\generic\\pidManager\\classes\\Pidinst\\Repo' => __DIR__ . '/../..' . '/classes/Pidinst/Repo.php',
         'APP\\plugins\\generic\\pidManager\\classes\\Pidinst\\Schema' => __DIR__ . '/../..' . '/classes/Pidinst/Schema.php',
         'APP\\plugins\\generic\\pidManager\\classes\\Pidinst\\SubmissionWizard' => __DIR__ . '/../..' . '/classes/Pidinst/SubmissionWizard.php',
         'APP\\plugins\\generic\\pidManager\\classes\\Pidinst\\Workflow' => __DIR__ . '/../..' . '/classes/Pidinst/Workflow.php',
+        'APP\\plugins\\generic\\pidManager\\classes\\Repo' => __DIR__ . '/../..' . '/classes/Repo.php',
         'APP\\plugins\\generic\\pidManager\\classes\\Settings\\Actions' => __DIR__ . '/../..' . '/classes/Settings/Actions.php',
+        'APP\\plugins\\generic\\pidManager\\classes\\Settings\\Form' => __DIR__ . '/../..' . '/classes/Settings/Form.php',
         'APP\\plugins\\generic\\pidManager\\classes\\Settings\\Manage' => __DIR__ . '/../..' . '/classes/Settings/Manage.php',
-        'APP\\plugins\\generic\\pidManager\\classes\\Settings\\SettingsForm' => __DIR__ . '/../..' . '/classes/Settings/SettingsForm.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
     );
 

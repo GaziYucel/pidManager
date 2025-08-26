@@ -1,12 +1,13 @@
 <?php
+
 /**
- * @file plugins/generic/pidManager/classes/SettingsForm.php
+ * @file classes/Settings/Form.php
  *
- * Copyright (c) 2023+ TIB Hannover
- * Copyright (c) 2023+ Gazi Yücel
+ * Copyright (c) 2024+ TIB Hannover
+ * Copyright (c) 2024+ Gazi Yücel
  * Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
  *
- * @class SettingsForm
+ * @class Form
  * @ingroup plugins_generic_pidmanager
  *
  * @brief Form for journal managers to configure the plugin
@@ -19,30 +20,19 @@ use NotificationManager;
 use APP\plugins\generic\pidManager\classes\Constants;
 use APP\plugins\generic\pidManager\PidManagerPlugin;
 use TemplateManager;
-use Form;
+use Form as PKPForm;
 use FormValidatorCSRF;
 use FormValidatorPost;
 
-class SettingsForm extends Form
+class Form extends PKPForm
 {
-    /**
-     * @var PidManagerPlugin
-     */
     public PidManagerPlugin $plugin;
 
-    /**
-     * Array of variables saved in the database
-     *
-     * @var string[]
-     */
     private array $settings = [
         Constants::settingEnableIgsn,
         Constants::settingEnablePidinst
     ];
 
-    /**
-     * @copydoc Form::__construct()
-     */
     public function __construct(PidManagerPlugin &$plugin)
     {
         parent::__construct($plugin->getTemplateResource('settings.tpl'));
@@ -53,12 +43,6 @@ class SettingsForm extends Form
         $this->addCheck(new FormValidatorCSRF($this));
     }
 
-    /**
-     * Load settings already saved in the database Settings are stored by context,
-     * so that each journal or press can have different settings.
-     *
-     * @copydoc Form::initData()
-     */
     public function initData(): void
     {
         $context = Application::get()->getRequest()->getContext();
@@ -76,11 +60,6 @@ class SettingsForm extends Form
         parent::initData();
     }
 
-    /**
-     * Load data that was submitted with the form
-     *
-     * @copydoc Form::readInputData()
-     */
     public function readInputData(): void
     {
         foreach ($this->settings as $key) {
@@ -90,17 +69,6 @@ class SettingsForm extends Form
         parent::readInputData();
     }
 
-    /**
-     * Fetch any additional data needed for your form.
-     *
-     * Data assigned to the form using $this->setData() during the
-     * initData() or readInputData() methods will be passed to the
-     * template.
-     *
-     * In the example below, the plugin name is passed to the
-     * template so that it can be used in the URL that the form is
-     * submitted to.
-     */
     public function fetch($request, $template = null, $display = false): ?string
     {
         $templateMgr = TemplateManager::getManager($request);
@@ -109,12 +77,6 @@ class SettingsForm extends Form
         return parent::fetch($request, $template, $display);
     }
 
-    /**
-     * Save the settings
-     *
-     * @copydoc Form::execute()
-     * @return null|mixed
-     */
     public function execute(...$functionArgs): mixed
     {
         $context = Application::get()->getRequest()->getContext();

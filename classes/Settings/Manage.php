@@ -1,12 +1,15 @@
 <?php
+
 /**
  * @file classes/Settings/Manage.php
  *
- * @copyright (c) 2021+ TIB Hannover
- * @copyright (c) 2021+ Gazi Yücel
+ * @copyright (c) 2024+ TIB Hannover
+ * @copyright (c) 2024+ Gazi Yücel
  * @license Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
  *
  * @class Manage
+ * @ingroup plugins_generic_pidmanager
+ *
  * @brief Manage settings page
  */
 
@@ -17,22 +20,19 @@ use JSONMessage;
 
 class Manage
 {
-    /** @var PidManagerPlugin */
     public PidManagerPlugin $plugin;
 
-    /** @param PidManagerPlugin $plugin */
     public function __construct(PidManagerPlugin &$plugin)
     {
         $this->plugin = &$plugin;
     }
 
-    /** @copydoc Plugin::manage() */
     public function execute($args, $request): JSONMessage
     {
         switch ($request->getUserVar('verb')) {
             case 'settings':
                 // Load the custom form
-                $form = new SettingsForm($this->plugin);
+                $form = new Form($this->plugin);
 
                 // Fetch the form the first time it loads, before the user has tried to save it
                 if (!$request->getUserVar('save')) {

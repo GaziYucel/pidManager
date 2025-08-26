@@ -5,14 +5,14 @@
  * @copyright (c) 2024+ Gazi Yücel
  * @license Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
  *
- * IGSN Submission Wizard
+ * Submission Wizard
  *}
 
 <div>
     <label class="label">
-        {translate key="plugins.generic.pidManager.pidinst.label"}
+        {translate key="plugins.generic.pidManager.{$pidName}.label"}
     </label>
     <p>
-        {translate key="plugins.generic.pidManager.pidinst.submission.description"}
+        {translate key="plugins.generic.pidManager.{$pidName}.submission.description"}
     </p>
 </div>
