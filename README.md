@@ -61,6 +61,8 @@ Get the correct version for your OJS version:
 - Login in your OJS instance as an Administrator or Manager
 - Navigate to Website > Plugins > Installed Plugins > Generic Plugins > PID Manager Plugin
 - Activate the plugin by clicking the checkbox
+- Click on 'Settings'
+- Activate all PIDs you want to use
 
 # Development
 
