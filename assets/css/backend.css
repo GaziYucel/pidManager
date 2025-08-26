@@ -9,8 +9,8 @@
  * @brief Backend stylesheet for the plugin.
  */
 
-#pidManagerIgsn,
-#pidManagerPidinst {
+#pidManager__igsn,
+#pidManager__pidinst {
     padding-top: 32px;
     padding-bottom: 0;
     margin-bottom: 32px;
