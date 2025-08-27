@@ -112,7 +112,7 @@ class SubmissionWizard
         if ($step === 'details') {
             $output .= $templateMgr->fetch(
                 $this->plugin->getTemplateResource(
-                    $this->fieldName . '/SubmissionWizardReview.tpl'));
+                    $this->fieldName . '/submissionWizardReview.tpl'));
         }
 
         return false;
