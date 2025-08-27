@@ -204,8 +204,8 @@
             },
             methods: {
                 configure: function () {
-                    if (document.querySelector('#pidManager__{$pidName} button.pkpButton') !== null) {
-                        let saveBtn = document.querySelector('#pidManager__{$pidName} button.pkpButton');
+                    if (document.querySelector('#{$pidName} button.pkpButton') !== null) {
+                        let saveBtn = document.querySelector('#{$pidName} button.pkpButton');
                         saveBtn.disabled = this.isPublished;
                     }
                 },
