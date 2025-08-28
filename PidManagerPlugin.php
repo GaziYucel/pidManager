@@ -1,9 +1,10 @@
 <?php
+
 /**
  * @file PidManagerPlugin.php
  *
- * @copyright (c) 2021+ TIB Hannover
- * @copyright (c) 2021+ Gazi Yücel
+ * @copyright (c) 2024+ TIB Hannover
+ * @copyright (c) 2024+ Gazi Yücel
  * @license Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
  *
  * @class PidManagerPlugin
@@ -15,18 +16,13 @@ namespace APP\plugins\generic\pidManager;
 define('PID_MANAGER_PLUGIN_NAME', basename(__FILE__, '.php'));
 
 use APP\core\Application;
+use APP\core\Request;
+use APP\plugins\generic\pidManager\classes\Constants;
 use APP\plugins\generic\pidManager\classes\Settings\Actions;
-use APP\plugins\generic\pidManager\classes\Igsn\IgsnArticleDetails;
-use APP\plugins\generic\pidManager\classes\Igsn\IgsnSchema;
-use APP\plugins\generic\pidManager\classes\Igsn\IgsnSchemaMigration;
-use APP\plugins\generic\pidManager\classes\Igsn\IgsnSubmissionWizard;
-use APP\plugins\generic\pidManager\classes\Igsn\IgsnPublicationTab;
 use APP\plugins\generic\pidManager\classes\Settings\Manage;
 use APP\template\TemplateManager;
 use PKP\core\JSONMessage;
-use PKP\core\Registry;
 use PKP\plugins\GenericPlugin;
-use PKP\plugins\Hook;
 
 class PidManagerPlugin extends GenericPlugin
 {
@@ -34,55 +30,25 @@ class PidManagerPlugin extends GenericPlugin
     public function register($category, $path, $mainContextId = null): bool
     {
         if (parent::register($category, $path, $mainContextId)) {
-            if (Application::isUnderMaintenance()) return true;
-
             if ($this->getEnabled()) {
-                // IGSN
-                $igsnSchema = new IgsnSchema();
-                $igsnWorkflowTab = new IgsnPublicationTab($this);
-                $igsnArticleView = new IgsnArticleDetails($this);
-                Hook::add('Schema::get::publication', [$igsnSchema, 'addToSchemaPublication']);
-//                Hook::add('Template::Workflow::Publication', [$igsnWorkflowTab, 'execute']);
-                Hook::add('Templates::Article::Main', [$igsnArticleView, 'execute']);
-                Hook::add('TemplateManager::display', $this->registerJS(...));
+                $contextId = ($mainContextId === null) ? $this->getCurrentContextId() : $mainContextId;
+                $request = Application::get()->getRequest();
+                $templateMgr = TemplateManager::getManager($request);
 
+                /** IGSN */
+                if ($this->getSetting($contextId, Constants::settingEnableIgsn)) {
+                    $this->addJavascript(Constants::igsn, $request, $templateMgr);
+                    $this->addStyleSheet(Constants::igsn, $request, $templateMgr);
+                }
 
-                $igsnSubmissionWizard = new IgsnSubmissionWizard($this);
-                // Hook::add('LoadComponentHandler', [$igsnSubmissionWizard, 'setupGridHandler']);
-                Hook::add('TemplateManager::display', [$igsnSubmissionWizard, 'addToSubmissionWizardSteps']);
-                Hook::add('Template::SubmissionWizard::Section', [$igsnSubmissionWizard, 'addToSubmissionWizardTemplate']);
-                Hook::add('Template::SubmissionWizard::Section::Review', [$igsnSubmissionWizard, 'addToSubmissionWizardReviewTemplate']);
-
-                // PIDINST
-                // $pidinstSchema = new PidinstSchema();
-                // Hook::add('Schema::get::publication', [$pidinstSchema, 'addToSchemaPublication']);
+                /** IGSN */
+                if ($this->getSetting($contextId, Constants::settingEnablePidinst)) {
+                    $this->addJavascript(Constants::pidinst, $request, $templateMgr);
+                    $this->addStyleSheet(Constants::igsn, $request, $templateMgr);
+                }
             }
-
             return true;
         }
-
-        return false;
-    }
-
-    /**
-     * Register the TinyMCE JavaScript file
-     *
-     * Hooked to the the `display` callback in TemplateManager
-     */
-    public function registerJS(string $hookName, array $args): bool
-    {
-        $request = &Registry::get('request');
-        /** @var TemplateManager $templateManager */
-        $templateManager = &$args[0];
-
-        $templateManager->addJavaScript(
-            'pidManager',
-            "{$request->getBaseUrl()}/{$this->getPluginPath()}/public/build.js",
-            [
-                'contexts' => 'backend',
-            ]
-        );
-
         return false;
     }
 
@@ -112,10 +78,26 @@ class PidManagerPlugin extends GenericPlugin
         return $manage->execute($args, $request);
     }
 
-    /** @copydoc Plugin::getInstallMigration() */
-    function getInstallMigration(): IgsnSchemaMigration
+    protected function addJavascript(string $pidName, Request $request, TemplateManager $templateMgr): void
     {
-        return new IgsnSchemaMigration();
+        $templateMgr->addJavaScript(
+            "pidManager$pidName",
+            "{$request->getBaseUrl()}/{$this->getPluginPath()}/public/build/build-$pidName.iife.js",
+            [
+                'inline' => false,
+                'contexts' => ['backend'],
+                'priority' => TemplateManager::STYLE_SEQUENCE_LAST
+            ]
+        );
+    }
+
+    protected function addStyleSheet(string $pidName, Request $request, TemplateManager $templateMgr): void
+    {
+        $templateMgr->addStyleSheet("pidManagerStyle$pidName",
+            "{$request->getBaseUrl()}/{$this->getPluginPath()}/public/build/build-$pidName.css", [
+                'inline' => false,
+                'contexts' => ['backend']
+            ]);
     }
 }
 

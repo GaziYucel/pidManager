@@ -1,0 +1,24 @@
+{
+  "name": "pidmanagerplugin",
+  "version": "3.5.0.1",
+  "description": "OJS plugin which manages PIDs and deposits to external open access data services",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite build --watch --mode development --config [vite.config.igsn.js, vite.config.pidinst.js]",
+    "build": "npm run build:igsn && npm run build:pidinst",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
+    "build:igsn": "vite build --emptyOutDir false --config vite.config.igsn.js",
+    "build:pidinst": "vite build --emptyOutDir false --config vite.config.pidinst.js"
+  },
+  "author": "Gazi Yucel",
+  "license": "GPL-3",
+  "devDependencies": {
+    "@rushstack/eslint-patch": "^1.10.5",
+    "@vitejs/plugin-vue": "^5.2.1",
+    "@vue/eslint-config-prettier": "^10.2.0",
+    "eslint": "^9.20.0",
+    "eslint-plugin-vue": "^9.32.0",
+    "prettier": "^3.5.0",
+    "vite": "^6.1.0"
+  }
+}

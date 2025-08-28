@@ -1,55 +1,56 @@
 <?php
+
 /**
  * @file classes/Settings/Manage.php
  *
- * @copyright (c) 2021+ TIB Hannover
- * @copyright (c) 2021+ Gazi Yücel
+ * @copyright (c) 2024+ TIB Hannover
+ * @copyright (c) 2024+ Gazi Yücel
  * @license Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
  *
  * @class Manage
+ * @ingroup plugins_generic_pidmanager
+ *
  * @brief Manage settings page
  */
 
 namespace APP\plugins\generic\pidManager\classes\Settings;
 
-use APP\core\Application;
-use APP\notification\Notification;
-use APP\notification\NotificationManager;
-use APP\plugins\generic\pidManager\classes\Igsn\IgsnSchemaMigration;
 use APP\plugins\generic\pidManager\PidManagerPlugin;
 use PKP\core\JSONMessage;
 
 class Manage
 {
-    /** @var PidManagerPlugin */
     public PidManagerPlugin $plugin;
 
-    /** @param PidManagerPlugin $plugin */
     public function __construct(PidManagerPlugin &$plugin)
     {
         $this->plugin = &$plugin;
     }
 
-    /** @copydoc Plugin::manage() */
     public function execute($args, $request): JSONMessage
     {
-        $json = new JSONMessage(false);
-
         switch ($request->getUserVar('verb')) {
-            case 'initialise':
-                $igsnSchemaMigration = new IgsnSchemaMigration();
-                $igsnSchemaMigration->up();
+            case 'settings':
+                // Load the custom form
+                $form = new Form($this->plugin);
 
-                $notificationManager = new NotificationManager();
-                $notificationManager->createTrivialNotification(
-                    Application::get()->getRequest()->getUser()->getId(),
-                    Notification::NOTIFICATION_TYPE_SUCCESS,
-                    array('contents' => __('plugins.generic.pidManager.settings.initialise.notification')));
+                // Fetch the form the first time it loads, before the user has tried to save it
+                if (!$request->getUserVar('save')) {
+                    $form->initData();
+                    return new JSONMessage(true, $form->fetch($request));
+                }
 
-                $json->setStatus(true);
-                $json->setEvent('dataChanged');
+                // Validate and save the form data
+                $form->readInputData();
+                if ($form->validate()) {
+                    $form->execute();
+                    return new JSONMessage(true);
+                }
+                break;
+            default:
+                break;
         }
 
-        return $json;
+        return new JSONMessage(false);
     }
 }
