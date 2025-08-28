@@ -24,6 +24,21 @@
     <div class="content">
         <table class="w-full pt-16">
             <tr>
+                <th>
+                    <span class="block">
+                        {translate key="plugins.generic.pidManager.{$pidName}.workflow.table.pid"}
+                    </span>
+                </th>
+                <th>
+                    <span class="block">
+                        {translate key="plugins.generic.pidManager.{$pidName}.workflow.table.label"}
+                    </span>
+                </th>
+                <th class="center w-42">
+                    &nbsp;
+                </th>
+            </tr>
+            <tr>
                 <td>
                     <input v-model="pidManagerApp{$pidName}.searchPhraseDoi" type="text"
                            class="pkpFormField__input pkpFormField--text__input"
@@ -83,21 +98,6 @@
                 <td colspan="3" class="h-42">
                     &nbsp;
                 </td>
-            </tr>
-            <tr>
-                <th>
-                    <span class="block">
-                        {translate key="plugins.generic.pidManager.{$pidName}.workflow.table.pid"}
-                    </span>
-                </th>
-                <th>
-                    <span class="block">
-                        {translate key="plugins.generic.pidManager.{$pidName}.workflow.table.label"}
-                    </span>
-                </th>
-                <th class="center w-42">
-                    &nbsp;
-                </th>
             </tr>
             <template v-for="(item, i) in pidManagerApp{$pidName}.items" class="pidManager-Row">
                 <tr>
