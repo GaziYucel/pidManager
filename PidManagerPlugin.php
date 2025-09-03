@@ -13,8 +13,6 @@
 
 namespace APP\plugins\generic\pidManager;
 
-define('PID_MANAGER_PLUGIN_NAME', basename(__FILE__, '.php'));
-
 use APP\core\Application;
 use APP\core\Request;
 use APP\plugins\generic\pidManager\classes\Constants;
@@ -41,7 +39,7 @@ class PidManagerPlugin extends GenericPlugin
                     $this->addStyleSheet(Constants::igsn, $request, $templateMgr);
                 }
 
-                /** IGSN */
+                /** PIDINST */
                 if ($this->getSetting($contextId, Constants::settingEnablePidinst)) {
                     $this->addJavascript(Constants::pidinst, $request, $templateMgr);
                     $this->addStyleSheet(Constants::igsn, $request, $templateMgr);

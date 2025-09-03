@@ -3,8 +3,6 @@ import PidinstWorkflow from './Components/PidinstWorkflow.vue';
 pkp.registry.registerComponent('PidinstWorkflow', PidinstWorkflow);
 
 pkp.registry.storeExtend('workflow', (piniaContext) => {
-	console.log('PidinstWorkflow', piniaContext);
-
 	const workflowStore = piniaContext.store;
 
 	// Extending workflow menu

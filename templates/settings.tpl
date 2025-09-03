@@ -5,21 +5,21 @@
  * Copyright (c) 2024+ Gazi Yücel
  * Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
  *
- * Settings form for the pidManagerSettings plugin.
+ * Settings form for the plugin.
  *}
 <script>
     $(function () {
-        $('#{$smarty.const.PID_MANAGER_PLUGIN_NAME}Settings').pkpHandler('$.pkp.controllers.form.AjaxFormHandler');
+        $('#{$pluginName}Settings').pkpHandler('$.pkp.controllers.form.AjaxFormHandler');
     });
 </script>
 
-<form class="pkp_form" method="POST" id="{$smarty.const.PID_MANAGER_PLUGIN_NAME}Settings"
+<form class="pkp_form" method="POST" id="{$pluginName}Settings"
       action="{url router=$smarty.const.ROUTE_COMPONENT op="manage" category="generic"
       plugin=$pluginName verb="settings" save=true}">
 
     {csrf}
 
-    {fbvFormArea id="{$smarty.const.PID_MANAGER_PLUGIN_NAME}SettingsArea"}
+    {fbvFormArea id="{$pluginName}SettingsArea"}
 
     {fbvFormSection
     for="{APP\plugins\generic\pidManager\classes\Constants::settingEnableIgsn}"

@@ -3,8 +3,6 @@ import IgsnWorkflow from './Components/IgsnWorkflow.vue';
 pkp.registry.registerComponent('IgsnWorkflow', IgsnWorkflow);
 
 pkp.registry.storeExtend('workflow', (piniaContext) => {
-	console.log('IgsnWorkflow', piniaContext);
-
 	const workflowStore = piniaContext.store;
 
 	// Extending workflow menu
