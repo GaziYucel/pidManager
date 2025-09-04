@@ -4,9 +4,10 @@
 
 PID Manager for OJS
 
-- [PID Manager Manager Plugin](#pid-manager-plugin)
+- [PID Manager Plugin](#pid-manager-plugin)
 - [Features](#features)
     - [IGSN](#igsn)
+    - [PIDINST](#pidinst)
 - [Screenshot(s) / screen recording(s)](#screenshots--screen-recordings)
 - [Install and configure the plugin](#install-and-configure-the-plugin)
     - [Requirements](#requirements)
@@ -30,7 +31,7 @@ PID Manager for OJS
 
 - Manual adding sample PIDs and labels
 - Allows suggesting PIDs and Labels from DataCite
-- Marks samples already added to the list
+- Marks samples already added
 
 # Screenshot(s) / screen recording(s)
 
@@ -47,6 +48,7 @@ PID Manager for OJS
 Get the correct version for your OJS version:
 
 - branch main: development version, don't use for production
+- branch stable-3_5_0: use this version for OJS version 3.5.0.x
 - branch stable-3_4_0: use this version for OJS version 3.4.0.x
 - branch stable-3_3_0: use this version for OJS version 3.3.0.x
 
@@ -102,7 +104,7 @@ Get the correct version for your OJS version:
 
 ## IGSN
 
-De IGSNs are saved in the publication_settings as an array of IGSN data models.
+De IGSN's are saved in the publication_settings as an array of IGSN data models in the form of an JSON blob.
 
 | name  | description                         |
 |-------|-------------------------------------|
@@ -118,7 +120,7 @@ De IGSNs are saved in the publication_settings as an array of IGSN data models.
 
 ## PIDINST
 
-De PIDINSTs are saved in the publication_settings as an array of PIDINST data models.
+De PIDINST's are saved in the publication_settings as an array of PIDINST data models in the form of an JSON blob.
 
 | name  | description                             |
 |-------|-----------------------------------------|
@@ -135,9 +137,6 @@ De PIDINSTs are saved in the publication_settings as an array of PIDINST data mo
 # Contribute
 
 All help is welcome: asking questions, providing documentation, testing, or even development.
-
-Please note that this project is released with a [Contributor Code of Conduct](code_of_conduct.md).
-By participating in this project you agree to abide by its terms.
 
 ## How to contribute
 
