@@ -80,6 +80,10 @@
         line-height: 40px;
     }
 
+    .w-4rem {
+        width: 4rem;
+    }
+
     .w-42 {
         width: 42px;
     }

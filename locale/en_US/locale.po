@@ -59,6 +59,15 @@ msgstr "DOI"
 msgid "plugins.generic.pidManager.igsn.workflow.table.label"
 msgstr "Label"
 
+msgid "plugins.generic.pidManager.igsn.workflow.table.creators"
+msgstr "Creators"
+
+msgid "plugins.generic.pidManager.igsn.workflow.table.publisher"
+msgstr "Publisher"
+
+msgid "plugins.generic.pidManager.igsn.workflow.table.publicationYear"
+msgstr "Year"
+
 msgid "plugins.generic.pidManager.igsn.button.add"
 msgstr "Add new row"
 

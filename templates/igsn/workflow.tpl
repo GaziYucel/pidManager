@@ -99,12 +99,51 @@
                     &nbsp;
                 </td>
             </tr>
+        </table>
+        <table class="w-full">
+            <tr>
+                <th>
+                    <span class="block">
+                        {translate key="plugins.generic.pidManager.{$pidName}.workflow.table.pid"}
+                    </span>
+                </th>
+                <th>
+                    <span class="block">
+                        {translate key="plugins.generic.pidManager.{$pidName}.workflow.table.label"}
+                    </span>
+                </th>
+                <th>
+                    <span class="block">
+                        {translate key="plugins.generic.pidManager.{$pidName}.workflow.table.creators"}
+                    </span>
+                </th>
+                <th>
+                    <span class="block">
+                        {translate key="plugins.generic.pidManager.{$pidName}.workflow.table.publisher"}
+                    </span>
+                </th>
+                <th class="w-4rem">
+                    <span class="block">
+                        {translate key="plugins.generic.pidManager.{$pidName}.workflow.table.publicationYear"}
+                    </span>
+                </th>
+                <th class="center w-42"> &nbsp;</th>
+            </tr>
             <template v-for="(item, i) in pidManagerApp{$pidName}.items" class="pidManager-Row">
                 <tr>
                     <td><input v-model="item.doi" type="text"
                                class="pkpFormField__input pkpFormField--text__input"/>
                     </td>
                     <td><input v-model="item.label" type="text"
+                               class="pkpFormField__input pkpFormField--text__input"/>
+                    </td>
+                    <td><input v-model="item.creators" type="text"
+                               class="pkpFormField__input pkpFormField--text__input"/>
+                    </td>
+                    <td><input v-model="item.publisher" type="text"
+                               class="pkpFormField__input pkpFormField--text__input"/>
+                    </td>
+                    <td><input v-model="item.publicationYear" type="text"
                                class="pkpFormField__input pkpFormField--text__input"/>
                     </td>
                     <td class="center w-42">
@@ -116,12 +155,12 @@
                 </tr>
             </template>
             <tr v-show="pidManagerApp{$pidName}.items.length === 0">
-                <td colspan="3" class="center w-42 h-42">
+                <td colspan="6" class="center w-42 h-42">
                     {translate key="plugins.generic.pidManager.{$pidName}.workflow.empty"}
                 </td>
             </tr>
             <tr>
-                <td colspan="3">
+                <td colspan="6">
                     <p>
                         <a @click="pidManagerApp{$pidName}.add()" v-show="!pidManagerApp{$pidName}.isPublished"
                            class="pkpButton">
