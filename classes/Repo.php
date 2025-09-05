@@ -16,8 +16,6 @@
 namespace APP\plugins\generic\pidManager\classes;
 
 use Publication;
-use ReflectionClass;
-use ReflectionProperty;
 
 class Repo
 {
