@@ -71,6 +71,7 @@ class Workflow
 
         $templateParameters = [
             'pidName' => $this->fieldName,
+            'dataModel' => json_encode(get_class_vars(get_class(new DataModel()))),
             'assetsUrl' => $request->getBaseUrl() . '/' . $this->plugin->getPluginPath() . '/assets',
             'apiBaseUrl' => $apiBaseUrl,
             'items' => json_encode($repo->getPidsByPublication($publication))

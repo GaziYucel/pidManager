@@ -106,15 +106,24 @@ Get the correct version for your OJS version:
 
 De IGSN's are saved in the publication_settings as an array of IGSN data models in the form of an JSON blob.
 
-| name  | description                         |
-|-------|-------------------------------------|
-| doi   | Persistent identifier of the sample |
-| label | Label of the sample                 |
+| name            | description                         |
+|-----------------|-------------------------------------|
+| doi             | Persistent identifier of the sample |
+| label           | Label of the sample                 |
+| creators        | Creator(s) of the sample            |
+| publisher       | Publisher of the sample             |
+| publicationYear | Publication year of the sample      |
 
 ```
 [
-  { 'doi': '10.58031/kiel0188gczz101', 'label': 'Sediment core SO257_1-5' },
-  { 'doi': '10.58031/kiel0188gczi201', 'label': 'Sediment core SO257_6-2' }
+  {
+    'doi': '10.60792/qda014666',
+    'label': 'Plant Voucher Specimen QDA014666',
+    'creators': 'TERN Ecosystem Surveillance',
+    'publisher': 'Terrestrial Ecosystem Research Network (TERN)',
+    'publicationYear': '2025'
+  },
+  ...
 ]
 ```
 
@@ -122,15 +131,24 @@ De IGSN's are saved in the publication_settings as an array of IGSN data models 
 
 De PIDINST's are saved in the publication_settings as an array of PIDINST data models in the form of an JSON blob.
 
-| name  | description                             |
-|-------|-----------------------------------------|
-| doi   | Persistent identifier of the instrument |
-| label | Label of the instrument                 |
+| name            | description                             |
+|-----------------|-----------------------------------------|
+| doi             | Persistent identifier of the instrument |
+| label           | Label of the instrument                 |
+| creators        | Creator(s) of the sample                |
+| publisher       | Publisher of the sample                 |
+| publicationYear | Publication year of the sample          |
 
 ```
 [
-  { 'doi': '10.5286/isis.instrument.1189', 'label': 'CHRONUS' },
-  { 'doi': '10.5286/isis.instrument.5418', 'label': 'LARMOR' }
+  {
+    'doi': '10.5286/isis.instrument.1189',
+    'label': 'CHRONUS',
+    'creators': 'ISIS Neutron and Muon Source',
+    'publisher': 'Science and Technology Facilities Council',
+    'publicationYear': '2025'
+  },
+  ...
 ]
 ```
 

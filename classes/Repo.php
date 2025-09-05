@@ -16,8 +16,6 @@
 namespace APP\plugins\generic\pidManager\classes;
 
 use APP\publication\Publication;
-use ReflectionClass;
-use ReflectionProperty;
 
 class Repo
 {
@@ -43,19 +41,16 @@ class Repo
         if (empty($itemsIn) || json_last_error() !== JSON_ERROR_NONE) return [];
 
         $itemsOut = [];
+        $properties = get_class_vars(get_class(new $this->dataModel()));
 
         foreach ($itemsIn as $item) {
-            if (!empty($item) && (is_object($item) || is_array($item))) {
-                $dataModel = new $this->dataModel();
-                $reflect = new ReflectionClass(new $this->dataModel());
-                $properties = $reflect->getProperties(ReflectionProperty::IS_PUBLIC);
-                foreach ($properties as $property) {
-                    if (!empty($item[$property->getName()])) {
-                        $dataModel->{$property->getName()} = $item[$property->getName()];
-                    }
+            $dataModel = new $this->dataModel();
+            foreach ($properties as $key => $value) {
+                if (!empty($item[$key])) {
+                    $dataModel->{$key} = $item[$key];
                 }
-                $itemsOut[] = $dataModel;
             }
+            $itemsOut[] = $dataModel;
         }
 
         return $itemsOut;

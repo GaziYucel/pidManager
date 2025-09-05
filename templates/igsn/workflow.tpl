@@ -148,7 +148,7 @@
             data() {
                 return {
                     items: {$items},
-                    dataModel: { /**/ 'doi': '', 'label': ''},
+                    dataModel: {$dataModel},
                     searchPhraseDoi: '',
                     searchPhraseLabel: '',
                     searchResults: [], // [ { 'id': '', 'label': '' }, ... ]
@@ -158,7 +158,7 @@
                     pendingRequests: new WeakMap(),
                     publication: { /**/ id: 0},
                     workingPublication: { /**/ id: 0}, // workingPublication
-                    apiUrl: 'https://api.datacite.org/dois?fields[dois]=titles&query=relatedIdentifiers.relatedIdentifierType:IGSN AND types.resourceTypeGeneral:PhysicalObject'
+                    apiUrl: 'https://api.datacite.org/dois?fields[dois]=titles,creators,publisher,publicationYear&query=relatedIdentifiers.relatedIdentifierType:IGSN AND types.resourceTypeGeneral:PhysicalObject'
                 };
             },
             computed: {
@@ -240,7 +240,7 @@
                     this.panelVisibility = { /**/ ...this.panelVisibilityDefault};
                 },
                 getDoiCleaned: function (doi) {
-                    doi = doi.replace( /  +/g, ' ' );
+                    doi = doi.replace(/  +/g, ' ');
                     doi = doi.trim();
                     doi = doi.replaceAll(' ', '*+*');
                     doi = '*' + doi + '*';
@@ -288,26 +288,44 @@
                 setSearchResults: function (items) {
                     let searchResults = [];
                     items.forEach((item) => {
-                        let label = '';
-                        let exists = false;
+                        let itemChanged = JSON.parse(JSON.stringify(this.dataModel));
 
-                        for (let i = 0; i < item.attributes.titles.length; i++) {
-                            label = item.attributes.titles[i].title;
+                        itemChanged['doi'] = item.id;
+
+                        if (item.attributes?.titles?.length > 0) {
+                            itemChanged['label'] = item.attributes.titles[0].title;
                         }
 
+                        if (item.attributes?.creators?.length > 0) {
+                            for (let i = 0; i < item.attributes.creators.length; i++) {
+                                if (itemChanged['creators']) {
+                                    itemChanged['creators'] += ', ';
+                                }
+                                itemChanged['creators'] +=
+                                    item.attributes.creators[i].familyName + ', ' +
+                                    item.attributes.creators[i].givenName.substring(0, 1) + '.';
+                            }
+                        }
+
+                        itemChanged['publisher'] = item.attributes.publisher;
+                        itemChanged['publicationYear'] = item.attributes.publicationYear;
+
+                        itemChanged['exists'] = false;
                         for (let i = 0; i < this.items.length; i++) {
-                            if (this.items[i].doi === item.id) exists = true;
+                            if (this.items[i].doi === item.id) {
+                                itemChanged['exists'] = true;
+                            }
                         }
 
-                        searchResults.push({ /**/ doi: item.id, label: label, exists: exists});
+                        searchResults.push(itemChanged);
                     });
                     this.searchResults = searchResults;
                 },
                 select: function (index) {
-                    let newItem = {
-                        doi: this.searchResults[index].doi,
-                        label: this.searchResults[index].label,
-                    };
+                    let newItem = JSON.parse(JSON.stringify(this.dataModel));
+                    Object.keys(newItem).forEach(key => {
+                        newItem[key] = this.searchResults[index][key];
+                    });
                     this.items.push(newItem);
                 },
             },
@@ -320,5 +338,4 @@
             }
         });
     </script>
-
 </tab>
