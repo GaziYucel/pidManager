@@ -340,9 +340,14 @@
                                 if (itemChanged['creators']) {
                                     itemChanged['creators'] += ', ';
                                 }
-                                itemChanged['creators'] +=
-                                    item.attributes.creators[i].familyName + ', ' +
-                                    item.attributes.creators[i].givenName.substring(0, 1) + '.';
+
+                                if (item.attributes.creators[i].nameType === 'Personal') {
+                                    itemChanged['creators'] +=
+                                        item.attributes.creators[i].familyName + ', ' +
+                                        item.attributes.creators[i].givenName?.substring(0, 1) + '.';
+                                } else {
+                                    itemChanged['creators'] += item.attributes.creators[i].name;
+                                }
                             }
                         }
 
