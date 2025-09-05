@@ -15,7 +15,13 @@
         </h2>
         <div class="value">
             {foreach from=$items item="item"}
-                <p>{$item->doi}<br/>{$item->label}</p>
+                <p>
+                    {if $item->creators}{$item->creators}. {/if}
+                    {if $item->publicationYear}({$item->publicationYear}). {/if}
+                    {if $item->label}<i>{$item->label}.</i> {/if}
+                    {if $item->publisher}{$item->publisher}. {/if}
+                    {if $item->doi}{$item->doi}{/if}
+                </p>
             {/foreach}
         </div>
     </section>

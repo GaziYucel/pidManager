@@ -49,8 +49,9 @@ class ArticleDetails
         }
 
         $templateParameters = [
-            'items' => $items,
-            'pidName' => $this->fieldName
+            'pidName' => $this->fieldName,
+            'dataModel' => json_encode(get_class_vars(get_class(new DataModel()))),
+            'items' => $items
         ];
         $templateMgr->assign($templateParameters);
         $templateMgr->display($this->plugin->getTemplateResource(
