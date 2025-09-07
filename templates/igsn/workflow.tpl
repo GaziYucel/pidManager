@@ -16,9 +16,15 @@
 
     <link rel="stylesheet" href="{$assetsUrl}/css/backend.css" type="text/css"/>
 
-    <div class="header">
-        <h4 class="mt-0">{translate key="plugins.generic.pidManager.{$pidName}.workflow.label"}</h4>
-        <span>{translate key="plugins.generic.pidManager.{$pidName}.workflow.description"}</span>
+    <div class="pkpFormField__heading">
+        <label class="pkpFormFieldLabel">
+            {translate key="plugins.generic.pidManager.{$pidName}.workflow.label"}
+        </label>
+    </div>
+    <div class="pkpFormField__description">
+        {translate key="plugins.generic.pidManager.{$pidName}.generalDescription"}
+        <br>
+        {translate key="plugins.generic.pidManager.{$pidName}.workflow.instructions"}       
     </div>
 
     <div class="content">
@@ -31,7 +37,7 @@
                 </th>
                 <th>
                     <span class="block">
-                        {translate key="plugins.generic.pidManager.{$pidName}.workflow.table.label"}
+                        {translate key="plugins.generic.pidManager.{$pidName}.workflow.table.title"}
                     </span>
                 </th>
                 <th class="center w-42">
@@ -46,9 +52,9 @@
                     />
                 </td>
                 <td>
-                    <input v-model="pidManagerApp{$pidName}.searchPhraseLabel" type="text"
+                    <input v-model="pidManagerApp{$pidName}.searchPhraseTitle" type="text"
                            class="pkpFormField__input pkpFormField--text__input"
-                           placeholder="{translate key="plugins.generic.pidManager.{$pidName}.datacite.searchPhraseLabel.placeholder"}"
+                           placeholder="{translate key="plugins.generic.pidManager.{$pidName}.datacite.searchPhraseTitle.placeholder"}"
                     />
                 </td>
                 <td class="center w-42">
@@ -109,7 +115,7 @@
                 </th>
                 <th>
                     <span class="block">
-                        {translate key="plugins.generic.pidManager.{$pidName}.workflow.table.label"}
+                        {translate key="plugins.generic.pidManager.{$pidName}.workflow.table.title"}
                     </span>
                 </th>
                 <th>
@@ -189,7 +195,7 @@
                     items: {$items},
                     dataModel: {$dataModel},
                     searchPhraseDoi: '',
-                    searchPhraseLabel: '',
+                    searchPhraseTitle: '',
                     searchResults: [], // [ { 'id': '', 'label': '' }, ... ]
                     panelVisibility: { /**/ empty: false, spinner: false, list: false},
                     panelVisibilityDefault: { /**/ empty: false, spinner: false, list: false},
@@ -262,7 +268,7 @@
                 },
                 clearSearch: function () {
                     this.searchPhraseDoi = '';
-                    this.searchPhraseLabel = '';
+                    this.searchPhraseTitle = '';
                     this.searchResults = [];
                     this.panelVisibilityReset();
                     this.stopPendingRequests();
@@ -291,7 +297,7 @@
                 },
                 apiLookup: function () {
                     if (this.searchPhraseDoi.length < this.minimumSearchPhraseLength &&
-                        this.searchPhraseLabel.length < this.minimumSearchPhraseLength
+                        this.searchPhraseTitle.length < this.minimumSearchPhraseLength
                     ) {
                         return;
                     }
@@ -299,8 +305,8 @@
                     if (this.searchPhraseDoi.length >= this.minimumSearchPhraseLength) {
                         query += ' AND id:' + this.getDoiCleaned(this.searchPhraseDoi);
                     }
-                    if (this.searchPhraseLabel.length >= this.minimumSearchPhraseLength) {
-                        query += ' AND titles.title:' + this.getLabelCleaned(this.searchPhraseLabel);
+                    if (this.searchPhraseTitle.length >= this.minimumSearchPhraseLength) {
+                        query += ' AND titles.title:' + this.getLabelCleaned(this.searchPhraseTitle);
                     }
                     if (query.length === 0) return;
 

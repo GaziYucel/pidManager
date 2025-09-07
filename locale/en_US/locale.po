@@ -12,19 +12,22 @@ msgstr ""
 "Language: \n"
 
 msgid "plugins.generic.pidManager.displayName"
-msgstr "PID Manager Plugin"
+msgstr "PID Manager"
 
 msgid "plugins.generic.pidManager.description"
-msgstr "Plugin for managing Persistent Identifiers (PIDs) and depositing to external services."
+msgstr "Plugin for adding Persistent Identifiers (PIDs) to publications."
 
 msgid "plugins.generic.pidManager.settings.title"
-msgstr "Enable PIDs by selecting below"
+msgstr "Manage PIDs"
+
+msgid "plugins.generic.pidManager.settings.description"
+msgstr "Use the following checkboxes to select which Persistent Identifiers (PIDs) can be added during the editorial process and made visible in the article view. Ticking a box activates the corresponding PID type."
 
 msgid "plugins.generic.pidManager.settings.igsn.label"
-msgstr "Enable IGSN"
+msgstr "IGSN (International Generic Sample Number - <a href=\"https://igsn.org\" target=\"_blank\">igsn.org</a>)"
 
 msgid "plugins.generic.pidManager.settings.pidinst.label"
-msgstr "Enable PIDINST"
+msgstr "PIDINST (Persistent Identification of Instruments - <a href=\"https://pidinst.org\" target=\"_blank\">pidinst.org</a>)"
 
 msgid "plugins.generic.pidManager.igsn.label"
 msgstr "International Generic Sample Number (IGSN)"
@@ -35,29 +38,28 @@ msgstr "IGSN"
 msgid "plugins.generic.pidManager.igsn.workflow.label"
 msgstr "IGSN"
 
-msgid "plugins.generic.pidManager.igsn.workflow.description"
+msgid "plugins.generic.pidManager.igsn.workflow.instructions"
 msgstr ""
-"The International Generic Sample Number (IGSN) is a persistent identifier, which is a code "
-"that uniquely identifies physical samples from our natural environment and related features-of-interest. "
-"Learn more at <a href=\"https://igsn.org\" target=\"_blank\">igsn.org</a>.<br/>"
-"If you want to search for an IGSN, fill your search phrase at DOI and or Label and click on the search button."
+"Here you can add existing IGSNs to the publication. "
+"Use the upper table to look up the IGSN that you want to add. Enter the DOI or title of the IGSN. Start the search by clicking the search button and select one of the suggested IGSNs; autocomplete will assist you. You can select multiple IGSNs in one search and close the suggestions by clicking the 'x' button. Greyed-out suggestions have already been added.<br>"
+"The lower table shows the available metadata for the IGSNs you added. These properties will also be displayed in the article view. You can manually add an IGSN and edit the metadata values."
 
-msgid "plugins.generic.pidManager.igsn.submission.description"
+msgid "plugins.generic.pidManager.igsn.generalDescription"
 msgstr ""
-"The International Generic Sample Number (IGSN) is a persistent identifier, which is a code "
-"that uniquely identifies physical samples from our natural environment and related features-of-interest. "
+"The International Generic Sample Number (IGSN) is a unique, persistent, domain-agnositc identifier for material samples. These samples can be any material from all disciplines in the universe. "
 "Learn more at <a href=\"https://igsn.org\" target=\"_blank\">igsn.org</a>.<br>"
-"The IGSNs can be entered later by the journal manager or another authorised user. "
-"Unfortunately, this cannot be done by the author."
+
+msgid "plugins.generic.pidManager.igsn.submission.instructions"
+msgstr "Currently, IGSNs can only be set at a later stage in the editorial process. Please contact the journal manager if you would like to add a IGSN to your publication. For future versions of the PID Manager, it is planned to make IGSNs addable in the submission wizard."
 
 msgid "plugins.generic.pidManager.igsn.workflow.empty"
-msgstr "There are no IGSNs found for this publication."
+msgstr "Yet, no IGSNs have been added to this publication."
 
 msgid "plugins.generic.pidManager.igsn.workflow.table.pid"
 msgstr "DOI"
 
-msgid "plugins.generic.pidManager.igsn.workflow.table.label"
-msgstr "Label"
+msgid "plugins.generic.pidManager.igsn.workflow.table.title"
+msgstr "Title"
 
 msgid "plugins.generic.pidManager.igsn.workflow.table.creators"
 msgstr "Creators"
@@ -77,8 +79,11 @@ msgstr "Are you sure you want to remove?"
 msgid "plugins.generic.pidManager.igsn.datacite.searchPhraseDoi.placeholder"
 msgstr "Type your DOI here, e.g. 10.12345/12.3456"
 
-msgid "plugins.generic.pidManager.igsn.datacite.searchPhraseLabel.placeholder"
-msgstr "Type your label here, e.g. Sediment core"
+msgid "plugins.generic.pidManager.igsn.datacite.searchPhraseTitle.placeholder"
+msgstr "Type your title here, e.g. Sediment core"
+
+msgid "plugins.generic.pidManager.igsn.articleDetails.details"
+msgstr "The following list shows the IGSNs linked to the publication."
 
 msgid "plugins.generic.pidManager.igsn.datacite.info"
 msgstr "Please type your search phrase above and search on DataCite."
@@ -88,6 +93,8 @@ msgstr "Your search phrase returned empty."
 
 
 msgid "plugins.generic.pidManager.pidinst.label"
+msgstr "Persistent Identification of Instruments (PIDINST)"
+
 msgstr "International Generic Sample Number (Pidinst)"
 
 msgid "plugins.generic.pidManager.pidinst.workflow.name"
@@ -96,29 +103,35 @@ msgstr "PIDINST"
 msgid "plugins.generic.pidManager.pidinst.workflow.label"
 msgstr "PIDINST"
 
-msgid "plugins.generic.pidManager.pidinst.workflow.description"
-msgstr ""
-"The International Generic Sample Number (PIDINST) is a persistent identifier, which is a code "
-"that uniquely identifies physical samples from our natural environment and related features-of-interest. "
-"Learn more at <a href=\"https://pidinst.org\" target=\"_blank\">pidinst.org</a>.<br/>"
-"If you want to search for an PIDINST, fill your search phrase at DOI and or Label and click on the search button."
 
-msgid "plugins.generic.pidManager.pidinst.submission.description"
+
+
+
+msgid "plugins.generic.pidManager.pidinst.workflow.instructions"
 msgstr ""
-"The International Generic Sample Number (PIDINST) is a persistent identifier, which is a code "
-"that uniquely identifies physical samples from our natural environment and related features-of-interest. "
-"Learn more at <a href=\"https://pidinst.org\" target=\"_blank\">pidinst.org</a>.<br>"
-"The PIDINSTs can be entered later by the journal manager or another authorised user. "
-"Unfortunately, this cannot be done by the author."
+"Here you can add existing PIDINSTs to the publication. "
+"Use the upper table to look up the PIDINST that you want to add. Enter the DOI or title of the PIDINST. Start the search by clicking the search button and select one of the suggested PIDINSTs; autocomplete will assist you. You can select multiple PIDINSTs in one search and close the suggestions by clicking the 'x' button. Greyed-out suggestions have already been added.<br>"
+"The lower table shows the available metadata for the PIDINSTs you added. These properties will also be displayed in the article view. You can manually add an PIDINST and edit the metadata values."
+
+
+
+
+msgid "plugins.generic.pidManager.pidinst.generalDescription"
+msgstr ""
+"The Persistent Identifier for Instruments (PIDINST) is a globally unique identifier for measuring instruments operted in the sciences. "
+"Learn more at <a href=\"https://pidinst.org\" target=\"_blank\">pidinst.org</a>.<br/>"
+
+msgid "plugins.generic.pidManager.pidinst.submission.instructions"
+msgstr "Currently, PIDINSTs can only be set at a later stage in the editorial process. Please contact the journal manager if you would like to add a PIDINST to your publication. For future versions of the PID Manager, it is planned to make PIDINSTs addable in the submission wizard."
 
 msgid "plugins.generic.pidManager.pidinst.workflow.empty"
-msgstr "There are no PIDINSTs found for this publication."
+msgstr "Yet, no PIDINSTs have been added to this publication."
 
 msgid "plugins.generic.pidManager.pidinst.workflow.table.pid"
 msgstr "DOI"
 
-msgid "plugins.generic.pidManager.pidinst.workflow.table.label"
-msgstr "Label"
+msgid "plugins.generic.pidManager.pidinst.workflow.table.title"
+msgstr "Title"
 
 msgid "plugins.generic.pidManager.pidinst.workflow.table.creators"
 msgstr "Creators"
@@ -138,8 +151,11 @@ msgstr "Are you sure you want to remove?"
 msgid "plugins.generic.pidManager.pidinst.datacite.searchPhraseDoi.placeholder"
 msgstr "Type your DOI here, e.g. 10.12345/12.3456"
 
-msgid "plugins.generic.pidManager.pidinst.datacite.searchPhraseLabel.placeholder"
-msgstr "Type your label here, e.g. Sediment core"
+msgid "plugins.generic.pidManager.pidinst.datacite.searchPhraseTitle.placeholder"
+msgstr "Type your title here, e.g. station"
+
+msgid "plugins.generic.pidManager.pidinst.articleDetails.details"
+msgstr "The following list shows the PIDINSTs linked to the publication."
 
 msgid "plugins.generic.pidManager.pidinst.datacite.info"
 msgstr "Please type your search phrase above and search on DataCite."
