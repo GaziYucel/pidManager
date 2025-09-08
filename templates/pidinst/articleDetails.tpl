@@ -10,10 +10,14 @@
 <link rel="stylesheet" href="{$assetsUrl}/css/frontend.css" type="text/css"/>
 
 {if $items}
-    <section class="item {$pidName}">
+    <section id="{$pidName}" class="item {$pidName}">
         <h2 class="label">
             {translate key="plugins.generic.pidManager.{$pidName}.label"}
         </h2>
+        <p class="description align-justify description-color">
+            {translate key="plugins.generic.pidManager.{$pidName}.generalDescription"}
+            {translate key="plugins.generic.pidManager.{$pidName}.articleDetails.details"}
+        </p>
         <div class="value" id="{$pidName}-item-list">
             {foreach from=$items item="item" name="itemLoop"}
                 <p class="{$pidName}-item-entry"{if $smarty.foreach.itemLoop.index >= 5} style="display:none;"{/if}>

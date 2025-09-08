@@ -8,6 +8,18 @@
  * @style pidManager
  * @brief Frontend stylesheet for the plugin.
  */
+
+
+#igsn,
+#pidinst {
+    .align-justify {
+        text-align: justify;
+    }
+
+    .description-color {
+        color: rgba(0, 0, 0, 0.54);
+    }
+}
  
 .pkpButton {
     cursor: pointer;
