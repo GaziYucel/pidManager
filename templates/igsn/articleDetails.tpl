@@ -13,7 +13,11 @@
         <h2 class="label">
             {translate key="plugins.generic.pidManager.{$pidName}.label"}
         </h2>
-        <div class="value">
+        <p align="justify" class="description" style="color: rgba(0,0,0,0.54)">
+            {translate key="plugins.generic.pidManager.{$pidName}.generalDescription"}
+            {translate key="plugins.generic.pidManager.{$pidName}.articleDetails.details"}
+        </p>
+        <div class="value"> 
             {foreach from=$items item="item"}
                 <p>
                     {if $item->creators}{$item->creators}. {/if}

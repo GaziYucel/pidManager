@@ -12,7 +12,8 @@
     <label class="label">
         {translate key="plugins.generic.pidManager.{$pidName}.label"}
     </label>
-    <p>
-        {translate key="plugins.generic.pidManager.{$pidName}.submission.description"}
+    <p align="justify" class="description">
+        <i>{translate key="plugins.generic.pidManager.{$pidName}.generalDescription"}
+        {translate key="plugins.generic.pidManager.{$pidName}.submission.instructions"}</i>
     </p>
 </div>
