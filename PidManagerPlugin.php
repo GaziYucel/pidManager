@@ -46,6 +46,9 @@ class PidManagerPlugin extends GenericPlugin
 
                 /** PIDINST */
                 if ($this->getSetting($contextId, Constants::settingEnablePidinst)) {
+                    $pidinstSchema = new IgsnSchema(Constants::pidinst);
+                    Hook::add('Schema::get::publication', [$pidinstSchema, 'addToSchemaPublication']);
+
                     $this->addJavascript(Constants::pidinst, $request, $templateMgr);
                     $this->addStyleSheet(Constants::igsn, $request, $templateMgr);
                 }
