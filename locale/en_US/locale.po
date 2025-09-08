@@ -141,6 +141,12 @@ msgstr "Type your DOI here, e.g. 10.12345/12.3456"
 msgid "plugins.generic.pidManager.pidinst.datacite.searchPhraseLabel.placeholder"
 msgstr "Type your label here, e.g. Sediment core"
 
+msgid "plugins.generic.pidManager.articleDetails.buttonShowAll.showAll"
+msgstr "Show All"
+
+msgid "plugins.generic.pidManager.articleDetails.buttonShowAll.minimise"
+msgstr "Minimise"
+
 msgid "plugins.generic.pidManager.pidinst.datacite.info"
 msgstr "Please type your search phrase above and search on DataCite."
 
