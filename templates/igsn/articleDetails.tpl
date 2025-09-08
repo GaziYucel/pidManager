@@ -8,6 +8,7 @@
  * Article Details View
  *}
 <link rel="stylesheet" href="{$assetsUrl}/css/frontend.css" type="text/css"/>
+{assign var="itemCount" value=$items|@count}
 
 {if $items}
     <section id="{$pidName}" class="item {$pidName}">
@@ -30,8 +31,9 @@
             {/foreach}
         </div>
         {if count($items) > 5}
-            <a id="{$pidName}-toggleItems" class="pkpButton" onclick="{$pidName}ToggleItems()">
+            <a id="{$pidName}-toggleItems" class="pkpButton" onclick="{$pidName}ToggleItems()" data-item-count="{$itemCount}">
                 {translate key="plugins.generic.pidManager.articleDetails.buttonShowAll.showAll"}
+                ({$itemCount})
             </a>
         {/if}
     </section>
@@ -42,13 +44,14 @@ function {$pidName}ToggleItems() {
     const items = document.querySelectorAll('#{$pidName}-item-list .{$pidName}-item-entry');
     const button = document.getElementById('{$pidName}-toggleItems');
     const isMinimised = button.dataset.isMinimised === "true";
+    const itemCount = button.dataset.itemCount;
 
     if (isMinimised) {
         // Show only first 5 items 
         items.forEach((item, index) => {
             item.style.display = index < 5 ? "" : "none";
         });
-        button.textContent = "{translate key="plugins.generic.pidManager.articleDetails.buttonShowAll.showAll"}";
+        button.textContent = "{translate key="plugins.generic.pidManager.articleDetails.buttonShowAll.showAll"} (" + itemCount + ")";
         button.dataset.isMinimised = "false";
     } else {
         // Show all items
