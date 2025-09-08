@@ -9,7 +9,6 @@
  * @brief Frontend stylesheet for the plugin.
  */
 
-
 #igsn,
 #pidinst {
     .align-justify {
@@ -19,8 +18,8 @@
     .description-color {
         color: rgba(0, 0, 0, 0.54);
     }
-}
- 
-.pkpButton {
+
+    .pkpButton {
     cursor: pointer;
+    }
 }
