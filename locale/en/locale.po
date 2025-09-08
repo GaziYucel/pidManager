@@ -39,14 +39,14 @@ msgid "plugins.generic.pidManager.igsn.workflow.description"
 msgstr ""
 "The International Generic Sample Number (IGSN) is a persistent identifier, which is a code "
 "that uniquely identifies physical samples from our natural environment and related features-of-interest. "
-"Learn more at <a href=\"https://igsn.org\" target=\"_blank\">igsn.org</a>.<br/>"
+"Learn more at https://igsn.org. "
 "If you want to search for an IGSN, fill your search phrase at DOI and or Label and click on the search button."
 
 msgid "plugins.generic.pidManager.igsn.submission.description"
 msgstr ""
 "The International Generic Sample Number (IGSN) is a persistent identifier, which is a code "
 "that uniquely identifies physical samples from our natural environment and related features-of-interest. "
-"Learn more at <a href=\"https://igsn.org\" target=\"_blank\">igsn.org</a>.<br>"
+"Learn more at https://igsn.org. "
 "The IGSNs can be entered later by the journal manager or another authorised user. "
 "Unfortunately, this cannot be done by the author."
 
@@ -58,6 +58,15 @@ msgstr "DOI"
 
 msgid "plugins.generic.pidManager.igsn.workflow.table.label"
 msgstr "Label"
+
+msgid "plugins.generic.pidManager.igsn.workflow.table.creators"
+msgstr "Creators"
+
+msgid "plugins.generic.pidManager.igsn.workflow.table.publisher"
+msgstr "Publisher"
+
+msgid "plugins.generic.pidManager.igsn.workflow.table.publicationYear"
+msgstr "Year"
 
 msgid "plugins.generic.pidManager.igsn.button.add"
 msgstr "Add new row"
@@ -91,14 +100,14 @@ msgid "plugins.generic.pidManager.pidinst.workflow.description"
 msgstr ""
 "The International Generic Sample Number (PIDINST) is a persistent identifier, which is a code "
 "that uniquely identifies physical samples from our natural environment and related features-of-interest. "
-"Learn more at <a href=\"https://pidinst.org\" target=\"_blank\">pidinst.org</a>.<br/>"
+"Learn more at https://pidinst.org. "
 "If you want to search for an PIDINST, fill your search phrase at DOI and or Label and click on the search button."
 
 msgid "plugins.generic.pidManager.pidinst.submission.description"
 msgstr ""
 "The International Generic Sample Number (PIDINST) is a persistent identifier, which is a code "
 "that uniquely identifies physical samples from our natural environment and related features-of-interest. "
-"Learn more at <a href=\"https://pidinst.org\" target=\"_blank\">pidinst.org</a>.<br>"
+"Learn more at https://pidinst.org. "
 "The PIDINSTs can be entered later by the journal manager or another authorised user. "
 "Unfortunately, this cannot be done by the author."
 
@@ -110,6 +119,15 @@ msgstr "DOI"
 
 msgid "plugins.generic.pidManager.pidinst.workflow.table.label"
 msgstr "Label"
+
+msgid "plugins.generic.pidManager.pidinst.workflow.table.creators"
+msgstr "Creators"
+
+msgid "plugins.generic.pidManager.pidinst.workflow.table.publisher"
+msgstr "Publisher"
+
+msgid "plugins.generic.pidManager.pidinst.workflow.table.publicationYear"
+msgstr "Year"
 
 msgid "plugins.generic.pidManager.pidinst.button.add"
 msgstr "Add new row"

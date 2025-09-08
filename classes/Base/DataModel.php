@@ -17,9 +17,18 @@ namespace APP\plugins\generic\pidManager\classes\Base;
 
 class DataModel
 {
-    /** @var string|null The DOI) for the sample. */
-    public ?string $doi = null;
+    /** @var string The DOI) for the sample. */
+    public string $doi = '';
 
-    /** @var string|null The label of the sample. */
-    public ?string $label = null;
+    /** @var string The label of the sample. */
+    public string $label = '';
+
+    /** @var string Creator(s) of the sample. */
+    public string $creators = '';
+
+    /** @var string Publisher of the sample. */
+    public string $publisher = '';
+
+    /** @var string Publication year of the sample. */
+    public string $publicationYear = '';
 }

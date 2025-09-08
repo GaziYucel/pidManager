@@ -11,6 +11,6 @@ const props = defineProps({submission: {type: Object, required: true}});
 
 <style scoped>
 h3 {
-  margin-top: var(--spacing-8);
+	margin-top: var(--spacing-8);
 }
 </style>

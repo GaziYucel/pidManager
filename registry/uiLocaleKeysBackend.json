@@ -1,3 +1,14 @@
 [
-  "plugins.generic.pidManager.igsn.workflow.label"
+  "plugins.generic.pidManager.igsn.button.add",
+  "plugins.generic.pidManager.igsn.datacite.empty",
+  "plugins.generic.pidManager.igsn.datacite.searchPhraseDoi.placeholder",
+  "plugins.generic.pidManager.igsn.datacite.searchPhraseLabel.placeholder",
+  "plugins.generic.pidManager.igsn.workflow.description",
+  "plugins.generic.pidManager.igsn.workflow.empty",
+  "plugins.generic.pidManager.igsn.workflow.label",
+  "plugins.generic.pidManager.igsn.workflow.table.creators",
+  "plugins.generic.pidManager.igsn.workflow.table.label",
+  "plugins.generic.pidManager.igsn.workflow.table.pid",
+  "plugins.generic.pidManager.igsn.workflow.table.publicationYear",
+  "plugins.generic.pidManager.igsn.workflow.table.publisher"
 ]

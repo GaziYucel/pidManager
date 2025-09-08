@@ -4,7 +4,7 @@
   "description": "OJS plugin which manages PIDs and deposits to external open access data services",
   "main": "index.js",
   "scripts": {
-    "dev": "vite build --watch --mode development --config [vite.config.igsn.js, vite.config.pidinst.js]",
+    "dev": "vite build --watch --mode development --config vite.config.igsn.js vite.config.pidinst.js]",
     "build": "npm run build:igsn && npm run build:pidinst",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
     "build:igsn": "vite build --emptyOutDir false --config vite.config.igsn.js",

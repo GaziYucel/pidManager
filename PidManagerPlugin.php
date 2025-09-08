@@ -16,11 +16,13 @@ namespace APP\plugins\generic\pidManager;
 use APP\core\Application;
 use APP\core\Request;
 use APP\plugins\generic\pidManager\classes\Constants;
+use APP\plugins\generic\pidManager\classes\Igsn\Schema as IgsnSchema;
 use APP\plugins\generic\pidManager\classes\Settings\Actions;
 use APP\plugins\generic\pidManager\classes\Settings\Manage;
 use APP\template\TemplateManager;
 use PKP\core\JSONMessage;
 use PKP\plugins\GenericPlugin;
+use PKP\plugins\Hook;
 
 class PidManagerPlugin extends GenericPlugin
 {
@@ -35,6 +37,9 @@ class PidManagerPlugin extends GenericPlugin
 
                 /** IGSN */
                 if ($this->getSetting($contextId, Constants::settingEnableIgsn)) {
+                    $igsnSchema = new IgsnSchema(Constants::igsn);
+                    Hook::add('Schema::get::publication', [$igsnSchema, 'addToSchemaPublication']);
+
                     $this->addJavascript(Constants::igsn, $request, $templateMgr);
                     $this->addStyleSheet(Constants::igsn, $request, $templateMgr);
                 }

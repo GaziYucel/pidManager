@@ -49,4 +49,3 @@ pkp.registry.storeExtend('workflow', (piniaContext) => {
 		return primaryItems;
 	});
 });
-
