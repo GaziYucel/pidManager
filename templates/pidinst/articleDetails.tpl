@@ -40,21 +40,21 @@
 <script>
 function {$pidName}ToggleItems() {
     const items = document.querySelectorAll('#{$pidName}-item-list .{$pidName}-item-entry');
-    const btn = document.getElementById('{$pidName}-toggleItems');
-    const showingAll = btn.dataset.showingAll === "true";
+    const button = document.getElementById('{$pidName}-toggleItems');
+    const isMinimised = button.dataset.isMinimised === "true";
 
-    if (!showingAll) {
+    if (isMinimised) {
+        // Show only first 5 items 
+        items.forEach((item, index) => {
+            item.style.display = index < 5 ? "" : "none";
+        });
+        button.textContent = "{translate key="plugins.generic.pidManager.articleDetails.buttonShowAll.showAll"}";
+        button.dataset.isMinimised = "false";
+    } else {
         // Show all items
         items.forEach(item => item.style.display = "");
-        btn.textContent = "{translate key="plugins.generic.pidManager.articleDetails.buttonShowAll.minimise"}";
-        btn.dataset.showingAll = "true";
-    } else {
-        // Show only first 5
-        items.forEach((item, idx) => {
-            item.style.display = idx < 5 ? "" : "none";
-        });
-        btn.textContent = "{translate key="plugins.generic.pidManager.articleDetails.buttonShowAll.showAll"}";
-        btn.dataset.showingAll = "false";
+        button.textContent = "{translate key="plugins.generic.pidManager.articleDetails.buttonShowAll.minimise"}";
+        button.dataset.isMinimised = "true";
     }
 }
 </script>
