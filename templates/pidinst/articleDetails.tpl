@@ -7,6 +7,7 @@
  *
  * Article Details View
  *}
+<link rel="stylesheet" href="{$assetsUrl}/css/frontend.css" type="text/css"/>
 
 {if $items}
     <section class="item {$pidName}">
@@ -31,12 +32,6 @@
         {/if}
     </section>
 {/if}
-
-<style>
-#{$pidName}-toggleItems {
-    cursor: pointer;
-}
-</style>
 
 <script>
 function {$pidName}ToggleItems() {

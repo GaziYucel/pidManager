@@ -8,3 +8,7 @@
  * @style pidManager
  * @brief Frontend stylesheet for the plugin.
  */
+ 
+.pkpButton {
+    cursor: pointer;
+}
