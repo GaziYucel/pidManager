@@ -86,7 +86,11 @@
                                     <td class="p-0">
                                         <a @click="pidManagerApp{$pidName}.select(j)" class="searchRowLink"
                                            :class="{ 'disabled': row.exists }">
-                                            {{ row.label }} [{{ row.doi }}]
+                                            <span v-if="row.creators">{{ row.creators }}</span>
+                                            <span v-if="row.publicationYear"> ({{ row.publicationYear }}).</span>
+                                            <span v-if="row.label"><em>{{ row.label }}</em>.</span>
+                                            <span v-if="row.publisher">{{ row.publisher }}.</span>
+                                            <span v-if="row.doi">{{ row.doi }}</span>
                                         </a>
                                     </td>
                                 </tr>
