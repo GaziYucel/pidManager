@@ -14,8 +14,6 @@
 <tab id='{$pidName}' role='tabpanel' class='pkpTab'
      label="{translate key="plugins.generic.pidManager.{$pidName}.workflow.name"}">
 
-    <link rel="stylesheet" href="{$assetsUrl}/css/backend.css" type="text/css"/>
-
     <div class="pkpFormField__heading">
         <label class="pkpFormFieldLabel">
             {translate key="plugins.generic.pidManager.{$pidName}.workflow.label"}
@@ -24,7 +22,7 @@
     <div class="pkpFormField__description">
         {translate key="plugins.generic.pidManager.{$pidName}.generalDescription"}
         <br>
-        {translate key="plugins.generic.pidManager.{$pidName}.workflow.instructions"}       
+        {translate key="plugins.generic.pidManager.{$pidName}.workflow.instructions"}
     </div>
 
     <div class="content">

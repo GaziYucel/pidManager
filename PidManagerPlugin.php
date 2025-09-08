@@ -42,6 +42,8 @@ class PidManagerPlugin extends GenericPlugin
         if (parent::register($category, $path, $mainContextId)) {
             if ($this->getEnabled()) {
                 $contextId = ($mainContextId === null) ? $this->getCurrentContextId() : $mainContextId;
+                $request = Application::get()->getRequest();
+                $templateMgr = TemplateManager::getManager($request);
 
                 /** IGSN */
                 if ($this->getSetting($contextId, Constants::settingEnableIgsn)) {
@@ -68,6 +70,14 @@ class PidManagerPlugin extends GenericPlugin
                     HookRegistry::register('Templates::Article::Main', [$pidinstArticleDetails, 'execute']);
                     HookRegistry::register('Templates::Submission::SubmissionMetadataForm::AdditionalMetadata', [$pidinstSubmissionWizard, 'execute']);
                 }
+
+                if ($this->getSetting($contextId, Constants::settingEnableIgsn) ||
+                    $this->getSetting($contextId, Constants::settingEnablePidinst)
+                ) {
+                    $this->addStyleSheetToBackend($request, $templateMgr);
+                    $this->addStyleSheetToFrontend($request, $templateMgr);
+                }
+
             }
             return true;
         }
@@ -98,6 +108,24 @@ class PidManagerPlugin extends GenericPlugin
     {
         $manage = new Manage($this);
         return $manage->execute($args, $request);
+    }
+
+    protected function addStyleSheetToBackend(Request $request, TemplateManager $templateMgr): void
+    {
+        $templateMgr->addStyleSheet("pidManagerStylesBackend",
+            "{$request->getBaseUrl()}/{$this->getPluginPath()}/assets/css/backend.css", [
+                'inline' => false,
+                'contexts' => ['backend']
+            ]);
+    }
+
+    protected function addStyleSheetToFrontend(Request $request, TemplateManager $templateMgr): void
+    {
+        $templateMgr->addStyleSheet("pidManagerStylesFrontend",
+            "{$request->getBaseUrl()}/{$this->getPluginPath()}/assets/css/frontend.css", [
+                'inline' => false,
+                'contexts' => ['frontend']
+            ]);
     }
 }
 

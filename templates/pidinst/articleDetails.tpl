@@ -9,11 +9,11 @@
  *}
 
 {if $items}
-    <section class="item {$pidName}">
+    <section id="{$pidName}" class="item {$pidName}">
         <h2 class="label">
             {translate key="plugins.generic.pidManager.{$pidName}.label"}
         </h2>
-        <p align="justify" class="description" style="color: rgba(0,0,0,0.54)">
+        <p class="description align-justify description-color">
             {translate key="plugins.generic.pidManager.{$pidName}.generalDescription"}
             {translate key="plugins.generic.pidManager.{$pidName}.articleDetails.details"}
         </p>
