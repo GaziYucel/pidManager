@@ -157,6 +157,12 @@ msgstr "Type your title here, e.g. station"
 msgid "plugins.generic.pidManager.pidinst.articleDetails.details"
 msgstr "The following list shows the PIDINSTs linked to the publication."
 
+msgid "plugins.generic.pidManager.articleDetails.buttonShowAll.showAll"
+msgstr "Show All"
+
+msgid "plugins.generic.pidManager.articleDetails.buttonShowAll.minimise"
+msgstr "Minimise"
+
 msgid "plugins.generic.pidManager.pidinst.datacite.info"
 msgstr "Please type your search phrase above and search on DataCite."
 
