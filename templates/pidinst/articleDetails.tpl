@@ -7,7 +7,7 @@
  *
  * Article Details View
  *}
-<link rel="stylesheet" href="{$assetsUrl}/css/frontend.css" type="text/css"/>
+
 {assign var="itemCount" value=$items|@count}
 
 {if $items}

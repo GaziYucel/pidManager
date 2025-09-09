@@ -40,7 +40,6 @@ class ArticleDetails
 
         $repo = new Repo($this->fieldName, $this->dataModel);
         $items = $repo->getPidsByPublication($templateMgr->getTemplateVars('currentPublication'));
-        $request = $this->plugin->getRequest();
 
         for ($i = 0; $i < count($items); $i++) {
             $items[$i]->doi =
@@ -52,8 +51,7 @@ class ArticleDetails
         $templateParameters = [
             'pidName' => $this->fieldName,
             'dataModel' => json_encode(get_class_vars(get_class(new DataModel()))),
-            'items' => $items,
-            'assetsUrl' => $request->getBaseUrl() . '/' . $this->plugin->getPluginPath() . '/assets'
+            'items' => $items
         ];
         $templateMgr->assign($templateParameters);
         $templateMgr->display($this->plugin->getTemplateResource(
