@@ -15,7 +15,7 @@
 
 namespace APP\plugins\generic\pidManager\classes\Base;
 
-class DataModel
+abstract class DataModel
 {
     /** @var string The DOI) for the sample. */
     public string $doi = '';

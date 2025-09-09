@@ -20,14 +20,12 @@ use PKP\components\forms\FieldText;
 use PKP\components\forms\FormComponent;
 use PublicationDAO;
 
-class Form extends FormComponent
+abstract class Form extends FormComponent
 {
     public string $fieldName = '';
 
-    public function __construct(string $id, string $method, string $action, array $locales, string $fieldName)
+    public function __construct(string $id, string $method, string $action, array $locales)
     {
-        $this->fieldName = $fieldName;
-
         parent::__construct($id, $method, $action, $locales);
 
         $publicationDao = DAORegistry::getDAO('PublicationDAO');

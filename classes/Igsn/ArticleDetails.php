@@ -16,7 +16,15 @@
 namespace APP\plugins\generic\pidManager\classes\Igsn;
 
 use APP\plugins\generic\pidManager\classes\Base\ArticleDetails as BaseArticleDetails;
+use APP\plugins\generic\pidManager\classes\Constants;
+use APP\plugins\generic\pidManager\PidManagerPlugin;
 
 class ArticleDetails extends BaseArticleDetails
 {
+    public function __construct(PidManagerPlugin &$plugin)
+    {
+        $this->fieldName = Constants::igsn;
+        $this->dataModel = new DataModel();
+        parent::__construct($plugin);
+    }
 }

@@ -17,15 +17,14 @@ namespace APP\plugins\generic\pidManager\classes\Base;
 
 use PidManagerPlugin;
 
-class SubmissionWizard
+abstract class SubmissionWizard
 {
     public PidManagerPlugin $plugin;
     public string $fieldName = '';
 
-    public function __construct(PidManagerPlugin &$plugin, string $fieldName)
+    public function __construct(PidManagerPlugin &$plugin)
     {
         $this->plugin = &$plugin;
-        $this->fieldName = $fieldName;
     }
 
     public function execute(string $hookName, array $args): void

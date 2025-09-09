@@ -24,12 +24,10 @@ use APP\plugins\generic\pidManager\classes\Constants;
 use APP\plugins\generic\pidManager\classes\Settings\Actions;
 use APP\plugins\generic\pidManager\classes\Settings\Manage;
 use APP\plugins\generic\pidManager\classes\Igsn\ArticleDetails as IgsnArticleDetails;
-use APP\plugins\generic\pidManager\classes\Igsn\DataModel as IgsnDataModel;
 use APP\plugins\generic\pidManager\classes\Igsn\Schema as IgsnSchema;
 use APP\plugins\generic\pidManager\classes\Igsn\SubmissionWizard as IgsnSubmissionWizard;
 use APP\plugins\generic\pidManager\classes\Igsn\Workflow as IgsnWorkflow;
 use APP\plugins\generic\pidManager\classes\Pidinst\ArticleDetails as PidinstArticleDetails;
-use APP\plugins\generic\pidManager\classes\Pidinst\DataModel as PidinstDataModel;
 use APP\plugins\generic\pidManager\classes\Pidinst\Schema as PidinstSchema;
 use APP\plugins\generic\pidManager\classes\Pidinst\SubmissionWizard as PidinstSubmissionWizard;
 use APP\plugins\generic\pidManager\classes\Pidinst\Workflow as PidinstWorkflow;
@@ -47,10 +45,10 @@ class PidManagerPlugin extends GenericPlugin
 
                 /** IGSN */
                 if ($this->getSetting($contextId, Constants::settingEnableIgsn)) {
-                    $igsnSchema = new IgsnSchema(Constants::igsn);
-                    $igsnWorkflow = new IgsnWorkflow($this, Constants::igsn, new IgsnDataModel());
-                    $igsnArticleDetails = new IgsnArticleDetails($this, Constants::igsn, new IgsnDataModel());
-                    $igsnSubmissionWizard = new IgsnSubmissionWizard($this, Constants::igsn);
+                    $igsnSchema = new IgsnSchema();
+                    $igsnWorkflow = new IgsnWorkflow($this);
+                    $igsnArticleDetails = new IgsnArticleDetails($this);
+                    $igsnSubmissionWizard = new IgsnSubmissionWizard($this);
 
                     HookRegistry::register('Schema::get::publication', [$igsnSchema, 'addToSchemaPublication']);
                     HookRegistry::register('Template::Workflow::Publication', [$igsnWorkflow, 'execute']);
@@ -60,10 +58,10 @@ class PidManagerPlugin extends GenericPlugin
 
                 /** PIDINST */
                 if ($this->getSetting($contextId, Constants::settingEnablePidinst)) {
-                    $pidinstSchema = new PidinstSchema(Constants::pidinst);
-                    $pidinstWorkflow = new PidinstWorkflow($this, Constants::pidinst, new PidinstDataModel());
-                    $pidinstArticleDetails = new PidinstArticleDetails($this, Constants::pidinst, new PidinstDataModel());
-                    $pidinstSubmissionWizard = new PidinstSubmissionWizard($this, Constants::pidinst);
+                    $pidinstSchema = new PidinstSchema();
+                    $pidinstWorkflow = new PidinstWorkflow($this);
+                    $pidinstArticleDetails = new PidinstArticleDetails($this);
+                    $pidinstSubmissionWizard = new PidinstSubmissionWizard($this);
 
                     HookRegistry::register('Schema::get::publication', [$pidinstSchema, 'addToSchemaPublication']);
                     HookRegistry::register('Template::Workflow::Publication', [$pidinstWorkflow, 'execute']);

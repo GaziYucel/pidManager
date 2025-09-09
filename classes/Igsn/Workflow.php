@@ -16,7 +16,25 @@
 namespace APP\plugins\generic\pidManager\classes\Igsn;
 
 use APP\plugins\generic\pidManager\classes\Base\Workflow as BaseWorkflow;
+use APP\plugins\generic\pidManager\classes\Constants;
+use APP\plugins\generic\pidManager\PidManagerPlugin;
 
 class Workflow extends BaseWorkflow
 {
+    public function __construct(PidManagerPlugin &$plugin)
+    {
+        $this->fieldName = Constants::igsn;
+        $this->dataModel = new DataModel();
+        parent::__construct($plugin);
+    }
+
+    public function getForm(string $action, array $locales): Form
+    {
+        return new Form(
+            $this->fieldName,
+            'PUT',
+            $action,
+            $locales
+        );
+    }
 }

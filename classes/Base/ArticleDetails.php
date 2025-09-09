@@ -20,17 +20,15 @@ use APP\plugins\generic\pidManager\classes\Repo;
 use APP\plugins\generic\pidManager\PidManagerPlugin;
 use TemplateManager;
 
-class ArticleDetails
+abstract class ArticleDetails
 {
     public PidManagerPlugin $plugin;
     public string $fieldName = '';
     public object $dataModel;
 
-    public function __construct(PidManagerPlugin &$plugin, string $fieldName, object $dataModel)
+    public function __construct(PidManagerPlugin &$plugin)
     {
         $this->plugin = &$plugin;
-        $this->fieldName = $fieldName;
-        $this->dataModel = $dataModel;
     }
 
     public function execute(string $hookName, array $args): bool
@@ -38,8 +36,11 @@ class ArticleDetails
         /* @var TemplateManager $templateMgr */
         $templateMgr = &$args[1];
 
-        $repo = new Repo($this->fieldName, $this->dataModel);
-        $items = $repo->getPidsByPublication($templateMgr->getTemplateVars('currentPublication'));
+        $items = Repo::getPidsByPublication(
+            $templateMgr->getTemplateVars('currentPublication'),
+            $this->fieldName,
+            $this->dataModel
+        );
 
         for ($i = 0; $i < count($items); $i++) {
             $items[$i]->doi =
@@ -50,7 +51,7 @@ class ArticleDetails
 
         $templateParameters = [
             'pidName' => $this->fieldName,
-            'dataModel' => json_encode(get_class_vars(get_class(new DataModel()))),
+            'dataModel' => json_encode(get_class_vars(get_class($this->dataModel))),
             'items' => $items
         ];
         $templateMgr->assign($templateParameters);
