@@ -91,11 +91,8 @@ msgstr "Please type your search phrase above and search on DataCite."
 msgid "plugins.generic.pidManager.igsn.datacite.empty"
 msgstr "Your search phrase returned empty."
 
-
 msgid "plugins.generic.pidManager.pidinst.label"
 msgstr "Persistent Identification of Instruments (PIDINST)"
-
-msgstr "International Generic Sample Number (Pidinst)"
 
 msgid "plugins.generic.pidManager.pidinst.workflow.name"
 msgstr "PIDINST"
@@ -103,18 +100,11 @@ msgstr "PIDINST"
 msgid "plugins.generic.pidManager.pidinst.workflow.label"
 msgstr "PIDINST"
 
-
-
-
-
 msgid "plugins.generic.pidManager.pidinst.workflow.instructions"
 msgstr ""
 "Here you can add existing PIDINSTs to the publication. "
 "Use the upper table to look up the PIDINST that you want to add. Enter the DOI or title of the PIDINST. Start the search by clicking the search button and select one of the suggested PIDINSTs; autocomplete will assist you. You can select multiple PIDINSTs in one search and close the suggestions by clicking the 'x' button. Greyed-out suggestions have already been added.<br>"
 "The lower table shows the available metadata for the PIDINSTs you added. These properties will also be displayed in the article view. You can manually add an PIDINST and edit the metadata values."
-
-
-
 
 msgid "plugins.generic.pidManager.pidinst.generalDescription"
 msgstr ""
