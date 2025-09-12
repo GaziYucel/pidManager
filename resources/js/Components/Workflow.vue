@@ -18,15 +18,15 @@
                  :placeholder="t('plugins.generic.pidManager.' + pidName + '.datacite.searchPhraseDoi.placeholder')"/>
         </td>
         <td>
-          <input v-model="searchPhraseLabel" type="text" class="pkpFormField__input w-full"
+          <input v-model="searchPhraseTitle" type="text" class="pkpFormField__input w-full"
                  :placeholder="t('plugins.generic.pidManager.' + pidName + '.datacite.searchPhraseTitle.placeholder')"/>
         </td>
         <td class="w-42px">
-          <PkpButton v-if="!panelVisibility" @click="apiLookup">
+          <PkpButton v-if="!panelVisibility" @click="apiLookup" class="actionButton">
             <i class="fa fa-search" aria-hidden="true"></i>
           </PkpButton>
-          <PkpButton v-if="panelVisibility" @click="clearSearch" class="text-negative">
-            <i aria-hidden="true" class="fa fa-times"></i>
+          <PkpButton v-if="panelVisibility" @click="clearSearch" class="actionButton">
+            <i class="fa fa-times" aria-hidden="true"></i>
           </PkpButton>
         </td>
       </tr>
@@ -85,7 +85,7 @@
         <td><input v-model="item.publisher" type="text" class="pkpFormField__input w-full"/></td>
         <td class="w-5rem"><input v-model="item.publicationYear" type="text" class="pkpFormField__input w-full"/></td>
         <td class="center w-42px">
-          <PkpButton @click="remove(i)" class="text-negative">
+          <PkpButton @click="remove(i)" class="actionButton">
             <i class="fa fa-trash" aria-hidden="true"></i>
           </PkpButton>
         </td>
@@ -136,12 +136,10 @@ const apiUrl = ref('');
 const isPublished = computed(() => pkp.const.STATUS_PUBLISHED === currentPublication.value.status);
 
 /* Api lookup */
-const apiLookupExecuted = ref(false);
 const searchPhraseDoi = ref('');
-const searchPhraseLabel = ref('');
+const searchPhraseTitle = ref('');
 const rawSearchResults = ref([]);
 const panelVisibility = ref(''); // '', 'noResult', 'loading', 'result'
-const minimumSearchPhraseLength = 3;
 const searchResults = computed(() => {
   const results = [];
 
@@ -187,38 +185,29 @@ const searchResults = computed(() => {
 
   return results;
 });
-const getDoiCleaned = (doi) => {
-  doi = doi.replace(/  +/g, ' ');
-  doi = doi.trim();
-  doi = doi.replaceAll(' ', '*+*');
-  doi = '*' + doi + '*';
-  return doi;
-}
-const getLabelCleaned = (label) => {
-  label = label.replace(/[.,\/#!$%^&*;:{ }=\-_`~()—+]/g, ' ');
-  return getDoiCleaned(label);
-}
 const apiLookup = async () => {
+  const minLength = 3;
+  let doi = normaliseString(searchPhraseDoi.value);
+  let title = normaliseString(searchPhraseTitle.value);
+
   if (
-      searchPhraseDoi.value.length < minimumSearchPhraseLength &&
-      searchPhraseLabel.value.length < minimumSearchPhraseLength
+      doi.length < minLength &&
+      title.length < minLength
   ) {
     return;
   }
+
   let query = '';
-  if (searchPhraseDoi.value.length >= minimumSearchPhraseLength) {
-    query += ' AND id:' + getDoiCleaned(searchPhraseDoi.value);
+  if (doi.length >= minLength) {
+    query += ' AND id:' + '*' + doi.replaceAll(' ', '*+*').toLowerCase() + '*';
   }
-  if (searchPhraseLabel.value.length >= minimumSearchPhraseLength) {
-    query += ' AND titles.title:' + getLabelCleaned(searchPhraseLabel.value);
-  }
-  if (query.length === 0) {
-    return;
+  if (title.length >= minLength) {
+    query += ' AND titles.title:' + '*' + title.replaceAll(' ', '*+*').toLowerCase() + '*';
   }
 
   panelVisibility.value = 'loading';
 
-  const {fetch, data} = useFetch(apiUrlDataCite + query, {});
+  const {fetch, data} = useFetch(apiUrlDataCite + encodeURI(query), {});
   await fetch().then(() => {
     rawSearchResults.value = data.value.data;
     if (searchResults.value.length > 0) {
@@ -242,11 +231,8 @@ const select = (index) => {
   items.value.push(newItem);
 };
 const clearSearch = () => {
-  searchPhraseDoi.value = '';
-  searchPhraseLabel.value = '';
   rawSearchResults.value = [];
   panelVisibility.value = '';
-  apiLookupExecuted.value = false;
 }
 
 /* Items */
@@ -313,6 +299,11 @@ onMounted(() => {
       `submissions/pidManager/${currentPublication.value.id}/${pidName}`;
 });
 
+/* Helpers */
+const normaliseString = (str) => {
+  return str.trim().replace(/  +/g, ' ');
+};
+
 /*
 // This is needed for extracting localised texts by the plugin i18nExtractKeys
 const localeKeys = [
@@ -370,6 +361,10 @@ const localeKeys = [
     background-color: #f1f1f1;
   }
 
+  td:first-child {
+    width: 3rem;
+  }
+
   td:first-child a {
     min-height: 3rem;
     line-height: 3rem;
@@ -384,6 +379,11 @@ const localeKeys = [
     align-items: center;
     padding-left: 0.25rem;
   }
+}
+
+.actionButton {
+  width: 2.5rem;
+  height: 2.5rem;
 }
 
 .footer {
@@ -407,10 +407,6 @@ const localeKeys = [
 
 .inline-block {
   display: inline-block;
-}
-
-.text-negative {
-  color: rgb(208 10 108);
 }
 
 .p-0 {
