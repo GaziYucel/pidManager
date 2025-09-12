@@ -16,29 +16,28 @@
 namespace APP\plugins\generic\pidManager\classes\Base;
 
 use APP\core\Application;
-use APP\plugins\generic\pidManager\classes\Repo;
+use APP\plugins\generic\pidManager\classes\PluginRepo;
 use APP\plugins\generic\pidManager\PidManagerPlugin;
+use APP\publication\Publication;
 use APP\template\TemplateManager;
 
-class Workflow
+abstract class Workflow
 {
     public PidManagerPlugin $plugin;
     public string $fieldName = '';
     public object $dataModel;
 
-    public function __construct(PidManagerPlugin &$plugin, string $fieldName, object $dataModel)
+    public function __construct(PidManagerPlugin &$plugin)
     {
         $this->plugin = &$plugin;
-        $this->fieldName = $fieldName;
-        $this->dataModel = $dataModel;
     }
 
     public function execute(string $hookName, array $args): void
     {
+        /* @var Publication $publication */
         /* @var TemplateManager $templateMgr */
         $templateMgr = &$args[1];
 
-        $repo = new Repo($this->fieldName, $this->dataModel);
         $request = $this->plugin->getRequest();
         $context = $request->getContext();
         $submission = $templateMgr->getTemplateVars('submission');
@@ -57,13 +56,9 @@ class Workflow
             fn(string $locale, string $name) => ['key' => $publication->getData('locale'), 'label' => $name],
             array_keys($locales), $locales);
 
-        $form = new Form(
-            $this->fieldName,
-            'PUT',
-            $apiBaseUrl . 'submissions/' . $submissionId . '/publications/' . $publicationId,
-            $locales,
-            $this->fieldName
-        );
+        $action = $apiBaseUrl . 'submissions/' . $submissionId . '/publications/' . $publicationId;
+
+        $form = $this->getForm($action, $locales);
 
         $state = $templateMgr->getTemplateVars('state');
         $state['components'][$this->fieldName] = $form->getConfig();
@@ -71,10 +66,9 @@ class Workflow
 
         $templateParameters = [
             'pidName' => $this->fieldName,
-            'dataModel' => json_encode(get_class_vars(get_class(new DataModel()))),
-            'assetsUrl' => $request->getBaseUrl() . '/' . $this->plugin->getPluginPath() . '/assets',
+            'dataModel' => json_encode(get_class_vars(get_class($this->dataModel))),
             'apiBaseUrl' => $apiBaseUrl,
-            'items' => json_encode($repo->getPidsByPublication($publication))
+            'items' => json_encode(PluginRepo::getPidsByPublication($publication, $this->fieldName, $this->dataModel))
         ];
         $templateMgr->assign($templateParameters);
 

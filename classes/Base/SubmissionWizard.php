@@ -21,15 +21,14 @@ use APP\plugins\generic\pidManager\PidManagerPlugin;
 use APP\submission\Submission;
 use APP\template\TemplateManager;
 
-class SubmissionWizard
+abstract class SubmissionWizard
 {
     public PidManagerPlugin $plugin;
     public string $fieldName = '';
 
-    public function __construct(PidManagerPlugin &$plugin, string $fieldName)
+    public function __construct(PidManagerPlugin &$plugin)
     {
         $this->plugin = &$plugin;
-        $this->fieldName = $fieldName;
     }
 
     /**

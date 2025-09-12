@@ -19,14 +19,12 @@ use APP\facades\Repo;
 use PKP\components\forms\FieldText;
 use PKP\components\forms\FormComponent;
 
-class Form extends FormComponent
+abstract class Form extends FormComponent
 {
     public string $fieldName = '';
 
-    public function __construct(string $id, string $method, string $action, array $locales, string $fieldName)
+    public function __construct(string $id, string $method, string $action, array $locales)
     {
-        $this->fieldName = $fieldName;
-
         parent::__construct($id, $method, $action, $locales);
 
         $publication = Repo::publication()->get(array_reverse(explode('/', $action))[0]);

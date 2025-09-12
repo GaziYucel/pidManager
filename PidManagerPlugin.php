@@ -15,6 +15,8 @@ namespace APP\plugins\generic\pidManager;
 
 define('PID_MANAGER_PLUGIN_NAME', basename(__FILE__, '.php'));
 
+use APP\core\Application;
+use APP\core\Request;
 use APP\plugins\generic\pidManager\classes\Constants;
 use APP\plugins\generic\pidManager\classes\Settings\Actions;
 use APP\plugins\generic\pidManager\classes\Settings\Manage;
@@ -28,6 +30,7 @@ use APP\plugins\generic\pidManager\classes\Pidinst\DataModel as PidinstDataModel
 use APP\plugins\generic\pidManager\classes\Pidinst\Schema as PidinstSchema;
 use APP\plugins\generic\pidManager\classes\Pidinst\SubmissionWizard as PidinstSubmissionWizard;
 use APP\plugins\generic\pidManager\classes\Pidinst\Workflow as PidinstWorkflow;
+use APP\template\TemplateManager;
 use PKP\core\JSONMessage;
 use PKP\plugins\GenericPlugin;
 use PKP\plugins\Hook;
@@ -40,6 +43,8 @@ class PidManagerPlugin extends GenericPlugin
         if (parent::register($category, $path, $mainContextId)) {
             if ($this->getEnabled()) {
                 $contextId = ($mainContextId === null) ? $this->getCurrentContextId() : $mainContextId;
+                $request = Application::get()->getRequest();
+                $templateMgr = TemplateManager::getManager($request);
 
                 /** IGSN */
                 if ($this->getSetting($contextId, Constants::settingEnableIgsn)) {
@@ -69,6 +74,13 @@ class PidManagerPlugin extends GenericPlugin
                     Hook::add('TemplateManager::display', [$pidinstSubmissionWizard, 'addToSubmissionWizardSteps']);
                     Hook::add('Template::SubmissionWizard::Section', [$pidinstSubmissionWizard, 'addToSubmissionWizardTemplate']);
                     Hook::add('Template::SubmissionWizard::Section::Review', [$pidinstSubmissionWizard, 'addToSubmissionWizardReviewTemplate']);
+                }
+
+                if ($this->getSetting($contextId, Constants::settingEnableIgsn) ||
+                    $this->getSetting($contextId, Constants::settingEnablePidinst)
+                ) {
+                    $this->addStyleSheetToBackend($request, $templateMgr);
+                    $this->addStyleSheetToFrontend($request, $templateMgr);
                 }
             }
             return true;
@@ -100,6 +112,24 @@ class PidManagerPlugin extends GenericPlugin
     {
         $manage = new Manage($this);
         return $manage->execute($args, $request);
+    }
+
+    protected function addStyleSheetToBackend(Request $request, TemplateManager $templateMgr): void
+    {
+        $templateMgr->addStyleSheet("pidManagerStylesBackend",
+            "{$request->getBaseUrl()}/{$this->getPluginPath()}/assets/css/backend.css", [
+                'inline' => false,
+                'contexts' => ['backend']
+            ]);
+    }
+
+    protected function addStyleSheetToFrontend(Request $request, TemplateManager $templateMgr): void
+    {
+        $templateMgr->addStyleSheet("pidManagerStylesFrontend",
+            "{$request->getBaseUrl()}/{$this->getPluginPath()}/assets/css/frontend.css", [
+                'inline' => false,
+                'contexts' => ['frontend']
+            ]);
     }
 }
 

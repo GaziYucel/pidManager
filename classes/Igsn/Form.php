@@ -16,7 +16,13 @@
 namespace APP\plugins\generic\pidManager\classes\Igsn;
 
 use APP\plugins\generic\pidManager\classes\Base\Form as BaseForm;
+use APP\plugins\generic\pidManager\classes\Constants;
 
 class Form extends BaseForm
 {
+    public function __construct(string $id, string $method, string $action, array $locales)
+    {
+        $this->fieldName = Constants::igsn;
+        parent::__construct($id, $method, $action, $locales);
+    }
 }
