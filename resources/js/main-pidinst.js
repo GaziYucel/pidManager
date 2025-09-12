@@ -1,51 +1,36 @@
-import PidinstWorkflow from './Components/PidinstWorkflow.vue';
+import IgsnWorkflow from './Components/PidinstWorkflow.vue';
 
-pkp.registry.registerComponent('PidinstWorkflow', PidinstWorkflow);
+pkp.registry.registerComponent('PidinstWorkflow', IgsnWorkflow);
 
 pkp.registry.storeExtend('workflow', (piniaContext) => {
-	const workflowStore = piniaContext.store;
+    const workflowStore = piniaContext.store;
 
-	// Extending workflow menu
-	workflowStore.extender.extendFn('getMenuItems', (menuItems, args) => {
-		return [
-			...menuItems,
-			{
-				key: 'pidinst',
-				label: 'PIDINST',
-				state: {primaryMenuItem: 'pidinst'},
-			},
-		];
-	});
+    // Extending workflow menu
+    workflowStore.extender.extendFn('getMenuItems', (menuItems, args) => {
+        const publicationsItem = menuItems.find(item => item.key === "publication");
+        publicationsItem.items.push({
+            key: 'pidinst',
+            label: 'PIDINST',
+            state: {
+                primaryMenuItem: 'pidinst',
+                title: 'PIDINST'
+            }
+        });
+        return menuItems;
+    });
 
-	// Render custom component in existing menu
-	workflowStore.extender.extendFn('getPrimaryItems', (primaryItems, args) => {
-		if (
-			args?.selectedMenuState?.primaryMenuItem === 'pidinstWorkflow' &&
-			args?.selectedMenuState?.stageId ===
-				pkp.const.WORKFLOW_STAGE_ID_SUBMISSION
-		) {
-			return [
-				...primaryItems,
-				{
-					component: 'PidinstWorkflow',
-					props: {submission: args.submission},
-				},
-			];
-		} else {
-			return primaryItems;
-		}
-	});
-
-	// Render custom component in custom menu
-	workflowStore.extender.extendFn('getPrimaryItems', (primaryItems, args) => {
-		if (args?.selectedMenuState?.primaryMenuItem === 'pidinst') {
-			return [
-				{
-					component: 'PidinstWorkflow',
-					props: {submission: args.submission},
-				},
-			];
-		}
-		return primaryItems;
-	});
+    // Render custom component in custom menu
+    workflowStore.extender.extendFn('getPrimaryItems', (primaryItems, args) => {
+        if (args?.selectedMenuState?.primaryMenuItem === 'pidinst') {
+            return [
+                {
+                    component: 'PidinstWorkflow',
+                    props: {
+                        submission: args.submission
+                    },
+                },
+            ];
+        }
+        return primaryItems;
+    });
 });

@@ -14,7 +14,10 @@
     </div>
     <div class="submissionWizard__reviewPanel__body">
         <div class="submissionWizard__reviewPanel__item">
-            {translate key="plugins.generic.pidManager.{$pidName}.submission.description"}
+            <p class="description" style="text-align: justify;">
+                <i>{translate key="plugins.generic.pidManager.{$pidName}.generalDescription"}
+                    {translate key="plugins.generic.pidManager.{$pidName}.submission.instructions"}</i>
+            </p>
         </div>
     </div>
 </div>

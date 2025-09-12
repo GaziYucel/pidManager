@@ -1,16 +1,19 @@
 <template>
-	<h1>--PidinstWorkflow.vue--</h1>
+  <Workflow
+      :submission=props.submission
+      :pid-name=pidName
+      :api-url-data-cite=apiUrlDataCite
+  ></Workflow>
 </template>
 
 <script setup>
-const {useLocalize} = pkp.modules.useLocalize;
+import {ref} from "vue";
+import Workflow from './Workflow.vue';
 
-const {t, localizeSubmission} = useLocalize();
-const props = defineProps({submission: {type: Object, required: true}});
+const props = defineProps({
+  submission: {type: Object, required: true}
+});
+
+const pidName = ref('pidinst');
+const apiUrlDataCite = ref('https://api.datacite.org/dois?fields[dois]=titles,creators,publisher,publicationYear&query=types.resourceTypeGeneral:Instrument');
 </script>
-
-<style scoped>
-h3 {
-	margin-top: var(--spacing-8);
-}
-</style>

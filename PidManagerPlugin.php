@@ -16,7 +16,13 @@ namespace APP\plugins\generic\pidManager;
 use APP\core\Application;
 use APP\core\Request;
 use APP\plugins\generic\pidManager\classes\Constants;
+use APP\plugins\generic\pidManager\classes\Igsn\ArticleDetails as IgsnArticleDetails;
+use APP\plugins\generic\pidManager\classes\Igsn\PluginApiHandler as IgsnPluginApiHandler;
 use APP\plugins\generic\pidManager\classes\Igsn\Schema as IgsnSchema;
+use APP\plugins\generic\pidManager\classes\Igsn\SubmissionWizard as IgsnSubmissionWizard;
+use APP\plugins\generic\pidManager\classes\Pidinst\ArticleDetails as PidinstArticleDetails;
+use APP\plugins\generic\pidManager\classes\Pidinst\PluginApiHandler as PidinstPluginApiHandler;
+use APP\plugins\generic\pidManager\classes\Pidinst\Schema as PidinstSchema;
 use APP\plugins\generic\pidManager\classes\Settings\Actions;
 use APP\plugins\generic\pidManager\classes\Settings\Manage;
 use APP\template\TemplateManager;
@@ -37,8 +43,19 @@ class PidManagerPlugin extends GenericPlugin
 
                 /** IGSN */
                 if ($this->getSetting($contextId, Constants::settingEnableIgsn)) {
-                    $igsnSchema = new IgsnSchema(Constants::igsn);
+                    $igsnSchema = new IgsnSchema();
                     Hook::add('Schema::get::publication', [$igsnSchema, 'addToSchemaPublication']);
+
+                    $apiHandler = new IgsnPluginApiHandler($this);
+                    Hook::add('APIHandler::endpoints::submissions', [$apiHandler, 'addRoute']);
+
+                    $igsnArticleDetails = new IgsnArticleDetails($this);
+                    Hook::add('Templates::Article::Main', [$igsnArticleDetails, 'execute']);
+
+                    $igsnSubmissionWizard = new IgsnSubmissionWizard($this);
+                    Hook::add('TemplateManager::display', [$igsnSubmissionWizard, 'addToSubmissionWizardSteps']);
+                    Hook::add('Template::SubmissionWizard::Section', [$igsnSubmissionWizard, 'addToSubmissionWizardTemplate']);
+                    Hook::add('Template::SubmissionWizard::Section::Review', [$igsnSubmissionWizard, 'addToSubmissionWizardReviewTemplate']);
 
                     $this->addJavascript(Constants::igsn, $request, $templateMgr);
                     $this->addStyleSheet(Constants::igsn, $request, $templateMgr);
@@ -46,8 +63,17 @@ class PidManagerPlugin extends GenericPlugin
 
                 /** PIDINST */
                 if ($this->getSetting($contextId, Constants::settingEnablePidinst)) {
+                    $pidinstSchema = new PidinstSchema();
+                    Hook::add('Schema::get::publication', [$pidinstSchema, 'addToSchemaPublication']);
+
+                    $apiHandler = new PidinstPluginApiHandler($this);
+                    Hook::add('APIHandler::endpoints::submissions', [$apiHandler, 'addRoute']);
+
+                    $pidinstArticleDetails = new PidinstArticleDetails($this);
+                    Hook::add('Templates::Article::Main', [$pidinstArticleDetails, 'execute']);
+
                     $this->addJavascript(Constants::pidinst, $request, $templateMgr);
-                    $this->addStyleSheet(Constants::igsn, $request, $templateMgr);
+                    $this->addStyleSheet(Constants::pidinst, $request, $templateMgr);
                 }
             }
             return true;
@@ -96,6 +122,12 @@ class PidManagerPlugin extends GenericPlugin
 
     protected function addStyleSheet(string $pidName, Request $request, TemplateManager $templateMgr): void
     {
+        $templateMgr->addStyleSheet("pidManagerStyle$pidName",
+            "{$request->getBaseUrl()}/{$this->getPluginPath()}/assets/css/frontend.css", [
+                'inline' => false,
+                'contexts' => ['frontend']
+            ]);
+
         $templateMgr->addStyleSheet("pidManagerStyle$pidName",
             "{$request->getBaseUrl()}/{$this->getPluginPath()}/public/build/build-$pidName.css", [
                 'inline' => false,

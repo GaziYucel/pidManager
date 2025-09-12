@@ -15,14 +15,9 @@
 
 namespace APP\plugins\generic\pidManager\classes\Base;
 
-class Schema
+abstract class Schema
 {
     public string $fieldName = '';
-
-    public function __construct(string $fieldName)
-    {
-        $this->fieldName = $fieldName;
-    }
 
     public function addToSchemaPublication(string $hookName, array $args): bool
     {
