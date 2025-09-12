@@ -141,7 +141,7 @@ const searchPhraseTitle = ref('');
 const rawSearchResults = ref([]);
 const panelVisibility = ref(''); // '', 'noResult', 'loading', 'result'
 const searchResults = computed(() => {
-  const results = [];
+  let results = [];
 
   rawSearchResults.value.forEach((item) => {
     let itemChanged = JSON.parse(JSON.stringify(dataModel));
@@ -187,13 +187,10 @@ const searchResults = computed(() => {
 });
 const apiLookup = async () => {
   const minLength = 3;
-  let doi = normaliseString(searchPhraseDoi.value);
-  let title = normaliseString(searchPhraseTitle.value);
+  let doi = searchPhraseDoi.value.trim().replace(/  +/g, ' ');
+  let title = searchPhraseTitle.value.trim().replace(/  +/g, ' ');
 
-  if (
-      doi.length < minLength &&
-      title.length < minLength
-  ) {
+  if (doi.length < minLength && title.length < minLength) {
     return;
   }
 
@@ -276,15 +273,14 @@ const save = async () => {
       'Content-Type': 'application/json',
       'X-Csrf-Token': pkp.currentUser.csrfToken,
     },
-    body: JSON.stringify(itemListCleaned.value),
+    body: JSON.stringify(
+        items.value.filter((item) =>
+            Object.values(item).some((value) => value !== null && value.length > 0)
+        )
+    ),
   });
   await fetch();
 };
-const itemListCleaned = computed(() =>
-    JSON.parse(JSON.stringify(items.value)).filter((item) =>
-        Object.values(item).some((value) => value !== null && value.length > 0)
-    )
-);
 
 onMounted(() => {
   currentPublication.value = props.submission.publications?.find(
@@ -298,11 +294,6 @@ onMounted(() => {
   apiUrl.value = pkp.context.apiBaseUrl +
       `submissions/pidManager/${currentPublication.value.id}/${pidName}`;
 });
-
-/* Helpers */
-const normaliseString = (str) => {
-  return str.trim().replace(/  +/g, ' ');
-};
 
 /*
 // This is needed for extracting localised texts by the plugin i18nExtractKeys
