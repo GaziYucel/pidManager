@@ -26,7 +26,7 @@
     </div>
 
     <div class="content">
-        <table class="w-full pt-16">
+        <table class="w-full pt-16" :class="{ 'disabled': pidManagerApp{$pidName}.isPublished }">
             <tr>
                 <th>
                     <span class="block">
@@ -57,8 +57,7 @@
                 </td>
                 <td class="center w-42">
                     <a @click="pidManagerApp{$pidName}.apiLookup()"
-                       class="pkpButton h-40 min-w-40 line-height-40"
-                       :class="{ 'disabled': pidManagerApp{$pidName}.isPublished }">
+                       class="pkpButton h-40 min-w-40 line-height-40">
                         <i class="fa fa-search" aria-hidden="true"></i>
                     </a>
                 </td>
@@ -108,7 +107,7 @@
                 </td>
             </tr>
         </table>
-        <table class="w-full">
+        <table class="w-full" :class="{ 'disabled': pidManagerApp{$pidName}.isPublished }">
             <tr>
                 <th>
                     <span class="block">
@@ -155,8 +154,7 @@
                                class="pkpFormField__input pkpFormField--text__input"/>
                     </td>
                     <td class="center w-42">
-                        <a @click="pidManagerApp{$pidName}.remove(i)" class="pkpButton h-40 min-w-40 line-height-40"
-                           :class="{ 'disabled': pidManagerApp{$pidName}.isPublished }">
+                        <a @click="pidManagerApp{$pidName}.remove(i)" class="pkpButton h-40 min-w-40 line-height-40">
                             <i class="fa fa-trash" aria-hidden="true"></i>
                         </a>
                     </td>
@@ -170,8 +168,7 @@
             <tr>
                 <td colspan="6">
                     <p>
-                        <a @click="pidManagerApp{$pidName}.add()" v-show="!pidManagerApp{$pidName}.isPublished"
-                           class="pkpButton">
+                        <a @click="pidManagerApp{$pidName}.add()" class="pkpButton">
                             {translate key="plugins.generic.pidManager.{$pidName}.button.add"}
                         </a>
                     </p>
