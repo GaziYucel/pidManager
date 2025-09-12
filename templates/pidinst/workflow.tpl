@@ -241,7 +241,7 @@
                         itemChanged['publicationYear'] = item.attributes.publicationYear;
 
                         itemChanged['exists'] = false;
-                        for (let i = 0; i < this.items.length; i++) {
+                        for (let i = 0; i < this.items?.length; i++) {
                             if (this.items[i].doi === item.id) {
                                 itemChanged['exists'] = true;
                             }
@@ -322,7 +322,7 @@
                         });
                 },
                 select: function (index) {
-                    for (let i = 0; i < this.items.length; i++) {
+                    for (let i = 0; i < this.items?.length; i++) {
                         if (this.items[i].doi === this.searchResults[index].doi) {
                             return;
                         }
