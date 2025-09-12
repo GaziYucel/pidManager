@@ -62,18 +62,18 @@
                     </a>
                 </td>
             </tr>
-            <tr v-if="pidManagerApp{$pidName}.showSearchResultsPane">
+            <tr v-if="pidManagerApp{$pidName}.panelVisibility">
                 <td colspan="2">
                     <div id="pidManagerSearchResults">
-                        <span v-if="pidManagerApp{$pidName}.panelVisibility.empty"
+                        <span v-if="pidManagerApp{$pidName}.panelVisibility === 'noResult'"
                               class="center w-full inline-block pt-60">
                             {translate key="plugins.generic.pidManager.{$pidName}.datacite.empty"}
                         </span>
-                        <span v-else-if="pidManagerApp{$pidName}.panelVisibility.spinner"
+                        <span v-else-if="pidManagerApp{$pidName}.panelVisibility === 'loading'"
                               class="pkpSpinner center w-full inline-block pt-60">
                         </span>
-                        <table v-else-if="pidManagerApp{$pidName}.panelVisibility.list" class="w-full">
-                            <template v-for="(row, j) in pidManagerApp{$pidName}.searchResultsFiltered">
+                        <table v-else-if="pidManagerApp{$pidName}.panelVisibility === 'result'" class="w-full">
+                            <template v-for="(row, j) in pidManagerApp{$pidName}.searchResults">
                                 <tr>
                                     <td class="center w-42 p-0">
                                         <a :href="'https://doi.org/' + row.doi" target="_blank">
@@ -182,7 +182,7 @@
         <span class="hide">
             {{ pidManagerApp{$pidName}.workingPublication = workingPublication }}
             {{ pidManagerApp{$pidName}.configure() }}
-            {{ components.{$pidName}.fields[0]['value'] = JSON.stringify(pidManagerApp{$pidName}.itemListCleaned) }}
+            {{ components.{$pidName}.fields[0]['value'] = JSON.stringify(pidManagerApp{$pidName}.items.filter((item) => Object.values(item).some((value) => value !== null && value.length > 0))) }}
             {{ components.{$pidName}.action = '{$apiBaseUrl}submissions/' + workingPublication.submissionId + '/publications/' + workingPublication.id }}
         </span>
     </div>
@@ -195,32 +195,14 @@
                     dataModel: {$dataModel},
                     searchPhraseDoi: '',
                     searchPhraseTitle: '',
-                    searchResults: [], // [ { 'id': '', 'label': '' }, ... ]
-                    panelVisibility: { /**/ empty: false, spinner: false, list: false},
-                    panelVisibilityDefault: { /**/ empty: false, spinner: false, list: false},
-                    minimumSearchPhraseLength: 3,
+                    rawSearchResults: [],
+                    panelVisibility: '',
                     pendingRequests: new WeakMap(),
-                    publication: { /**/ id: 0},
                     workingPublication: { /**/ id: 0}, // workingPublication
                     apiUrl: 'https://api.datacite.org/dois?fields[dois]=titles,creators,publisher,publicationYear&query=relatedIdentifiers.relatedIdentifierType:IGSN AND types.resourceTypeGeneral:PhysicalObject'
                 };
             },
             computed: {
-                itemListCleaned: function () {
-                    let result = JSON.parse(JSON.stringify(this.items));
-                    for (let i = 0; i < result.length; i++) {
-                        let rowIsEmpty = true;
-                        for (let key in result[i]) {
-                            if (result[i][key] !== null && result[i][key].length > 0) {
-                                rowIsEmpty = false;
-                            }
-                        }
-                        if (rowIsEmpty === true) {
-                            result.splice(i);
-                        }
-                    }
-                    return result;
-                },
                 isPublished: function () {
                     let isPublished = false;
                     if (pkp.const.STATUS_PUBLISHED === this.workingPublication.status) {
@@ -228,99 +210,9 @@
                     }
                     return isPublished;
                 },
-                searchResultsFiltered: function () {
-                    this.searchResults.forEach((item) => {
-                        for (let i = 0; i < this.items.length; i++) {
-                            if (this.items[i].doi === item.doi) {
-                                item.exists = true;
-                            }
-                        }
-                    });
-                    return this.searchResults;
-                },
-                showSearchResultsPane: function () {
-                    return !!(this.searchResults.length > 0 ||
-                        this.panelVisibility.empty ||
-                        this.panelVisibility.spinner ||
-                        this.panelVisibility.list);
-
-                }
-            },
-            methods: {
-                configure: function () {
-                    if (document.querySelector('#{$pidName} button.pkpButton') !== null) {
-                        let saveBtn = document.querySelector('#{$pidName} button.pkpButton');
-                        saveBtn.disabled = this.isPublished;
-                    }
-                },
-                add: function () {
-                    this.items.push(JSON.parse(JSON.stringify(this.dataModel)));
-                },
-                remove: function (index) {
-                    if (!this.items[index].doi && !this.items[index].label) {
-                        this.items.splice(index, 1);
-                        return;
-                    }
-                    if (confirm('{translate key="plugins.generic.pidManager.{$pidName}.remove.confirm"}') === true) {
-                        this.items.splice(index, 1);
-                    }
-                },
-                clearSearch: function () {
-                    this.searchPhraseDoi = '';
-                    this.searchPhraseTitle = '';
-                    this.searchResults = [];
-                    this.panelVisibilityReset();
-                    this.stopPendingRequests();
-                },
-                stopPendingRequests: function () {
-                    const previousController = this.pendingRequests.get(this);
-                    if (previousController) previousController.abort();
-                },
-                panelVisibilityShowPart: function (part) {
-                    this.panelVisibility = { /**/ ...this.panelVisibilityDefault};
-                    this.panelVisibility[part] = true;
-                },
-                panelVisibilityReset: function () {
-                    this.panelVisibility = { /**/ ...this.panelVisibilityDefault};
-                },
-                apiLookup: function () {
-                    const minLength = this.minimumSearchPhraseLength;
-                    let doi = this.searchPhraseDoi.trim().replace(/  +/g, ' ');
-                    let title = this.searchPhraseTitle.trim().replace(/  +/g, ' ');
-
-                    if (doi.length < minLength && title.length < minLength) {
-                        return;
-                    }
-
-                    let query = '';
-                    if (doi.length >= minLength) {
-                        query += ' AND id:' + '*' + doi.replaceAll(' ', '*+*').toLowerCase() + '*';
-                    }
-                    if (title.length >= minLength) {
-                        query += ' AND titles.title:' + '*' + title.replaceAll(' ', '*+*').toLowerCase() + '*';
-                    }
-
-                    this.panelVisibilityShowPart('spinner');
-                    const controller = new AbortController();
-                    this.pendingRequests.set(this, controller);
-
-                    fetch(this.apiUrl + encodeURI(query) + '', {
-                        signal: controller.signal
-                    })
-                        .then(response => response.json())
-                        .then(responseData => {
-                            this.setSearchResults(responseData.data);
-                            this.panelVisibilityShowPart('list');
-                            if (this.searchResults.length === 0) this.panelVisibilityShowPart('empty');
-                        })
-                        .catch(error => {
-                            if (error.name === 'AbortError') return;
-                            console.log(error);
-                        });
-                },
-                setSearchResults: function (items) {
-                    let searchResults = [];
-                    items.forEach((item) => {
+                searchResults: function () {
+                    let result = [];
+                    this.rawSearchResults.forEach((item) => {
                         let itemChanged = JSON.parse(JSON.stringify(this.dataModel));
 
                         itemChanged['doi'] = item.id;
@@ -355,11 +247,87 @@
                             }
                         }
 
-                        searchResults.push(itemChanged);
+                        result.push(itemChanged);
                     });
-                    this.searchResults = searchResults;
+                    return result;
+                }
+            },
+            methods: {
+                configure: function () {
+                    if (document.querySelector('#{$pidName} button.pkpButton') !== null) {
+                        let saveBtn = document.querySelector('#{$pidName} button.pkpButton');
+                        saveBtn.disabled = this.isPublished;
+                    }
+                },
+                add: function () {
+                    this.items.push(JSON.parse(JSON.stringify(this.dataModel)));
+                },
+                remove: function (index) {
+                    if (!this.items[index].doi && !this.items[index].label) {
+                        this.items.splice(index, 1);
+                        return;
+                    }
+                    if (confirm('{translate key="plugins.generic.pidManager.{$pidName}.remove.confirm"}') === true) {
+                        this.items.splice(index, 1);
+                    }
+                },
+                clearSearch: function () {
+                    this.rawSearchResults = [];
+                    this.panelVisibility = '';
+                    this.stopPendingRequests();
+                },
+                stopPendingRequests: function () {
+                    const previousController = this.pendingRequests.get(this);
+                    if (previousController) previousController.abort();
+                },
+                apiLookup: function () {
+                    const minLength = 3;
+                    let doi = this.searchPhraseDoi.trim().replace(/  +/g, ' ');
+                    let title = this.searchPhraseTitle.trim().replace(/  +/g, ' ');
+
+                    if (doi.length < minLength && title.length < minLength) {
+                        return;
+                    }
+
+                    let query = '';
+                    if (doi.length >= minLength) {
+                        query += ' AND id:' + '*' + doi.replaceAll(' ', '*+*').toLowerCase() + '*';
+                    }
+                    if (title.length >= minLength) {
+                        query += ' AND titles.title:' + '*' + title.replaceAll(' ', '*+*').toLowerCase() + '*';
+                    }
+
+                    this.panelVisibility = 'loading';
+
+                    const controller = new AbortController();
+                    this.pendingRequests.set(this, controller);
+
+                    fetch(this.apiUrl + encodeURI(query) + '', {
+                        signal: controller.signal
+                    })
+                        .then(response => response.json())
+                        .then(responseData => {
+                            this.rawSearchResults = responseData.data;
+                            if (this.searchResults.length > 0) {
+                                this.panelVisibility = 'result';
+                            } else {
+                                this.panelVisibility = 'noResult';
+                            }
+                        })
+                        .catch(error => {
+                            if (error.name === 'AbortError') {
+                                return;
+                            }
+                            console.log(error);
+                        });
                 },
                 select: function (index) {
+                    for (let i = 0; i < this.items.length; i++) {
+                        if (this.items[i].doi === this.searchResults[index].doi) {
+                            return;
+                        }
+                    }
+
                     let newItem = JSON.parse(JSON.stringify(this.dataModel));
                     Object.keys(newItem).forEach(key => {
                         newItem[key] = this.searchResults[index][key];
@@ -370,7 +338,7 @@
             watch: {
                 workingPublication(newValue, oldValue) {
                     if (newValue !== oldValue) {
-                        this.publication = this.workingPublication;
+                        this.items = JSON.parse(this.workingPublication['{$pidName}']);
                     }
                 }
             }
