@@ -31,4 +31,7 @@ class Constants
 
     /** @var string Key for PIDINST saved in publications */
     public const pidinst = 'pidinst';
+
+    /** @var string Api endpoint used by this plugin (hook: APIHandler::endpoints::submissions), e.g. api/v1/submissions/pidManager/1/igsn */
+    public const apiRoute = 'pidManager/{publication_id}/{fieldName}';
 }

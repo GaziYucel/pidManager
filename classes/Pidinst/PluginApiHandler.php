@@ -1,30 +1,29 @@
 <?php
 
 /**
- * @file classes/Igsn/ArticleDetails.php
+ * @file classes/Pidinst/PluginApiHandler.php
  *
  * @copyright (c) 2024+ TIB Hannover
  * @copyright (c) 2024+ Gazi Yücel
  * @license Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
  *
- * @class ArticleDetails
+ * @class PluginApiHandler
  * @ingroup plugins_generic_pidmanager
  *
- * @brief ArticleDetails
+ * @brief PluginApiHandler
  */
 
-namespace APP\plugins\generic\pidManager\classes\Igsn;
+namespace APP\plugins\generic\pidManager\classes\Pidinst;
 
-use APP\plugins\generic\pidManager\classes\Base\ArticleDetails as BaseArticleDetails;
+use APP\plugins\generic\pidManager\classes\Base\PluginApiHandler as BasePluginApiHandler;
 use APP\plugins\generic\pidManager\classes\Constants;
 use APP\plugins\generic\pidManager\PidManagerPlugin;
 
-class ArticleDetails extends BaseArticleDetails
+class PluginApiHandler extends BasePluginApiHandler
 {
     public function __construct(PidManagerPlugin &$plugin)
     {
-        $this->fieldName = Constants::igsn;
-        $this->dataModel = new DataModel();
+        $this->fieldName = Constants::pidinst;
         parent::__construct($plugin);
     }
 }

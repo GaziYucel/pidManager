@@ -16,7 +16,12 @@
 namespace APP\plugins\generic\pidManager\classes\Igsn;
 
 use APP\plugins\generic\pidManager\classes\Base\Schema as BaseSchema;
+use APP\plugins\generic\pidManager\classes\Constants;
 
 class Schema extends BaseSchema
 {
+    public function __construct()
+    {
+        $this->fieldName = Constants::igsn;
+    }
 }

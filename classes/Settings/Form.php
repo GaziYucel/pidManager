@@ -48,14 +48,10 @@ class Form extends PKPForm
     {
         $context = Application::get()->getRequest()->getContext();
 
-        $contextId = $context
-            ? $context->getId()
-            : Application::CONTEXT_SITE;
+        $contextId = $context ? $context->getId() : Application::SITE_CONTEXT_ID;
 
         foreach ($this->settings as $key) {
-            $this->setData($key,
-                $this->plugin->getSetting($contextId, $key)
-            );
+            $this->setData($key, $this->plugin->getSetting($contextId, $key));
         }
 
         parent::initData();
@@ -82,16 +78,10 @@ class Form extends PKPForm
     {
         $context = Application::get()->getRequest()->getContext();
 
-        $contextId = $context
-            ? $context->getId()
-            : Application::CONTEXT_SITE;
+        $contextId = $context ? $context->getId() : Application::SITE_CONTEXT_ID;
 
         foreach ($this->settings as $key) {
-            $this->plugin->updateSetting(
-                $contextId,
-                $key,
-                $this->getData($key)
-            );
+            $this->plugin->updateSetting($contextId, $key, $this->getData($key));
         }
 
         $notificationMgr = new NotificationManager();
