@@ -283,39 +283,28 @@
                 panelVisibilityReset: function () {
                     this.panelVisibility = { /**/ ...this.panelVisibilityDefault};
                 },
-                getDoiCleaned: function (doi) {
-                    doi = doi.replace(/  +/g, ' ');
-                    doi = doi.trim();
-                    doi = doi.replaceAll(' ', '*+*');
-                    doi = '*' + doi + '*';
-                    return doi;
-                },
-                getLabelCleaned: function (label) {
-                    label = label.replace(/[.,\/#!$%^&*;:{ }=\-_`~()—+]/g, ' ');
-                    return this.getDoiCleaned(label);
-                },
                 apiLookup: function () {
-                    if (this.searchPhraseDoi.length < this.minimumSearchPhraseLength &&
-                        this.searchPhraseTitle.length < this.minimumSearchPhraseLength
-                    ) {
+                    const minLength = this.minimumSearchPhraseLength;
+                    let doi = this.searchPhraseDoi.trim().replace(/  +/g, ' ');
+                    let title = this.searchPhraseTitle.trim().replace(/  +/g, ' ');
+
+                    if (doi.length < minLength && title.length < minLength) {
                         return;
                     }
-                    let query = '';
-                    if (this.searchPhraseDoi.length >= this.minimumSearchPhraseLength) {
-                        query += ' AND id:' + this.getDoiCleaned(this.searchPhraseDoi);
-                    }
-                    if (this.searchPhraseTitle.length >= this.minimumSearchPhraseLength) {
-                        query += ' AND titles.title:' + this.getLabelCleaned(this.searchPhraseTitle);
-                    }
-                    if (query.length === 0) return;
 
-                    const url = this.apiUrl + query + '';
+                    let query = '';
+                    if (doi.length >= minLength) {
+                        query += ' AND id:' + '*' + doi.replaceAll(' ', '*+*').toLowerCase() + '*';
+                    }
+                    if (title.length >= minLength) {
+                        query += ' AND titles.title:' + '*' + title.replaceAll(' ', '*+*').toLowerCase() + '*';
+                    }
 
                     this.panelVisibilityShowPart('spinner');
                     const controller = new AbortController();
                     this.pendingRequests.set(this, controller);
 
-                    fetch(url, {
+                    fetch(this.apiUrl + encodeURI(query) + '', {
                         signal: controller.signal
                     })
                         .then(response => response.json())

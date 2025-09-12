@@ -72,8 +72,7 @@ class PidManagerPlugin extends GenericPlugin
                 if ($this->getSetting($contextId, Constants::settingEnableIgsn) ||
                     $this->getSetting($contextId, Constants::settingEnablePidinst)
                 ) {
-                    $this->addStyleSheetToBackend($request, $templateMgr);
-                    $this->addStyleSheetToFrontend($request, $templateMgr);
+                    $this->addStyleSheet($request, $templateMgr);
                 }
             }
             return true;
@@ -107,17 +106,14 @@ class PidManagerPlugin extends GenericPlugin
         return $manage->execute($args, $request);
     }
 
-    protected function addStyleSheetToBackend(Request $request, TemplateManager $templateMgr): void
+    protected function addStyleSheet(Request $request, TemplateManager $templateMgr): void
     {
         $templateMgr->addStyleSheet("pidManagerStylesBackend",
             "{$request->getBaseUrl()}/{$this->getPluginPath()}/assets/css/backend.css", [
                 'inline' => false,
                 'contexts' => ['backend']
             ]);
-    }
 
-    protected function addStyleSheetToFrontend(Request $request, TemplateManager $templateMgr): void
-    {
         $templateMgr->addStyleSheet("pidManagerStylesFrontend",
             "{$request->getBaseUrl()}/{$this->getPluginPath()}/assets/css/frontend.css", [
                 'inline' => false,
