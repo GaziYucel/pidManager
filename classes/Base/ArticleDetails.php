@@ -16,7 +16,7 @@
 namespace APP\plugins\generic\pidManager\classes\Base;
 
 use APP\plugins\generic\pidManager\classes\Constants;
-use APP\plugins\generic\pidManager\classes\Repo;
+use APP\plugins\generic\pidManager\classes\PluginRepo;
 use APP\plugins\generic\pidManager\PidManagerPlugin;
 use TemplateManager;
 
@@ -36,7 +36,7 @@ abstract class ArticleDetails
         /* @var TemplateManager $templateMgr */
         $templateMgr = &$args[1];
 
-        $items = Repo::getPidsByPublication(
+        $items = PluginRepo::getPidsByPublication(
             $templateMgr->getTemplateVars('currentPublication'),
             $this->fieldName,
             $this->dataModel

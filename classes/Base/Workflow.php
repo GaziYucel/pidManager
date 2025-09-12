@@ -15,7 +15,7 @@
 
 namespace APP\plugins\generic\pidManager\classes\Base;
 
-use APP\plugins\generic\pidManager\classes\Repo;
+use APP\plugins\generic\pidManager\classes\PluginRepo;
 use PidManagerPlugin;
 use Publication;
 use TemplateManager;
@@ -67,7 +67,7 @@ abstract class Workflow
             'pidName' => $this->fieldName,
             'dataModel' => json_encode(get_class_vars(get_class($this->dataModel))),
             'apiBaseUrl' => $apiBaseUrl,
-            'items' => json_encode(Repo::getPidsByPublication($publication, $this->fieldName, $this->dataModel))
+            'items' => json_encode(PluginRepo::getPidsByPublication($publication, $this->fieldName, $this->dataModel))
         ];
         $templateMgr->assign($templateParameters);
 

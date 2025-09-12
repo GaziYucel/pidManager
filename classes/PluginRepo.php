@@ -1,23 +1,23 @@
 <?php
 
 /**
- * @file classes/Repo.php
+ * @file classes/PluginRepo.php
  *
  * @copyright (c) 2024+ TIB Hannover
  * @copyright (c) 2024+ Gazi Yücel
  * @license Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
  *
- * @class Repo
+ * @class PluginRepo
  * @ingroup plugins_generic_pidmanager
  *
- * @brief Repo
+ * @brief PluginRepo
  */
 
 namespace APP\plugins\generic\pidManager\classes;
 
 use Publication;
 
-class Repo
+class PluginRepo
 {
     /**
      * This method retrieves the pids for a publication and returns an array of pid DataModels.

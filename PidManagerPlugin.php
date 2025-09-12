@@ -75,7 +75,6 @@ class PidManagerPlugin extends GenericPlugin
                     $this->addStyleSheetToBackend($request, $templateMgr);
                     $this->addStyleSheetToFrontend($request, $templateMgr);
                 }
-
             }
             return true;
         }

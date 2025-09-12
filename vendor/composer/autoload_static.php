@@ -26,7 +26,7 @@ class ComposerStaticInitdb0506f73b171ab12c3437ae07e258c1
         'APP\\plugins\\generic\\pidManager\\classes\\Pidinst\\Schema' => __DIR__ . '/../..' . '/classes/Pidinst/Schema.php',
         'APP\\plugins\\generic\\pidManager\\classes\\Pidinst\\SubmissionWizard' => __DIR__ . '/../..' . '/classes/Pidinst/SubmissionWizard.php',
         'APP\\plugins\\generic\\pidManager\\classes\\Pidinst\\Workflow' => __DIR__ . '/../..' . '/classes/Pidinst/Workflow.php',
-        'APP\\plugins\\generic\\pidManager\\classes\\Repo' => __DIR__ . '/../..' . '/classes/Repo.php',
+        'APP\\plugins\\generic\\pidManager\\classes\\PluginRepo' => __DIR__ . '/../..' . '/classes/PluginRepo.php',
         'APP\\plugins\\generic\\pidManager\\classes\\Settings\\Actions' => __DIR__ . '/../..' . '/classes/Settings/Actions.php',
         'APP\\plugins\\generic\\pidManager\\classes\\Settings\\Form' => __DIR__ . '/../..' . '/classes/Settings/Form.php',
         'APP\\plugins\\generic\\pidManager\\classes\\Settings\\Manage' => __DIR__ . '/../..' . '/classes/Settings/Manage.php',

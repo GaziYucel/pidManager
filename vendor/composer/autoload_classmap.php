@@ -25,7 +25,7 @@ return array(
     'APP\\plugins\\generic\\pidManager\\classes\\Pidinst\\Schema' => $baseDir . '/classes/Pidinst/Schema.php',
     'APP\\plugins\\generic\\pidManager\\classes\\Pidinst\\SubmissionWizard' => $baseDir . '/classes/Pidinst/SubmissionWizard.php',
     'APP\\plugins\\generic\\pidManager\\classes\\Pidinst\\Workflow' => $baseDir . '/classes/Pidinst/Workflow.php',
-    'APP\\plugins\\generic\\pidManager\\classes\\Repo' => $baseDir . '/classes/Repo.php',
+    'APP\\plugins\\generic\\pidManager\\classes\\PluginRepo' => $baseDir . '/classes/PluginRepo.php',
     'APP\\plugins\\generic\\pidManager\\classes\\Settings\\Actions' => $baseDir . '/classes/Settings/Actions.php',
     'APP\\plugins\\generic\\pidManager\\classes\\Settings\\Form' => $baseDir . '/classes/Settings/Form.php',
     'APP\\plugins\\generic\\pidManager\\classes\\Settings\\Manage' => $baseDir . '/classes/Settings/Manage.php',
