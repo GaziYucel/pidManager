@@ -160,7 +160,7 @@
                     </td>
                 </tr>
             </template>
-            <tr v-show="pidManagerApp{$pidName}.items.length === 0">
+            <tr v-show="!pidManagerApp{$pidName}.items">
                 <td colspan="6" class="center w-42 h-42">
                     {translate key="plugins.generic.pidManager.{$pidName}.workflow.empty"}
                 </td>
@@ -182,7 +182,7 @@
         <span class="hide">
             {{ pidManagerApp{$pidName}.workingPublication = workingPublication }}
             {{ pidManagerApp{$pidName}.configure() }}
-            {{ components.{$pidName}.fields[0]['value'] = JSON.stringify(pidManagerApp{$pidName}.items.filter((item) => Object.values(item).some((value) => value !== null && value.length > 0))) }}
+            {{ components.{$pidName}.fields[0]['value'] = JSON.stringify(pidManagerApp{$pidName}.items?.filter((item) => Object.values(item).some((value) => value !== null && value.length > 0))) }}
             {{ components.{$pidName}.action = '{$apiBaseUrl}submissions/' + workingPublication.submissionId + '/publications/' + workingPublication.id }}
         </span>
     </div>
@@ -198,7 +198,7 @@
                     rawSearchResults: [],
                     panelVisibility: '',
                     pendingRequests: new WeakMap(),
-                    workingPublication: { /**/ id: 0}, // workingPublication
+                    workingPublication: { /**/ id: 0},
                     apiUrl: 'https://api.datacite.org/dois?fields[dois]=titles,creators,publisher,publicationYear&query=relatedIdentifiers.relatedIdentifierType:IGSN AND types.resourceTypeGeneral:PhysicalObject'
                 };
             },
