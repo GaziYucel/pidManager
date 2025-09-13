@@ -35,7 +35,7 @@ PID Manager for OJS
 
 # Screenshot(s) / screen recording(s)
 
-![igsn-screenrecording.gif](.project/screenrecordings/igsn-screenrecording.gif)
+![screenrecording.gif](.project/screenrecordings/screenrecording.gif)
 
 # Install and configure the plugin
 
