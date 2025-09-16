@@ -23,6 +23,7 @@ use APP\plugins\generic\pidManager\classes\Igsn\SubmissionWizard as IgsnSubmissi
 use APP\plugins\generic\pidManager\classes\Pidinst\ArticleDetails as PidinstArticleDetails;
 use APP\plugins\generic\pidManager\classes\Pidinst\PluginApiHandler as PidinstPluginApiHandler;
 use APP\plugins\generic\pidManager\classes\Pidinst\Schema as PidinstSchema;
+use APP\plugins\generic\pidManager\classes\Pidinst\SubmissionWizard as PidinstSubmissionWizard;
 use APP\plugins\generic\pidManager\classes\Settings\Actions;
 use APP\plugins\generic\pidManager\classes\Settings\Manage;
 use APP\template\TemplateManager;
@@ -71,6 +72,11 @@ class PidManagerPlugin extends GenericPlugin
 
                     $pidinstArticleDetails = new PidinstArticleDetails($this);
                     Hook::add('Templates::Article::Main', [$pidinstArticleDetails, 'execute']);
+
+                    $pidinstSubmissionWizard = new PidinstSubmissionWizard($this);
+                    Hook::add('TemplateManager::display', [$pidinstSubmissionWizard, 'addToSubmissionWizardSteps']);
+                    Hook::add('Template::SubmissionWizard::Section', [$pidinstSubmissionWizard, 'addToSubmissionWizardTemplate']);
+                    Hook::add('Template::SubmissionWizard::Section::Review', [$pidinstSubmissionWizard, 'addToSubmissionWizardReviewTemplate']);
 
                     $this->addJavascript(Constants::pidinst, $request, $templateMgr);
                     $this->addStyleSheet(Constants::pidinst, $request, $templateMgr);
@@ -123,16 +129,20 @@ class PidManagerPlugin extends GenericPlugin
     protected function addStyleSheet(string $pidName, Request $request, TemplateManager $templateMgr): void
     {
         $templateMgr->addStyleSheet("pidManagerStyle$pidName",
-            "{$request->getBaseUrl()}/{$this->getPluginPath()}/assets/css/frontend.css", [
+            "{$request->getBaseUrl()}/{$this->getPluginPath()}/assets/css/frontend.css",
+            [
                 'inline' => false,
                 'contexts' => ['frontend']
-            ]);
+            ]
+        );
 
         $templateMgr->addStyleSheet("pidManagerStyle$pidName",
-            "{$request->getBaseUrl()}/{$this->getPluginPath()}/public/build/build-$pidName.css", [
+            "{$request->getBaseUrl()}/{$this->getPluginPath()}/public/build/build-$pidName.css",
+            [
                 'inline' => false,
                 'contexts' => ['backend']
-            ]);
+            ]
+        );
     }
 }
 

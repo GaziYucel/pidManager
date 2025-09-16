@@ -5,7 +5,7 @@
  * Copyright (c) 2024+ Gazi Yücel
  * Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
  *
- * Settings form for the plugin.
+ * Settings form for the pidManagerSettings plugin.
  *}
 <script>
     $(function () {
@@ -24,19 +24,20 @@
     {fbvFormSection
     for="{APP\plugins\generic\pidManager\classes\Constants::settingEnableIgsn}"
     title="plugins.generic.pidManager.settings.title" list="true"}
+        <p class="description align-justify" style="color: rgba(0,0,0,0.54)">
+            {translate key="plugins.generic.pidManager.settings.description"}
+            {fbvElement
+            type="checkbox"
+            id="{APP\plugins\generic\pidManager\classes\Constants::settingEnableIgsn}"
+            checked=${APP\plugins\generic\pidManager\classes\Constants::settingEnableIgsn}
+            label="plugins.generic.pidManager.igsn.settings.label"}
 
-    {fbvElement
-    type="checkbox"
-    id="{APP\plugins\generic\pidManager\classes\Constants::settingEnableIgsn}"
-    checked=${APP\plugins\generic\pidManager\classes\Constants::settingEnableIgsn}
-    label="plugins.generic.pidManager.settings.igsn.label"}
-
-    {fbvElement
-    type="checkbox"
-    id="{APP\plugins\generic\pidManager\classes\Constants::settingEnablePidinst}"
-    checked=${APP\plugins\generic\pidManager\classes\Constants::settingEnablePidinst}
-    label="plugins.generic.pidManager.settings.pidinst.label"}
-
+            {fbvElement
+            type="checkbox"
+            id="{APP\plugins\generic\pidManager\classes\Constants::settingEnablePidinst}"
+            checked=${APP\plugins\generic\pidManager\classes\Constants::settingEnablePidinst}
+            label="plugins.generic.pidManager.pidinst.settings.label"}
+        </p>
     {/fbvFormSection}
 
     {/fbvFormArea}

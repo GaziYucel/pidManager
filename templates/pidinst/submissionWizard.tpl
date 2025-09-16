@@ -8,11 +8,6 @@
  * Submission Wizard
  *}
 
-<div>
-    <label class="label">
-        {translate key="plugins.generic.pidManager.{$pidName}.label"}
-    </label>
-    <p>
-        {translate key="plugins.generic.pidManager.{$pidName}.submission.description"}
-    </p>
-</div>
+{assign var="pidName" value="pidinst"}
+
+{include "../plugins/generic/pidManager/templates/base/submissionWizard.tpl" pidName=$pidName}

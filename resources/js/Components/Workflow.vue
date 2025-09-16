@@ -4,8 +4,52 @@
     {{ t('plugins.generic.pidManager.' + pidName + '.workflow.instructions') }}
   </div>
 
+  <!-- add from csv -->
+  <div>
+    <div>
+      {{
+        t('plugins.generic.pidManager.' + pidName + '.workflow.addFromCsv.instructions',
+            {add: t('plugins.generic.pidManager.' + pidName + '.addFromCsv.button')})
+      }}<br/><br/>
+    </div>
+    <div>
+      <textarea class="pkpFormField__input pkpFormField--textarea__input !h-[9em]" v-model="csvString"></textarea>
+    </div>
+    <div>
+      <PkpButton class="my-2" :is-required="true" @click="handleCsvString">
+        {{ t('plugins.generic.pidManager.' + pidName + '.addFromCsv.button') }}
+      </PkpButton>
+      <span v-if="csvStringStatusMessage === 'success'" class="items-center py-[0.5rem] ml-1rem text-success">
+        <Icon :icon="'Complete'" :class="'inline-block h-auto w-6 align-middle'" :inline="true"/>
+        <span class="align-middle font-normal">
+          {{ t('plugins.generic.pidManager.' + pidName + '.addFromCsv.success') }}
+        </span>
+      </span>
+      <span v-if="csvStringStatusMessage === 'partial'" class="items-center py-[0.5rem] ml-1rem text-attention">
+        <Icon :icon="'InProgress'" :class="'inline-block h-auto w-6 align-middle'" :inline="true"/>
+        <span class="align-middle font-normal">
+          {{ t('plugins.generic.pidManager.' + pidName + '.addFromCsv.partialSuccess') }}
+        </span>
+      </span>
+      <span v-if="csvStringStatusMessage === 'empty'" class="items-center py-[0.5rem] ml-1rem">
+        <Icon :icon="'Declined'" :class="'inline-block h-auto w-6 align-middle'" :inline="true"/>
+        <span class="align-middle font-normal">
+          {{ t('plugins.generic.pidManager.' + pidName + '.addFromCsv.inputEmpty') }}
+        </span>
+      </span>
+
+    </div>
+  </div>
+
+  <!-- delete all items -->
+  <div>
+    <a class="cursor-pointer text-lg-normal" @click="deleteAllPids">
+      {{ t('plugins.generic.pidManager.' + pidName + '.deleteAllLink') }}
+    </a>
+  </div>
+
   <!-- search -->
-  <div :class="{disabled: isPublished}">
+  <div :class="{disabled: !canEdit}">
     <table class="pkpTable w-full">
       <tr>
         <th>{{ t('plugins.generic.pidManager.' + pidName + '.workflow.table.pid') }}</th>
@@ -68,16 +112,22 @@
   </div>
 
   <!-- items -->
-  <table :class="{disabled: isPublished}" class="pkpTable w-full">
+  <div>
+    <PkpSearch
+        :search-label="t('plugins.generic.pidManager.' + pidName + '.filter.placeholder')"
+        @search-phrase-changed="(...args) => setItemsFilterPhrase(...args)"
+    />
+  </div>
+  <table :class="{disabled: !canEdit}" class="pkpTable w-full">
     <tr>
       <th>{{ t('plugins.generic.pidManager.' + pidName + '.workflow.table.pid') }}</th>
       <th>{{ t('plugins.generic.pidManager.' + pidName + '.workflow.table.title') }}</th>
       <th>{{ t('plugins.generic.pidManager.' + pidName + '.workflow.table.creators') }}</th>
       <th>{{ t('plugins.generic.pidManager.' + pidName + '.workflow.table.publisher') }}</th>
-      <th>{{ t('plugins.generic.pidManager.' + pidName + '.workflow.table.publicationYear') }}</th>
+      <th class="w-5rem">{{ t('plugins.generic.pidManager.' + pidName + '.workflow.table.publicationYear') }}</th>
       <th class="center w-42px">&nbsp;</th>
     </tr>
-    <template v-for="(item, i) in items" :key="i">
+    <template v-for="(item, i) in itemsFiltered" :key="i">
       <tr>
         <td><input v-model="item.doi" type="text" class="pkpFormField__input w-full"/></td>
         <td><input v-model="item.label" type="text" class="pkpFormField__input w-full"/></td>
@@ -91,21 +141,32 @@
         </td>
       </tr>
     </template>
-
     <tr v-show="items.length === 0">
-      <td colspan="6" class="center h-42px w-42px">
+      <td colspan="6" class="center h-42px">
         {{ t('plugins.generic.pidManager.' + pidName + '.workflow.empty') }}
       </td>
     </tr>
   </table>
-  <div :class="{disabled: isPublished}">
+  <div :class="{disabled: !canEdit}">
     <PkpButton @click="add">
       {{ t('plugins.generic.pidManager.' + pidName + '.button.add') }}
     </PkpButton>
   </div>
 
-  <div :class="{disabled: isPublished}" class="buttonRow pkpFormPage__footer footer">
-    <span role="status"></span>
+  <!-- save -->
+  <div :class="{disabled: !canEdit}" class="buttonRow pkpFormPage__footer footer">
+    <span role="status" aria-live="polite" aria-atomic="true">
+      <transition name="pkpFormPage__status">
+          <span v-if="isSaving" class="pkpFormPage__status">
+            <Spinner/>
+            {{ t('common.saving') }}
+          </span>
+          <span v-else-if="hasRecentSave" class="pkpFormPage__status">
+            <Icon icon="Complete" class="h-5 w-5 text-success" :inline="true"/>
+            {{ t('form.saved') }}
+          </span>
+        </transition>
+      </span>
     <PkpButton @click="save">
       {{ t('common.save') }}
     </PkpButton>
@@ -115,25 +176,92 @@
 <script setup>
 import {ref, computed, onMounted} from 'vue';
 import PkpButton from '@/components/Button/Button.vue';
+import Icon from "@/components/Icon/Icon.vue";
+import Spinner from "@/components/Spinner/Spinner.vue";
+import PkpSearch from "@/components/Search/Search.vue";
 
 const {useModal} = pkp.modules.useModal;
 const {useLocalize} = pkp.modules.useLocalize;
 const {useFetch} = pkp.modules.useFetch;
+const {useDataChanged} = pkp.modules.useDataChanged;
 const {t} = useLocalize();
 const {openDialog} = useModal();
+const {triggerDataChange} = useDataChanged();
 
 const props = defineProps({
-  submission: {type: Object, required: true},
+  publication: {type: Object, required: true},
   pidName: {type: String, required: true},
+  dataModel: {type: Object, required: true},
   apiUrlDataCite: {type: String, required: true},
 });
-const {pidName, apiUrlDataCite} = props;
-
-const dataModel = {doi: '', label: '', creators: '', publisher: '', publicationYear: ''};
+const {publication, pidName, dataModel, apiUrlDataCite} = props;
 const items = ref([]);
-const currentPublication = ref({});
-const apiUrl = ref('');
-const isPublished = computed(() => pkp.const.STATUS_PUBLISHED === currentPublication.value.status);
+const apiUrl = computed(() => pkp.context.apiBaseUrl + `submissions/pidManager/${publication.value.id}/${pidName}`);
+const canEdit = computed(() => pkp.const.STATUS_PUBLISHED !== publication.value.status);
+
+/* Add from csv */
+const csvString = ref('');
+const csvStringStatusMessage = ref('');
+const handleCsvString = async () => {
+  if (!csvString.value) {
+    csvStringStatusMessage.value = 'empty';
+    setTimeout(() => {
+      csvStringStatusMessage.value = '';
+    }, 5000);
+    return;
+  }
+
+  const {fetch, data} = useFetch(apiUrl.value + '/parseCsv', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-Csrf-Token': pkp.currentUser.csrfToken,
+    },
+    body: {
+      csvString: csvString
+    },
+  });
+  await fetch().then(() => {
+    csvString.value = data.value.rejected;
+    items.value = data.value.data;
+    if (csvString.value) {
+      csvStringStatusMessage.value = 'partial';
+    } else {
+      csvStringStatusMessage.value = 'success';
+    }
+    dataUpdateCallback();
+  });
+  setTimeout(() => {
+    csvStringStatusMessage.value = '';
+  }, 5000);
+}
+
+/* Delete all items */
+function deleteAllPids() {
+  openDialog({
+    name: 'deleteAllPids',
+    title: t('plugins.generic.pidManager.' + pidName + '.deleteAllDialog.title'),
+    message: t('plugins.generic.pidManager.' + pidName + '.deleteAllDialog.description'),
+    actions: [
+      {
+        label: t('common.delete'),
+        isWarnable: true,
+        callback: async (close) => {
+          items.value = [];
+          await save();
+          close();
+        },
+      },
+      {
+        label: t('common.no'),
+        isPrimary: true,
+        callback: (close) => {
+          close();
+        },
+      },
+    ],
+  });
+}
 
 /* Api lookup */
 const searchPhraseDoi = ref('');
@@ -141,49 +269,22 @@ const searchPhraseTitle = ref('');
 const rawSearchResults = ref([]);
 const panelVisibility = ref(''); // '', 'noResult', 'loading', 'result'
 const searchResults = computed(() => {
-  let results = [];
-
-  rawSearchResults.value.forEach((item) => {
-    let itemChanged = JSON.parse(JSON.stringify(dataModel));
-
-    itemChanged['doi'] = item.id;
-
-    if (item.attributes?.titles?.length > 0) {
-      itemChanged['label'] = item.attributes.titles[0].title;
-    }
-
-    if (item.attributes?.creators?.length > 0) {
-      for (let i = 0; i < item.attributes.creators.length; i++) {
-        if (itemChanged['creators']) {
-          itemChanged['creators'] += ', ';
+  return rawSearchResults.value.map(item => {
+    return {
+      ...dataModel,
+      doi: item.id,
+      label: item.attributes?.titles?.[0]?.title || '',
+      publisher: item.attributes.publisher,
+      publicationYear: item.attributes.publicationYear,
+      creators: item.attributes.creators?.map(creator => {
+        if (creator.nameType === 'Personal') {
+          return `${creator.familyName}, ${creator.givenName?.[0]}.`;
         }
-
-        if (item.attributes.creators[i].nameType === 'Personal') {
-          itemChanged['creators'] +=
-              item.attributes.creators[i].familyName +
-              ', ' +
-              item.attributes.creators[i].givenName?.substring(0, 1) +
-              '.';
-        } else {
-          itemChanged['creators'] += item.attributes.creators[i].name;
-        }
-      }
-    }
-
-    itemChanged['publisher'] = item.attributes.publisher;
-    itemChanged['publicationYear'] = item.attributes.publicationYear;
-
-    itemChanged['exists'] = false;
-    for (let i = 0; i < items.value.length; i++) {
-      if (items.value[i].doi === item.id) {
-        itemChanged['exists'] = true;
-      }
-    }
-
-    results.push(itemChanged);
+        return creator.name;
+      }).join(', ') || '',
+      exists: items.value.some(existingItem => existingItem.doi === item.id)
+    };
   });
-
-  return results;
 });
 const apiLookup = async () => {
   const minLength = 3;
@@ -215,21 +316,57 @@ const apiLookup = async () => {
   });
 };
 const select = (index) => {
-  for (let i = 0; i < items.value.length; i++) {
-    if (items.value[i].doi === searchResults.value[index].doi) {
-      return;
-    }
+  const selectedDoi = searchResults.value[index].doi;
+  if (items.value.some(item => item.doi === selectedDoi)) {
+    return;
   }
 
-  let newItem = JSON.parse(JSON.stringify(dataModel));
-  Object.keys(newItem).forEach((key) => {
-    newItem[key] = searchResults.value[index][key];
-  });
+  const newItem = Object.assign({}, dataModel, searchResults.value[index]);
   items.value.push(newItem);
 };
 const clearSearch = () => {
   rawSearchResults.value = [];
   panelVisibility.value = '';
+}
+
+/* Filtered items and filter phrase */
+const itemsFilterPhrase = ref('');
+const setItemsFilterPhrase = (value) => {
+  itemsFilterPhrase.value = value;
+}
+const itemsFiltered = computed(() => {
+  if (itemsFilterPhrase.value) {
+    return filterArrayByPhrase(
+        items.value,
+        itemsFilterPhrase.value,
+    );
+  } else {
+    return items.value;
+  }
+});
+const containsItemsFilterPhrase = (obj, phrase) => {
+  function deepSearch(value) {
+    if (value === null || value === undefined) return false;
+
+    if (typeof value === 'string') {
+      return value.toLowerCase().includes(phrase.toLowerCase());
+    }
+
+    if (Array.isArray(value)) {
+      return value.some(deepSearch);
+    }
+
+    if (typeof value === 'object') {
+      return Object.values(value).some(deepSearch);
+    }
+
+    return false;
+  }
+
+  return deepSearch(obj);
+}
+const filterArrayByPhrase = (data, phrase) => {
+  return data.filter((item) => containsItemsFilterPhrase(item, phrase));
 }
 
 /* Items */
@@ -279,20 +416,33 @@ const save = async () => {
         )
     ),
   });
-  await fetch();
+  isSaving.value = true;
+  await fetch().then(() => {
+    setTimeout(() => {
+      isSaving.value = false;
+    }, 750);
+    setTimeout(() => {
+      hasRecentSave.value = true;
+    }, 1000);
+    setTimeout(() => {
+      hasRecentSave.value = false;
+    }, 4000);
+  });
+  dataUpdateCallback();
 };
 
+/* Helpers */
+const isSaving = ref(false);
+const hasRecentSave = ref(false);
+
+function dataUpdateCallback() {
+  triggerDataChange();
+}
+
 onMounted(() => {
-  currentPublication.value = props.submission.publications?.find(
-      (item) => item.id === props.submission.currentPublicationId
-  );
-
-  items.value = currentPublication.value[pidName]
-      ? JSON.parse(currentPublication.value[pidName])
+  items.value = props.publication.value[pidName]
+      ? JSON.parse(props.publication.value[pidName])
       : [];
-
-  apiUrl.value = pkp.context.apiBaseUrl +
-      `submissions/pidManager/${currentPublication.value.id}/${pidName}`;
 });
 
 /*
@@ -301,32 +451,71 @@ const localeKeys = [
   t("common.delete"),
   t("common.no"),
   t("common.save"),
-  t("plugins.generic.pidManager.igsn.button.add"),
-  t("plugins.generic.pidManager.igsn.datacite.empty"),
-  t("plugins.generic.pidManager.igsn.datacite.searchPhraseDoi.placeholder"),
-  t("plugins.generic.pidManager.igsn.datacite.searchPhraseTitle.placeholder"),
-  t("plugins.generic.pidManager.igsn.generalDescription"),
-  t("plugins.generic.pidManager.igsn.remove.confirm"),
-  t("plugins.generic.pidManager.igsn.workflow.empty"),
-  t("plugins.generic.pidManager.igsn.workflow.instructions"),
-  t("plugins.generic.pidManager.igsn.workflow.table.creators"),
-  t("plugins.generic.pidManager.igsn.workflow.table.pid"),
-  t("plugins.generic.pidManager.igsn.workflow.table.publicationYear"),
-  t("plugins.generic.pidManager.igsn.workflow.table.publisher"),
-  t("plugins.generic.pidManager.igsn.workflow.table.title"),
-  t("plugins.generic.pidManager.pidinst.button.add"),
-  t("plugins.generic.pidManager.pidinst.datacite.empty"),
-  t("plugins.generic.pidManager.pidinst.datacite.searchPhraseDoi.placeholder"),
-  t("plugins.generic.pidManager.pidinst.datacite.searchPhraseTitle.placeholder"),
-  t("plugins.generic.pidManager.pidinst.generalDescription"),
-  t("plugins.generic.pidManager.pidinst.remove.confirm"),
-  t("plugins.generic.pidManager.pidinst.workflow.empty"),
-  t("plugins.generic.pidManager.pidinst.workflow.instructions"),
-  t("plugins.generic.pidManager.pidinst.workflow.table.creators"),
-  t("plugins.generic.pidManager.pidinst.workflow.table.pid"),
-  t("plugins.generic.pidManager.pidinst.workflow.table.publicationYear"),
-  t("plugins.generic.pidManager.pidinst.workflow.table.publisher"),
-  t("plugins.generic.pidManager.pidinst.workflow.table.title")
+  t('plugins.generic.pidManager.displayName'),
+  t('plugins.generic.pidManager.description'),
+  t('plugins.generic.pidManager.settings.title'),
+  t('plugins.generic.pidManager.settings.description'),
+  t('plugins.generic.pidManager.articleDetails.buttonShowAll.showAll'),
+  t('plugins.generic.pidManager.articleDetails.buttonShowAll.minimise'),
+  t('plugins.generic.pidManager.articleDetails.buttonShowAll.minimise'),
+  t('plugins.generic.pidManager.igsn.settings.label'),
+  t('plugins.generic.pidManager.igsn.label'),
+  t('plugins.generic.pidManager.igsn.workflow.name'),
+  t('plugins.generic.pidManager.igsn.workflow.label'),
+  t('plugins.generic.pidManager.igsn.workflow.instructions'),
+  t('plugins.generic.pidManager.igsn.workflow.addFromCsv.instructions'),
+  t('plugins.generic.pidManager.igsn.addFromCsv.button'),
+  t('plugins.generic.pidManager.igsn.generalDescription'),
+  t('plugins.generic.pidManager.igsn.submission.instructions'),
+  t('plugins.generic.pidManager.igsn.addFromCsv.success'),
+  t('plugins.generic.pidManager.igsn.addFromCsv.partialSuccess'),
+  t('plugins.generic.pidManager.igsn.addFromCsv.inputEmpty'),
+  t('plugins.generic.pidManager.igsn.deleteAllLink'),
+  t('plugins.generic.pidManager.igsn.deleteAllDialog.title'),
+  t('plugins.generic.pidManager.igsn.deleteAllDialog.description'),
+  t('plugins.generic.pidManager.igsn.filter.placeholder'),
+  t('plugins.generic.pidManager.igsn.workflow.empty'),
+  t('plugins.generic.pidManager.igsn.workflow.table.pid'),
+  t('plugins.generic.pidManager.igsn.workflow.table.title'),
+  t('plugins.generic.pidManager.igsn.workflow.table.creators'),
+  t('plugins.generic.pidManager.igsn.workflow.table.publisher'),
+  t('plugins.generic.pidManager.igsn.workflow.table.publicationYear'),
+  t('plugins.generic.pidManager.igsn.button.add'),
+  t('plugins.generic.pidManager.igsn.remove.confirm'),
+  t('plugins.generic.pidManager.igsn.datacite.searchPhraseDoi.placeholder'),
+  t('plugins.generic.pidManager.igsn.datacite.searchPhraseTitle.placeholder'),
+  t('plugins.generic.pidManager.igsn.articleDetails.details'),
+  t('plugins.generic.pidManager.igsn.datacite.info'),
+  t('plugins.generic.pidManager.igsn.datacite.empty'),
+  t('plugins.generic.pidManager.pidinst.settings.label'),
+  t('plugins.generic.pidManager.pidinst.label'),
+  t('plugins.generic.pidManager.pidinst.workflow.name'),
+  t('plugins.generic.pidManager.pidinst.workflow.label'),
+  t('plugins.generic.pidManager.pidinst.workflow.instructions'),
+  t('plugins.generic.pidManager.pidinst.generalDescription'),
+  t('plugins.generic.pidManager.pidinst.submission.instructions'),
+  t('plugins.generic.pidManager.pidinst.workflow.addFromCsv.instructions'),
+  t('plugins.generic.pidManager.pidinst.addFromCsv.button'),
+  t('plugins.generic.pidManager.pidinst.addFromCsv.success'),
+  t('plugins.generic.pidManager.pidinst.addFromCsv.partialSuccess'),
+  t('plugins.generic.pidManager.pidinst.addFromCsv.inputEmpty'),
+  t('plugins.generic.pidManager.pidinst.deleteAllLink'),
+  t('plugins.generic.pidManager.pidinst.deleteAllDialog.title'),
+  t('plugins.generic.pidManager.pidinst.deleteAllDialog.description'),
+  t('plugins.generic.pidManager.pidinst.filter.placeholder'),
+  t('plugins.generic.pidManager.pidinst.workflow.empty'),
+  t('plugins.generic.pidManager.pidinst.workflow.table.pid'),
+  t('plugins.generic.pidManager.pidinst.workflow.table.title'),
+  t('plugins.generic.pidManager.pidinst.workflow.table.creators'),
+  t('plugins.generic.pidManager.pidinst.workflow.table.publisher'),
+  t('plugins.generic.pidManager.pidinst.workflow.table.publicationYear'),
+  t('plugins.generic.pidManager.pidinst.button.add'),
+  t('plugins.generic.pidManager.pidinst.remove.confirm'),
+  t('plugins.generic.pidManager.pidinst.datacite.searchPhraseDoi.placeholder'),
+  t('plugins.generic.pidManager.pidinst.datacite.searchPhraseTitle.placeholder'),
+  t('plugins.generic.pidManager.pidinst.articleDetails.details'),
+  t('plugins.generic.pidManager.pidinst.datacite.info'),
+  t('plugins.generic.pidManager.pidinst.datacite.empty')
 ];
 */
 </script>
@@ -418,5 +607,9 @@ const localeKeys = [
 
 .w-5rem {
   width: 5rem;
+}
+
+.ml-1rem {
+  margin-left: 1rem;
 }
 </style>
