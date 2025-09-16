@@ -1,5 +1,5 @@
 {**
- * templates/igsn/igsnSubmissionWizardReview.tpl
+ * templates/igsn/submissionWizardReview.tpl
  *
  * @copyright (c) 2024+ TIB Hannover
  * @copyright (c) 2024+ Gazi Yücel
@@ -8,13 +8,6 @@
  * Submission Wizard Review
  *}
 
-<div class="submissionWizard__reviewPanel">
-    <div class="submissionWizard__reviewPanel__header h-34]">
-        <h3>{translate key="plugins.generic.pidManager.{$pidName}.label"}</h3>
-    </div>
-    <div class="submissionWizard__reviewPanel__body">
-        <div class="submissionWizard__reviewPanel__item">
-            {translate key="plugins.generic.pidManager.{$pidName}.submission.description"}
-        </div>
-    </div>
-</div>
+{assign var="pidName" value="igsn"}
+
+{include "../plugins/generic/pidManager/templates/base/submissionWizardReview.tpl" pidName=$pidName}
