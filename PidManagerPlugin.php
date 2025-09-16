@@ -11,8 +11,6 @@
  * @brief Plugin for managing Persistent Identifiers (PIDs) and depositing to external services.
  */
 
-define('PID_MANAGER_PLUGIN_NAME', basename(__FILE__, '.php'));
-
 require_once(__DIR__ . '/vendor/autoload.php');
 
 import('lib.pkp.classes.plugins.GenericPlugin');
@@ -109,16 +107,20 @@ class PidManagerPlugin extends GenericPlugin
     protected function addStyleSheet(Request $request, TemplateManager $templateMgr): void
     {
         $templateMgr->addStyleSheet("pidManagerStylesBackend",
-            "{$request->getBaseUrl()}/{$this->getPluginPath()}/assets/css/backend.css", [
+            "{$request->getBaseUrl()}/{$this->getPluginPath()}/assets/css/backend.css",
+            [
                 'inline' => false,
                 'contexts' => ['backend']
-            ]);
+            ]
+        );
 
         $templateMgr->addStyleSheet("pidManagerStylesFrontend",
-            "{$request->getBaseUrl()}/{$this->getPluginPath()}/assets/css/frontend.css", [
+            "{$request->getBaseUrl()}/{$this->getPluginPath()}/assets/css/frontend.css",
+            [
                 'inline' => false,
                 'contexts' => ['frontend']
-            ]);
+            ]
+        );
     }
 }
 

@@ -9,36 +9,35 @@
  *}
 <script>
     $(function () {
-        $('#{$smarty.const.PID_MANAGER_PLUGIN_NAME}Settings').pkpHandler('$.pkp.controllers.form.AjaxFormHandler');
+        $('#{$pluginName}Settings').pkpHandler('$.pkp.controllers.form.AjaxFormHandler');
     });
 </script>
 
-<form class="pkp_form" method="POST" id="{$smarty.const.PID_MANAGER_PLUGIN_NAME}Settings"
+<form class="pkp_form" method="POST" id="{$pluginName}Settings"
       action="{url router=$smarty.const.ROUTE_COMPONENT op="manage" category="generic"
       plugin=$pluginName verb="settings" save=true}">
 
     {csrf}
 
-    {fbvFormArea id="{$smarty.const.PID_MANAGER_PLUGIN_NAME}SettingsArea"}
+    {fbvFormArea id="{$pluginName}SettingsArea"}
 
     {fbvFormSection
     for="{APP\plugins\generic\pidManager\classes\Constants::settingEnableIgsn}"
     title="plugins.generic.pidManager.settings.title" list="true"}
-    <p align="justify" class="description" style="color: rgba(0,0,0,0.54)">
-        {translate key="plugins.generic.pidManager.settings.description"}
-        {fbvElement
-        type="checkbox"
-        id="{APP\plugins\generic\pidManager\classes\Constants::settingEnableIgsn}"
-        checked=${APP\plugins\generic\pidManager\classes\Constants::settingEnableIgsn}
-        label="plugins.generic.pidManager.settings.igsn.label"}
+        <p class="description align-justify" style="color: rgba(0,0,0,0.54)">
+            {translate key="plugins.generic.pidManager.settings.description"}
+            {fbvElement
+            type="checkbox"
+            id="{APP\plugins\generic\pidManager\classes\Constants::settingEnableIgsn}"
+            checked=${APP\plugins\generic\pidManager\classes\Constants::settingEnableIgsn}
+            label="plugins.generic.pidManager.igsn.settings.label"}
 
-        {fbvElement
-        type="checkbox"
-        id="{APP\plugins\generic\pidManager\classes\Constants::settingEnablePidinst}"
-        checked=${APP\plugins\generic\pidManager\classes\Constants::settingEnablePidinst}
-        label="plugins.generic.pidManager.settings.pidinst.label"}
-    </p>
-
+            {fbvElement
+            type="checkbox"
+            id="{APP\plugins\generic\pidManager\classes\Constants::settingEnablePidinst}"
+            checked=${APP\plugins\generic\pidManager\classes\Constants::settingEnablePidinst}
+            label="plugins.generic.pidManager.pidinst.settings.label"}
+        </p>
     {/fbvFormSection}
 
     {/fbvFormArea}

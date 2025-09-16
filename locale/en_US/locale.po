@@ -25,11 +25,19 @@ msgstr ""
 "Use the following checkboxes to select which Persistent Identifiers (PIDs) can be added during the editorial "
 "process and made visible in the article view. Ticking a box activates the corresponding PID type."
 
-msgid "plugins.generic.pidManager.settings.igsn.label"
-msgstr "IGSN (International Generic Sample Number - www.igsn.org)"
+msgid "plugins.generic.pidManager.articleDetails.buttonShowAll.showAll"
+msgstr "Show All"
 
-msgid "plugins.generic.pidManager.settings.pidinst.label"
-msgstr "PIDINST (Persistent Identification of Instruments - www.pidinst.org)"
+msgid "plugins.generic.pidManager.articleDetails.buttonShowAll.minimise"
+msgstr "Minimise"
+
+msgid "plugins.generic.pidManager.articleDetails.buttonShowAll.minimise"
+msgstr "Minimise"
+
+# IGSN
+
+msgid "plugins.generic.pidManager.igsn.settings.label"
+msgstr "IGSN (International Generic Sample Number - www.igsn.org)"
 
 msgid "plugins.generic.pidManager.igsn.label"
 msgstr "International Generic Sample Number (IGSN)"
@@ -59,7 +67,36 @@ msgstr ""
 msgid "plugins.generic.pidManager.igsn.submission.instructions"
 msgstr "Currently, IGSNs can only be set at a later stage in the editorial process. "
 "Please contact the journal manager if you would like to add a IGSN to your publication. "
-"For future versions of the PID Manager, it is planned to make IGSNs addable in the submission wizard."
+
+msgid "plugins.generic.pidManager.igsn.workflow.addFromCsv.instructions"
+msgstr ""
+"You can add IGSNs in batch by pasting your list as a CSV to the text field below and click the {$add} button. "
+"Your CSV structure must contain all fields, e.g. \"doi 1\",\"title 1\",\"creators 1\",\"publisher 1\",\"publicationYear 1\". "
+"Please don't add a header, this will also be imported. "
+
+msgid "plugins.generic.pidManager.igsn.addFromCsv.button"
+msgstr "Add from CSV"
+
+msgid "plugins.generic.pidManager.igsn.addFromCsv.success"
+msgstr "All lines are added to the list below."
+
+msgid "plugins.generic.pidManager.igsn.addFromCsv.partialSuccess"
+msgstr "The lines above are duplicates or have errors. Please review and try again."
+
+msgid "plugins.generic.pidManager.igsn.addFromCsv.inputEmpty"
+msgstr "You have not given any input. Please review and try again."
+
+msgid "plugins.generic.pidManager.igsn.deleteAllLink"
+msgstr "Delete all IGSNs listed"
+
+msgid "plugins.generic.pidManager.igsn.deleteAllDialog.title"
+msgstr "Delete all IGSNs listed"
+
+msgid "plugins.generic.pidManager.igsn.deleteAllDialog.description"
+msgstr "This will remove all IGSNs currently listed. You'll need to re-enter your IGSNs again if you continue."
+
+msgid "plugins.generic.pidManager.igsn.filter.placeholder"
+msgstr "Search IGSNs here"
 
 msgid "plugins.generic.pidManager.igsn.workflow.empty"
 msgstr "Yet, no IGSNs have been added to this publication."
@@ -100,6 +137,11 @@ msgstr "Please type your search phrase above and search on DataCite."
 msgid "plugins.generic.pidManager.igsn.datacite.empty"
 msgstr "Your search phrase returned empty."
 
+# PIDINST
+
+msgid "plugins.generic.pidManager.pidinst.settings.label"
+msgstr "PIDINST (Persistent Identification of Instruments - www.pidinst.org)"
+
 msgid "plugins.generic.pidManager.pidinst.label"
 msgstr "Persistent Identification of Instruments (PIDINST)"
 
@@ -127,7 +169,36 @@ msgstr ""
 msgid "plugins.generic.pidManager.pidinst.submission.instructions"
 msgstr "Currently, PIDINSTs can only be set at a later stage in the editorial process. "
 "Please contact the journal manager if you would like to add a PIDINST to your publication. "
-"For future versions of the PID Manager, it is planned to make PIDINSTs addable in the submission wizard."
+
+msgid "plugins.generic.pidManager.pidinst.workflow.addFromCsv.instructions"
+msgstr ""
+"You can add PIDINSTs in batch by pasting your list as a CSV to the text field below and click the {$add} button. "
+"You CSV structure must contain all fields, e.g. \"doi 1\", \"title 1\", \"creators 1\", \"publisher 1\", \"publicationYear 1\""
+"Please don't add a header, this will also be imported. "
+
+msgid "plugins.generic.pidManager.pidinst.addFromCsv.button"
+msgstr "Add from CSV"
+
+msgid "plugins.generic.pidManager.pidinst.addFromCsv.success"
+msgstr "All lines are added to the list below."
+
+msgid "plugins.generic.pidManager.pidinst.addFromCsv.partialSuccess"
+msgstr "The lines above are duplicates or have errors. Please review and try again."
+
+msgid "plugins.generic.pidManager.pidinst.addFromCsv.inputEmpty"
+msgstr "You have not given any input. Please review and try again."
+
+msgid "plugins.generic.pidManager.pidinst.deleteAllLink"
+msgstr "Delete all PIDINSTs listed"
+
+msgid "plugins.generic.pidManager.pidinst.deleteAllDialog.title"
+msgstr "Delete all PIDINSTs listed"
+
+msgid "plugins.generic.pidManager.pidinst.deleteAllDialog.description"
+msgstr "This will remove all PIDINSTs currently listed. You'll need to re-enter your PIDINSTs again if you continue."
+
+msgid "plugins.generic.pidManager.pidinst.filter.placeholder"
+msgstr "Search PIDINSTs here"
 
 msgid "plugins.generic.pidManager.pidinst.workflow.empty"
 msgstr "Yet, no PIDINSTs have been added to this publication."
@@ -161,12 +232,6 @@ msgstr "Type your title here, e.g. station"
 
 msgid "plugins.generic.pidManager.pidinst.articleDetails.details"
 msgstr "The following list shows the PIDINSTs linked to the publication."
-
-msgid "plugins.generic.pidManager.articleDetails.buttonShowAll.showAll"
-msgstr "Show All"
-
-msgid "plugins.generic.pidManager.articleDetails.buttonShowAll.minimise"
-msgstr "Minimise"
 
 msgid "plugins.generic.pidManager.pidinst.datacite.info"
 msgstr "Please type your search phrase above and search on DataCite."

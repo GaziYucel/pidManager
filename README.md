@@ -1,4 +1,4 @@
-[<img src="assets/images/komet_logo_full_bg_white.png" height="100"/>](https://projects.tib.eu/komet/en/)
+[<img src=".project/komet_logo_full_bg_white.png" height="100"/>](https://projects.tib.eu/komet/en/)
 
 # PID Manager Plugin
 
@@ -23,7 +23,6 @@ PID Manager for OJS
 - [License](#license)
 
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
-[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](code_of_conduct.md)
 
 # Features
 
@@ -75,10 +74,6 @@ Get the correct version for your OJS version:
     ├─ .project                      # Project related files
     ├─ assets                        # Styles, images, javascript files
     ├─ Classes                       # Main folder with models / logic
-    │  ├─ Base                       # Base classes used by all PIDs
-    │  ├─ Igsn                       # Classes for IGSN
-    │  ├─ Pidinst                    # Classes for PIDINST
-    │  └─ Settings                   # Classes for plugin settings
     ├─ locale                        # Language files
     ├─ templates                     # Templates folder
     ├─ .gitignore                    # Git ignore file
