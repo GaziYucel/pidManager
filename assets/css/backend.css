@@ -46,6 +46,10 @@
 
     /* class focussed */
 
+    .align-justify {
+        text-align: justify;
+    }
+
     .disabled {
         pointer-events: none;
         cursor: default;
