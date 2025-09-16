@@ -18,7 +18,6 @@ namespace APP\plugins\generic\pidManager\classes\Base;
 use APP\core\Application;
 use APP\pages\submission\SubmissionHandler;
 use APP\plugins\generic\pidManager\PidManagerPlugin;
-use APP\submission\Submission;
 use APP\template\TemplateManager;
 
 abstract class SubmissionWizard
@@ -55,8 +54,8 @@ abstract class SubmissionWizard
         $steps = array_map(function ($step) {
             if ($step['id'] === 'details') {
                 $step['sections'][] = [
-                    'id' => 'igsn',
-                    'name' => __('plugins.generic.pidManager.igsn.label'),
+                    'id' => $this->fieldName,
+                    'name' => __('plugins.generic.pidManager.' . $this->fieldName . '.label'),
                     'description' => '',
                     'type' => SubmissionHandler::SECTION_TYPE_TEMPLATE,
                 ];
@@ -65,7 +64,7 @@ abstract class SubmissionWizard
         }, $steps);
 
         $templateMgr->setState([
-            'igsn' => [],
+            $this->fieldName => [],
             'steps' => $steps,
         ]);
 
@@ -75,13 +74,13 @@ abstract class SubmissionWizard
     /**
      * Insert template to display grid in submission wizard.
      */
-    public function addToSubmissionWizardTemplate(string $hookName, array $args): bool
+    public function addToSubmissionWizardTemplate(string $hookName, array $params): bool
     {
-        $smarty = $args[1];
-        $output = &$args[2];
+        $smarty = $params[1];
+        $output = &$params[2];
 
         $output .= sprintf(
-            '<template v-else-if="section.id === \'igsn\'">%s</template>',
+            '<template v-else-if="section.id === \'' . $this->fieldName . '\'">%s</template>',
             $smarty->fetch(
                 $this->plugin->getTemplateResource(
                     $this->fieldName . '/submissionWizard.tpl'))
@@ -95,18 +94,11 @@ abstract class SubmissionWizard
      */
     function addToSubmissionWizardReviewTemplate(string $hookName, array $params): bool
     {
-        /** @var Submission $submission */
         /** @var string $step */
         /** @var TemplateManager $templateMgr */
-        $submission = $params[0]['submission'];
         $step = $params[0]['step'];
         $templateMgr = $params[1];
         $output =& $params[2];
-
-        $templateParameters = [
-            'pidName' => $this->fieldName
-        ];
-        $templateMgr->assign($templateParameters);
 
         if ($step === 'details') {
             $output .= $templateMgr->fetch(

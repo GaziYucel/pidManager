@@ -50,7 +50,6 @@ abstract class ArticleDetails
         }
 
         $templateParameters = [
-            'pidName' => $this->fieldName,
             'dataModel' => json_encode(get_class_vars(get_class($this->dataModel))),
             'items' => $items
         ];

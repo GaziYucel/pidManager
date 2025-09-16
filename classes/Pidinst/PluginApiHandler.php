@@ -24,6 +24,7 @@ class PluginApiHandler extends BasePluginApiHandler
     public function __construct(PidManagerPlugin &$plugin)
     {
         $this->fieldName = Constants::pidinst;
+        $this->dataModel = new DataModel();
         parent::__construct($plugin);
     }
 }

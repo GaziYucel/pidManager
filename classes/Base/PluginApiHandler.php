@@ -17,7 +17,7 @@
 namespace APP\plugins\generic\pidManager\classes\Base;
 
 use APP\facades\Repo;
-use APP\plugins\generic\pidManager\classes\Constants;
+use APP\plugins\generic\pidManager\classes\PluginRepo;
 use APP\plugins\generic\pidManager\PidManagerPlugin;
 use APP\submission\Submission;
 use Illuminate\Http\JsonResponse;
@@ -32,6 +32,15 @@ abstract class PluginApiHandler
 {
     public PidManagerPlugin $plugin;
     public string $fieldName = '';
+    public object $dataModel;
+
+    public array $allowedRoles = [
+        Role::ROLE_ID_SITE_ADMIN,
+        Role::ROLE_ID_MANAGER,
+        Role::ROLE_ID_SUB_EDITOR,
+        Role::ROLE_ID_ASSISTANT,
+        Role::ROLE_ID_AUTHOR
+    ];
 
     public function __construct(PidManagerPlugin $plugin)
     {
@@ -40,29 +49,38 @@ abstract class PluginApiHandler
 
     /**
      * This allows to add a route on the fly without defining an api controller.
+     * Hook: APIHandler::endpoints::submissions
+     * e.g. api/v1/submissions/pidManager/1/igsn
      */
     public function addRoute(string $hookName, PKPBaseController $apiController, APIHandler $apiHandler): bool
     {
         $apiHandler->addRoute(
             'POST',
-            str_replace('{fieldName}', $this->fieldName, Constants::apiRoute),
+            "pidManager/{publication_id}/$this->fieldName",
             function (IlluminateRequest $illuminateRequest): JsonResponse {
-                return $this->execute($illuminateRequest);
+                return $this->edit($illuminateRequest);
             },
             'pidManager.edit.' . $this->fieldName,
-            [
-                Role::ROLE_ID_SITE_ADMIN,
-                Role::ROLE_ID_MANAGER,
-                Role::ROLE_ID_SUB_EDITOR,
-                Role::ROLE_ID_ASSISTANT,
-                Role::ROLE_ID_AUTHOR,
-            ]
+            $this->allowedRoles
+        );
+
+        $apiHandler->addRoute(
+            'POST',
+            "pidManager/{publication_id}/$this->fieldName/parseCsv",
+            function (IlluminateRequest $illuminateRequest): JsonResponse {
+                return $this->parseCsv($illuminateRequest);
+            },
+            'pidManager.parseCsv.' . $this->fieldName,
+            $this->allowedRoles
         );
 
         return Hook::CONTINUE;
     }
 
-    private function execute(IlluminateRequest $illuminateRequest): JsonResponse
+    /**
+     * Edit pids of a publication.
+     */
+    private function edit(IlluminateRequest $illuminateRequest): JsonResponse
     {
         $publication = Repo::publication()->get((int)$illuminateRequest->route('publication_id'));
         $params = $illuminateRequest->input();
@@ -79,7 +97,7 @@ abstract class PluginApiHandler
             ], Response::HTTP_NOT_ACCEPTABLE);
         }
 
-        if($publication->getData('status') === Submission::STATUS_PUBLISHED){
+        if ($publication->getData('status') === Submission::STATUS_PUBLISHED) {
             return response()->json([
                 'error' => __('common.error'),
             ], Response::HTTP_NOT_ACCEPTABLE);
@@ -92,6 +110,73 @@ abstract class PluginApiHandler
 
         return response()->json(
             $publication->_data,
-            Response::HTTP_OK);
+            Response::HTTP_OK
+        );
+    }
+
+    /**
+     * Parse pids from a csv string add to existing pids.
+     */
+    private function parseCsv(IlluminateRequest $illuminateRequest): JsonResponse
+    {
+        $publication = Repo::publication()->get((int)$illuminateRequest->route('publication_id'));
+        $params = $illuminateRequest->input();
+
+        if (!$publication) {
+            return response()->json([
+                'error' => __('api.404.resourceNotFound'),
+            ], Response::HTTP_NOT_FOUND);
+        }
+
+        if (!is_array($params)) {
+            return response()->json([
+                'error' => __('common.error'),
+            ], Response::HTTP_NOT_ACCEPTABLE);
+        }
+
+        if ($publication->getData('status') === Submission::STATUS_PUBLISHED) {
+            return response()->json([
+                'error' => __('common.error'),
+            ], Response::HTTP_NOT_ACCEPTABLE);
+        }
+
+        $csvString = (string)$illuminateRequest->input('csvString');
+        $csvLines = explode("\n", $csvString);
+        $currentPids = PluginRepo::getPidsByPublication($publication, $this->fieldName, $this->dataModel);
+
+        $rejected = '';
+        $properties = get_class_vars(get_class(new $this->dataModel()));
+        $modelPropCount = count($properties);
+
+        foreach ($csvLines as $csvLine) {
+            $csvLine = trim($csvLine);
+            if(empty($csvLine)) {
+                continue;
+            }
+            $csvLineParsed = str_getcsv($csvLine);
+            if (count($csvLineParsed) === $modelPropCount) {
+                $index = 0;
+                $item = new $this->dataModel();
+                foreach ($properties as $key => $value) {
+                    $item->$key = trim($csvLineParsed[$index]);
+                    $index++;
+                }
+                if (str_contains(strtolower(json_encode($currentPids)), strtolower(json_encode($item)))) {
+                    $rejected .= $csvLine . PHP_EOL;
+                } else {
+                    $currentPids[] = $item;
+                }
+            } else {
+                $rejected .= $csvLine . PHP_EOL;
+            }
+        }
+
+        $publication->setData($this->fieldName, json_encode($currentPids));
+        Repo::publication()->edit($publication, []);
+
+        return response()->json([
+            'data' => $currentPids,
+            'rejected' => $rejected
+        ], Response::HTTP_OK);
     }
 }
