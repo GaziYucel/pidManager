@@ -13,8 +13,6 @@
 
 namespace APP\plugins\generic\pidManager;
 
-define('PID_MANAGER_PLUGIN_NAME', basename(__FILE__, '.php'));
-
 use APP\core\Application;
 use APP\core\Request;
 use APP\plugins\generic\pidManager\classes\Constants;
@@ -113,17 +111,23 @@ class PidManagerPlugin extends GenericPlugin
 
     protected function addStyleSheet(Request $request, TemplateManager $templateMgr): void
     {
-        $templateMgr->addStyleSheet("pidManagerStylesBackend",
-            "{$request->getBaseUrl()}/{$this->getPluginPath()}/assets/css/backend.css", [
+        $templateMgr->addStyleSheet(
+            "pidManagerStylesBackend",
+            "{$request->getBaseUrl()}/{$this->getPluginPath()}/assets/css/backend.css",
+            [
                 'inline' => false,
                 'contexts' => ['backend']
-            ]);
+            ]
+        );
 
-        $templateMgr->addStyleSheet("pidManagerStylesFrontend",
-            "{$request->getBaseUrl()}/{$this->getPluginPath()}/assets/css/frontend.css", [
+        $templateMgr->addStyleSheet(
+            "pidManagerStylesFrontend",
+            "{$request->getBaseUrl()}/{$this->getPluginPath()}/assets/css/frontend.css",
+            [
                 'inline' => false,
                 'contexts' => ['frontend']
-            ]);
+            ]
+        );
     }
 }
 

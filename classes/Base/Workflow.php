@@ -65,7 +65,6 @@ abstract class Workflow
         $templateMgr->assign('state', $state);
 
         $templateParameters = [
-            'pidName' => $this->fieldName,
             'dataModel' => json_encode(get_class_vars(get_class($this->dataModel))),
             'apiBaseUrl' => $apiBaseUrl,
             'items' => json_encode(PluginRepo::getPidsByPublication($publication, $this->fieldName, $this->dataModel))
