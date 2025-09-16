@@ -46,6 +46,10 @@ PID Manager for OJS
 
 ![screenrecording.gif](.project/screenrecordings/screenrecording.gif)
 
+| IGSN                                                             | PIDINST                                                                |
+|------------------------------------------------------------------|------------------------------------------------------------------------|
+| ![igsn-screenshot.png](.project/screenshots/igsn-screenshot.png) | ![pidinst-screenshot.png](.project/screenshots/pidinst-screenshot.png) |
+
 # Install and configure the plugin
 
 ## Requirements
