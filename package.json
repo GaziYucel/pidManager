@@ -1,0 +1,7 @@
+{
+  "name": "pidmanagerplugin",
+  "description": "OJS plugin which manages PIDs and deposits to external open access data services",
+  "version": "3.6.0",
+  "author": "Gazi Yucel",
+  "license": "GPL-3.0"
+}

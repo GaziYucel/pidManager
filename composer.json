@@ -1,0 +1,28 @@
+{
+  "name": "ojs/pidmanagerplugin",
+  "description": "OJS plugin which manages PIDs and deposits to external open access data services",
+  "version": "3.6.0",
+  "type": "project",
+  "license": "GPL-3.0",
+  "authors": [
+    {
+      "name": "GaziYucel",
+      "email": "GaziYucel@users.noreply.github.com"
+    }
+  ],
+  "keywords": [
+    "ojs",
+    "pidmanager",
+    "pids",
+    "persistent identifiers",
+    "metadata",
+    "research",
+    "communication",
+    "open",
+    "science"
+  ],
+  "minimum-stability": "stable",
+  "require": {
+    "php": ">=8.0"
+  }
+}
