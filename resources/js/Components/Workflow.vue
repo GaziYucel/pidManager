@@ -6,9 +6,7 @@
     {{ t('publication.editorEditWarning') }}
   </div>
   <div>
-    {{ t('plugins.generic.pidManager.' + pidName + '.generalDescription') }}
-    <br />
-    <br />
+    {{ t('plugins.generic.pidManager.' + pidName + '.generalDescription') }}<br/><br/>
     {{ t('plugins.generic.pidManager.' + pidName + '.workflow.instructions') }}
   </div>
 
@@ -18,11 +16,11 @@
       {{
         t('plugins.generic.pidManager.' + pidName + '.workflow.addFromCsv.instructions',
           {add: t('plugins.generic.pidManager.' + pidName + '.addFromCsv.button')})
-      }}<br /><br />
+      }}<br/><br/>
     </div>
     <div>
       <textarea class="pkpFormField__input pkpFormField--textarea__input" v-model="csvString"></textarea>
-      <br />
+      <br/>
     </div>
     <div>
       <PkpButton :is-required="true" :is-disabled="disableActions" @click="handleCsvString">
@@ -60,30 +58,18 @@
   <div>
     <table class="pkpTable w-full">
       <tr>
-        <th>
-          {{ t('plugins.generic.pidManager.' + pidName + '.workflow.table.pid') }}
-        </th>
-        <th>
-          {{ t('plugins.generic.pidManager.' + pidName + '.workflow.table.title') }}
-        </th>
+        <th>{{ t('plugins.generic.pidManager.' + pidName + '.workflow.table.pid') }}</th>
+        <th>{{ t('plugins.generic.pidManager.' + pidName + '.workflow.table.title') }}</th>
         <th>&nbsp;</th>
       </tr>
       <tr>
         <td>
-          <input
-            v-model="searchPhraseDoi"
-            type="text"
-            class="pkpFormField__input w-full"
-            :placeholder="t('plugins.generic.pidManager.' + pidName + '.datacite.searchPhraseDoi.placeholder')"
-          />
+          <input v-model="searchPhraseDoi" type="text" class="pkpFormField__input w-full"
+								 :placeholder="t('plugins.generic.pidManager.' + pidName + '.datacite.searchPhraseDoi.placeholder')"/>
         </td>
         <td>
-          <input
-            v-model="searchPhraseTitle"
-            type="text"
-            class="pkpFormField__input w-full"
-            :placeholder="t('plugins.generic.pidManager.' + pidName + '.datacite.searchPhraseTitle.placeholder')"
-          />
+          <input v-model="searchPhraseTitle" type="text" class="pkpFormField__input w-full"
+								 :placeholder="t('plugins.generic.pidManager.' + pidName + '.datacite.searchPhraseTitle.placeholder')"/>
         </td>
         <td class="w-42px">
           <PkpButton v-if="!panelVisibility" @click="apiLookup" class="actionButton" :is-disabled="disableActions">
@@ -117,7 +103,7 @@
                 <a @click="select(j)" :class="{disabled: row.exists}" class="block cursor-pointer">
                   <span>
                     <span v-if="row.creators">{{ row.creators }}</span>
-                    <span v-if="row.publicationYear">({{ row.publicationYear }}).</span>
+                    <span v-if="row.publicationYear"> ({{ row.publicationYear }}).</span>
                     <span v-if="row.label"><em>{{ row.label }}</em>.</span>
                     <span v-if="row.publisher">{{ row.publisher }}.</span>
                     <span v-if="row.doi">{{ row.doi }}</span>
@@ -134,9 +120,8 @@
   <!-- items -->
   <div>
     <PkpSearch
-      :search-label="t('plugins.generic.pidManager.' + pidName + '.filter.placeholder')"
-      @search-phrase-changed="(...args) => setItemsFilterPhrase(...args)"
-    />
+			:search-label="t('plugins.generic.pidManager.' + pidName + '.filter.placeholder')"
+			@search-phrase-changed="(...args) => setItemsFilterPhrase(...args)"/>
   </div>
   <table class="pkpTable w-full">
     <tr>
@@ -144,7 +129,7 @@
       <th>{{ t('plugins.generic.pidManager.' + pidName + '.workflow.table.title') }}</th>
       <th>{{ t('plugins.generic.pidManager.' + pidName + '.workflow.table.creators') }}</th>
       <th>{{ t('plugins.generic.pidManager.' + pidName + '.workflow.table.publisher') }}</th>
-      <th class="w-5rem">        {{ t('plugins.generic.pidManager.' + pidName + '.workflow.table.publicationYear') }}</th>
+      <th class="w-5rem">{{ t('plugins.generic.pidManager.' + pidName + '.workflow.table.publicationYear') }}</th>
       <th class="center w-42px">&nbsp;</th>
     </tr>
     <template v-for="(item, i) in itemsFiltered" :key="i">
@@ -178,11 +163,11 @@
     <span role="status" aria-live="polite" aria-atomic="true">
       <transition name="pkpFormPage__status">
         <span v-if="isSaving" class="pkpFormPage__status">
-          <Spinner />
+          <Spinner/>
           {{ t('common.saving') }}
         </span>
         <span v-else-if="hasRecentSave" class="pkpFormPage__status">
-          <Icon icon="Complete" class="text-success h-5 w-5" :inline="true" />
+          <Icon icon="Complete" class="text-success h-5 w-5" :inline="true"/>
           {{ t('form.saved') }}
         </span>
       </transition>
