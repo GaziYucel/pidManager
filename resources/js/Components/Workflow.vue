@@ -16,86 +16,34 @@
 	<div>
 		<div>
 			{{
-				t(
-					'plugins.generic.pidManager.' +
-						pidName +
-						'.workflow.addFromCsv.instructions',
-					{
-						add: t(
-							'plugins.generic.pidManager.' + pidName + '.addFromCsv.button',
-						),
-					},
-				)
-			}}
-			<br />
+				t('plugins.generic.pidManager.' + pidName + '.workflow.addFromCsv.instructions',
+					{add: t('plugins.generic.pidManager.' + pidName + '.addFromCsv.button')})
+			}}<br /><br />
+		</div>
+		<div>
+			<textarea class="pkpFormField__input pkpFormField--textarea__input" v-model="csvString"></textarea>
 			<br />
 		</div>
 		<div>
-			<textarea
-				class="pkpFormField__input pkpFormField--textarea__input"
-				v-model="csvString"
-			></textarea>
-			<br />
-		</div>
-		<div>
-			<PkpButton
-				:is-required="true"
-				@click="handleCsvString"
-				:is-disabled="disableActions"
-			>
+			<PkpButton :is-required="true" :is-disabled="disableActions" @click="handleCsvString">
 				{{ t('plugins.generic.pidManager.' + pidName + '.addFromCsv.button') }}
 			</PkpButton>
-			<span
-				v-if="csvStringStatusMessage === 'success'"
-				class="ml-1rem text-success items-center py-2"
-			>
-				<Icon
-					:icon="'Complete'"
-					:class="'inline-block h-auto w-6 align-middle'"
-					:inline="true"
-				/>
+			<span v-if="csvStringStatusMessage === 'success'" class="ml-1rem text-success items-center py-2">
+				<Icon :icon="'Complete'" :class="'inline-block h-auto w-6 align-middle'" :inline="true"/>
 				<span class="align-middle font-normal">
-					{{
-						t('plugins.generic.pidManager.' + pidName + '.addFromCsv.success')
-					}}
+					{{ t('plugins.generic.pidManager.' + pidName + '.addFromCsv.success') }}
 				</span>
 			</span>
-			<span
-				v-if="csvStringStatusMessage === 'partial'"
-				class="ml-1rem text-attention items-center py-2"
-			>
-				<Icon
-					:icon="'InProgress'"
-					:class="'inline-block h-auto w-6 align-middle'"
-					:inline="true"
-				/>
+			<span v-if="csvStringStatusMessage === 'partial'" class="ml-1rem text-attention items-center py-2">
+				<Icon :icon="'InProgress'" :class="'inline-block h-auto w-6 align-middle'" :inline="true"/>
 				<span class="align-middle font-normal">
-					{{
-						t(
-							'plugins.generic.pidManager.' +
-								pidName +
-								'.addFromCsv.partialSuccess',
-						)
-					}}
+					{{ t('plugins.generic.pidManager.' + pidName + '.addFromCsv.partialSuccess') }}
 				</span>
 			</span>
-			<span
-				v-if="csvStringStatusMessage === 'empty'"
-				class="ml-1rem items-center py-2"
-			>
-				<Icon
-					:icon="'Declined'"
-					:class="'inline-block h-auto w-6 align-middle'"
-					:inline="true"
-				/>
+			<span v-if="csvStringStatusMessage === 'empty'" class="ml-1rem items-center py-2" >
+				<Icon :icon="'Declined'" :class="'inline-block h-auto w-6 align-middle'" :inline="true"/>
 				<span class="align-middle font-normal">
-					{{
-						t(
-							'plugins.generic.pidManager.' +
-								pidName +
-								'.addFromCsv.inputEmpty',
-						)
-					}}
+					{{ t('plugins.generic.pidManager.' +  pidName +  '.addFromCsv.inputEmpty') }}
 				</span>
 			</span>
 		</div>
@@ -103,11 +51,7 @@
 
 	<!-- delete all items -->
 	<div>
-		<PkpButton
-			:is-link="true"
-			:is-disabled="disableActions"
-			@click="deleteAllPids"
-		>
+		<PkpButton :is-link="true" :is-disabled="disableActions" @click="deleteAllPids">
 			{{ t('plugins.generic.pidManager.' + pidName + '.deleteAllLink') }}
 		</PkpButton>
 	</div>
@@ -117,14 +61,10 @@
 		<table class="pkpTable w-full">
 			<tr>
 				<th>
-					{{
-						t('plugins.generic.pidManager.' + pidName + '.workflow.table.pid')
-					}}
+					{{ t('plugins.generic.pidManager.' + pidName + '.workflow.table.pid') }}
 				</th>
 				<th>
-					{{
-						t('plugins.generic.pidManager.' + pidName + '.workflow.table.title')
-					}}
+					{{ t('plugins.generic.pidManager.' + pidName + '.workflow.table.title') }}
 				</th>
 				<th>&nbsp;</th>
 			</tr>
@@ -134,13 +74,7 @@
 						v-model="searchPhraseDoi"
 						type="text"
 						class="pkpFormField__input w-full"
-						:placeholder="
-							t(
-								'plugins.generic.pidManager.' +
-									pidName +
-									'.datacite.searchPhraseDoi.placeholder',
-							)
-						"
+						:placeholder="t('plugins.generic.pidManager.' + pidName + '.datacite.searchPhraseDoi.placeholder')"
 					/>
 				</td>
 				<td>
@@ -148,30 +82,14 @@
 						v-model="searchPhraseTitle"
 						type="text"
 						class="pkpFormField__input w-full"
-						:placeholder="
-							t(
-								'plugins.generic.pidManager.' +
-									pidName +
-									'.datacite.searchPhraseTitle.placeholder',
-							)
-						"
+						:placeholder="t('plugins.generic.pidManager.' + pidName + '.datacite.searchPhraseTitle.placeholder')"
 					/>
 				</td>
 				<td class="w-42px">
-					<PkpButton
-						v-if="!panelVisibility"
-						@click="apiLookup"
-						class="actionButton"
-						:is-disabled="disableActions"
-					>
+					<PkpButton v-if="!panelVisibility" @click="apiLookup" class="actionButton" :is-disabled="disableActions">
 						<i class="fa fa-search" aria-hidden="true"></i>
 					</PkpButton>
-					<PkpButton
-						v-if="panelVisibility"
-						@click="clearSearch"
-						class="actionButton"
-						:is-disabled="disableActions"
-					>
+					<PkpButton v-if="panelVisibility" @click="clearSearch" class="actionButton" :is-disabled="disableActions">
 						<i class="fa fa-times" aria-hidden="true"></i>
 					</PkpButton>
 				</td>
@@ -191,20 +109,12 @@
 					<template v-for="(row, j) in searchResults" :key="row.doi">
 						<tr>
 							<td class="p-0">
-								<a
-									:href="'https://doi.org/' + row.doi"
-									class="block cursor-pointer"
-									target="_blank"
-								>
+								<a :href="'https://doi.org/' + row.doi" class="block cursor-pointer" target="_blank">
 									<i class="fa fa-external-link"></i>
 								</a>
 							</td>
 							<td class="p-0">
-								<a
-									@click="select(j)"
-									:class="{disabled: row.exists}"
-									class="block cursor-pointer"
-								>
+								<a @click="select(j)" :class="{disabled: row.exists}" class="block cursor-pointer">
 									<span>
 										<span v-if="row.creators">{{ row.creators }}</span>
 										<span v-if="row.publicationYear">
@@ -229,9 +139,7 @@
 	<!-- items -->
 	<div>
 		<PkpSearch
-			:search-label="
-				t('plugins.generic.pidManager.' + pidName + '.filter.placeholder')
-			"
+			:search-label="t('plugins.generic.pidManager.' + pidName + '.filter.placeholder')"
 			@search-phrase-changed="(...args) => setItemsFilterPhrase(...args)"
 		/>
 	</div>
@@ -241,82 +149,38 @@
 				{{ t('plugins.generic.pidManager.' + pidName + '.workflow.table.pid') }}
 			</th>
 			<th>
-				{{
-					t('plugins.generic.pidManager.' + pidName + '.workflow.table.title')
-				}}
+				{{ t('plugins.generic.pidManager.' + pidName + '.workflow.table.title') }}
 			</th>
 			<th>
-				{{
-					t(
-						'plugins.generic.pidManager.' +
-							pidName +
-							'.workflow.table.creators',
-					)
-				}}
+				{{ t('plugins.generic.pidManager.' + pidName + '.workflow.table.creators') }}
 			</th>
 			<th>
-				{{
-					t(
-						'plugins.generic.pidManager.' +
-							pidName +
-							'.workflow.table.publisher',
-					)
-				}}
+				{{ t('plugins.generic.pidManager.' + pidName + '.workflow.table.publisher') }}
 			</th>
 			<th class="w-5rem">
-				{{
-					t(
-						'plugins.generic.pidManager.' +
-							pidName +
-							'.workflow.table.publicationYear',
-					)
-				}}
+				{{ t('plugins.generic.pidManager.' + pidName + '.workflow.table.publicationYear') }}
 			</th>
 			<th class="center w-42px">&nbsp;</th>
 		</tr>
 		<template v-for="(item, i) in itemsFiltered" :key="i">
 			<tr>
 				<td>
-					<input
-						v-model="item.doi"
-						type="text"
-						class="pkpFormField__input w-full"
-					/>
+					<input v-model="item.doi" type="text" class="pkpFormField__input w-full"/>
 				</td>
 				<td>
-					<input
-						v-model="item.label"
-						type="text"
-						class="pkpFormField__input w-full"
-					/>
+					<input v-model="item.label" type="text" class="pkpFormField__input w-full"/>
 				</td>
 				<td>
-					<input
-						v-model="item.creators"
-						type="text"
-						class="pkpFormField__input w-full"
-					/>
+					<input v-model="item.creators" type="text" class="pkpFormField__input w-full"/>
 				</td>
 				<td>
-					<input
-						v-model="item.publisher"
-						type="text"
-						class="pkpFormField__input w-full"
-					/>
+					<input v-model="item.publisher" type="text" class="pkpFormField__input w-full"/>
 				</td>
 				<td class="w-5rem">
-					<input
-						v-model="item.publicationYear"
-						type="text"
-						class="pkpFormField__input w-full"
-					/>
+					<input v-model="item.publicationYear" type="text" class="pkpFormField__input w-full"/>
 				</td>
 				<td class="center w-42px">
-					<PkpButton
-						@click="remove(i)"
-						class="actionButton"
-						:is-disabled="disableActions"
-					>
+					<PkpButton @click="remove(i)" class="actionButton" :is-disabled="disableActions">
 						<i class="fa fa-trash" aria-hidden="true"></i>
 					</PkpButton>
 				</td>
