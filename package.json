@@ -9,7 +9,7 @@
     "build:pidinst": "vite build --emptyOutDir false --config vite.config.pidinst.js",
     "devIgsn": "vite build --watch --mode development --emptyOutDir false --config vite.config.igsn.js",
     "devPidinst": "vite build --watch --mode development --emptyOutDir false --config vite.config.pidinst.js",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
   },
   "author": "Gazi Yucel",
   "license": "GPL-3",

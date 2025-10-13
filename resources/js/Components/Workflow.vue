@@ -216,11 +216,7 @@ const props = defineProps({
 });
 const {publication, pidName, dataModel, apiUrlDataCite} = props;
 const items = ref([]);
-const apiUrl = computed(
-	() =>
-		pkp.context.apiBaseUrl +
-		`submissions/pidManager/${publication.value.id}/${pidName}`,
-);
+const apiUrl = computed(() => pkp.context.apiBaseUrl + `submissions/pidManager/${publication.value.id}/${pidName}`);
 const canEditRoles = [
 	pkp.const.ROLE_ID_ASSISTANT, // 4097
 	// pkp.const.ROLE_ID_AUTHOR, // 65536
@@ -231,18 +227,9 @@ const canEditRoles = [
 	// pkp.const.ROLE_ID_SUBSCRIPTION_MANAGER, // 2097152
 	pkp.const.ROLE_ID_SUB_EDITOR, // 17
 ];
-const isPublished = computed(
-	() => pkp.const.STATUS_PUBLISHED === publication.value.status,
-);
-const userCanEdit = computed(() =>
-	canEditRoles.some((item) => pkp.currentUser.roles.includes(item)),
-);
-const disableActions = computed(
-	() =>
-		isPublished.value ||
-		!userCanEdit.value ||
-		(isPublished.value && userCanEdit.value),
-);
+const isPublished = computed(() => pkp.const.STATUS_PUBLISHED === publication.value.status);
+const userCanEdit = computed(() =>	canEditRoles.some((item) => pkp.currentUser.roles.includes(item)));
+const disableActions = computed(() => isPublished.value || !userCanEdit.value || (isPublished.value && userCanEdit.value));
 
 /* Add from csv */
 const csvString = ref('');
@@ -285,12 +272,8 @@ const handleCsvString = async () => {
 function deleteAllPids() {
 	openDialog({
 		name: 'deleteAllPids',
-		title: t(
-			'plugins.generic.pidManager.' + pidName + '.deleteAllDialog.title',
-		),
-		message: t(
-			'plugins.generic.pidManager.' + pidName + '.deleteAllDialog.description',
-		),
+		title: t('plugins.generic.pidManager.' + pidName + '.deleteAllDialog.title'),
+		message: t('plugins.generic.pidManager.' + pidName + '.deleteAllDialog.description'),
 		modalStyle: 'negative',
 		actions: [
 			{
@@ -503,7 +486,6 @@ onMounted(() => {
 /*
 // This is needed for extracting localised texts by the plugin i18nExtractKeys
 const localeKeys = [
-  t("common.delete"),
   t("common.no"),
   t("common.save"),
   t('plugins.generic.pidManager.displayName'),
