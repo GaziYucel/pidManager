@@ -117,13 +117,8 @@
 								<a @click="select(j)" :class="{disabled: row.exists}" class="block cursor-pointer">
 									<span>
 										<span v-if="row.creators">{{ row.creators }}</span>
-										<span v-if="row.publicationYear">
-											({{ row.publicationYear }}).
-										</span>
-										<span v-if="row.label">
-											<em>{{ row.label }}</em>
-											.
-										</span>
+										<span v-if="row.publicationYear">({{ row.publicationYear }}).</span>
+										<span v-if="row.label"><em>{{ row.label }}</em>.</span>
 										<span v-if="row.publisher">{{ row.publisher }}.</span>
 										<span v-if="row.doi">{{ row.doi }}</span>
 									</span>
@@ -145,40 +140,20 @@
 	</div>
 	<table class="pkpTable w-full">
 		<tr>
-			<th>
-				{{ t('plugins.generic.pidManager.' + pidName + '.workflow.table.pid') }}
-			</th>
-			<th>
-				{{ t('plugins.generic.pidManager.' + pidName + '.workflow.table.title') }}
-			</th>
-			<th>
-				{{ t('plugins.generic.pidManager.' + pidName + '.workflow.table.creators') }}
-			</th>
-			<th>
-				{{ t('plugins.generic.pidManager.' + pidName + '.workflow.table.publisher') }}
-			</th>
-			<th class="w-5rem">
-				{{ t('plugins.generic.pidManager.' + pidName + '.workflow.table.publicationYear') }}
-			</th>
+			<th>{{ t('plugins.generic.pidManager.' + pidName + '.workflow.table.pid') }}</th>
+			<th>{{ t('plugins.generic.pidManager.' + pidName + '.workflow.table.title') }}</th>
+			<th>{{ t('plugins.generic.pidManager.' + pidName + '.workflow.table.creators') }}</th>
+			<th>{{ t('plugins.generic.pidManager.' + pidName + '.workflow.table.publisher') }}</th>
+			<th class="w-5rem">				{{ t('plugins.generic.pidManager.' + pidName + '.workflow.table.publicationYear') }}</th>
 			<th class="center w-42px">&nbsp;</th>
 		</tr>
 		<template v-for="(item, i) in itemsFiltered" :key="i">
 			<tr>
-				<td>
-					<input v-model="item.doi" type="text" class="pkpFormField__input w-full"/>
-				</td>
-				<td>
-					<input v-model="item.label" type="text" class="pkpFormField__input w-full"/>
-				</td>
-				<td>
-					<input v-model="item.creators" type="text" class="pkpFormField__input w-full"/>
-				</td>
-				<td>
-					<input v-model="item.publisher" type="text" class="pkpFormField__input w-full"/>
-				</td>
-				<td class="w-5rem">
-					<input v-model="item.publicationYear" type="text" class="pkpFormField__input w-full"/>
-				</td>
+				<td><input v-model="item.doi" type="text" class="pkpFormField__input w-full"/></td>
+				<td><input v-model="item.label" type="text" class="pkpFormField__input w-full"/></td>
+				<td><input v-model="item.creators" type="text" class="pkpFormField__input w-full"/></td>
+				<td><input v-model="item.publisher" type="text" class="pkpFormField__input w-full"/></td>
+				<td class="w-5rem"><input v-model="item.publicationYear" type="text" class="pkpFormField__input w-full"/></td>
 				<td class="center w-42px">
 					<PkpButton @click="remove(i)" class="actionButton" :is-disabled="disableActions">
 						<i class="fa fa-trash" aria-hidden="true"></i>
