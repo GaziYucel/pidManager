@@ -94,13 +94,13 @@ abstract class PluginApiHandler
         if (!is_array($params)) {
             return response()->json([
                 'error' => __('common.error'),
-            ], Response::HTTP_NOT_ACCEPTABLE);
+            ], Response::HTTP_BAD_REQUEST);
         }
 
         if ($publication->getData('status') === Submission::STATUS_PUBLISHED) {
             return response()->json([
                 'error' => __('common.error'),
-            ], Response::HTTP_NOT_ACCEPTABLE);
+            ], Response::HTTP_FORBIDDEN);
         }
 
         $publication->setData($this->fieldName, json_encode($params));
