@@ -65,11 +65,11 @@
       <tr>
         <td>
           <input v-model="searchPhraseDoi" type="text" class="pkpFormField__input w-full"
-								 :placeholder="t('plugins.generic.pidManager.' + pidName + '.datacite.searchPhraseDoi.placeholder')"/>
+                 :placeholder="t('plugins.generic.pidManager.' + pidName + '.datacite.searchPhraseDoi.placeholder')"/>
         </td>
         <td>
           <input v-model="searchPhraseTitle" type="text" class="pkpFormField__input w-full"
-								 :placeholder="t('plugins.generic.pidManager.' + pidName + '.datacite.searchPhraseTitle.placeholder')"/>
+                 :placeholder="t('plugins.generic.pidManager.' + pidName + '.datacite.searchPhraseTitle.placeholder')"/>
         </td>
         <td class="w-42px">
           <PkpButton v-if="!panelVisibility" @click="apiLookup" class="actionButton" :is-disabled="disableActions">
@@ -120,8 +120,8 @@
   <!-- items -->
   <div>
     <PkpSearch
-			:search-label="t('plugins.generic.pidManager.' + pidName + '.filter.placeholder')"
-			@search-phrase-changed="(...args) => setItemsFilterPhrase(...args)"/>
+      :search-label="t('plugins.generic.pidManager.' + pidName + '.filter.placeholder')"
+      @search-phrase-changed="(...args) => setItemsFilterPhrase(...args)"/>
   </div>
   <table class="pkpTable w-full">
     <tr>
