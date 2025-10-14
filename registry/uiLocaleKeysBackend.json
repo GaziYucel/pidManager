@@ -1,7 +1,8 @@
 [
+  "common.cancel",
   "common.clearSearch",
-  "common.delete",
   "common.no",
+  "common.ok",
   "common.save",
   "common.saving",
   "common.search",
@@ -70,5 +71,6 @@
   "plugins.generic.pidManager.pidinst.workflow.table.publisher",
   "plugins.generic.pidManager.pidinst.workflow.table.title",
   "plugins.generic.pidManager.settings.description",
-  "plugins.generic.pidManager.settings.title"
+  "plugins.generic.pidManager.settings.title",
+  "publication.editorEditWarning"
 ]

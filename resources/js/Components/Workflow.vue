@@ -1,4 +1,10 @@
 <template>
+  <div
+    class="bg bg-attention text-base-normal text-on-dark -mx-5 -mt-5 p-5 text-center"
+    :class="isPublished && userCanEdit ? '' : 'hide'"
+  >
+    {{ t('publication.editorEditWarning') }}
+  </div>
   <div>
     {{ t('plugins.generic.pidManager.' + pidName + '.generalDescription') }}<br/><br/>
     {{ t('plugins.generic.pidManager.' + pidName + '.workflow.instructions') }}
@@ -9,47 +15,47 @@
     <div>
       {{
         t('plugins.generic.pidManager.' + pidName + '.workflow.addFromCsv.instructions',
-            {add: t('plugins.generic.pidManager.' + pidName + '.addFromCsv.button')})
+          {add: t('plugins.generic.pidManager.' + pidName + '.addFromCsv.button')})
       }}<br/><br/>
     </div>
     <div>
-      <textarea class="pkpFormField__input pkpFormField--textarea__input !h-[9em]" v-model="csvString"></textarea>
+      <textarea class="pkpFormField__input pkpFormField--textarea__input" v-model="csvString"></textarea>
+      <br/>
     </div>
     <div>
-      <PkpButton class="my-2" :is-required="true" @click="handleCsvString">
+      <PkpButton :is-required="true" :is-disabled="disableActions" @click="handleCsvString">
         {{ t('plugins.generic.pidManager.' + pidName + '.addFromCsv.button') }}
       </PkpButton>
-      <span v-if="csvStringStatusMessage === 'success'" class="items-center py-[0.5rem] ml-1rem text-success">
+      <span v-if="csvStringStatusMessage === 'success'" class="ml-1rem text-success items-center py-2">
         <Icon :icon="'Complete'" :class="'inline-block h-auto w-6 align-middle'" :inline="true"/>
         <span class="align-middle font-normal">
           {{ t('plugins.generic.pidManager.' + pidName + '.addFromCsv.success') }}
         </span>
       </span>
-      <span v-if="csvStringStatusMessage === 'partial'" class="items-center py-[0.5rem] ml-1rem text-attention">
+      <span v-if="csvStringStatusMessage === 'partial'" class="ml-1rem text-attention items-center py-2">
         <Icon :icon="'InProgress'" :class="'inline-block h-auto w-6 align-middle'" :inline="true"/>
         <span class="align-middle font-normal">
           {{ t('plugins.generic.pidManager.' + pidName + '.addFromCsv.partialSuccess') }}
         </span>
       </span>
-      <span v-if="csvStringStatusMessage === 'empty'" class="items-center py-[0.5rem] ml-1rem">
+      <span v-if="csvStringStatusMessage === 'empty'" class="ml-1rem items-center py-2" >
         <Icon :icon="'Declined'" :class="'inline-block h-auto w-6 align-middle'" :inline="true"/>
         <span class="align-middle font-normal">
-          {{ t('plugins.generic.pidManager.' + pidName + '.addFromCsv.inputEmpty') }}
+          {{ t('plugins.generic.pidManager.' +  pidName +  '.addFromCsv.inputEmpty') }}
         </span>
       </span>
-
     </div>
   </div>
 
   <!-- delete all items -->
   <div>
-    <a class="cursor-pointer text-lg-normal" @click="deleteAllPids">
+    <PkpButton :is-link="true" :is-disabled="disableActions" @click="deleteAllPids">
       {{ t('plugins.generic.pidManager.' + pidName + '.deleteAllLink') }}
-    </a>
+    </PkpButton>
   </div>
 
   <!-- search -->
-  <div :class="{disabled: !canEdit}">
+  <div>
     <table class="pkpTable w-full">
       <tr>
         <th>{{ t('plugins.generic.pidManager.' + pidName + '.workflow.table.pid') }}</th>
@@ -66,10 +72,10 @@
                  :placeholder="t('plugins.generic.pidManager.' + pidName + '.datacite.searchPhraseTitle.placeholder')"/>
         </td>
         <td class="w-42px">
-          <PkpButton v-if="!panelVisibility" @click="apiLookup" class="actionButton">
+          <PkpButton v-if="!panelVisibility" @click="apiLookup" class="actionButton" :is-disabled="disableActions">
             <i class="fa fa-search" aria-hidden="true"></i>
           </PkpButton>
-          <PkpButton v-if="panelVisibility" @click="clearSearch" class="actionButton">
+          <PkpButton v-if="panelVisibility" @click="clearSearch" class="actionButton" :is-disabled="disableActions">
             <i class="fa fa-times" aria-hidden="true"></i>
           </PkpButton>
         </td>
@@ -77,12 +83,12 @@
     </table>
     <div v-if="panelVisibility" class="searchResultsPane">
       <div v-if="panelVisibility === 'noResult'">
-        <span class="center inline-block w-full pt-[60px]">
+        <span class="center inline-block w-full pt-16">
           {{ t('plugins.generic.pidManager.' + pidName + '.datacite.empty') }}
         </span>
       </div>
       <div v-else-if="panelVisibility === 'loading'">
-        <span class="pkpSpinner center inline-block w-full pt-60px"></span>
+        <span class="pkpSpinner center pt-60px inline-block w-full"></span>
       </div>
       <div v-else-if="panelVisibility === 'result'">
         <table class="pkpTable w-full">
@@ -114,11 +120,10 @@
   <!-- items -->
   <div>
     <PkpSearch
-        :search-label="t('plugins.generic.pidManager.' + pidName + '.filter.placeholder')"
-        @search-phrase-changed="(...args) => setItemsFilterPhrase(...args)"
-    />
+      :search-label="t('plugins.generic.pidManager.' + pidName + '.filter.placeholder')"
+      @search-phrase-changed="(...args) => setItemsFilterPhrase(...args)"/>
   </div>
-  <table :class="{disabled: !canEdit}" class="pkpTable w-full">
+  <table class="pkpTable w-full">
     <tr>
       <th>{{ t('plugins.generic.pidManager.' + pidName + '.workflow.table.pid') }}</th>
       <th>{{ t('plugins.generic.pidManager.' + pidName + '.workflow.table.title') }}</th>
@@ -135,7 +140,7 @@
         <td><input v-model="item.publisher" type="text" class="pkpFormField__input w-full"/></td>
         <td class="w-5rem"><input v-model="item.publicationYear" type="text" class="pkpFormField__input w-full"/></td>
         <td class="center w-42px">
-          <PkpButton @click="remove(i)" class="actionButton">
+          <PkpButton @click="remove(i)" class="actionButton" :is-disabled="disableActions">
             <i class="fa fa-trash" aria-hidden="true"></i>
           </PkpButton>
         </td>
@@ -147,27 +152,27 @@
       </td>
     </tr>
   </table>
-  <div :class="{disabled: !canEdit}">
-    <PkpButton @click="add">
+  <div>
+    <PkpButton @click="add" :is-disabled="disableActions">
       {{ t('plugins.generic.pidManager.' + pidName + '.button.add') }}
     </PkpButton>
   </div>
 
   <!-- save -->
-  <div :class="{disabled: !canEdit}" class="buttonRow pkpFormPage__footer footer">
+  <div class="buttonRow pkpFormPage__footer footer">
     <span role="status" aria-live="polite" aria-atomic="true">
       <transition name="pkpFormPage__status">
-          <span v-if="isSaving" class="pkpFormPage__status">
-            <Spinner/>
-            {{ t('common.saving') }}
-          </span>
-          <span v-else-if="hasRecentSave" class="pkpFormPage__status">
-            <Icon icon="Complete" class="h-5 w-5 text-success" :inline="true"/>
-            {{ t('form.saved') }}
-          </span>
-        </transition>
-      </span>
-    <PkpButton @click="save">
+        <span v-if="isSaving" class="pkpFormPage__status">
+          <Spinner/>
+          {{ t('common.saving') }}
+        </span>
+        <span v-else-if="hasRecentSave" class="pkpFormPage__status">
+          <Icon icon="Complete" class="text-success h-5 w-5" :inline="true"/>
+          {{ t('form.saved') }}
+        </span>
+      </transition>
+    </span>
+    <PkpButton @click="save" :is-disabled="disableActions">
       {{ t('common.save') }}
     </PkpButton>
   </div>
@@ -176,9 +181,9 @@
 <script setup>
 import {ref, computed, onMounted} from 'vue';
 import PkpButton from '@/components/Button/Button.vue';
-import Icon from "@/components/Icon/Icon.vue";
-import Spinner from "@/components/Spinner/Spinner.vue";
-import PkpSearch from "@/components/Search/Search.vue";
+import Icon from '@/components/Icon/Icon.vue';
+import Spinner from '@/components/Spinner/Spinner.vue';
+import PkpSearch from '@/components/Search/Search.vue';
 
 const {useModal} = pkp.modules.useModal;
 const {useLocalize} = pkp.modules.useLocalize;
@@ -197,7 +202,19 @@ const props = defineProps({
 const {publication, pidName, dataModel, apiUrlDataCite} = props;
 const items = ref([]);
 const apiUrl = computed(() => pkp.context.apiBaseUrl + `submissions/pidManager/${publication.value.id}/${pidName}`);
-const canEdit = computed(() => pkp.const.STATUS_PUBLISHED !== publication.value.status);
+const canEditRoles = [
+  pkp.const.ROLE_ID_ASSISTANT, // 4097
+  // pkp.const.ROLE_ID_AUTHOR, // 65536
+  pkp.const.ROLE_ID_MANAGER, // 16
+  // pkp.const.ROLE_ID_READER, // 1048576
+  pkp.const.ROLE_ID_REVIEWER, // 4096
+  pkp.const.ROLE_ID_SITE_ADMIN, // 1
+  // pkp.const.ROLE_ID_SUBSCRIPTION_MANAGER, // 2097152
+  pkp.const.ROLE_ID_SUB_EDITOR, // 17
+];
+const isPublished = computed(() => pkp.const.STATUS_PUBLISHED === publication.value.status);
+const userCanEdit = computed(() =>  canEditRoles.some((item) => pkp.currentUser.roles.includes(item)));
+const disableActions = computed(() => isPublished.value || !userCanEdit.value || (isPublished.value && userCanEdit.value));
 
 /* Add from csv */
 const csvString = ref('');
@@ -218,7 +235,7 @@ const handleCsvString = async () => {
       'X-Csrf-Token': pkp.currentUser.csrfToken,
     },
     body: {
-      csvString: csvString
+      csvString: csvString,
     },
   });
   await fetch().then(() => {
@@ -234,7 +251,7 @@ const handleCsvString = async () => {
   setTimeout(() => {
     csvStringStatusMessage.value = '';
   }, 5000);
-}
+};
 
 /* Delete all items */
 function deleteAllPids() {
@@ -242,9 +259,10 @@ function deleteAllPids() {
     name: 'deleteAllPids',
     title: t('plugins.generic.pidManager.' + pidName + '.deleteAllDialog.title'),
     message: t('plugins.generic.pidManager.' + pidName + '.deleteAllDialog.description'),
+    modalStyle: 'negative',
     actions: [
       {
-        label: t('common.delete'),
+        label: t('common.ok'),
         isWarnable: true,
         callback: async (close) => {
           items.value = [];
@@ -253,8 +271,8 @@ function deleteAllPids() {
         },
       },
       {
-        label: t('common.no'),
-        isPrimary: true,
+        label: t('common.cancel'),
+        isSecondary: true,
         callback: (close) => {
           close();
         },
@@ -269,20 +287,23 @@ const searchPhraseTitle = ref('');
 const rawSearchResults = ref([]);
 const panelVisibility = ref(''); // '', 'noResult', 'loading', 'result'
 const searchResults = computed(() => {
-  return rawSearchResults.value.map(item => {
+  return rawSearchResults.value.map((item) => {
     return {
       ...dataModel,
       doi: item.id,
       label: item.attributes?.titles?.[0]?.title || '',
       publisher: item.attributes.publisher,
       publicationYear: item.attributes.publicationYear,
-      creators: item.attributes.creators?.map(creator => {
-        if (creator.nameType === 'Personal') {
-          return `${creator.familyName}, ${creator.givenName?.[0]}.`;
-        }
-        return creator.name;
-      }).join(', ') || '',
-      exists: items.value.some(existingItem => existingItem.doi === item.id)
+      creators:
+        item.attributes.creators
+          ?.map((creator) => {
+            if (creator.nameType === 'Personal') {
+              return `${creator.familyName}, ${creator.givenName?.[0]}.`;
+            }
+            return creator.name;
+          })
+          .join(', ') || '',
+      exists: items.value.some((existingItem) => existingItem.doi === item.id),
     };
   });
 });
@@ -300,7 +321,11 @@ const apiLookup = async () => {
     query += ' AND id:' + '*' + doi.replaceAll(' ', '*+*').toLowerCase() + '*';
   }
   if (title.length >= minLength) {
-    query += ' AND titles.title:' + '*' + title.replaceAll(' ', '*+*').toLowerCase() + '*';
+    query +=
+      ' AND titles.title:' +
+      '*' +
+      title.replaceAll(' ', '*+*').toLowerCase() +
+      '*';
   }
 
   panelVisibility.value = 'loading';
@@ -317,7 +342,7 @@ const apiLookup = async () => {
 };
 const select = (index) => {
   const selectedDoi = searchResults.value[index].doi;
-  if (items.value.some(item => item.doi === selectedDoi)) {
+  if (items.value.some((item) => item.doi === selectedDoi)) {
     return;
   }
 
@@ -327,19 +352,16 @@ const select = (index) => {
 const clearSearch = () => {
   rawSearchResults.value = [];
   panelVisibility.value = '';
-}
+};
 
 /* Filtered items and filter phrase */
 const itemsFilterPhrase = ref('');
 const setItemsFilterPhrase = (value) => {
   itemsFilterPhrase.value = value;
-}
+};
 const itemsFiltered = computed(() => {
   if (itemsFilterPhrase.value) {
-    return filterArrayByPhrase(
-        items.value,
-        itemsFilterPhrase.value,
-    );
+    return filterArrayByPhrase(items.value, itemsFilterPhrase.value);
   } else {
     return items.value;
   }
@@ -364,15 +386,15 @@ const containsItemsFilterPhrase = (obj, phrase) => {
   }
 
   return deepSearch(obj);
-}
+};
 const filterArrayByPhrase = (data, phrase) => {
   return data.filter((item) => containsItemsFilterPhrase(item, phrase));
-}
+};
 
 /* Items */
 const add = () => {
   items.value.push(JSON.parse(JSON.stringify(dataModel)));
-}
+};
 const remove = (index) => {
   if (!items.value[index].doi && !items.value[index].label) {
     items.value.splice(index, 1);
@@ -381,10 +403,11 @@ const remove = (index) => {
   openDialog({
     name: 'deletePid',
     title: t('plugins.generic.pidManager.' + pidName + '.remove.confirm'),
+    modalStyle: 'negative',
     message: '',
     actions: [
       {
-        label: t('common.delete'),
+        label: t('common.ok'),
         isWarnable: true,
         callback: async (close) => {
           items.value.splice(index, 1);
@@ -392,15 +415,15 @@ const remove = (index) => {
         },
       },
       {
-        label: t('common.no'),
-        isPrimary: true,
+        label: t('common.cancel'),
+        isSecondary: true,
         callback: (close) => {
           close();
         },
       },
     ],
   });
-}
+};
 
 /* Page */
 const save = async () => {
@@ -411,9 +434,9 @@ const save = async () => {
       'X-Csrf-Token': pkp.currentUser.csrfToken,
     },
     body: JSON.stringify(
-        items.value.filter((item) =>
-            Object.values(item).some((value) => value !== null && value.length > 0)
-        )
+      items.value.filter((item) =>
+        Object.values(item).some((value) => value !== null && value.length > 0),
+      ),
     ),
   });
   isSaving.value = true;
@@ -441,14 +464,13 @@ function dataUpdateCallback() {
 
 onMounted(() => {
   items.value = props.publication.value[pidName]
-      ? JSON.parse(props.publication.value[pidName])
-      : [];
+    ? JSON.parse(props.publication.value[pidName])
+    : [];
 });
 
 /*
 // This is needed for extracting localised texts by the plugin i18nExtractKeys
 const localeKeys = [
-  t("common.delete"),
   t("common.no"),
   t("common.save"),
   t('plugins.generic.pidManager.displayName'),
@@ -528,7 +550,7 @@ const localeKeys = [
   overflow-y: auto;
   position: absolute;
   width: calc(100% - 28rem);
-  box-shadow: 0 .75rem .75rem #0003;
+  box-shadow: 0 0.75rem 0.75rem #0003;
   margin-top: -16px;
   margin-left: 16px;
   z-index: 999;
@@ -587,6 +609,10 @@ const localeKeys = [
 
 .inline-block {
   display: inline-block;
+}
+
+.hide {
+  display: none;
 }
 
 .p-0 {

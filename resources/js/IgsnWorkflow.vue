@@ -19,5 +19,5 @@ const publication = computed(() => props.publication);
 
 const pidName = ref('igsn');
 const dataModel = {doi: '', label: '', creators: '', publisher: '', publicationYear: ''};
-const apiUrlDataCite = ref('https://api.datacite.org/dois?fields[dois]=titles,creators,publisher,publicationYear&query=relatedIdentifiers.relatedIdentifierType:IGSN AND types.resourceTypeGeneral:PhysicalObject');
+const apiUrlDataCite = ref('https://api.datacite.org/dois?fields[dois]=titles,creators,publisher,publicationYear&client-type=igsnCatalog&query=types.resourceTypeGeneral:PhysicalObject');
 </script>
