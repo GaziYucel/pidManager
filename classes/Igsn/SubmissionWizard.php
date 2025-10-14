@@ -21,7 +21,7 @@ use APP\plugins\generic\pidManager\PidManagerPlugin;
 
 class SubmissionWizard extends BaseSubmissionWizard
 {
-    public function __construct(PidManagerPlugin &$plugin)
+    public function __construct(PidManagerPlugin $plugin)
     {
         $this->fieldName = Constants::igsn;
         parent::__construct($plugin);

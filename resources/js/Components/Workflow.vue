@@ -19,11 +19,10 @@
       }}<br/><br/>
     </div>
     <div>
-      <textarea class="pkpFormField__input pkpFormField--textarea__input" v-model="csvString"></textarea>
-      <br/>
+      <textarea class="pkpFormField__input pkpFormField--textarea__input" v-model="csvString"></textarea><br/>
     </div>
     <div>
-      <PkpButton :is-required="true" :is-disabled="disableActions" @click="handleCsvString">
+      <PkpButton :is-required="true" :is-disabled="isPublished && !userCanEdit" @click="handleCsvString">
         {{ t('plugins.generic.pidManager.' + pidName + '.addFromCsv.button') }}
       </PkpButton>
       <span v-if="csvStringStatusMessage === 'success'" class="ml-1rem text-success items-center py-2">
@@ -49,7 +48,7 @@
 
   <!-- delete all items -->
   <div>
-    <PkpButton :is-link="true" :is-disabled="disableActions" @click="deleteAllPids">
+    <PkpButton :is-link="true" :is-disabled="isPublished && !userCanEdit" @click="deleteAllPids">
       {{ t('plugins.generic.pidManager.' + pidName + '.deleteAllLink') }}
     </PkpButton>
   </div>
@@ -72,10 +71,10 @@
                  :placeholder="t('plugins.generic.pidManager.' + pidName + '.datacite.searchPhraseTitle.placeholder')"/>
         </td>
         <td class="w-42px">
-          <PkpButton v-if="!panelVisibility" @click="apiLookup" class="actionButton" :is-disabled="disableActions">
+          <PkpButton v-if="!panelVisibility" @click="apiLookup" class="actionButton" :is-disabled="isPublished && !userCanEdit">
             <i class="fa fa-search" aria-hidden="true"></i>
           </PkpButton>
-          <PkpButton v-if="panelVisibility" @click="clearSearch" class="actionButton" :is-disabled="disableActions">
+          <PkpButton v-if="panelVisibility" @click="clearSearch" class="actionButton" :is-disabled="isPublished && !userCanEdit">
             <i class="fa fa-times" aria-hidden="true"></i>
           </PkpButton>
         </td>
@@ -140,7 +139,7 @@
         <td><input v-model="item.publisher" type="text" class="pkpFormField__input w-full"/></td>
         <td class="w-5rem"><input v-model="item.publicationYear" type="text" class="pkpFormField__input w-full"/></td>
         <td class="center w-42px">
-          <PkpButton @click="remove(i)" class="actionButton" :is-disabled="disableActions">
+          <PkpButton @click="remove(i)" class="actionButton" :is-disabled="isPublished && !userCanEdit">
             <i class="fa fa-trash" aria-hidden="true"></i>
           </PkpButton>
         </td>
@@ -153,7 +152,7 @@
     </tr>
   </table>
   <div>
-    <PkpButton @click="add" :is-disabled="disableActions">
+    <PkpButton @click="add" :is-disabled="isPublished && !userCanEdit">
       {{ t('plugins.generic.pidManager.' + pidName + '.button.add') }}
     </PkpButton>
   </div>
@@ -172,7 +171,7 @@
         </span>
       </transition>
     </span>
-    <PkpButton @click="save" :is-disabled="disableActions">
+    <PkpButton @click="save" :is-disabled="isPublished && !userCanEdit">
       {{ t('common.save') }}
     </PkpButton>
   </div>
@@ -202,19 +201,18 @@ const props = defineProps({
 const {publication, pidName, dataModel, apiUrlDataCite} = props;
 const items = ref([]);
 const apiUrl = computed(() => pkp.context.apiBaseUrl + `submissions/pidManager/${publication.value.id}/${pidName}`);
-const canEditRoles = [
-  pkp.const.ROLE_ID_ASSISTANT, // 4097
+const editorRoles = [
+	pkp.const.ROLE_ID_SITE_ADMIN, // 1
+	pkp.const.ROLE_ID_MANAGER, // 16
+	pkp.const.ROLE_ID_SUB_EDITOR, // 17
+  // pkp.const.ROLE_ID_ASSISTANT, // 4097
+  // pkp.const.ROLE_ID_REVIEWER, // 4096
   // pkp.const.ROLE_ID_AUTHOR, // 65536
-  pkp.const.ROLE_ID_MANAGER, // 16
   // pkp.const.ROLE_ID_READER, // 1048576
-  pkp.const.ROLE_ID_REVIEWER, // 4096
-  pkp.const.ROLE_ID_SITE_ADMIN, // 1
   // pkp.const.ROLE_ID_SUBSCRIPTION_MANAGER, // 2097152
-  pkp.const.ROLE_ID_SUB_EDITOR, // 17
 ];
 const isPublished = computed(() => pkp.const.STATUS_PUBLISHED === publication.value.status);
-const userCanEdit = computed(() =>  canEditRoles.some((item) => pkp.currentUser.roles.includes(item)));
-const disableActions = computed(() => isPublished.value || !userCanEdit.value || (isPublished.value && userCanEdit.value));
+const userCanEdit = computed(() =>  editorRoles.some((item) => pkp.currentUser.roles.includes(item)));
 
 /* Add from csv */
 const csvString = ref('');

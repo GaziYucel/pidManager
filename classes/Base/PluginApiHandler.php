@@ -44,7 +44,7 @@ abstract class PluginApiHandler
 
     public function __construct(PidManagerPlugin $plugin)
     {
-        $this->plugin = &$plugin;
+        $this->plugin = $plugin;
     }
 
     /**
@@ -97,12 +97,6 @@ abstract class PluginApiHandler
             ], Response::HTTP_BAD_REQUEST);
         }
 
-        if ($publication->getData('status') === Submission::STATUS_PUBLISHED) {
-            return response()->json([
-                'error' => __('common.error'),
-            ], Response::HTTP_FORBIDDEN);
-        }
-
         $publication->setData($this->fieldName, json_encode($params));
         Repo::publication()->edit($publication, []);
 
@@ -131,13 +125,7 @@ abstract class PluginApiHandler
         if (!is_array($params)) {
             return response()->json([
                 'error' => __('common.error'),
-            ], Response::HTTP_NOT_ACCEPTABLE);
-        }
-
-        if ($publication->getData('status') === Submission::STATUS_PUBLISHED) {
-            return response()->json([
-                'error' => __('common.error'),
-            ], Response::HTTP_NOT_ACCEPTABLE);
+            ], Response::HTTP_BAD_REQUEST);
         }
 
         $csvString = (string)$illuminateRequest->input('csvString');

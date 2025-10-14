@@ -26,9 +26,9 @@ abstract class ArticleDetails
     public string $fieldName = '';
     public object $dataModel;
 
-    public function __construct(PidManagerPlugin &$plugin)
+    public function __construct(PidManagerPlugin $plugin)
     {
-        $this->plugin = &$plugin;
+        $this->plugin = $plugin;
     }
 
     public function execute(string $hookName, array $args): bool

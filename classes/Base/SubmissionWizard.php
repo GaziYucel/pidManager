@@ -25,9 +25,9 @@ abstract class SubmissionWizard
     public PidManagerPlugin $plugin;
     public string $fieldName = '';
 
-    public function __construct(PidManagerPlugin &$plugin)
+    public function __construct(PidManagerPlugin $plugin)
     {
-        $this->plugin = &$plugin;
+        $this->plugin = $plugin;
     }
 
     /**

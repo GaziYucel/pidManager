@@ -34,11 +34,11 @@ class Form extends PKPForm
         Constants::settingEnablePidinst
     ];
 
-    public function __construct(PidManagerPlugin &$plugin)
+    public function __construct(PidManagerPlugin $plugin)
     {
         parent::__construct($plugin->getTemplateResource('settings.tpl'));
 
-        $this->plugin = &$plugin;
+        $this->plugin = $plugin;
 
         $this->addCheck(new FormValidatorPost($this));
         $this->addCheck(new FormValidatorCSRF($this));
