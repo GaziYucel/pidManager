@@ -188,7 +188,6 @@ const {openDialog} = useModal();
 const {triggerDataChange} = useDataChanged();
 
 const props = defineProps({
-  submission: {type: Object, required: true},
   publication: {type: Object, required: true},
   pidName: {type: String, required: true},
   dataModel: {type: Object, required: true},
