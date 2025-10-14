@@ -1,5 +1,5 @@
 import IgsnWorkflow from './IgsnWorkflow.vue';
-import {computed} from "vue";
+import {computed} from 'vue';
 
 pkp.registry.registerComponent('IgsnWorkflow', IgsnWorkflow);
 
@@ -8,7 +8,7 @@ pkp.registry.storeExtend('workflow', (piniaContext) => {
 
     // Extending workflow menu
     workflowStore.extender.extendFn('getMenuItems', (menuItems) => {
-        const publicationsItem = menuItems.find(item => item.key === "publication");
+        const publicationsItem = menuItems.find(item => item.key === 'publication');
         publicationsItem.items.push({
             key: 'igsn',
             label: 'IGSN',
