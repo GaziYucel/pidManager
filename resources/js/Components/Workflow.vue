@@ -17,7 +17,7 @@
     }}
   </div>
   <div>
-    <textarea class="pkpFormField__input pkpFormField--textarea__input" v-model="csvString"></textarea>
+    <textarea class="input textarea h-6rem" v-model="csvString"></textarea>
   </div>
   <div>
     <PkpButton :is-required="true" :is-disabled="isPublished && !userCanEdit" @click="handleCsvString">
@@ -60,11 +60,11 @@
       </tr>
       <tr>
         <td>
-          <input v-model="searchPhraseDoi" type="text" class="pkpFormField__input w-full"
+          <input v-model="searchPhraseDoi" type="text" class="input w-full"
                  :placeholder="t('plugins.generic.pidManager.' + pidName + '.datacite.searchPhraseDoi.placeholder')"/>
         </td>
         <td>
-          <input v-model="searchPhraseTitle" type="text" class="pkpFormField__input w-full"
+          <input v-model="searchPhraseTitle" type="text" class="input w-full"
                  :placeholder="t('plugins.generic.pidManager.' + pidName + '.datacite.searchPhraseTitle.placeholder')"/>
         </td>
         <td class="w-42px">
@@ -128,11 +128,11 @@
     </tr>
     <template v-for="(item, i) in itemsFiltered" :key="i">
       <tr>
-        <td><input v-model="item.doi" type="text" class="pkpFormField__input w-full"/></td>
-        <td><input v-model="item.label" type="text" class="pkpFormField__input w-full"/></td>
-        <td><input v-model="item.creators" type="text" class="pkpFormField__input w-full"/></td>
-        <td><input v-model="item.publisher" type="text" class="pkpFormField__input w-full"/></td>
-        <td class="w-5rem"><input v-model="item.publicationYear" type="text" class="pkpFormField__input w-full"/></td>
+        <td><input v-model="item.doi" type="text" class="input w-full"/></td>
+        <td><input v-model="item.label" type="text" class="input w-full"/></td>
+        <td><input v-model="item.creators" type="text" class="input w-full"/></td>
+        <td><input v-model="item.publisher" type="text" class="input w-full"/></td>
+        <td class="w-5rem"><input v-model="item.publicationYear" type="text" class="input w-full"/></td>
         <td class="center w-42px">
           <PkpButton @click="remove(i)" class="actionButton" :is-disabled="isPublished && !userCanEdit">
             <i class="fa fa-trash" aria-hidden="true"></i>
@@ -153,14 +153,14 @@
   </div>
 
   <!-- save -->
-  <div class="buttonRow pkpFormPage__footer footer">
+  <div class="buttonRow footer">
     <span role="status" aria-live="polite" aria-atomic="true">
-      <transition name="pkpFormPage__status">
-        <span v-if="isSaving" class="pkpFormPage__status">
+      <transition name="status">
+        <span v-if="isSaving" class="status">
           <Spinner/>
           {{ t('common.saving') }}
         </span>
-        <span v-else-if="hasRecentSave" class="pkpFormPage__status">
+        <span v-else-if="hasRecentSave" class="status">
           <Icon icon="Complete" class="text-success h-5 w-5" :inline="true"/>
           {{ t('form.saved') }}
         </span>
@@ -576,6 +576,29 @@ const localeKeys = [
   }
 }
 
+.textarea {
+  padding-top: .5em;
+  padding-bottom: .5em;
+  height: 6rem;
+  width: 100%;
+  line-height: 1.8em;
+}
+
+.input {
+  display: block;
+  padding: 0 1em;
+  height: 2.5rem;
+  background-color: #fff;
+  font-size: .875rem;
+  line-height: 2.5rem;
+  border: 1px solid #bbb;
+  border-radius: 2px;
+}
+
+.input:hover {
+  border-color: #888;
+}
+
 .actionButton {
   width: 2.5rem;
   height: 2.5rem;
@@ -584,8 +607,19 @@ const localeKeys = [
 .footer {
   margin-left: -1.25rem;
   margin-right: -1.25rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: .5rem;
+  border-top: 1px solid #ddd;
+  padding: 1rem;
 }
 
+.status {
+  font-size: .75rem;
+  transition: all .3s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
 .disabled {
   pointer-events: none;
   cursor: default;
@@ -618,6 +652,10 @@ const localeKeys = [
 
 .h-42px {
   height: 42px;
+}
+
+.h-6rem {
+  height: 6rem;
 }
 
 .w-42px {
