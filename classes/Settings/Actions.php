@@ -23,9 +23,9 @@ class Actions
 {
     public PidManagerPlugin $plugin;
 
-    public function __construct(PidManagerPlugin &$plugin)
+    public function __construct(PidManagerPlugin $plugin)
     {
-        $this->plugin = &$plugin;
+        $this->plugin = $plugin;
     }
 
     public function execute($request, $actionArgs, $parentActions): array

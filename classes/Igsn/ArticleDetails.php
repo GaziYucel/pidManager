@@ -21,7 +21,7 @@ use APP\plugins\generic\pidManager\PidManagerPlugin;
 
 class ArticleDetails extends BaseArticleDetails
 {
-    public function __construct(PidManagerPlugin &$plugin)
+    public function __construct(PidManagerPlugin $plugin)
     {
         $this->fieldName = Constants::igsn;
         $this->dataModel = new DataModel();
