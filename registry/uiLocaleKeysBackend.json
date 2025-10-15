@@ -72,5 +72,6 @@
   "plugins.generic.pidManager.pidinst.workflow.table.title",
   "plugins.generic.pidManager.settings.description",
   "plugins.generic.pidManager.settings.title",
+  "publication.editDisabled",
   "publication.editorEditWarning"
 ]

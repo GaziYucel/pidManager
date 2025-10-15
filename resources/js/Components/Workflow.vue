@@ -1,4 +1,12 @@
 <template>
+  <!-- edit disabled -->
+  <div
+    class="bg -mx-5 -mt-5 bg-attention p-5 text-center text-base-normal text-on-dark"
+    :class="isPublished && !userCanEdit ? '' : 'hide'"
+  >
+    {{ t('publication.editDisabled') }}
+  </div>
+
   <!-- is published warning -->
   <div class="bg bg-attention text-base-normal text-on-dark -mx-5 -mt-5 p-5 text-center"
        :class="isPublished && userCanEdit ? '' : 'hide'"
