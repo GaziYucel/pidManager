@@ -61,36 +61,29 @@
             button.dataset.isMinimised = "true";
         }
     }
-    function {$pidName}DownloadCsv() {
-        const EOL = (typeof process !== 'undefined' && process.platform === 'win32') ? '\r\n' : '\n';
-        const items = {$itemsJson};
 
-        let csvContent = "data:text/csv;charset=utf-8,";
-        csvContent += '"creators","publicationYear","label","publisher","doi"' + EOL;
+    function {$pidName}DownloadCsv() {
+        const items = {$itemsJson};
+        const EOL = (typeof process !== 'undefined' && process.platform === 'win32') ? '\r\n' : '\n';
+
+        let csvContent = "data:text/csv;charset=utf-8," +
+            '"doi","label","creators","publisher","publicationYear"' + EOL;
         items.forEach((item) => {
             csvContent +=
-                '"' + item['creators'].replaceAll('"', '\"') + '",' +
-                '"' + item['publicationYear'].replaceAll('"', '\"') + '",' +
-                '"' + item['label'].replaceAll('"', '\"') + '",' +
-                '"' + item['publisher'].replaceAll('"', '\"') + '",' +
-                '"' + '{$doiPrefix}/' + item['doi'].replaceAll('"', '\"') + '"' + EOL;
+                '"' + 'https://doi.org/' + item['doi'].toString().replaceAll('"', '\\"') + '"' +
+                '"' + item['label'].toString().replaceAll('"', '\\"') + '",' +
+                '"' + item['creators'].toString().replaceAll('"', '\\"') + '",' +
+                '"' + item['publisher'].toString().replaceAll('"', '\\"') + '",' +
+                '"' + item['publicationYear'].toString().replaceAll('"', '\\"') + '",' +
+                EOL;
         });
 
-        // Encode the URI
-        const encodedUri = encodeURI(csvContent);
-
-        // Create a link element
+        // create link element, append to body, click, remove
         const link = document.createElement('a');
-        link.setAttribute('href', encodedUri);
+        link.setAttribute('href', encodeURI(csvContent));
         link.setAttribute('download', '{$pidName}-data.csv');
-
-        // Append the link to the body
         document.body.appendChild(link);
-
-        // Trigger the download
         link.click();
-
-        // Cleanup: remove the link element
         document.body.removeChild(link);
     }
 </script>

@@ -96,6 +96,9 @@ msgstr "Delete all IGSNs listed"
 msgid "plugins.generic.pidManager.igsn.deleteAllDialog.description"
 msgstr "This will remove all IGSNs currently listed. You'll need to re-enter your IGSNs again if you continue."
 
+msgid "plugins.generic.pidManager.igsn.downloadCsvLink"
+msgstr "Download IGSNs as a CSV"
+
 msgid "plugins.generic.pidManager.igsn.filter.placeholder"
 msgstr "Filter IGSNs below"
 
@@ -198,6 +201,9 @@ msgstr "Delete all PIDINSTs listed"
 
 msgid "plugins.generic.pidManager.pidinst.deleteAllDialog.description"
 msgstr "This will remove all PIDINSTs currently listed. You'll need to re-enter your PIDINSTs again if you continue."
+
+msgid "plugins.generic.pidManager.pidinst.downloadCsvLink"
+msgstr "Download PIDINSTs as a CSV"
 
 msgid "plugins.generic.pidManager.pidinst.filter.placeholder"
 msgstr "Filter PIDINSTs below"
