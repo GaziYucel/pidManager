@@ -54,8 +54,11 @@
   <!-- delete all items -->
   <div>
     <PkpButton :is-link="true" :is-disabled="isPublished && !userCanEdit" @click="deleteAllPids">
-    {{ t('plugins.generic.pidManager.' + pidName + '.deleteAllLink') }}
-  </PkpButton>
+      {{ t('plugins.generic.pidManager.' + pidName + '.deleteAllLink') }}
+    </PkpButton>
+    <PkpButton :is-link="true" :is-disabled="isPublished && !userCanEdit" @click="downloadCsv" class="right-6">
+      {{ t('plugins.generic.pidManager.' + pidName + '.downloadCsvLink') }}
+    </PkpButton>
   </div>
 
   <!-- search -->
@@ -252,6 +255,31 @@ const handleCsvString = async () => {
   setTimeout(() => {
     csvStringStatusMessage.value = '';
   }, 5000);
+};
+
+/* Download as a csv */
+const downloadCsv = () => {
+  const EOL = (typeof process !== 'undefined' && process.platform === 'win32') ? '\r\n' : '\n';
+
+  let csvContent = "data:text/csv;charset=utf-8," +
+      '"doi","label","creators","publisher","publicationYear"' + EOL;
+  items.value.forEach((item) => {
+    csvContent +=
+      '"' + 'https://doi.org/' + item['doi'].toString().replaceAll('"', '\\"') + '"' +
+      '"' + item['label'].toString().replaceAll('"', '\\"') + '",' +
+      '"' + item['creators'].toString().replaceAll('"', '\\"') + '",' +
+      '"' + item['publisher'].toString().replaceAll('"', '\\"') + '",' +
+      '"' + item['publicationYear'].toString().replaceAll('"', '\\"') + '",' +
+      EOL;
+  });
+
+  // create link element, append to body, click, remove
+  const link = document.createElement('a');
+  link.setAttribute('href', encodeURI(csvContent));
+  link.setAttribute('download', pidName + '-data.csv');
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
 };
 
 /* Delete all items */
@@ -496,6 +524,7 @@ const localeKeys = [
   t('plugins.generic.pidManager.igsn.deleteAllLink'),
   t('plugins.generic.pidManager.igsn.deleteAllDialog.title'),
   t('plugins.generic.pidManager.igsn.deleteAllDialog.description'),
+  t('plugins.generic.pidManager.igsn.downloadCsvLink'),
   t('plugins.generic.pidManager.igsn.filter.placeholder'),
   t('plugins.generic.pidManager.igsn.workflow.empty'),
   t('plugins.generic.pidManager.igsn.workflow.table.pid'),
@@ -525,6 +554,7 @@ const localeKeys = [
   t('plugins.generic.pidManager.pidinst.deleteAllLink'),
   t('plugins.generic.pidManager.pidinst.deleteAllDialog.title'),
   t('plugins.generic.pidManager.pidinst.deleteAllDialog.description'),
+  t('plugins.generic.pidManager.pidinst.downloadCsvLink'),
   t('plugins.generic.pidManager.pidinst.filter.placeholder'),
   t('plugins.generic.pidManager.pidinst.workflow.empty'),
   t('plugins.generic.pidManager.pidinst.workflow.table.pid'),
