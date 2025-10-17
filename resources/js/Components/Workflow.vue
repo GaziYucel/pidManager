@@ -265,7 +265,7 @@ const downloadCsv = () => {
       '"doi","label","creators","publisher","publicationYear"' + EOL;
   items.value.forEach((item) => {
     csvContent +=
-      '"' + 'https://doi.org/' + item['doi'].toString().replaceAll('"', '\\"') + '"' +
+      '"' + item['doi'].toString().replaceAll('"', '\\"') + '"' +
       '"' + item['label'].toString().replaceAll('"', '\\"') + '",' +
       '"' + item['creators'].toString().replaceAll('"', '\\"') + '",' +
       '"' + item['publisher'].toString().replaceAll('"', '\\"') + '",' +
