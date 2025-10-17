@@ -265,11 +265,11 @@ const downloadCsv = () => {
       '"doi","label","creators","publisher","publicationYear"' + EOL;
   items.value.forEach((item) => {
     csvContent +=
-      '"' + item['doi'].toString().replaceAll('"', '\\"') + '"' +
-      '"' + item['label'].toString().replaceAll('"', '\\"') + '",' +
-      '"' + item['creators'].toString().replaceAll('"', '\\"') + '",' +
-      '"' + item['publisher'].toString().replaceAll('"', '\\"') + '",' +
-      '"' + item['publicationYear'].toString().replaceAll('"', '\\"') + '",' +
+        '"' + item['doi'].toString().replaceAll('"', "'") + '",' +
+        '"' + item['label'].toString().replaceAll('"', "'") + '",' +
+        '"' + item['creators'].toString().replaceAll('"', "'") + '",' +
+        '"' + item['publisher'].toString().replaceAll('"', "'") + '",' +
+        '"' + item['publicationYear'].toString().replaceAll('"', "'") + '"' +
       EOL;
   });
 
@@ -628,7 +628,7 @@ const localeKeys = [
   height: 2.5rem;
   background-color: #fff;
   font-size: .875rem;
-  line-height: 2.5rem;
+  line-height: 1.5rem;
   border: 1px solid #bbb;
   border-radius: 2px;
 }

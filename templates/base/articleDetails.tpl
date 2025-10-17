@@ -70,11 +70,11 @@
             '"doi","label","creators","publisher","publicationYear"' + EOL;
         items.forEach((item) => {
             csvContent +=
-                '"' + item['doi'].toString().replaceAll('"', '\\"') + '"' +
-                '"' + item['label'].toString().replaceAll('"', '\\"') + '",' +
-                '"' + item['creators'].toString().replaceAll('"', '\\"') + '",' +
-                '"' + item['publisher'].toString().replaceAll('"', '\\"') + '",' +
-                '"' + item['publicationYear'].toString().replaceAll('"', '\\"') + '",' +
+                '"' + item['doi'].toString().replaceAll('"', "'") + '",' +
+                '"' + item['label'].toString().replaceAll('"', "'") + '",' +
+                '"' + item['creators'].toString().replaceAll('"', "'") + '",' +
+                '"' + item['publisher'].toString().replaceAll('"', "'") + '",' +
+                '"' + item['publicationYear'].toString().replaceAll('"', "'") + '"' +
                 EOL;
         });
 
