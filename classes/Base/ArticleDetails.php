@@ -42,16 +42,11 @@ abstract class ArticleDetails
             $this->dataModel
         );
 
-        for ($i = 0; $i < count($items); $i++) {
-            $items[$i]->doi =
-                '<a href="' . Constants::doiPrefix . '/' . $items[$i]->doi . '" target="_blank">' .
-                Constants::doiPrefix . '/' . $items[$i]->doi .
-                '</a>';
-        }
-
         $templateParameters = [
+            'doiPrefix' => Constants::doiPrefix,
             'dataModel' => json_encode(get_class_vars(get_class($this->dataModel))),
-            'items' => $items
+            'items' => $items,
+            'itemsJson' => json_encode($items)
         ];
         $templateMgr->assign($templateParameters);
         $templateMgr->display($this->plugin->getTemplateResource(

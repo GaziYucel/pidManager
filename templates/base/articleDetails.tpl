@@ -15,6 +15,7 @@
         <h2 class="label">
             {translate key="plugins.generic.pidManager.{$pidName}.label"}
         </h2>
+        <a onclick="{$pidName}DownloadCsv()" class="obj_galley_link pkpButton">CSV</a>
         <p class="description align-justify description-color">
             {translate key="plugins.generic.pidManager.{$pidName}.generalDescription"}
             {translate key="plugins.generic.pidManager.{$pidName}.articleDetails.details"}
@@ -26,7 +27,7 @@
                     {if $item->publicationYear}({$item->publicationYear}). {/if}
                     {if $item->label}<i>{$item->label}.</i> {/if}
                     {if $item->publisher}{$item->publisher}. {/if}
-                    {if $item->doi}{$item->doi}{/if}
+                    {if $item->doi}<a href="{$doiPrefix}/{$item->doi}" target="_blank">{$doiPrefix}/{$item->doi}</a>{/if}
                 </p>
             {/foreach}
         </div>
@@ -59,5 +60,37 @@
             button.textContent = "{translate key="plugins.generic.pidManager.articleDetails.buttonShowAll.minimise"}";
             button.dataset.isMinimised = "true";
         }
+    }
+    function {$pidName}DownloadCsv() {
+        const EOL = (typeof process !== 'undefined' && process.platform === 'win32') ? '\r\n' : '\n';
+        const items = {$itemsJson};
+
+        let csvContent = "data:text/csv;charset=utf-8,";
+        csvContent += '"creators","publicationYear","label","publisher","doi"' + EOL;
+        items.forEach((item) => {
+            csvContent +=
+                '"' + item['creators'].replaceAll('"', '\"') + '",' +
+                '"' + item['publicationYear'].replaceAll('"', '\"') + '",' +
+                '"' + item['label'].replaceAll('"', '\"') + '",' +
+                '"' + item['publisher'].replaceAll('"', '\"') + '",' +
+                '"' + '{$doiPrefix}/' + item['doi'].replaceAll('"', '\"') + '"' + EOL;
+        });
+
+        // Encode the URI
+        const encodedUri = encodeURI(csvContent);
+
+        // Create a link element
+        const link = document.createElement('a');
+        link.setAttribute('href', encodedUri);
+        link.setAttribute('download', '{$pidName}-data.csv');
+
+        // Append the link to the body
+        document.body.appendChild(link);
+
+        // Trigger the download
+        link.click();
+
+        // Cleanup: remove the link element
+        document.body.removeChild(link);
     }
 </script>
