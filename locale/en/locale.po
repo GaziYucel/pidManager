@@ -56,8 +56,8 @@ msgstr ""
 
 msgid "plugins.generic.pidManager.igsn.workflow.instructions"
 msgstr ""
-"You can add IGSNs to a publication by searching with a DOI or title in the upper table, selecting from autocomplete suggestions, and avoiding duplicates (greyed-out). "
-"Multiple IGSNs can be added at once. "
+"You can add IGSNs by searching with a DOI or title in the fields below, selecting from autocomplete suggestions. "
+"The greyed-out items in the search results are already added. Multiple IGSNs can be added at once. "
 "The lower table displays the metadata that will appear in the article view and lets you edit it." 
 
 msgid "plugins.generic.pidManager.igsn.submission.instructions"
@@ -155,8 +155,8 @@ msgstr ""
 
 msgid "plugins.generic.pidManager.pidinst.workflow.instructions"
 msgstr ""
-"You can add PIDINSTs to a publication by searching with a DOI or title in the upper table, selecting from autocomplete suggestions, and avoiding duplicates (greyed-out). "
-"Multiple PIDINSTs can be added at once. "
+"You can add PIDINSTs by searching with a DOI or title in the fields below, selecting from autocomplete suggestions. "
+"The greyed-out items in the search results are already added. Multiple PIDINSTs can be added at once. "
 "The lower table displays the metadata that will appear in the article view and lets you edit it." 
 
 msgid "plugins.generic.pidManager.pidinst.submission.instructions"
