@@ -9,13 +9,13 @@
  *}
 
 <div>
-    <label class="label">
-        {translate key="plugins.generic.pidManager.{$pidName}.label"}
-    </label>
-    <p class="description align-justify">
-        <i>
-            {translate key="plugins.generic.pidManager.{$pidName}.generalDescription"}
-            {translate key="plugins.generic.pidManager.{$pidName}.submission.instructions"}
-        </i>
-    </p>
+	<label class="label">
+		{translate key="plugins.generic.pidManager.{$pidName}.label"}
+	</label>
+	<p class="description align-justify">
+		<i>
+			{translate key="plugins.generic.pidManager.{$pidName}.generalDescription"}
+			{translate key="plugins.generic.pidManager.{$pidName}.submission.instructions"}
+		</i>
+	</p>
 </div>
