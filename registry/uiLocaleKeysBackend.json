@@ -1,4 +1,5 @@
 [
+  "common.add",
   "common.cancel",
   "common.clearSearch",
   "common.no",
@@ -12,7 +13,6 @@
   "plugins.generic.pidManager.articleDetails.buttonShowAll.showAll",
   "plugins.generic.pidManager.description",
   "plugins.generic.pidManager.displayName",
-  "plugins.generic.pidManager.igsn.addFromCsv.button",
   "plugins.generic.pidManager.igsn.addFromCsv.inputEmpty",
   "plugins.generic.pidManager.igsn.addFromCsv.partialSuccess",
   "plugins.generic.pidManager.igsn.addFromCsv.success",
@@ -42,7 +42,6 @@
   "plugins.generic.pidManager.igsn.workflow.table.publicationYear",
   "plugins.generic.pidManager.igsn.workflow.table.publisher",
   "plugins.generic.pidManager.igsn.workflow.table.title",
-  "plugins.generic.pidManager.pidinst.addFromCsv.button",
   "plugins.generic.pidManager.pidinst.addFromCsv.inputEmpty",
   "plugins.generic.pidManager.pidinst.addFromCsv.partialSuccess",
   "plugins.generic.pidManager.pidinst.addFromCsv.success",

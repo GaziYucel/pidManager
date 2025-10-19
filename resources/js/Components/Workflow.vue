@@ -16,7 +16,6 @@
 
   <!-- description & instructions -->
   <div>{{ t('plugins.generic.pidManager.' + pidName + '.generalDescription') }}</div>
-  <div>{{ t('plugins.generic.pidManager.' + pidName + '.workflow.instructions') }}</div>
 
   <!-- add from csv -->
   <div>
@@ -25,43 +24,34 @@
     }}
   </div>
   <div>
-    <textarea class="input textarea h-6rem" v-model="csvString"></textarea>
+    <textarea class="input textarea h-6rem py-2" v-model="csvString"></textarea>
   </div>
-  <div>
-    <PkpButton :is-required="true" :is-disabled="isPublished && !userCanEdit" @click="handleCsvString">
-      {{ t('plugins.generic.pidManager.' + pidName + '.addFromCsv.button') }}
-    </PkpButton>
-    <span v-if="csvStringStatusMessage === 'success'" class="ml-1rem text-success items-center">
-    <Icon :icon="'Complete'" :class="'inline-block h-auto w-6 align-middle'" :inline="true"/>
-    <span class="align-middle font-normal">
-      {{ t('plugins.generic.pidManager.' + pidName + '.addFromCsv.success') }}
+  <div class="inline-flex">
+    <span v-if="csvStringStatusMessage === 'success'" class="text-success items-center">
+      <Icon :icon="'Complete'" :class="'inline-block h-auto w-6 align-middle'" :inline="true"/>
+      <span class="align-middle font-normal">
+        {{ t('plugins.generic.pidManager.' + pidName + '.addFromCsv.success') }}
+      </span>
     </span>
-  </span>
-    <span v-if="csvStringStatusMessage === 'partial'" class="ml-1rem text-attention items-center">
-    <Icon :icon="'InProgress'" :class="'inline-block h-auto w-6 align-middle'" :inline="true"/>
-    <span class="align-middle font-normal">
-      {{ t('plugins.generic.pidManager.' + pidName + '.addFromCsv.partialSuccess') }}
+    <span v-if="csvStringStatusMessage === 'partial'" class="text-attention items-center">
+      <Icon :icon="'InProgress'" :class="'inline-block h-auto w-6 align-middle'" :inline="true"/>
+      <span class="align-middle font-normal">
+        {{ t('plugins.generic.pidManager.' + pidName + '.addFromCsv.partialSuccess') }}
+      </span>
     </span>
-  </span>
-    <span v-if="csvStringStatusMessage === 'empty'" class="ml-1rem items-center" >
-    <Icon :icon="'Declined'" :class="'inline-block h-auto w-6 align-middle'" :inline="true"/>
-    <span class="align-middle font-normal">
-      {{ t('plugins.generic.pidManager.' +  pidName +  '.addFromCsv.inputEmpty') }}
+    <span v-if="csvStringStatusMessage === 'empty'" class="items-center" >
+      <Icon :icon="'Declined'" :class="'inline-block h-auto w-6 align-middle'" :inline="true"/>
+      <span class="align-middle font-normal">
+        {{ t('plugins.generic.pidManager.' +  pidName +  '.addFromCsv.inputEmpty') }}
+      </span>
     </span>
-  </span>
-  </div>
-
-  <!-- delete all items -->
-  <div>
-    <PkpButton :is-link="true" :is-disabled="isPublished && !userCanEdit" @click="deleteAllPids">
-      {{ t('plugins.generic.pidManager.' + pidName + '.deleteAllLink') }}
-    </PkpButton>
-    <PkpButton :is-link="true" :is-disabled="isPublished && !userCanEdit" @click="downloadCsv" class="right-6">
-      {{ t('plugins.generic.pidManager.' + pidName + '.downloadCsvLink') }}
+    <PkpButton class="ml-auto" :is-required="true" :is-disabled="isPublished && !userCanEdit" @click="handleCsvString">
+      {{ t('common.add') }}
     </PkpButton>
   </div>
 
   <!-- search -->
+  <div>{{ t('plugins.generic.pidManager.' + pidName + '.workflow.instructions') }}</div>
   <div>
     <table class="pkpTable w-full">
       <tr>
@@ -123,11 +113,26 @@
       </div>
     </div>
   </div>
+
   <!-- items -->
-  <PkpSearch
-      class=""
-      :search-label="t('plugins.generic.pidManager.' + pidName + '.filter.placeholder')"
-      @search-phrase-changed="(...args) => setItemsFilterPhrase(...args)"/>
+  <table class="w-full">
+    <tr>
+      <td>
+        <PkpButton :is-link="true" :is-disabled="isPublished && !userCanEdit" @click="deleteAllPids">
+          {{ t('plugins.generic.pidManager.' + pidName + '.deleteAllLink') }}
+        </PkpButton>
+        <PkpButton :is-link="true" :is-disabled="isPublished && !userCanEdit" @click="downloadCsv" class="right-6">
+          {{ t('plugins.generic.pidManager.' + pidName + '.downloadCsvLink') }}
+        </PkpButton>
+      </td>
+      <td>
+        <PkpSearch
+            class="ml-auto"
+            :search-label="t('plugins.generic.pidManager.' + pidName + '.filter.placeholder')"
+            @search-phrase-changed="(...args) => setItemsFilterPhrase(...args)"/>
+      </td>
+    </tr>
+  </table>
   <table class="pkpTable w-full">
     <tr>
       <th>{{ t('plugins.generic.pidManager.' + pidName + '.workflow.table.pid') }}</th>
@@ -515,7 +520,6 @@ const localeKeys = [
   t('plugins.generic.pidManager.igsn.workflow.label'),
   t('plugins.generic.pidManager.igsn.workflow.instructions'),
   t('plugins.generic.pidManager.igsn.workflow.addFromCsv.instructions'),
-  t('plugins.generic.pidManager.igsn.addFromCsv.button'),
   t('plugins.generic.pidManager.igsn.generalDescription'),
   t('plugins.generic.pidManager.igsn.submission.instructions'),
   t('plugins.generic.pidManager.igsn.addFromCsv.success'),
@@ -547,7 +551,6 @@ const localeKeys = [
   t('plugins.generic.pidManager.pidinst.generalDescription'),
   t('plugins.generic.pidManager.pidinst.submission.instructions'),
   t('plugins.generic.pidManager.pidinst.workflow.addFromCsv.instructions'),
-  t('plugins.generic.pidManager.pidinst.addFromCsv.button'),
   t('plugins.generic.pidManager.pidinst.addFromCsv.success'),
   t('plugins.generic.pidManager.pidinst.addFromCsv.partialSuccess'),
   t('plugins.generic.pidManager.pidinst.addFromCsv.inputEmpty'),
@@ -658,6 +661,7 @@ const localeKeys = [
   white-space: nowrap;
   flex-shrink: 0;
 }
+
 .disabled {
   pointer-events: none;
   cursor: default;
@@ -684,6 +688,11 @@ const localeKeys = [
   padding: 0;
 }
 
+.py-2 {
+  padding-top: .5rem;
+  padding-bottom: .5rem;
+}
+
 .pt-60px {
   padding-top: 60px;
 }
@@ -702,6 +711,10 @@ const localeKeys = [
 
 .w-5rem {
   width: 5rem;
+}
+
+.ml-auto {
+  margin-left: auto;
 }
 
 .ml-1rem {

@@ -75,9 +75,6 @@ msgstr ""
 "Your CSV structure must contain all fields, e.g. \"doi 1\",\"title 1\",\"creators 1\",\"publisher 1\",\"publicationYear 1\". "
 "Please don't add a header, this will also be imported. "
 
-msgid "plugins.generic.pidManager.igsn.addFromCsv.button"
-msgstr "Add from CSV"
-
 msgid "plugins.generic.pidManager.igsn.addFromCsv.success"
 msgstr "All lines are added to the list below."
 
@@ -180,9 +177,6 @@ msgstr ""
 "You can add PIDINSTs in batch by pasting your list as a CSV to the text field below and click the {$add} button. "
 "You CSV structure must contain all fields, e.g. \"doi 1\", \"title 1\", \"creators 1\", \"publisher 1\", \"publicationYear 1\""
 "Please don't add a header, this will also be imported. "
-
-msgid "plugins.generic.pidManager.pidinst.addFromCsv.button"
-msgstr "Add from CSV"
 
 msgid "plugins.generic.pidManager.pidinst.addFromCsv.success"
 msgstr "All lines are added to the list below."
