@@ -62,8 +62,7 @@ msgstr ""
 
 msgid "plugins.generic.pidManager.igsn.submission.instructions"
 msgstr "Currently, IGSNs can only be set at a later stage in the editorial process. "
-"Please contact the journal manager if you would like to add an IGSN to your publication. "
-"For future versions of the PID Manager, it is planned to allow IGSNs to be added in the submission wizard."
+"Please contact the journal manager if you would like to add an IGSN to your publication."
 
 msgid "plugins.generic.pidManager.igsn.workflow.addFromCsv.instructions"
 msgstr ""
@@ -161,8 +160,7 @@ msgstr ""
 
 msgid "plugins.generic.pidManager.pidinst.submission.instructions"
 msgstr "Currently, PIDINSTs can only be set at a later stage in the editorial process. "
-"Please contact the journal manager if you would like to add a PIDINST to your publication. "
-"For future versions of the PID Manager, it is planned to allow PIDINSTs to be added in the submission wizard."
+"Please contact the journal manager if you would like to add a PIDINST to your publication."
 
 msgid "plugins.generic.pidManager.pidinst.workflow.addFromCsv.instructions"
 msgstr ""
