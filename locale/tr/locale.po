@@ -25,6 +25,15 @@ msgstr ""
 "Aşağıdaki onay kutularını kullanarak, editoryal süreç sırasında eklenebilecek ve makale görünümünde gösterilebilecek Kalıcı Tanımlayıcıları (PID'ler) seçin. "
 "Bir onay kutuyu işaretlediğinizde, ilgili PID türü etkinleştirilir."
 
+msgid "plugins.generic.pidManager.addFromCsv.success"
+msgstr "Tüm satırlar aşağıdaki listeye eklendi."
+
+msgid "plugins.generic.pidManager.addFromCsv.partialSuccess"
+msgstr "Yukarıdaki satırlar listeye eklenmiş veya hatalı, lütfen kontrol edip tekrar deneyin."
+
+msgid "plugins.generic.pidManager.addFromCsv.inputEmpty"
+msgstr "Herhangi bir giriş yapmadınız, lütfen kontrol edin ve tekrar deneyin."
+
 msgid "plugins.generic.pidManager.articleDetails.buttonShowAll.showAll"
 msgstr "Tümünü Göster"
 
@@ -68,15 +77,6 @@ msgstr ""
 "Listenizi CSV olarak aşağıdaki metin alanına yapıştırıp \"Ekle\" düğmesini tıklayarak IGSN'leri toplu olarak ekleyebilirsiniz. "
 "CSV yapınız tüm sütunları içermelidir, örneğin \"doi 1\",\"title 1\",\"creators 1\",\"publisher 1\",\"publicationYear 1\". "
 "Başlık eklemeyiniz, bu da içe aktarılacaktır. "
-
-msgid "plugins.generic.pidManager.igsn.addFromCsv.success"
-msgstr "Tüm satırlar aşağıdaki listeye eklendi."
-
-msgid "plugins.generic.pidManager.igsn.addFromCsv.partialSuccess"
-msgstr "Yukarıdaki satırlar listede eklenmiş veya hatalı. Lütfen kontrol edip tekrar deneyin."
-
-msgid "plugins.generic.pidManager.igsn.addFromCsv.inputEmpty"
-msgstr "Herhangi bir giriş yapmadınız, lütfen kontrol edin ve tekrar deneyin."
 
 msgid "plugins.generic.pidManager.igsn.deleteAllLink"
 msgstr "Listedeki tüm IGSN'leri sil"
@@ -154,15 +154,6 @@ msgstr ""
 "Listenizi CSV olarak aşağıdaki metin alanına yapıştırıp \"Ekle\" düğmesini tıklayarak PIDINST'leri toplu olarak ekleyebilirsiniz. "
 "CSV yapınız tüm sütunları içermelidir, örneğin \"doi 1\",\"title 1\",\"creators 1\",\"publisher 1\",\"publicationYear 1\". "
 "Başlık eklemeyiniz, bu da içe aktarılacaktır. "
-
-msgid "plugins.generic.pidManager.pidinst.addFromCsv.success"
-msgstr "Tüm satırlar aşağıdaki listeye eklendi."
-
-msgid "plugins.generic.pidManager.pidinst.addFromCsv.partialSuccess"
-msgstr "Yukarıdaki satırlar listede eklenmiş veya hatalı. Lütfen kontrol edip tekrar deneyin."
-
-msgid "plugins.generic.pidManager.pidinst.addFromCsv.inputEmpty"
-msgstr "Herhangi bir giriş yapmadınız, lütfen kontrol edin ve tekrar deneyin."
 
 msgid "plugins.generic.pidManager.pidinst.deleteAllLink"
 msgstr "Listedeki tüm PIDINST'leri sil"

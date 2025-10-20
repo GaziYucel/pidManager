@@ -26,13 +26,13 @@ msgstr ""
 "kunnen worden toegevoegd en zichtbaar gemaakt in de artikelweergave. Door een vakje aan te vinken, wordt het desbetreffende PID type geactiveerd."
 
 msgid "plugins.generic.pidManager.addFromCsv.success"
-msgstr "All lines are added to the list below."
+msgstr "Alle regels zijn toegevoegd aan de onderstaande lijst."
 
 msgid "plugins.generic.pidManager.addFromCsv.partialSuccess"
-msgstr "The lines above are duplicates or have errors, please review and try again."
+msgstr "De bovenstaande regels zijn dubbel of bevatten fouten, controleer dit probeer het opnieuw."
 
 msgid "plugins.generic.pidManager.addFromCsv.inputEmpty"
-msgstr "You have not given any input, please review and try again."
+msgstr "U hebt geen invoer opgegeven, controleer dit en probeer het opnieuw."
 
 msgid "plugins.generic.pidManager.articleDetails.buttonShowAll.showAll"
 msgstr "Alles weergeven"
@@ -77,15 +77,6 @@ msgstr ""
 "U kunt IGSN's in batches toevoegen door uw lijst als CSV in het onderstaande tekstveld te plakken en op de knop \"Voeg toe\" te klikken. "
 "Uw CSV-structuur moet alle velden bevatten, bijvoorbeeld \"doi 1\",\"title 1\",\"creators 1\",\"publisher 1\",\"publicationYear 1\". "
 "Voeg geen koptekst toe, deze wordt ook geïmporteerd. "
-
-msgid "plugins.generic.pidManager.igsn.addFromCsv.success"
-msgstr "Alle regels zijn toegevoegd aan de onderstaande lijst."
-
-msgid "plugins.generic.pidManager.igsn.addFromCsv.partialSuccess"
-msgstr "De bovenstaande regels zijn dubbel of bevatten fouten. Controleer ze en probeer het opnieuw."
-
-msgid "plugins.generic.pidManager.igsn.addFromCsv.inputEmpty"
-msgstr "U hebt geen invoer opgegeven, controleer dit en probeer het opnieuw."
 
 msgid "plugins.generic.pidManager.igsn.deleteAllLink"
 msgstr "Verwijder alle IGSN's in de lijst"
@@ -163,15 +154,6 @@ msgstr ""
 "U kunt PIDINST's in batches toevoegen door uw lijst als CSV in het onderstaande tekstveld te plakken en op de knop \"Voeg toe\" te klikken. "
 "Uw CSV-structuur moet alle velden bevatten, bijvoorbeeld \"doi 1\", \"title 1\", \"creators 1\", \"publisher 1\", \"publicationYear 1\". "
 "Voeg geen koptekst toe, deze wordt ook geïmporteerd. "
-
-msgid "plugins.generic.pidManager.pidinst.addFromCsv.success"
-msgstr "Alle regels zijn toegevoegd aan de onderstaande lijst."
-
-msgid "plugins.generic.pidManager.pidinst.addFromCsv.partialSuccess"
-msgstr "De bovenstaande regels zijn dubbel of bevatten fouten, controleer ze en probeer het opnieuw."
-
-msgid "plugins.generic.pidManager.pidinst.addFromCsv.inputEmpty"
-msgstr "U hebt geen invoer opgegevenc, controleer dit en probeer het opnieuw."
 
 msgid "plugins.generic.pidManager.pidinst.deleteAllLink"
 msgstr "Verwijder alle PIDINST's in de lijst"
