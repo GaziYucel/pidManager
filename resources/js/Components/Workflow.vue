@@ -23,16 +23,7 @@
 	<!-- add from csv -->
 	<div>
 		{{
-			t(
-				'plugins.generic.pidManager.' +
-					pidName +
-					'.addFromCsv.instructions',
-				{
-					add: t(
-						'plugins.generic.pidManager.' + pidName + '.addFromCsv.button',
-					),
-				},
-			)
+			t('plugins.generic.pidManager.' + pidName + '.addFromCsv.instructions')
 		}}
 	</div>
 	<div>
@@ -49,7 +40,7 @@
 				:inline="true"
 			/>
 			<span class="align-middle font-normal">
-				{{ t('plugins.generic.pidManager.' + pidName + '.addFromCsv.success') }}
+				{{ t('plugins.generic.pidManager.addFromCsv.success') }}
 			</span>
 		</span>
 		<span
@@ -62,13 +53,7 @@
 				:inline="true"
 			/>
 			<span class="align-middle font-normal">
-				{{
-					t(
-						'plugins.generic.pidManager.' +
-							pidName +
-							'.addFromCsv.partialSuccess',
-					)
-				}}
+				{{ t('plugins.generic.pidManager.addFromCsv.partialSuccess') }}
 			</span>
 		</span>
 		<span v-if="csvStringStatusMessage === 'empty'" class="items-center">
@@ -78,9 +63,7 @@
 				:inline="true"
 			/>
 			<span class="align-middle font-normal">
-				{{
-					t('plugins.generic.pidManager.' + pidName + '.addFromCsv.inputEmpty')
-				}}
+				{{ t('plugins.generic.pidManager.addFromCsv.inputEmpty') }}
 			</span>
 		</span>
 		<PkpButton
@@ -677,6 +660,9 @@ const localeKeys = [
   t('plugins.generic.pidManager.description'),
   t('plugins.generic.pidManager.settings.title'),
   t('plugins.generic.pidManager.settings.description'),
+  t('plugins.generic.pidManager.addFromCsv.success'),
+  t('plugins.generic.pidManager.addFromCsv.partialSuccess'),
+  t('plugins.generic.pidManager.addFromCsv.inputEmpty'),
   t('plugins.generic.pidManager.articleDetails.buttonShowAll.showAll'),
   t('plugins.generic.pidManager.articleDetails.buttonShowAll.minimise'),
   t('plugins.generic.pidManager.searchPhrase.empty'),
@@ -688,9 +674,6 @@ const localeKeys = [
   t('plugins.generic.pidManager.igsn.generalDescription'),
   t('plugins.generic.pidManager.igsn.submission.instructions'),
   t('plugins.generic.pidManager.igsn.addFromCsv.instructions'),
-  t('plugins.generic.pidManager.igsn.addFromCsv.success'),
-  t('plugins.generic.pidManager.igsn.addFromCsv.partialSuccess'),
-  t('plugins.generic.pidManager.igsn.addFromCsv.inputEmpty'),
   t('plugins.generic.pidManager.igsn.deleteAllLink'),
   t('plugins.generic.pidManager.igsn.deleteAllDialog.title'),
   t('plugins.generic.pidManager.igsn.deleteAllDialog.description'),
@@ -713,9 +696,6 @@ const localeKeys = [
   t('plugins.generic.pidManager.pidinst.generalDescription'),
   t('plugins.generic.pidManager.pidinst.submission.instructions'),
   t('plugins.generic.pidManager.pidinst.addFromCsv.instructions'),
-  t('plugins.generic.pidManager.pidinst.addFromCsv.success'),
-  t('plugins.generic.pidManager.pidinst.addFromCsv.partialSuccess'),
-  t('plugins.generic.pidManager.pidinst.addFromCsv.inputEmpty'),
   t('plugins.generic.pidManager.pidinst.deleteAllLink'),
   t('plugins.generic.pidManager.pidinst.deleteAllDialog.title'),
   t('plugins.generic.pidManager.pidinst.deleteAllDialog.description'),

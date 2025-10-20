@@ -25,6 +25,15 @@ msgstr ""
 "Use the following checkboxes to select which Persistent Identifiers (PIDs) can be added during the editorial "
 "process and made visible in the article view. Ticking a box activates the corresponding PID type."
 
+msgid "plugins.generic.pidManager.addFromCsv.success"
+msgstr "All lines are added to the list below."
+
+msgid "plugins.generic.pidManager.addFromCsv.partialSuccess"
+msgstr "The lines above are duplicates or have errors, please review and try again."
+
+msgid "plugins.generic.pidManager.addFromCsv.inputEmpty"
+msgstr "You have not given any input, please review and try again."
+
 msgid "plugins.generic.pidManager.articleDetails.buttonShowAll.showAll"
 msgstr "Show All"
 
@@ -68,15 +77,6 @@ msgstr ""
 "You can add IGSNs in batch by pasting your list as a CSV to the text field below and click the \"Add\" button. "
 "Your CSV structure must contain all fields, e.g. \"doi 1\",\"title 1\",\"creators 1\",\"publisher 1\",\"publicationYear 1\". "
 "Please do not add a header, this will also be imported. "
-
-msgid "plugins.generic.pidManager.igsn.addFromCsv.success"
-msgstr "All lines are added to the list below."
-
-msgid "plugins.generic.pidManager.igsn.addFromCsv.partialSuccess"
-msgstr "The lines above are duplicates or have errors. Please review and try again."
-
-msgid "plugins.generic.pidManager.igsn.addFromCsv.inputEmpty"
-msgstr "You have not given any input, please review and try again."
 
 msgid "plugins.generic.pidManager.igsn.deleteAllLink"
 msgstr "Delete all IGSNs listed"
@@ -154,15 +154,6 @@ msgstr ""
 "You can add PIDINSTs in batch by pasting your list as a CSV to the text field below and click the \"Add\" button. "
 "Your CSV structure must contain all fields, e.g. \"doi 1\", \"title 1\", \"creators 1\", \"publisher 1\", \"publicationYear 1\". "
 "Please do not add a header, this will also be imported. "
-
-msgid "plugins.generic.pidManager.pidinst.addFromCsv.success"
-msgstr "All lines are added to the list below."
-
-msgid "plugins.generic.pidManager.pidinst.addFromCsv.partialSuccess"
-msgstr "The lines above are duplicates or have errors, please review and try again."
-
-msgid "plugins.generic.pidManager.pidinst.addFromCsv.inputEmpty"
-msgstr "You have not given any input, please review and try again."
 
 msgid "plugins.generic.pidManager.pidinst.deleteAllLink"
 msgstr "Delete all PIDINSTs listed"
