@@ -76,7 +76,7 @@ msgid "plugins.generic.pidManager.igsn.addFromCsv.partialSuccess"
 msgstr "The lines above are duplicates or have errors. Please review and try again."
 
 msgid "plugins.generic.pidManager.igsn.addFromCsv.inputEmpty"
-msgstr "You have not given any input. Please review and try again."
+msgstr "You have not given any input, please review and try again."
 
 msgid "plugins.generic.pidManager.igsn.deleteAllLink"
 msgstr "Delete all IGSNs listed"
@@ -159,10 +159,10 @@ msgid "plugins.generic.pidManager.pidinst.addFromCsv.success"
 msgstr "All lines are added to the list below."
 
 msgid "plugins.generic.pidManager.pidinst.addFromCsv.partialSuccess"
-msgstr "The lines above are duplicates or have errors. Please review and try again."
+msgstr "The lines above are duplicates or have errors, please review and try again."
 
 msgid "plugins.generic.pidManager.pidinst.addFromCsv.inputEmpty"
-msgstr "You have not given any input. Please review and try again."
+msgstr "You have not given any input, please review and try again."
 
 msgid "plugins.generic.pidManager.pidinst.deleteAllLink"
 msgstr "Delete all PIDINSTs listed"
