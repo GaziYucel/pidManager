@@ -26,7 +26,7 @@
 			t(
 				'plugins.generic.pidManager.' +
 					pidName +
-					'.workflow.addFromCsv.instructions',
+					'.addFromCsv.instructions',
 				{
 					add: t(
 						'plugins.generic.pidManager.' + pidName + '.addFromCsv.button',
@@ -122,7 +122,7 @@
 							t(
 								'plugins.generic.pidManager.' +
 									pidName +
-									'.datacite.searchPhraseDoi.placeholder',
+									'.searchPhraseDoi.placeholder',
 							)
 						"
 					/>
@@ -136,7 +136,7 @@
 							t(
 								'plugins.generic.pidManager.' +
 									pidName +
-									'.datacite.searchPhraseTitle.placeholder',
+									'.searchPhraseTitle.placeholder',
 							)
 						"
 					/>
@@ -164,7 +164,7 @@
 		<div v-if="panelVisibility" class="searchResultsPane">
 			<div v-if="panelVisibility === 'noResult'">
 				<span class="center inline-block w-full pt-16">
-					{{ t('plugins.generic.pidManager.' + pidName + '.datacite.empty') }}
+					{{ t('plugins.generic.pidManager.searchPhrase.empty') }}
 				</span>
 			</div>
 			<div v-else-if="panelVisibility === 'loading'">
@@ -316,7 +316,7 @@
 	</table>
 	<div>
 		<PkpButton @click="add" :is-disabled="isPublished && !userCanEdit">
-			{{ t('plugins.generic.pidManager.' + pidName + '.button.add') }}
+			{{ t('common.add') }}
 		</PkpButton>
 	</div>
 
@@ -602,9 +602,9 @@ const remove = (index) => {
 	}
 	openDialog({
 		name: 'deletePid',
-		title: t('plugins.generic.pidManager.' + pidName + '.remove.confirm'),
+		title: t('common.delete'),
+		message: t('common.confirmDelete'),
 		modalStyle: 'negative',
-		message: '',
 		actions: [
 			{
 				label: t('common.ok'),
@@ -679,15 +679,15 @@ const localeKeys = [
   t('plugins.generic.pidManager.settings.description'),
   t('plugins.generic.pidManager.articleDetails.buttonShowAll.showAll'),
   t('plugins.generic.pidManager.articleDetails.buttonShowAll.minimise'),
-  t('plugins.generic.pidManager.articleDetails.buttonShowAll.minimise'),
+  t('plugins.generic.pidManager.searchPhrase.empty'),
   t('plugins.generic.pidManager.igsn.settings.label'),
   t('plugins.generic.pidManager.igsn.label'),
   t('plugins.generic.pidManager.igsn.workflow.name'),
   t('plugins.generic.pidManager.igsn.workflow.label'),
   t('plugins.generic.pidManager.igsn.workflow.instructions'),
-  t('plugins.generic.pidManager.igsn.workflow.addFromCsv.instructions'),
   t('plugins.generic.pidManager.igsn.generalDescription'),
   t('plugins.generic.pidManager.igsn.submission.instructions'),
+  t('plugins.generic.pidManager.igsn.addFromCsv.instructions'),
   t('plugins.generic.pidManager.igsn.addFromCsv.success'),
   t('plugins.generic.pidManager.igsn.addFromCsv.partialSuccess'),
   t('plugins.generic.pidManager.igsn.addFromCsv.inputEmpty'),
@@ -702,13 +702,9 @@ const localeKeys = [
   t('plugins.generic.pidManager.igsn.workflow.table.creators'),
   t('plugins.generic.pidManager.igsn.workflow.table.publisher'),
   t('plugins.generic.pidManager.igsn.workflow.table.publicationYear'),
-  t('plugins.generic.pidManager.igsn.button.add'),
-  t('plugins.generic.pidManager.igsn.remove.confirm'),
-  t('plugins.generic.pidManager.igsn.datacite.searchPhraseDoi.placeholder'),
-  t('plugins.generic.pidManager.igsn.datacite.searchPhraseTitle.placeholder'),
+  t('plugins.generic.pidManager.igsn.searchPhraseDoi.placeholder'),
+  t('plugins.generic.pidManager.igsn.searchPhraseTitle.placeholder'),
   t('plugins.generic.pidManager.igsn.articleDetails.details'),
-  t('plugins.generic.pidManager.igsn.datacite.info'),
-  t('plugins.generic.pidManager.igsn.datacite.empty'),
   t('plugins.generic.pidManager.pidinst.settings.label'),
   t('plugins.generic.pidManager.pidinst.label'),
   t('plugins.generic.pidManager.pidinst.workflow.name'),
@@ -716,7 +712,7 @@ const localeKeys = [
   t('plugins.generic.pidManager.pidinst.workflow.instructions'),
   t('plugins.generic.pidManager.pidinst.generalDescription'),
   t('plugins.generic.pidManager.pidinst.submission.instructions'),
-  t('plugins.generic.pidManager.pidinst.workflow.addFromCsv.instructions'),
+  t('plugins.generic.pidManager.pidinst.addFromCsv.instructions'),
   t('plugins.generic.pidManager.pidinst.addFromCsv.success'),
   t('plugins.generic.pidManager.pidinst.addFromCsv.partialSuccess'),
   t('plugins.generic.pidManager.pidinst.addFromCsv.inputEmpty'),
@@ -731,13 +727,9 @@ const localeKeys = [
   t('plugins.generic.pidManager.pidinst.workflow.table.creators'),
   t('plugins.generic.pidManager.pidinst.workflow.table.publisher'),
   t('plugins.generic.pidManager.pidinst.workflow.table.publicationYear'),
-  t('plugins.generic.pidManager.pidinst.button.add'),
-  t('plugins.generic.pidManager.pidinst.remove.confirm'),
-  t('plugins.generic.pidManager.pidinst.datacite.searchPhraseDoi.placeholder'),
-  t('plugins.generic.pidManager.pidinst.datacite.searchPhraseTitle.placeholder'),
-  t('plugins.generic.pidManager.pidinst.articleDetails.details'),
-  t('plugins.generic.pidManager.pidinst.datacite.info'),
-  t('plugins.generic.pidManager.pidinst.datacite.empty')
+  t('plugins.generic.pidManager.pidinst.searchPhraseDoi.placeholder'),
+  t('plugins.generic.pidManager.pidinst.searchPhraseTitle.placeholder'),
+  t('plugins.generic.pidManager.pidinst.articleDetails.details')
 ];
 */
 </script>
