@@ -66,20 +66,19 @@
 	function {$pidName}DownloadCsv() {
 		const dataModel = {$dataModel};
 		const items = {$itemsJson};
-		const EOL =
-			typeof process !== 'undefined' && process.platform === 'win32'
-				? '\r\n'
-				: '\n';
+		const EOL = typeof process !== 'undefined' && process.platform === 'win32' ? '\r\n' : '\n';
 		const pidFields = Object.keys(dataModel);
-		let csvContent =
-			'data:text/csv;charset=utf-8,' +
-			pidFields.map((key) => '"' + key + '"').join(',') +
-			EOL;
+
+		let csvContent = 'data:text/csv;charset=utf-8,';
+
+		csvContent += pidFields
+			.map((key) => '"' + key + '"')
+			.join(',') + EOL;
+
 		items.forEach((item) => {
-			csvContent +=
-				pidFields
-					.map((key) => '"' + item[key].toString().replaceAll('"', "'") + '"')
-					.join(',') + EOL;
+			csvContent += pidFields
+				.map((key) => '"' + item[key].toString().replaceAll('"', "'") + '"')
+				.join(',') + EOL;
 		});
 
 		// create link element, append to body, click, remove
