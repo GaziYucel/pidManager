@@ -31,8 +31,8 @@ msgstr "Show All"
 msgid "plugins.generic.pidManager.articleDetails.buttonShowAll.minimise"
 msgstr "Minimise"
 
-msgid "plugins.generic.pidManager.articleDetails.buttonShowAll.minimise"
-msgstr "Minimise"
+msgid "plugins.generic.pidManager.searchPhrase.empty"
+msgstr "Your search phrase returned empty."
 
 # IGSN
 
@@ -63,9 +63,9 @@ msgid "plugins.generic.pidManager.igsn.submission.instructions"
 msgstr "Currently, IGSNs can only be set at a later stage in the editorial process. "
 "Please contact the journal manager if you would like to add an IGSN to your publication."
 
-msgid "plugins.generic.pidManager.igsn.workflow.addFromCsv.instructions"
+msgid "plugins.generic.pidManager.igsn.addFromCsv.instructions"
 msgstr ""
-"You can add IGSNs in batch by pasting your list as a CSV to the text field below and click the {$add} button. "
+"You can add IGSNs in batch by pasting your list as a CSV to the text field below and click the \"Add\" button. "
 "Your CSV structure must contain all fields, e.g. \"doi 1\",\"title 1\",\"creators 1\",\"publisher 1\",\"publicationYear 1\". "
 "Please do not add a header, this will also be imported. "
 
@@ -111,26 +111,14 @@ msgstr "Publisher"
 msgid "plugins.generic.pidManager.igsn.workflow.table.publicationYear"
 msgstr "Year"
 
-msgid "plugins.generic.pidManager.igsn.button.add"
-msgstr "Add new row"
-
-msgid "plugins.generic.pidManager.igsn.remove.confirm"
-msgstr "Are you sure you want to remove?"
-
-msgid "plugins.generic.pidManager.igsn.datacite.searchPhraseDoi.placeholder"
+msgid "plugins.generic.pidManager.igsn.searchPhraseDoi.placeholder"
 msgstr "Type your DOI here, e.g. 10.12345/12.3456"
 
-msgid "plugins.generic.pidManager.igsn.datacite.searchPhraseTitle.placeholder"
+msgid "plugins.generic.pidManager.igsn.searchPhraseTitle.placeholder"
 msgstr "Type your title here, e.g. Sediment core"
 
 msgid "plugins.generic.pidManager.igsn.articleDetails.details"
 msgstr "The following list shows the IGSNs linked to the publication."
-
-msgid "plugins.generic.pidManager.igsn.datacite.info"
-msgstr "Please type your search phrase above and search in DataCite."
-
-msgid "plugins.generic.pidManager.igsn.datacite.empty"
-msgstr "Your search phrase returned empty."
 
 # PIDINST
 
@@ -161,9 +149,9 @@ msgid "plugins.generic.pidManager.pidinst.submission.instructions"
 msgstr "Currently, PIDINSTs can only be set at a later stage in the editorial process. "
 "Please contact the journal manager if you would like to add a PIDINST to your publication."
 
-msgid "plugins.generic.pidManager.pidinst.workflow.addFromCsv.instructions"
+msgid "plugins.generic.pidManager.pidinst.addFromCsv.instructions"
 msgstr ""
-"You can add PIDINSTs in batch by pasting your list as a CSV to the text field below and click the {$add} button. "
+"You can add PIDINSTs in batch by pasting your list as a CSV to the text field below and click the \"Add\" button. "
 "Your CSV structure must contain all fields, e.g. \"doi 1\", \"title 1\", \"creators 1\", \"publisher 1\", \"publicationYear 1\". "
 "Please do not add a header, this will also be imported. "
 
@@ -209,23 +197,11 @@ msgstr "Publisher"
 msgid "plugins.generic.pidManager.pidinst.workflow.table.publicationYear"
 msgstr "Year"
 
-msgid "plugins.generic.pidManager.pidinst.button.add"
-msgstr "Add new row"
-
-msgid "plugins.generic.pidManager.pidinst.remove.confirm"
-msgstr "Are you sure you want to remove?"
-
-msgid "plugins.generic.pidManager.pidinst.datacite.searchPhraseDoi.placeholder"
+msgid "plugins.generic.pidManager.pidinst.searchPhraseDoi.placeholder"
 msgstr "Type your DOI here, e.g. 10.12345/12.3456"
 
-msgid "plugins.generic.pidManager.pidinst.datacite.searchPhraseTitle.placeholder"
+msgid "plugins.generic.pidManager.pidinst.searchPhraseTitle.placeholder"
 msgstr "Type your title here, e.g. station"
 
 msgid "plugins.generic.pidManager.pidinst.articleDetails.details"
 msgstr "The following list shows the PIDINSTs linked to the publication."
-
-msgid "plugins.generic.pidManager.pidinst.datacite.info"
-msgstr "Please type your search phrase above and search on DataCite."
-
-msgid "plugins.generic.pidManager.pidinst.datacite.empty"
-msgstr "Your search phrase returned empty."
