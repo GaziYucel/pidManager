@@ -1,0 +1,198 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2025-10-23T23:59:59+00:00\n"
+"PO-Revision-Date: 2025-10-23T23:59:59+00:00\n"
+"Language: \n"
+
+msgid "plugins.generic.pidManager.displayName"
+msgstr "PID Manager"
+
+msgid "plugins.generic.pidManager.description"
+msgstr "Plugin zur Verknüpfung von Publikationen mit persistenten Identifikatoren (PIDs)."
+
+msgid "plugins.generic.pidManager.settings.title"
+msgstr "Verwalte PIDs"
+
+msgid "plugins.generic.pidManager.settings.description"
+msgstr ""
+"Verwenden Sie die folgenden Kontrollkästchen, um auszuwählen, welche persistenten Identifikatoren (PIDs) "
+"während des redaktionellen Prozesses hinzufügbar sind und in der Artikelansicht angezeigt werden. Durch Aktivieren eines Kontrollkästchens wird der entsprechende PID-Typ aktiviert."
+
+msgid "plugins.generic.pidManager.addFromCsv.success"
+msgstr "Alle Zeilen werden zur folgenden Liste hinzugefügt."
+
+msgid "plugins.generic.pidManager.addFromCsv.partialSuccess"
+msgstr "Die obigen Zeilen sind Duplikate oder enthalten Fehler. Bitte überprüfen Sie diese und versuchen Sie es erneut."
+
+msgid "plugins.generic.pidManager.addFromCsv.inputEmpty"
+msgstr "Sie haben keine Eingabe gemacht. Bitte überprüfen Sie Ihre Eingabe und versuchen Sie es erneut."
+
+msgid "plugins.generic.pidManager.articleDetails.buttonShowAll.showAll"
+msgstr "Alle anzeigen"
+
+msgid "plugins.generic.pidManager.articleDetails.buttonShowAll.minimise"
+msgstr "Minimieren"
+
+msgid "plugins.generic.pidManager.searchPhrase.empty"
+msgstr "Ihre Suchanfrage ergab keine Treffer."
+
+# IGSN
+
+msgid "plugins.generic.pidManager.igsn.settings.label"
+msgstr "IGSN (International Generic Sample Number - www.igsn.org)"
+
+msgid "plugins.generic.pidManager.igsn.label"
+msgstr "International Generic Sample Number (IGSN)"
+
+msgid "plugins.generic.pidManager.igsn.workflow.name"
+msgstr "IGSN"
+
+msgid "plugins.generic.pidManager.igsn.workflow.label"
+msgstr "IGSN"
+
+msgid "plugins.generic.pidManager.igsn.generalDescription"
+msgstr ""
+"Die International Generic Sample Number (IGSN) ist eine eindeutige, persistente und domänenunabhängige Kennung für Materialproben. "
+"Bei diesen Proben kann es sich um beliebige Materialien aus allen Disziplinen handeln. Weitere Informationen finden Sie unter www.igsn.org."
+
+msgid "plugins.generic.pidManager.igsn.workflow.instructions"
+msgstr ""
+"Sie können IGSNs hinzufügen, indem Sie in den Feldern unten nach einer DOI oder einem Titel suchen und aus den Vorschlägen wählen. "
+"Die ausgegrauten Elemente in den Suchergebnissen wurden bereits hinzugefügt. Es können mehrere IGSNs gleichzeitig hinzugefügt werden. "
+"Die untere Tabelle zeigt die Metadaten an, die in der Artikelansicht angezeigt werden, und ermöglicht es Ihnen, diese zu bearbeiten."
+
+msgid "plugins.generic.pidManager.igsn.submission.instructions"
+msgstr "Derzeit können IGSNs nur zu einem späteren Zeitpunkt im redaktionellen Prozess hinzugefügt werden. "
+"Bitte wenden Sie sich an den Journalmanager, wenn Sie Ihrer Publikation eine IGSN hinzufügen möchten."
+
+msgid "plugins.generic.pidManager.igsn.addFromCsv.instructions"
+msgstr ""
+"Sie können IGSNs als Batch hinzufügen, indem Sie Ihre Liste im CSV-Format in das Textfeld einfügen und auf die Schaltfläche \"Hinzufügen\" klicken. "
+"Ihre CSV-Struktur muss die folgenden Felder enthalten, z.B. \"doi 1\",\"title 1\",\"creators 1\",\"publisher 1\",\"publicationYear 1\". "
+"Bitte fügen Sie keine Kopfzeile hinzu, da diese ebenfalls importiert wird."
+
+msgid "plugins.generic.pidManager.igsn.deleteAllLink"
+msgstr "Alle aufgeführten IGSNs löschen"
+
+msgid "plugins.generic.pidManager.igsn.deleteAllDialog.title"
+msgstr "Alle aufgeführten IGSNs löschen"
+
+msgid "plugins.generic.pidManager.igsn.deleteAllDialog.description"
+msgstr "Hierdurch werden alle derzeit hinzugefügten IGSNs gelöscht. Wenn Sie fortfahren müssen Sie IGSNs ggf. erneut hinzufügen."
+
+msgid "plugins.generic.pidManager.igsn.downloadCsvLink"
+msgstr "IGSNs als CSV herunterladen"
+
+msgid "plugins.generic.pidManager.igsn.filter.placeholder"
+msgstr "Filtern hinzugefügter IGSNs"
+
+msgid "plugins.generic.pidManager.igsn.workflow.empty"
+msgstr "Bislang wurden dieser Publikation noch keine IGSNs hinzugefügt."
+
+msgid "plugins.generic.pidManager.igsn.workflow.table.pid"
+msgstr "DOI"
+
+msgid "plugins.generic.pidManager.igsn.workflow.table.title"
+msgstr "Titel"
+
+msgid "plugins.generic.pidManager.igsn.workflow.table.creators"
+msgstr "Autoren"
+
+msgid "plugins.generic.pidManager.igsn.workflow.table.publisher"
+msgstr "Herausgeber"
+
+msgid "plugins.generic.pidManager.igsn.workflow.table.publicationYear"
+msgstr "Jahr"
+
+msgid "plugins.generic.pidManager.igsn.searchPhraseDoi.placeholder"
+msgstr "Geben Sie hier eine DOI ein, z.B. 10.12345/12.3456"
+
+msgid "plugins.generic.pidManager.igsn.searchPhraseTitle.placeholder"
+msgstr "Geben Sie hier einen Titel ein, z.B. Sediment core"
+
+msgid "plugins.generic.pidManager.igsn.articleDetails.details"
+msgstr "Die folgende Liste enthält die mit der Veröffentlichung verknüpften IGSNs."
+
+# PIDINST
+
+msgid "plugins.generic.pidManager.pidinst.settings.label"
+msgstr "PIDINST (Persistent Identification of Instruments - www.pidinst.org)"
+
+msgid "plugins.generic.pidManager.pidinst.label"
+msgstr "Persistent Identification of Instruments (PIDINST)"
+
+msgid "plugins.generic.pidManager.pidinst.workflow.name"
+msgstr "PIDINST"
+
+msgid "plugins.generic.pidManager.pidinst.workflow.label"
+msgstr "PIDINST"
+
+msgid "plugins.generic.pidManager.pidinst.generalDescription"
+msgstr ""
+"Der Persistent Identifier for Instruments (PIDINST) ist eine global eindeutige Kennung für Messinstrumente in der Wissenschaft. "
+"Diese Instrumente können aus allen Disziplinen stammen. Weitere Informationen finden Sie unter www.pidinst.org."
+
+msgid "plugins.generic.pidManager.pidinst.workflow.instructions"
+msgstr ""
+"Sie können PIDINSTs hinzufügen, indem Sie in den Feldern unten nach einer DOI oder einem Titel suchen und aus den Vorschlägen wählen. "
+"Die ausgegrauten Elemente in den Suchergebnissen wurden bereits hinzugefügt. Es können mehrere PIDINSTs gleichzeitig hinzugefügt werden. "
+"Die untere Tabelle zeigt die Metadaten an, die in der Artikelansicht angezeigt werden, und ermöglicht es Ihnen, diese zu bearbeiten."
+
+msgid "plugins.generic.pidManager.pidinst.submission.instructions"
+msgstr "Derzeit können PIDINSTs nur zu einem späteren Zeitpunkt im redaktionellen Prozess hinzugefügt werden. "
+"Bitte wenden Sie sich an den Journalmanager, wenn Sie Ihrer Publikation eine PIDINST hinzufügen möchten."
+
+msgid "plugins.generic.pidManager.pidinst.addFromCsv.instructions"
+msgstr ""
+"Sie können PIDINSTs als Batch hinzufügen, indem Sie Ihre Liste im CSV-Format in das Textfeld einfügen und auf die Schaltfläche \"Hinzufügen\" klicken. "
+"Ihre CSV-Struktur muss die folgenden Felder enthalten, z.B. \"doi 1\",\"title 1\",\"creators 1\",\"publisher 1\",\"publicationYear 1\". "
+"Bitte fügen Sie keine Kopfzeile hinzu, da diese ebenfalls importiert wird."
+
+msgid "plugins.generic.pidManager.pidinst.deleteAllLink"
+msgstr "Alle aufgeführten PIDINSTs löschen"
+
+msgid "plugins.generic.pidManager.pidinst.deleteAllDialog.title"
+msgstr "Alle aufgeführten PIDINSTs löschen"
+
+msgid "plugins.generic.pidManager.pidinst.deleteAllDialog.description"
+msgstr "Hierdurch werden alle derzeit hinzugefügten PIDINSTs gelöscht. Wenn Sie fortfahren müssen Sie PIDINSTs ggf. erneut hinzufügen."
+
+msgid "plugins.generic.pidManager.pidinst.downloadCsvLink"
+msgstr "PIDINSTs als CSV herunterladen"
+
+msgid "plugins.generic.pidManager.pidinst.filter.placeholder"
+msgstr "Filtern hinzugefügter PIDINSTs"
+
+msgid "plugins.generic.pidManager.pidinst.workflow.empty"
+msgstr "Bislang wurden dieser Publikation noch keine PIDINSTs hinzugefügt."
+
+msgid "plugins.generic.pidManager.pidinst.workflow.table.pid"
+msgstr "DOI"
+
+msgid "plugins.generic.pidManager.pidinst.workflow.table.title"
+msgstr "Titel"
+
+msgid "plugins.generic.pidManager.pidinst.workflow.table.creators"
+msgstr "Autoren"
+
+msgid "plugins.generic.pidManager.pidinst.workflow.table.publisher"
+msgstr "Herausgeber"
+
+msgid "plugins.generic.pidManager.pidinst.workflow.table.publicationYear"
+msgstr "Jahr"
+
+msgid "plugins.generic.pidManager.pidinst.searchPhraseDoi.placeholder"
+msgstr "Geben Sie hier eine DOI ein, z.B. 10.12345/12.3456"
+
+msgid "plugins.generic.pidManager.pidinst.searchPhraseTitle.placeholder"
+msgstr "Geben Sie hier einen Titel ein, z.B. station"
+
+msgid "plugins.generic.pidManager.pidinst.articleDetails.details"
+msgstr "Die folgende Liste enthält die mit der Veröffentlichung verknüpften PIDINSTs."
