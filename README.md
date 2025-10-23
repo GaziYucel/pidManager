@@ -33,6 +33,8 @@ PID Manager for OJS
     - Marks samples already added
 - Add PIDs as a csv
     - Reject duplicates
+- Download PIDs as a csv
+    - Backend and frontend
 
 ## PIDINST
 
@@ -41,14 +43,16 @@ PID Manager for OJS
     - Marks samples already added
 - Add PIDs as a csv
     - Reject duplicates
+- Download PIDs as a csv
+    - Backend and frontend
 
 # Screenshot(s) / screen recording(s)
 
-![screenrecording.gif](.project/screenrecordings/screenrecording.gif)
+![screenrecording.gif](.project/screenrecordings/screenrecording-igsn.gif)
 
 | IGSN                                                             | PIDINST                                                                |
 |------------------------------------------------------------------|------------------------------------------------------------------------|
-| ![igsn-screenshot.png](.project/screenshots/igsn-screenshot.png) | ![pidinst-screenshot.png](.project/screenshots/pidinst-screenshot.png) |
+| ![igsn-screenshot.png](.project/screenshots/screenshot-igsn.png) | ![pidinst-screenshot.png](.project/screenshots/screenshot-pidinst.png) |
 
 # Install and configure the plugin
 
