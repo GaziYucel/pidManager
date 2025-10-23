@@ -204,6 +204,7 @@
 				>
 					{{ t('plugins.generic.pidManager.' + pidName + '.deleteAllLink') }}
 				</PkpButton>
+				&nbsp; &nbsp;
 				<PkpButton
 					:is-link="true"
 					:is-disabled="isPublished && !userCanEdit"
