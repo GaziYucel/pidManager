@@ -15,6 +15,7 @@
 
 namespace APP\plugins\generic\pidManager\classes\Base;
 
+use APP\plugins\generic\pidManager\classes\Constants;
 use APP\plugins\generic\pidManager\classes\PluginRepo;
 use APP\plugins\generic\pidManager\PidManagerPlugin;
 use APP\template\TemplateManager;
@@ -44,7 +45,8 @@ abstract class ArticleDetails
         $templateParameters = [
             'dataModel' => json_encode(get_class_vars(get_class($this->dataModel))),
             'items' => $items,
-            'itemsJson' => json_encode($items)
+            'itemsJson' => json_encode($items),
+            'doiPrefix' => Constants::doiPrefix
         ];
         $templateMgr->assign($templateParameters);
         $templateMgr->display($this->plugin->getTemplateResource(
