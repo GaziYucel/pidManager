@@ -545,35 +545,13 @@ const setItemsFilterPhrase = (value) => {
 };
 const itemsFiltered = computed(() => {
 	if (itemsFilterPhrase.value) {
-		return filterArrayByPhrase(items.value, itemsFilterPhrase.value);
+		return items.value.filter((item) =>
+			JSON.stringify(item).toLowerCase().includes(itemsFilterPhrase.value.toLowerCase()),
+		);
 	} else {
 		return items.value;
 	}
 });
-const containsItemsFilterPhrase = (obj, phrase) => {
-	function deepSearch(value) {
-		if (value === null || value === undefined) return false;
-
-		if (typeof value === 'string') {
-			return value.toLowerCase().includes(phrase.toLowerCase());
-		}
-
-		if (Array.isArray(value)) {
-			return value.some(deepSearch);
-		}
-
-		if (typeof value === 'object') {
-			return Object.values(value).some(deepSearch);
-		}
-
-		return false;
-	}
-
-	return deepSearch(obj);
-};
-const filterArrayByPhrase = (data, phrase) => {
-	return data.filter((item) => containsItemsFilterPhrase(item, phrase));
-};
 
 /* Items */
 const add = () => {
@@ -854,9 +832,5 @@ const localeKeys = [
 
 .ml-auto {
 	margin-left: auto;
-}
-
-.ml-1rem {
-	margin-left: 1rem;
 }
 </style>
