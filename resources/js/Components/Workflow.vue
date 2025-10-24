@@ -544,13 +544,14 @@ const setItemsFilterPhrase = (value) => {
 	itemsFilterPhrase.value = value;
 };
 const itemsFiltered = computed(() => {
-	if (itemsFilterPhrase.value) {
-		return items.value.filter((item) =>
-			JSON.stringify(item).toLowerCase().includes(itemsFilterPhrase.value.toLowerCase()),
-		);
-	} else {
-		return items.value;
-	}
+	const data = items.value || [];
+	return itemsFilterPhrase.value
+		? data.filter((item) =>
+				JSON.stringify(item)
+					.toLowerCase()
+					.includes(itemsFilterPhrase.value.toString().toLowerCase()),
+			)
+		: items.value;
 });
 
 /* Items */
