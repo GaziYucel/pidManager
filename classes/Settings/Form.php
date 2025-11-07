@@ -70,6 +70,7 @@ class Form extends PKPForm
     {
         $templateMgr = TemplateManager::getManager($request);
         $templateMgr->assign('pluginName', $this->plugin->getName());
+        $templateMgr->registerClass('Constants', 'APP\plugins\generic\pidManager\classes\Constants');
 
         return parent::fetch($request, $template, $display);
     }
