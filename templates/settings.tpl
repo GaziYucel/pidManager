@@ -22,20 +22,20 @@
 	{fbvFormArea id="{$pluginName}SettingsArea"}
 
 	{fbvFormSection
-	for="{APP\plugins\generic\pidManager\classes\Constants::settingEnableIgsn}"
+	for="{Constants::settingEnableIgsn}"
 	title="plugins.generic.pidManager.settings.title" list="true"}
 		<p class="description align-justify" style="color: rgba(0,0,0,0.54)">
 			{translate key="plugins.generic.pidManager.settings.description"}
 			{fbvElement
 			type="checkbox"
-			id="{APP\plugins\generic\pidManager\classes\Constants::settingEnableIgsn}"
-			checked=${APP\plugins\generic\pidManager\classes\Constants::settingEnableIgsn}
+			id="{Constants::settingEnableIgsn}"
+			checked=${Constants::settingEnableIgsn}
 			label="plugins.generic.pidManager.igsn.settings.label"}
 
 			{fbvElement
 			type="checkbox"
-			id="{APP\plugins\generic\pidManager\classes\Constants::settingEnablePidinst}"
-			checked=${APP\plugins\generic\pidManager\classes\Constants::settingEnablePidinst}
+			id="{Constants::settingEnablePidinst}"
+			checked=${Constants::settingEnablePidinst}
 			label="plugins.generic.pidManager.pidinst.settings.label"}
 		</p>
 	{/fbvFormSection}
