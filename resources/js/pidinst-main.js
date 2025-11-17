@@ -1,7 +1,7 @@
-import IgsnWorkflow from './PidinstWorkflow.vue';
+import PidinstWorkflow from './PidinstWorkflow.vue';
 import {computed} from 'vue';
 
-pkp.registry.registerComponent('PidinstWorkflow', IgsnWorkflow);
+pkp.registry.registerComponent('PidinstWorkflow', PidinstWorkflow);
 
 pkp.registry.storeExtend('workflow', (piniaContext) => {
 	const workflowStore = piniaContext.store;
