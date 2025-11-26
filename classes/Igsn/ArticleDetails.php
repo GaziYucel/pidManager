@@ -1,13 +1,14 @@
 <?php
 
 /**
- * @file classes/Igsn/ArticleDetails.php
+ * @file plugins/generic/pidManager/classes/Igsn/ArticleDetails.php
  *
  * @copyright (c) 2024+ TIB Hannover
  * @copyright (c) 2024+ Gazi Yücel
  * @license Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
  *
  * @class ArticleDetails
+ *
  * @ingroup plugins_generic_pidmanager
  *
  * @brief ArticleDetails

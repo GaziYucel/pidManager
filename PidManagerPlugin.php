@@ -1,13 +1,16 @@
 <?php
 
 /**
- * @file PidManagerPlugin.php
+ * @file @file plugins/generic/pidManager/PidManagerPlugin.php
  *
  * @copyright (c) 2024+ TIB Hannover
  * @copyright (c) 2024+ Gazi Yücel
  * @license Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
  *
  * @class PidManagerPlugin
+ *
+ * @ingroup plugins_generic_pidmanager
+ *
  * @brief Plugin for managing Persistent Identifiers (PIDs) and depositing to external services.
  */
 
@@ -24,8 +27,7 @@ use APP\plugins\generic\pidManager\classes\Pidinst\ArticleDetails as PidinstArti
 use APP\plugins\generic\pidManager\classes\Pidinst\PluginApiHandler as PidinstPluginApiHandler;
 use APP\plugins\generic\pidManager\classes\Pidinst\Schema as PidinstSchema;
 use APP\plugins\generic\pidManager\classes\Pidinst\SubmissionWizard as PidinstSubmissionWizard;
-use APP\plugins\generic\pidManager\classes\Settings\Actions;
-use APP\plugins\generic\pidManager\classes\Settings\Manage;
+use APP\plugins\generic\pidManager\classes\PluginConfig;
 use APP\template\TemplateManager;
 use PKP\core\JSONMessage;
 use PKP\plugins\GenericPlugin;
@@ -33,6 +35,8 @@ use PKP\plugins\Hook;
 
 class PidManagerPlugin extends GenericPlugin
 {
+    private PluginConfig $pluginConfig;
+
     /** @copydoc Plugin::register */
     public function register($category, $path, $mainContextId = null): bool
     {
@@ -41,6 +45,7 @@ class PidManagerPlugin extends GenericPlugin
                 $contextId = ($mainContextId === null) ? $this->getCurrentContextId() : $mainContextId;
                 $request = Application::get()->getRequest();
                 $templateMgr = TemplateManager::getManager($request);
+                $this->pluginConfig = new PluginConfig($this);
 
                 /** IGSN */
                 if ($this->getSetting($contextId, Constants::settingEnableIgsn)) {
@@ -87,13 +92,13 @@ class PidManagerPlugin extends GenericPlugin
         return false;
     }
 
-    /** @copydoc PKPPlugin::getDescription */
+    /** @copydoc Plugin::getDescription */
     public function getDescription(): string
     {
         return __('plugins.generic.pidManager.description');
     }
 
-    /** @copydoc PKPPlugin::getDisplayName */
+    /** @copydoc Plugin::getDisplayName */
     public function getDisplayName(): string
     {
         return __('plugins.generic.pidManager.displayName');
@@ -102,15 +107,13 @@ class PidManagerPlugin extends GenericPlugin
     /** @copydoc Plugin::getActions() */
     public function getActions($request, $actionArgs): array
     {
-        $actions = new Actions($this);
-        return $actions->execute($request, $actionArgs, parent::getActions($request, $actionArgs));
+        return $this->pluginConfig->actions($request, $actionArgs, parent::getActions($request, $actionArgs));
     }
 
     /** @copydoc Plugin::manage() */
     public function manage($args, $request): JSONMessage
     {
-        $manage = new Manage($this);
-        return $manage->execute($args, $request);
+        return $this->pluginConfig->manage($args, $request);
     }
 
     protected function addJavascript(string $pidName, Request $request, TemplateManager $templateMgr): void

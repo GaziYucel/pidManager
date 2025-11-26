@@ -1,13 +1,14 @@
 <?php
 
 /**
- * @file classes/PluginRepo.php
+ * @file plugins/generic/pidManager/classes/PluginRepo.php
  *
  * @copyright (c) 2024+ TIB Hannover
  * @copyright (c) 2024+ Gazi Yücel
  * @license Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
  *
  * @class PluginRepo
+ *
  * @ingroup plugins_generic_pidmanager
  *
  * @brief PluginRepo

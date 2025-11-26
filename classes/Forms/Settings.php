@@ -1,19 +1,20 @@
 <?php
 
 /**
- * @file classes/Settings/Form.php
+ * @file plugins/generic/pidManager/classes/Forms/Settings.php
  *
  * Copyright (c) 2024+ TIB Hannover
  * Copyright (c) 2024+ Gazi Yücel
  * Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
  *
  * @class Form
+ *
  * @ingroup plugins_generic_pidmanager
  *
  * @brief Form for journal managers to configure the plugin
  */
 
-namespace APP\plugins\generic\pidManager\classes\Settings;
+namespace APP\plugins\generic\pidManager\classes\Forms;
 
 use APP\core\Application;
 use APP\notification\Notification;
@@ -21,11 +22,11 @@ use APP\notification\NotificationManager;
 use APP\plugins\generic\pidManager\classes\Constants;
 use APP\plugins\generic\pidManager\PidManagerPlugin;
 use APP\template\TemplateManager;
-use PKP\form\Form as PKPForm;
+use PKP\form\Form;
 use PKP\form\validation\FormValidatorCSRF;
 use PKP\form\validation\FormValidatorPost;
 
-class Form extends PKPForm
+class Settings extends Form
 {
     public PidManagerPlugin $plugin;
 
