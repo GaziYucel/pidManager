@@ -37,6 +37,12 @@ class PidManagerPlugin extends GenericPlugin
 {
     private PluginConfig $pluginConfig;
 
+    public function __construct()
+    {
+        parent::__construct();
+        $this->pluginConfig = new PluginConfig($this);
+    }
+
     /** @copydoc Plugin::register */
     public function register($category, $path, $mainContextId = null): bool
     {
@@ -45,7 +51,6 @@ class PidManagerPlugin extends GenericPlugin
                 $contextId = ($mainContextId === null) ? $this->getCurrentContextId() : $mainContextId;
                 $request = Application::get()->getRequest();
                 $templateMgr = TemplateManager::getManager($request);
-                $this->pluginConfig = new PluginConfig($this);
 
                 /** IGSN */
                 if ($this->getSetting($contextId, Constants::settingEnableIgsn)) {
